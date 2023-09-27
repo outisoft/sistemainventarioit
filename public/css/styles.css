@@ -1,0 +1,317 @@
+/* Define variables de colores */
+:root {
+    --color-primario: #01a7c2ff; /* Color primario */
+    --color-secundario: #007090ff; /* Color secundario */
+    --color-fondo: #006989ff; /* Color de fondo */
+    --color-texto: #333; /* Color de texto principal */
+    --color-gray: #a3bac3ff;
+    --color-white: #eaebedff;
+    /* Agrega más variables según tus necesidades */
+  }
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-primario);;
+    margin: 0;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f5f5f5;
+}
+
+.btn {
+    padding: 4px 10px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+.btn-ico {
+    padding: 4px 10px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+.btn-ico:hover {
+    color: #efb810; /* Cambia el color del icono */
+}
+
+/* Estilos para el cuadro de búsqueda */
+.search-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.search-box input[type="text"] {
+    flex: 1;
+    border: none;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.search-box button {
+    background-color: #ffffff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/*Imgenes*/
+.image-container {
+    text-align: center;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*Boton agregar*/
+
+/* Estilo para el encabezado */
+.container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el botón de agregar */
+.container .btn-excel {
+    font-size: 24px; /* Tamaño de fuente */
+    width: 60px; /* Ancho del botón */
+    height: 60px; /* Altura del botón */
+    line-height: 1; /* Alinear contenido verticalmente */
+    /*background-color: #1d6f42;*/
+    color: #313131;
+    border-radius: 5px; /* Valor que define el grado de redondez */
+    padding: 10px 10px; /* Ajusta el espaciado interior */
+    font-size: 10px; /* Tamaño de fuente */
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border: none;
+}
+
+.icon-lg {
+    font-size: 35px; /* Ajusta el tamaño según tus necesidades */
+}
+
+.icon-margin {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* Estilo para el botón de limpiar */
+/*.container .btn-danger {
+    font-size: 24px; /* Tamaño de fuente 
+    width: 40px; /* Ancho del botón 
+    height: 40px; /* Altura del botón 
+    line-height: 1; /* Alinear contenido verticalmente 
+    background-color: rgb(173, 39, 2);
+    color: #fff;
+    border-radius: 10px; /* Valor que define el grado de redondez 
+    padding: 10px 10px; /* Ajusta el espaciado interior 
+    font-size: 14px; /* Tamaño de fuente 
+    margin-bottom: 20px;
+   margin-top: 20px;
+}*/
+
+/* Agrega un margen inferior al contenedor */
+.container .mb-4 {
+    margin-bottom: 30px;
+}
+
+.col {
+    flex: 1 0 0%;
+}
+
+.tooltip {
+    position: absolute;
+    z-index: 1099;
+    display: block;
+    margin: 0;
+    font-family: var(--bs-font-sans-serif);
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.53;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    white-space: normal;
+    line-break: auto;
+    font-size: 0.9375rem;
+    word-wrap: break-word;
+    opacity: 0;
+}
+.tooltip.show {
+    opacity: 1;
+}
+  
+.tooltip .tooltip-arrow {
+    position: absolute;
+    display: block;
+    width: 0.8rem;
+    height: 0.4rem;
+}
+.tooltip .tooltip-arrow::before {
+    position: absolute;
+    content: "";
+    border-color: transparent;
+    border-style: solid;
+}
+  
+.bs-tooltip-top, .bs-tooltip-auto[data-popper-placement^=top] {
+    padding: 0.4rem 0;
+}
+.bs-tooltip-top .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow {
+    bottom: 0;
+}
+.bs-tooltip-top .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before {
+    top: -1px;
+    border-width: 0.4rem 0.4rem 0;
+    border-top-color: #233446;
+}
+  
+.bs-tooltip-end, .bs-tooltip-auto[data-popper-placement^=right] {
+    padding: 0 0.4rem;
+}
+.bs-tooltip-end .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow {
+    left: 0;
+    width: 0.4rem;
+    height: 0.8rem;
+}
+.bs-tooltip-end .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=right] .tooltip-arrow::before {
+    right: -1px;
+    border-width: 0.4rem 0.4rem 0.4rem 0;
+    border-right-color: #233446;
+}
+  
+.bs-tooltip-bottom, .bs-tooltip-auto[data-popper-placement^=bottom] {
+    padding: 0.4rem 0;
+}
+.bs-tooltip-bottom .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow {
+    top: 0;
+}
+.bs-tooltip-bottom .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=bottom] .tooltip-arrow::before {
+    bottom: -1px;
+    border-width: 0 0.4rem 0.4rem;
+    border-bottom-color: #233446;
+}
+  
+.bs-tooltip-start, .bs-tooltip-auto[data-popper-placement^=left] {
+    padding: 0 0.4rem;
+}
+.bs-tooltip-start .tooltip-arrow, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow {
+    right: 0;
+    width: 0.4rem;
+    height: 0.8rem;
+}
+.bs-tooltip-start .tooltip-arrow::before, .bs-tooltip-auto[data-popper-placement^=left] .tooltip-arrow::before {
+    left: -1px;
+    border-width: 0.4rem 0 0.4rem 0.4rem;
+    border-left-color: #233446;
+}
+  
+.tooltip-inner {
+    max-width: 200px;
+    padding: 0.25rem 0.7rem;
+    color: #fff;
+    text-align: center;
+    background-color: #233446;
+    border-radius: 0.25rem;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.532rem 1.25rem;
+    clear: both;
+    font-weight: 400;
+    color: #697a8d;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+.dropdown-menu {
+    margin: 0.125rem 0;
+    box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
+    -webkit-animation: dropdownAnimation 0.1s;
+            animation: dropdownAnimation 0.1s;
+}
+.mega-dropdown > .dropdown-menu {
+    left: 0 !important;
+    right: 0 !important;
+}
+.dropdown-menu .badge[class^=float-],
+.dropdown-menu .badge[class*=" float-"] {
+    position: relative;
+    top: 0.071em;
+}
+
+.dropdown-toggle {
+    white-space: nowrap;
+}
+.dropdown-toggle::after {
+    display: inline-block;
+    margin-left: 0.5em;
+    vertical-align: middle;
+    content: "";
+    margin-top: -0.28em;
+    width: 0.42em;
+    height: 0.42em;
+    border: 1px solid;
+    border-top: 0;
+    border-left: 0;
+    transform: rotate(45deg);
+}
+.dropdown-toggle:empty::after {
+    margin-left: 0;
+}
+
+.dropdown-toggle.hide-arrow::before, .dropdown-toggle.hide-arrow::after,
+.dropdown-toggle-hide-arrow > .dropdown-toggle::before,
+.dropdown-toggle-hide-arrow > .dropdown-toggle::after {
+  display: none;
+}
+  
