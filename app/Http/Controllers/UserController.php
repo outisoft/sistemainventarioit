@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Historial;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -23,18 +26,24 @@ class UserController extends Controller
     // Método para guardar un nuevo registro
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'contraseña' => 'required',
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        
 
-        $registro = User::create($data);
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        event(new Registered($user));
 
         Historial::create([
             'accion' => 'creacion',
-            'descripcion' => "Se creó el registro {$registro->nombre}",
-            'registro_id' => $registro->id,
+            'descripcion' => "Se creó el registro {$user->nombre}",
+            'registro_id' => $user->id,
         ]);
 
         return redirect()->route('users.index')->with('success', 'Registro creado exitosamente.');

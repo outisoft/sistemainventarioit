@@ -13,11 +13,11 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}">
         @csrf
         @method('patch')
 
-        <div class="form-group">
+        <div class="form-group ">
             <label class="form-label" for="name">Nombre</label>
             <x-text-input type="text" name="name" class="form-control" value="{{ $user->name }}" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />

@@ -17,56 +17,69 @@
                 </div>
                 <div class="table-responsive text-nowrap">
                     <div class="card-body">
-                        <form action="{{ route('register') }}" method="POST">
+                        <form method="POST" action="{{ route('users.store') }}">
                             @csrf
-                            <!-- Nombre -->
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname">Nombre</label>
+                    
+                            <!-- Name -->
+                            <div class="mb-3">                                
+                                <x-input-label class="form-label" for="name" :value="__('Name')" />
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
-                                        <i class='bx bx-user'></i>
+                                        <i class='bx bx-user' ></i>
                                     </span>
-                                    <x-text-input type="text" class="form-control" id="name"  name="name" placeholder="Juan Carlos" aria-label="Juan Carlos" aria-describedby="basic-icon-default-fullname2" required autofocus autocomplete="name" />
+                                    <x-text-input id="name" class="form-control" type="text" name="name" placeholder="Juan Cerez" :value="old('name')" required autofocus autocomplete="name" />
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
                             </div>
-
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname">Correo</label>
+                    
+                            <!-- Email Address -->
+                            <div class="mt-4">
+                                <x-input-label class="form-label" for="email" :value="__('Email')" />
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-envelope' ></i>
                                     </span>
-                                    <x-text-input type="email" class="form-control" id="email"  name="email" placeholder="ejemplo@correo.com" aria-label="ejemplo@correo.com" aria-describedby="basic-icon-default-fullname2" required autocomplete="email" />
+                                    <x-text-input id="email" class="form-control" type="email" name="email" placeholder="correo@ejemplo.com" :value="old('email')" required autocomplete="username" />
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
                             </div>
-
-                            <!-- Contraseña -->
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname">Contraseña</label>
+                    
+                            <!-- Password -->
+                            <div class="mt-4">
+                                <x-input-label class="form-label" for="password" :value="__('Password')" />
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-barcode' ></i>
                                     </span>
-                                    <x-text-input type="password" class="form-control" id="password"  name="password" placeholder="************" aria-label="************" aria-describedby="basic-icon-default-fullname2" required autocomplete="password" />
+                                    <x-text-input id="password" class="form-control"
+                                                    type="password"
+                                                    name="password"
+                                                    required autocomplete="new-password" />
+                        
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
                             </div>
-                            <!-- Confirmar Contraseña -->
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname">Confirmar contraseña</label>
+                    
+                            <!-- Confirm Password -->
+                            <div class="mt-4">
+                                <x-input-label class="form-label" for="password_confirmation" :value="__('Confirm Password')" />
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-barcode' ></i>
                                     </span>
-                                    <x-text-input type="password" class="form-control" id="password_confirmation"  name="password_confirmation" placeholder="************" aria-label="************" aria-describedby="basic-icon-default-fullname2" required autocomplete="password" />
+                                    <x-text-input id="password_confirmation" class="form-control"
+                                                    type="password"
+                                                    name="password_confirmation" required autocomplete="new-password" />
+                        
                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                 </div>
                             </div>
-
-                            <button type="submit" class="btn btn-primary">Crear</button>
+                    
+                            <div class="flex items-center justify-end mt-4">                    
+                                <x-primary-button class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </x-primary-button>
+                            </div>
                         </form>
                     </div>
                 </div>
