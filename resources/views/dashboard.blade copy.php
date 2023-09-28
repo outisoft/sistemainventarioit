@@ -13,7 +13,7 @@
                 
                     <script>
                         function mostrarToastr() {
-                            toastr.success('Este es un mensaje de éxito.', 'Éxitoooooooo');
+                            toastr.success('Este es un mensaje de éxito.', 'Éxito');
                         }
                     </script>
                 </div>

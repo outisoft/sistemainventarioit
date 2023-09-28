@@ -1,8 +1,14 @@
 <x-app-layout>
     <!-- Content -->
-
+    <div class="container-xxl navbar-expand-xl align-items-center">
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+            </a>
+        </div>
+    </div>
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Cuenta /</span> Configuracion </h4>
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Cuentaaa /</span> Configuracion </h4>
 
         <!-- Basic Cards -->       
 
