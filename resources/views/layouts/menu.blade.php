@@ -104,16 +104,23 @@
 
       <!-- Perfil -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Perfil</span></li>
-      <!--Usuarios-->
+      <!--Usuarios-->    
       <li class="menu-item {{ Request::routeIs('profile.edit') ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class='menu-icon tf-icons bx bxs-user-account' ></i>
-          <div data-i18n="Account Settings">{{ Auth::user()->name }}</div>
+          <div class="flex-shrink-0 me-3">
+              <div class="avatar avatar-online">
+                  <img src="../assets/img/avatars/3.jpg" alt class="w-px-40 h-auto rounded-circle" />
+              </div>
+          </div>
+          <div class="flex-grow-1">
+              <div data-i18n="Account Settings">{{ Auth::user()->name }}</div>
+              <small class="text-muted">Admin</small>
+          </div>
         </a>
         <ul class="menu-sub">
           <li class="menu-item">
             <a href="{{ route('profile.edit') }}" class="menu-link">
-              <div data-i18n="Account">Configurar cuenta</div>
+              <div data-i18n="Account">Mi perfil</div>
             </a>
           </li>
         </ul>

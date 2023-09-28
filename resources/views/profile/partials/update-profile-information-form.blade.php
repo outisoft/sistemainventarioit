@@ -13,20 +13,44 @@
         @csrf
     </form>
 
+    <!--Image profile-->
+    <div class="card-body">
+        <div class="d-flex align-items-start align-items-sm-center gap-4">
+          <img src="../assets/img/avatars/3.jpg" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
+          <div class="button-wrapper">
+            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
+                <span class="d-none d-sm-block">Upload new photo</span>
+                <i class="bx bx-upload d-block d-sm-none"></i>
+                <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg"/>
+            </label>
+            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
+              <i class="bx bx-reset d-block d-sm-none"></i>
+              <span class="d-none d-sm-block">Reset</span>
+            </button>
+
+            <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+          </div>
+        </div>
+    </div>
+
     <form method="post" action="{{ route('profile.update') }}">
         @csrf
         @method('patch')
 
-        <div class="form-group ">
-            <label class="form-label" for="name">Nombre</label>
-            <x-text-input type="text" name="name" class="form-control" value="{{ $user->name }}" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        <div class="mb-3">
+            <x-input-label class="form-label" for="name" :value="__('Nombre')" />
+            <div class="input-group input-group-merge">
+                <x-text-input type="text" name="name" class="form-control" value="{{ $user->name }}" required autofocus autocomplete="name" />
+                <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            </div>
         </div>
 
         <div class="form-group">
-            <label class="form-label" for="email">Email</label>
-            <x-text-input type="email" name="email" class="form-control" value="{{ $user->email }}" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <x-input-label class="form-label" for="email" :value="__('Email')" />
+            <div class="input-group input-group-merge">
+                <x-text-input type="email" name="email" class="form-control" value="{{ $user->email }}" required autocomplete="username" />
+                <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            </div>
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
