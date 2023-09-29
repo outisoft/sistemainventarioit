@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Empleado;
+use App\Models\Equipo;
 use App\Models\Historial;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class EmpleadoController extends Controller
 {
     public function index()
     {
-        $empleados = Empleado::with('hotel')->get();
+        $empleados = Empleado::with('equipo', 'hotel')->get();
         return view('empleados.index', compact('empleados'));
     }
 
@@ -130,6 +131,45 @@ class EmpleadoController extends Controller
                             ->get();
 
         return view('empleados._employee_list', compact('empleados'));
+    }
+
+    
+    public function asignar()
+    {
+        $empleados = Empleado::all();
+        $equipos = Equipo::all();
+
+        $vincular = Empleado::whereNull('equipo_id')->get();
+        $desvincular = Empleado::whereNotNull('equipo_id')->get();
+        return view('empleados.asignacion', compact('vincular', 'equipos', 'desvincular'));
+    }
+
+    public function asignarEquipo(Request $request)
+    {
+        //dd($request);
+        // Validar y procesar la asignación de equipo aquí.
+        $empleadoId = $request->input('empleado_id');
+        $equipoId = $request->input('equipo_id');
+
+        // Realizar la asignación
+        $empleado = Empleado::find($empleadoId);
+        $empleado->equipo_id = $equipoId;
+        $empleado->save();
+
+        return redirect()->back()->with('success', 'Equipo asignado exitosamente');
+    }
+
+    public function desvincularEquipo(Request $request)
+    {
+        // Validar y procesar la desvinculación de equipo aquí.
+        $empleadoId = $request->input('empleado_id_desvincular');
+
+        // Realizar la desvinculación
+        $empleado = Empleado::find($empleadoId);
+        $empleado->equipo_id = null; // Asignar null para desvincular el equipo
+        $empleado->save();
+
+        return redirect()->back()->with('success', 'Equipo desvinculado exitosamente');
     }
 
     public function asignarRol($usuarioId, $rol)

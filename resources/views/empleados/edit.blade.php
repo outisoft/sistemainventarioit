@@ -58,6 +58,8 @@
                                 <label for="ad">AD</label>
                                 <x-text-input type="text" name="ad" class="form-control" value="{{ $registro->ad }}" required />
                             </div>
+
+                            <br>
     
                             <button type="submit" class="btn btn-primary"><i class='bx bx-refresh' ></i> Actualizar</button>
                         </form>

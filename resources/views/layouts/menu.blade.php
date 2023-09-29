@@ -29,7 +29,7 @@
       </li>
 
       <!-- Inventario -->
-      <li class="menu-item {{ Request::routeIs('inventario.index') ? 'active' : '' }} || {{ Request::routeIs('inventario.create') ? 'active' : '' }} || {{ Request::routeIs('inventario.show') ? 'active' : '' }} || {{ Request::routeIs('inventario.index') ? 'active' : '' }} || {{ Request::routeIs('inventario.edit') ? 'active' : '' }}">
+      <li class="menu-item {{ Request::routeIs('inventario.index') ? 'active' : '' }} || {{ Request::routeIs('inventario.create') ? 'active' : '' }} || {{ Request::routeIs('inventario.show') ? 'active' : '' }} || {{ Request::routeIs('inventario.edit') ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon tf-icons bx bx-file'></i>
           <div data-i18n="Layouts">Inventario</div>
@@ -49,6 +49,27 @@
         </ul>
       </li>
 
+      <!-- Equipo -->
+      <li class="menu-item {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class='menu-icon tf-icons bx bx-desktop'></i>
+          <div data-i18n="Layouts">Equipos</div>
+        </a>
+
+        <ul class="menu-sub">
+          <li class="menu-item">
+            <a href="{{ route('equipo.index')}}" class="menu-link">
+              <div data-i18n="Without menu">Listado</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{ route('equipo.create') }}" class="menu-link">
+              <div data-i18n="Without navbar">Nuevo</div>
+            </a>
+          </li>
+        </ul>
+      </li>
+
       <!-- Historial -->
       <li class="menu-item {{ Request::routeIs('historial.index') ? 'active' : '' }}">
         <a href="{{ route('historial.index') }}" class="menu-link">
@@ -58,7 +79,7 @@
       </li>
 
       <!-- Empleados -->
-      <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
+      <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('asignar') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class='menu-icon tf-icons bx bx-user-pin'></i>
           <div data-i18n="Layouts">Empleados</div>
@@ -73,6 +94,11 @@
           <li class="menu-item">
             <a href="{{ route('empleados.create') }}" class="menu-link">
               <div data-i18n="Without navbar">Nuevo</div>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="{{ url('asignar') }}" class="menu-link">
+              <div data-i18n="Without navbar">Asignar Equipo</div>
             </a>
           </li>
         </ul>

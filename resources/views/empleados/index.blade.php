@@ -52,6 +52,7 @@
                                         <th>Nombre</th>
                                         <th>Puesto</th>
                                         <th>Hotel</th>
+                                        <th>Equipo</th>
                                         <th>AD</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -63,7 +64,8 @@
                                             <td></td>
                                             <td>{{ $empleado->name }}</td>
                                             <td>{{ $empleado->puesto }}</td>
-                                            <td>{{ $empleado->hotel->nombre }}</td> 
+                                            <td>{{ $empleado->hotel->nombre }}</td>
+                                            <td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td>
                                             <td>{{ $empleado->ad }}</td>
                                             <td>
                                                 <div class="dropdown">

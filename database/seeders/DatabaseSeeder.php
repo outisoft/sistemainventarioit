@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Empleado;
 use App\Models\Inventario;
 use App\Models\User;
+use App\Models\Equipo;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->count(8)->create();
         Empleado::factory()->count(30)->create(); // Crea empleados (ajusta el número según tus necesidades)
         Inventario::factory()->count(30)->create();
+        Equipo::factory()->count(10)->create();
 
         /*Role::create(['name' => 'básico']);
         Role::create(['name' => 'pro']);

@@ -6,12 +6,14 @@ use App\Http\Controllers\InventarioController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EquipoController;
 
 
 
 Route::middleware('auth')->group(function () {
     Route::resource('inventario', InventarioController::class);// Rutas Inventario
     Route::resource('empleados', EmpleadoController::class);// Rutas Empleados
+    Route::resource('equipo', EquipoController::class);// Rutas Equipos
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial');// Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index');//muestra view historial
     Route::get('/export', [InventarioController::class, 'export'])->name('export');//expotador de reporte en excel
@@ -21,6 +23,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/inventario/search', [InventarioController::class, 'search'])->name('inventario.search');//buscador de inventario
     Route::post('/users/search', [UserController::class, 'search'])->name('users.search');//buscador de usuarios
 
+    Route::post('/asignar', [EmpleadoController::class, 'asignarEquipo'])->name('asignar.equipo');
+    Route::post('desvincular', [EmpleadoController::class, 'desvincularEquipo'])->name('desvincular.equipo');
+    Route::get('asignar', [EmpleadoController::class, 'asignar'])->name('asignar');//muestra viee de asignacion
 });
 
 Route::get('/', function () {
