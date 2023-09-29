@@ -115,7 +115,7 @@ class EmpleadoController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el registro {$registro->nombre}",
+            'descripcion' => "Se elimino el registro {$registro->name}",
             'registro_id' => $registro->id,
         ]);
 

@@ -10,7 +10,7 @@
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
         <!-- Search -->
         <div class="navbar-nav align-items-center">
-            <form action="#" method="post">
+            <form action="{{ route('equipo.search') }}" method="post">
                 @csrf
                 <div class="search-box nav-item d-flex align-items-center">
                     <i class="bx bx-search fs-4 lh-0"></i>
@@ -34,7 +34,7 @@
                 <div class="navbar-nav align-items-center">
                     <div class="nav-item d-flex align-items-center">
                         <div class="nav-item w-px-40 h-auto">
-                            <a href="#" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Registro">
+                            <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Registro">
                                 <i class='bx bx-add-to-queue icon-lg'></i>
                             </a>
                         </div>
@@ -63,13 +63,13 @@
                                     <img width="15" height="15" src="https://img.icons8.com/ios-glyphs/30/menu-2.png" alt="menu-2"/>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="{{ route('inventario.show', $equipo->id) }}" class="dropdown-item">
+                                    <a href="{{ route('equipo.show', $equipo->id) }}" class="dropdown-item">
                                         <i class="bx bx-show-alt me-1"></i> Show
                                     </a>
-                                    <a href="{{ route('inventario.edit', $equipo->id) }}" class="dropdown-item" href="javascript:void(0);">
+                                    <a href="{{ route('equipo.edit', $equipo->id) }}" class="dropdown-item" href="javascript:void(0);">
                                         <i class="bx bx-edit me-1"></i> Edit
                                     </a>
-                                    <form class="dropdown-item" action="{{ route('inventario.destroy', $equipo->id) }}" method="POST" class="d-inline">
+                                    <form class="dropdown-item" action="{{ route('equipo.destroy', $equipo->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit">
@@ -91,5 +91,31 @@
 
         </div>
         <!-- / Content -->
-      </div>   
+      </div>
+        <script>
+            // Aquí se mostrarán los mensajes Toastr
+            function mostrarToastr(message, type) {
+                toastr[type](message, type.charAt(0).toUpperCase() + type.slice(1));
+            }
+        </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#searchInput').on('input', function() {
+                    var query = $(this).val();
+    
+                    $.ajax({
+                        url: "{{ route('equipo.search') }}",
+                        type: "POST",
+                        data: {
+                            query: query,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $('#searchResults').html(response);
+                        }
+                    });
+                });
+            });
+        </script>
 </x-app-layout>
