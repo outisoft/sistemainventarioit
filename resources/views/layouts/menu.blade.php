@@ -97,7 +97,7 @@
             </a>
           </li>
           <li class="menu-item">
-            <a href="{{ url('asignar') }}" class="menu-link">
+            <a href="{{ url('asignacion') }}" class="menu-link">
               <div data-i18n="Without navbar">Asignar Equipo</div>
             </a>
           </li>

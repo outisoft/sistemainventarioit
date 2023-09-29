@@ -19,55 +19,57 @@
                 <div class="content-wrapper">
                   <div class="table-responsive text-nowrap">
                     <div class="card-datatable table-responsive pt-0">
-                        <div class="container">
-                            
-                            <form method="POST" action="{{ route('asignacion.asignar') }}">
+                        <div class="card-body">
+                            <!-- Formulario para asignar un equipo a un empleado -->
+                            <form action="{{ route('asignar.equipo') }}" method="POST">
                                 @csrf
-                                <div class="form-group">
-                                    <label class="form-label" for="empleado">Selecciona un Empleado:</label>
+                                <!-- Empleado -->
+                                <div class="mb-3">
+                                    <label for="empleado_id" class="form-label">Selecciona un empleado</label>
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text">
-                                            <i class='bx bx-user'></i>
+                                            <i class='bx bx-user-plus' ></i>
                                         </span>
-                                        <select name="empleado_id" class="form-control">
-                                            @foreach ($empleados as $empleado)
+                                        <select name="empleado_id" id="empleado_id" class="form-control"  aria-label="Default select example">
+                                            @foreach ($vincular as $empleado)
                                                 <option value="{{ $empleado->id }}">{{ $empleado->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                </div>
-                        
-                                <div class="form-group">
-                                    <label class="form-label" for="equipo">Selecciona un Equipo:</label>
+                                    
+                                    <label for="equipo_id" class="form-label">Selecciona un Equipo:</label>
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text">
                                             <i class='bx bx-desktop'></i>
                                         </span>
-                                        <select name="equipo_id" class="form-control">
+                                        <select class="form-control" name="equipo_id" id="equipo_id" aria-label="Default select example">
                                             @foreach ($equipos as $equipo)
                                                 <option value="{{ $equipo->id }}">{{ $equipo->tipo }}</option>
                                             @endforeach
                                         </select>
                                     </div>
+                                    <br>
+                                    <button type="submit" class="btn btn-primary">Asignar Equipo</button>
+                                </div>                                
+                            </form>
+
+                            <!-- Formulario para desvincular un equipo de un empleado -->
+                            <form action="{{ route('desvincular.equipo') }}" method="POST">
+                                @csrf
+                                <label class="form-label" for="empleado_id_desvincular">Selecciona un Empleado:</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-fullname2" class="input-group-text">
+                                        <i class='bx bx-user-minus' ></i>
+                                    </span>
+                                    <select class="form-control" name="empleado_id_desvincular" id="empleado_id_desvincular">
+                                        @foreach ($desvincular as $empleado)
+                                            <option value="{{ $empleado->id }}">{{ $empleado->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <br>
-                                <button type="submit" class="btn btn-primary">Asignar Equipo</button>
+                                <button type="submit" class="btn btn-primary">Desvincular Equipo</button>
                             </form>
-                            <br>
-                            <hr class="my-0">
-                            <br>
-                            <h2>Equipos Asignados</h2>
-                            <ul>
-                                @foreach ($empleados as $empleado)
-                                    <li>
-                                        {{ $empleado->name }}:
-                                        @foreach ($empleado->equipos as $equipo)
-                                            {{ $equipo->tipo }}
-                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm">Desvincular</a>
-                                        @endforeach
-                                    </li>
-                                @endforeach
-                            </ul>
                         </div>
                     </div>            
                   </div>

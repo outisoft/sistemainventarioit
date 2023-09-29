@@ -13,6 +13,6 @@ class Equipo extends Model
 
     public function empleados()
     {
-        return $this->hasMany(Empleado::class);
+        return $this->belongsToMany(Empleado::class, 'empleado_equipo');
     }
 }

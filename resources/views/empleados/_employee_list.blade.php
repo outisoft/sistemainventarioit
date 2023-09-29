@@ -2,8 +2,11 @@
     <table class="table">
         <thead>
             <tr>
+                <th></th>
                 <th>Nombre</th>
                 <th>Puesto</th>
+                <th>Hotel</th>
+                <!--th>Equipo</th-->
                 <th>Ad</th>
                 <th>Acciones</th>
             </tr>
@@ -12,8 +15,11 @@
             <!-- Aquí se mostrarán los empleados -->
             @foreach($empleados as $empleado)
                 <tr>
+                    <td></td>
                     <td>{{ $empleado->name }}</td>
                     <td>{{ $empleado->puesto }}</td>
+                    <td>{{ $empleado->hotel->nombre }}</td>
+                    <!--td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td-->
                     <td>{{ $empleado->ad }}</td>
                     <td>
                         <div class="dropdown">

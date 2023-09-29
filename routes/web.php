@@ -26,6 +26,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/asignar', [EmpleadoController::class, 'asignarEquipo'])->name('asignar.equipo');
     Route::post('desvincular', [EmpleadoController::class, 'desvincularEquipo'])->name('desvincular.equipo');
     Route::get('asignar', [EmpleadoController::class, 'asignar'])->name('asignar');//muestra viee de asignacion
+
+    Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
+    Route::post('/asignacion/asignar', [EmpleadoController::class, 'asignar'])->name('asignacion.asignar');
+    Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
 });
 
 Route::get('/', function () {

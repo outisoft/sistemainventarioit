@@ -16,9 +16,9 @@ class Empleado extends Model
         return $this->belongsTo(Hotel::class, 'hotel_id');
     }
 
-    public function equipo()
+    public function equipos()
     {
-        return $this->belongsTo(Equipo::class, 'equipo_id');
+        return $this->belongsToMany(Equipo::class, 'empleado_equipo');
     }
 }
 // mantenimiento siankan - secretariamantenimientobpska

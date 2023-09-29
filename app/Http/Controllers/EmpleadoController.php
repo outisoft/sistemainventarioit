@@ -16,7 +16,8 @@ class EmpleadoController extends Controller
 {
     public function index()
     {
-        $empleados = Empleado::with('equipo', 'hotel')->get();
+        $empleados = Empleado::with('hotel')->get();
+        //$empleados = Empleado::with('equipo', 'hotel')->get();
         return view('empleados.index', compact('empleados'));
     }
 
@@ -133,8 +134,37 @@ class EmpleadoController extends Controller
         return view('empleados._employee_list', compact('empleados'));
     }
 
+    public function agregar()
+    {
+        $empleados = Empleado::all();
+        $equipos = Equipo::all();
+
+        return view('empleados.asignacion', compact('empleados', 'equipos'));
+    }
+
+    public function asignar(Request $request)
+    {
+        $request->validate([
+            'empleado_id' => 'required|exists:empleados,id',
+            'equipo_id' => 'required|exists:equipos,id',
+        ]);
+
+        $empleado = Empleado::find($request->input('empleado_id'));
+        $empleado->equipos()->attach($request->input('equipo_id'));
+
+        return redirect()->route('asignacion.index');
+    }
+
+    public function desvincular($empleado_id, $equipo_id)
+    {
+        $empleado = Empleado::find($empleado_id);
+        $empleado->equipos()->detach($equipo_id);
+
+        return redirect()->route('asignacion.index');
+    }
+
     
-    public function asignar()
+    /*public function asignar()
     {
         $empleados = Empleado::all();
         $equipos = Equipo::all();
@@ -142,9 +172,9 @@ class EmpleadoController extends Controller
         $vincular = Empleado::whereNull('equipo_id')->get();
         $desvincular = Empleado::whereNotNull('equipo_id')->get();
         return view('empleados.asignacion', compact('vincular', 'equipos', 'desvincular'));
-    }
+    }*/
 
-    public function asignarEquipo(Request $request)
+    /*public function asignarEquipo(Request $request)
     {
         //dd($request);
         // Validar y procesar la asignación de equipo aquí.
@@ -170,7 +200,7 @@ class EmpleadoController extends Controller
         $empleado->save();
 
         return redirect()->back()->with('success', 'Equipo desvinculado exitosamente');
-    }
+    }*/
 
     public function asignarRol($usuarioId, $rol)
     {
