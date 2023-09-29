@@ -15,21 +15,55 @@
                 <div class="table-responsive text-nowrap">
                   <div class="card-datatable table-responsive pt-0">
                       <div class="card-body">
-                        <form action="{{ route('equipo.store') }}" method="POST" id="miFormulario">
+                        <form action="{{ route('equipo.store') }}" method="POST">
                             @csrf
-                            <!-- Tpo de equipo -->
-                            <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname">Tipo de equipo</label>
-                                <div class="input-group input-group-merge">
-                                    <span id="basic-icon-default-fullname2" class="input-group-text">
-                                        <i class='bx bxl-slack-old'></i>
-                                    </span>
-                                    <x-text-input type="text" class="form-control" id="tipo"  name="tipo" placeholder="Desktop" aria-label="Desktop" aria-describedby="basic-icon-default-fullname2" required autofocus autocomplete="tipo" />
-                                    <x-input-error :messages="$errors->get('tipo')" class="mt-2" />
-                                </div>
+                        
+                            <div class="form-group">
+                                <label for="tipo">Tipo de Equipo</label>
+                                <select id="tipo" name="tipo" class="form-control">
+                                    <option value="teclado">Teclado</option>
+                                    <option value="cpu">CPU</option>
+                                    <option value="monitor">Monitor</option>
+                                    <!-- Agrega más opciones de tipo de equipo aquí -->
+                                </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+
+                            <!-- Sección para el tipo de equipo "CPU" -->
+                            <div class="cpu campos-equipo" style="display: none;">
+                                <div class="form-group">
+                                    <label for="cpu_procesador">Procesador de la CPU</label>
+                                    <input type="text" id="cpu_procesador" name="cpu_procesador" class="form-control">
+                                </div>
+                                <!-- Agrega más campos específicos para CPU aquí -->
+                            </div>
+                        
+                            <!-- Sección para el tipo de equipo "Teclado" -->
+                            <div class="teclado campos-equipo" style="display: none;">
+                                <div class="form-group">
+                                    <label for="teclado_marca">Marca del Teclado</label>
+                                    <input type="text" id="teclado_marca" name="teclado_marca" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label for="teclado_marca">Modelo del Teclado</label>
+                                    <input type="text" id="teclado_modelo" name="teclado_modelo" class="form-control">
+                                </div>
+                                <!-- Agrega más campos específicos para teclado aquí -->
+                            </div>
+                        
+                            <!-- Sección para el tipo de equipo "Monitor" -->
+                            <div class="monitor campos-equipo" style="display: none;">
+                                <div class="form-group">
+                                    <label for="monitor_tamaño">Tamaño del Monitor</label>
+                                    <input type="text" id="monitor_tamaño" name="monitor_tamaño" class="form-control">
+                                </div>
+                                <!-- Agrega más campos específicos para monitor aquí -->
+                            </div>
+                        
+                            <!-- Agrega más secciones para otros tipos de equipo aquí -->
+                            <br>
+                            <button type="submit" class="btn btn-primary">Guardar Equipo</button>
                         </form>
+                        
                       </div>
                   </div>            
                 </div>
@@ -41,5 +75,20 @@
 
         </div>
         <!-- / Content -->
-      </div>   
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tipo').change(function() {
+                var selectedTipo = $(this).val();
+
+                // Oculta todas las secciones de tipo de equipo
+                $('.campos-equipo').hide();
+
+                // Muestra la sección correspondiente al tipo seleccionado
+                $('.' + selectedTipo).show();
+            });
+        });
+    </script>
+
 </x-app-layout>

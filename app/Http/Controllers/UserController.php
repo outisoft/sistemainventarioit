@@ -42,7 +42,7 @@ class UserController extends Controller
 
         Historial::create([
             'accion' => 'creacion',
-            'descripcion' => "Se creó el registro {$user->nombre}",
+            'descripcion' => "Se creó el usuario {$user->name}",
             'registro_id' => $user->id,
         ]);
 
@@ -79,7 +79,7 @@ class UserController extends Controller
 
         Historial::create([
             'accion' => 'actualizacion',
-            'descripcion' => "Se actualizo el registro {$registro->nombre}",
+            'descripcion' => "Se actualizo el usuario {$registro->name}",
             'registro_id' => $registro->id,
         ]);
 
@@ -94,7 +94,7 @@ class UserController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el registro {$registro->nombre}",
+            'descripcion' => "Se elimino el usuario {$registro->name}",
             'registro_id' => $registro->id,
         ]);
 
