@@ -9,7 +9,7 @@ class Equipo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipo'];
+    protected $fillable = ['tipo', 'no_equipo', 'estado', 'equipo', 'marca', 'modelo', 'serie', 'nombre_equipo', 'ip', 'no_contrato', 'nombre_app', 'so', 'office', 'clave'];
 
     public function empleados()
     {

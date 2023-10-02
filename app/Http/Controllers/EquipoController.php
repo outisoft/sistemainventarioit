@@ -32,8 +32,20 @@ class EquipoController extends Controller
     {
         $data = $request->validate([
             'tipo' => 'required',
+            'no_equipo' => '',
+            'estado' => '',
+            'equipo' => '',
+            'marca' => '',
+            'modelo' => '',
+            'serie' => '',
+            'nombre_equipo' => '',
+            'ip' => '',
+            'no_contrato' => '',
+            'so' => '',
+            'office' => '',
+            'clave' => '',
         ]);
-        //dd($data);
+        dd($request);
 
         $registro = Equipo::create($data);
 
@@ -42,8 +54,8 @@ class EquipoController extends Controller
             'descripcion' => "Se creó el registro {$registro->tipo}",
             'registro_id' => $registro->id,
         ]);
-
-        return redirect()->route('equipos.index')->with('success', 'Registro creado exitosamente.');
+        return response()->json(['message' => 'Registro creado exitosamente']); 
+        //return redirect()->route('equipos.index')->with('success', 'Registro creado exitosamente.');
     }
 
     /**

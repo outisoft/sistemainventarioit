@@ -52,17 +52,18 @@
                                     <label for="equipo">Equipo</label>
                                     <input type="text" id="equipo" name="equipo" class="form-control">
                                 </div>
+
                                 <div class="form-group">
-                                    <label for="marca">Marca del equipo</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_equipo">Marca del equipo</label>
+                                    <input type="text" id="marca_equipo" name="marca_equipo" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modelo">Modelo del equipo</label>
-                                    <input type="text" id="modelo" name="modelo" class="form-control">
+                                    <label for="modelo_equipo">Modelo del equipo</label>
+                                    <input type="text" id="modelo_equipo" name="modelo_equipo" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_equipo">Numero de serie</label>
+                                    <input type="text" id="serie_equipo" name="serie_equipo" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="nombre_equipo">Nombre del equipo</label>
@@ -82,12 +83,12 @@
                             <!-- Sección para el tipo de equipo "Monitor" -->
                             <div class="monitor campos-equipo" style="display: none;">
                                 <div class="form-group">
-                                    <label for="marca">Marca del Monitor</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_monitor">Marca del Monitor</label>
+                                    <input type="text" id="marca_monitor" name="marca_monitor" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modelo">Modelo del Monitor</label>
-                                    <input type="text" id="modelo" name="modelo" class="form-control">
+                                    <label for="modelo_monitor">Modelo del Monitor</label>
+                                    <input type="text" id="modelo_monitor" name="modelo_monitor" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label for="serie">Numero de serie</label>
@@ -267,6 +268,12 @@
         </div>
         <!-- / Content -->
     </div>
+    <script>
+        // Aquí se mostrarán los mensajes Toastr
+        function mostrarToastr(message, type) {
+            toastr[type](message, type.charAt(0).toUpperCase() + type.slice(1));
+        }
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {

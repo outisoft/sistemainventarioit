@@ -15,17 +15,22 @@ return new class extends Migration
             $table->id();
             $table->string('tipo'); // Ejemplo: pc, laptop, tablet, mouse
 
-            /*$table->string('no_equipo')->nullable();
+            $table->string('no_equipo')->nullable();
             $table->string('estado')->nullable();
             $table->string('equipo')->nullable();
             //basico
             $table->string('marca')->nullable();
             $table->string('modelo')->nullable();
-            $table->string('no_serie')->nullable();
+            $table->string('serie')->nullable();
             // Otros
             $table->string('nombre_equipo')->nullable();
-            $table->string('ip_equipo')->nullable();
-            $table->string('no_contrato')->nullable();*/
+            $table->string('ip')->nullable();
+            $table->string('no_contrato')->nullable();
+            //app
+            $table->string('nombre_app')->nullable();
+            $table->string('so')->nullable();
+            $table->string('office')->nullable();
+            $table->string('clave')->nullable();
             $table->timestamps();
         });
     }
