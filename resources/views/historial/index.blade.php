@@ -19,6 +19,9 @@
                 <div class="content-wrapper">
                   <div class="table-responsive text-nowrap">
                     <div class="card-datatable table-responsive pt-0">
+                        @if ($historial->isEmpty())
+                            <h5 class="card-header">No se encontro registro.</h5>
+                        @else
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -39,6 +42,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        @endif
                     </div>            
                   </div>
                 </div>

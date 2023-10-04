@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/toast', function () {
+    return view('toast.toast');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

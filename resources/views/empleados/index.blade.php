@@ -45,6 +45,9 @@
                   <div class="table-responsive text-nowrap">
                     <div class="card-datatable table-responsive pt-0">
                         <div class="table-responsive text-nowrap" id="searchResults">
+                            @if ($empleados->isEmpty())
+                                <h5 class="card-header">No se encontro registro de empleados.</h5>
+                            @else
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -93,6 +96,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            @endif
                         </div>
                     </div>            
                   </div>
@@ -105,31 +109,4 @@
         </div>
         <!-- / Content -->
     </div>
-    <script>
-        // Aquí se mostrarán los mensajes Toastr
-        function mostrarToastr(message, type) {
-            toastr[type](message, type.charAt(0).toUpperCase() + type.slice(1));
-        }
-    </script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#searchInput').on('input', function() {
-                var query = $(this).val();
-
-                $.ajax({
-                    url: "{{ route('empleados.search') }}",
-                    type: "POST",
-                    data: {
-                        query: query,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#searchResults').html(response);
-                    }
-                });
-            });
-        });
-    </script>
 </x-app-layout>

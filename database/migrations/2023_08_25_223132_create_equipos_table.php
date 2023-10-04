@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
             $table->string('tipo'); // Ejemplo: pc, laptop, tablet, mouse
-
+            //equipo
             $table->string('no_equipo')->nullable();
             $table->string('estado')->nullable();
             $table->string('equipo')->nullable();
-            //basico
             $table->string('marca')->nullable();
             $table->string('modelo')->nullable();
             $table->string('serie')->nullable();
-            // Otros
             $table->string('nombre_equipo')->nullable();
             $table->string('ip')->nullable();
             $table->string('no_contrato')->nullable();

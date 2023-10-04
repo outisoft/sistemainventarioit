@@ -105,6 +105,9 @@
                   <div class="table-responsive text-nowrap">
                     <div class="card-datatable table-responsive pt-0">
                         <div class="table-responsive text-nowrap" id="searchResults">
+                            @if ($users->isEmpty())
+                                <h5 class="card-header">No se encontro registro de usuarios.</h5>
+                            @else
                             <table class="table">
                                 <thead>
                                     <tr>
@@ -145,6 +148,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            @endif
                         </div>
                     </div>            
                   </div>

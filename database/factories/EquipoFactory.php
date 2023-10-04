@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+use Faker\Generator as Faker;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,6 +19,12 @@ class EquipoFactory extends Factory
     {
         return [
             'tipo' => $this->faker->randomElement(['pc', 'laptop', 'tablet', 'mouse', 'teclado']),
+            'no_equipo' => $this->faker->unique()->numberBetween(1, 100),
+            'estado' => $this->faker->randomElement(['libre', 'en uso']),
+            'marca' => $this->faker->word,
+            'modelo' => $this->faker->word,
+            'serie' => $this->faker->word,
+            'ip' => $this->faker->ipv4,
             // Otros campos si los tienes
         ];
     }

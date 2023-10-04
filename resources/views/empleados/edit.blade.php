@@ -6,6 +6,8 @@
           </a>
         </div>
       </div>
+    <div id="toastr-container"></div>
+
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -61,7 +63,7 @@
 
                             <br>
     
-                            <button type="submit" class="btn btn-primary"><i class='bx bx-refresh' ></i> Actualizar</button>
+                            <button id="showToastPlacement" type="submit" class="btn btn-primary"><i class='bx bx-refresh' ></i> Actualizar</button>
                         </form>
                     </div>
                 </div>
@@ -72,12 +74,17 @@
     
         </div>
         <!-- / Content -->
-      </div>
+    </div>
     <script>
-        // Aquí se mostrarán los mensajes Toastr
-        function mostrarToastr(message, type) {
-            toastr[type](message, type.charAt(0).toUpperCase() + type.slice(1));
+        $(document).ready(function() {
+        // Mostrar notificación Toastr si está presente en la sesión
+        if ("{{ Session::has('toastr') }}") {
+            var toastrMessage = "{{ Session::get('toastr.message') }}";
+            var toastrType = "{{ Session::get('toastr.type') }}";
+
+            toastr[toastrType](toastrMessage);
         }
+        });
     </script>
 </x-app-layout>
 

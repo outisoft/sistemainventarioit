@@ -44,45 +44,45 @@
             
             
             <div class="table-responsive text-nowrap" id="searchResults">
-    
-                @if ($equipos->isEmpty())
-                    <h5 class="card-header">No se encontro registro de equipos.</h5>
-                @else
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th>Tipo</th>
-                                <th>Numero de equipo</th>
-                                <th>Estado</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <!-- Otros encabezados de columnas según sea necesario -->
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($equipos as $equipo)
-                            <tr>
-                                <td></td>
-                                <td>{{ $equipo->tipo}}</td>
-                                <td>{{ $equipo->no_equipo}}</td>
-                                <td>
-                                    @if ($equipo->estado === 'libre')
-                                        <span class="badge bg-label-success">Libre</span-->
-                                        <!--span class="badge rounded-pill bg-success">Libre</span-->
-                                    @elseif ($equipo->estado === 'en uso')
-                                        <span class="badge bg-label-danger">En uso</span>
-                                        <!--span class="badge rounded-pill bg-danger">En uso</span-->
-                                    @endif
-                                </td>
-                                <td>{{ $equipo->marca }}</td>
-                                <td>{{ $equipo->modelo }}</td>
-                                <!-- Otros campos de la tabla -->
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                @endif
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Nombre</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach($equipos as $equipo)
+                    <tr>
+                        <td></td>
+                        <td>{{ $equipo->tipo }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <img width="15" height="15" src="https://img.icons8.com/ios-glyphs/30/menu-2.png" alt="menu-2"/>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a href="{{ route('equipo.show', $equipo->id) }}" class="dropdown-item">
+                                        <i class="bx bx-show-alt me-1"></i> Show
+                                    </a>
+                                    <a href="{{ route('equipo.edit', $equipo->id) }}" class="dropdown-item" href="javascript:void(0);">
+                                        <i class="bx bx-edit me-1"></i> Edit
+                                    </a>
+                                    <form class="dropdown-item" action="{{ route('equipo.destroy', $equipo->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit">
+                                            <i class="bx bx-trash me-1"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>                                                                                        
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+              </table>
             </div>
           </div>
           <!--/ Basic Bootstrap Table -->
@@ -92,7 +92,7 @@
         </div>
         <!-- / Content -->
       </div>
-      <script>
+        <script>
             // Aquí se mostrarán los mensajes Toastr
             function mostrarToastr(message, type) {
                 toastr[type](message, type.charAt(0).toUpperCase() + type.slice(1));

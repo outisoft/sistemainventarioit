@@ -95,16 +95,12 @@ class EmpleadoController extends Controller
             'descripcion' => "Se actualizo el registro {$registro->name}",
             'registro_id' => $registro->id,
         ]);
-        //return redirect()->route('empleados.index')->with('success', 'Registro actualizado exitosamente.');
-        return response()->json(['message' => 'Actualizacion exitosa']); 
+        // Mostrar notificación Toastr para éxito
+        toastr()->success('Registro exitoso.');
+        Session::forget('toastr');
 
-        // Almacena el mensaje en la sesión
-        //Session::flash('success', 'La acción se realizó con éxito');
-        
-        //return response()->json(['message' => 'Actualizacion exitosa']);
-        //return redirect()->route('empleados.index');
-        // Redirige a la vista "index"
-        //return redirect()->route('empleados.index');
+        return redirect()->route('empleados.index');
+        //return redirect()->route('empleados.index')->with('success', 'Registro actualizado exitosamente.');
     }
 
     // Método para eliminar un registro

@@ -1,4 +1,11 @@
 <x-app-layout>
+    <div class="container-xxl navbar-expand-xl align-items-center">
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+          <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+            <i class="bx bx-menu bx-sm"></i>
+          </a>
+        </div>
+    </div>
     <div class="content-wrapper">
         <!-- Content -->
 
@@ -91,12 +98,12 @@
                                     <input type="text" id="modelo_monitor" name="modelo_monitor" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_monitor">Numero de serie</label>
+                                    <input type="text" id="serie_monitor" name="serie_monitor" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="contrato">Numero de contrato</label>
-                                    <input type="text" id="contrato" name="contrato" class="form-control">
+                                    <label for="no_contrato">Numero de contrato</label>
+                                    <input type="text" id="no_contrato" name="no_contrato" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para monitor aquí -->
                             </div>
@@ -104,12 +111,12 @@
                             <!-- Sección para el tipo de equipo "Teclado" -->
                             <div class="teclado campos-equipo" style="display: none;">
                                 <div class="form-group">
-                                    <label for="marca">Marca del Teclado</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_teclado">Marca del Teclado</label>
+                                    <input type="text" id="marca_teclado" name="marca_teclado" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_teclado">Numero de serie</label>
+                                    <input type="text" id="serie_teclado" name="serie_teclado" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
@@ -117,12 +124,12 @@
                             <!-- Sección para el tipo de equipo "Mouse" -->
                             <div class="mouse campos-equipo" style="display: none;">
                                 <div class="form-group">
-                                    <label for="marca">Marca del mouse</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_mouse">Marca del mouse</label>
+                                    <input type="text" id="marca_mouse" name="marca_mouse" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_mouse">Numero de serie</label>
+                                    <input type="text" id="serie_mouse" name="serie_mouse" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
@@ -130,16 +137,16 @@
                             <!-- Sección para el tipo de equipo "Cargador" -->
                             <div class="cargador campos-equipo" style="display: none;">
                                 <div class="form-group">
-                                    <label for="marca">Marca del cargador</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_cargador">Marca del cargador</label>
+                                    <input type="text" id="marca_cargador" name="marca_cargador" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modelo">Modelo del cargador</label>
-                                    <input type="text" id="modelo" name="modelo" class="form-control">
+                                    <label for="modelo_cargador">Modelo del cargador</label>
+                                    <input type="text" id="modelo_cargador" name="modelo_cargador" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_cargador">Numero de serie</label>
+                                    <input type="text" id="serie_cargador" name="serie_cargador" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
@@ -147,50 +154,50 @@
                             <!-- Sección para el tipo de equipo "No breack" -->
                             <div class="no_breack campos-equipo" style="display: none;">
                                 <div class="form-group">
-                                    <label for="marca">Marca del No-Breack</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_breack">Marca del No-Breack</label>
+                                    <input type="text" id="marca_breack" name="marca_breack" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modelo">Modelo del No-Breack</label>
-                                    <input type="text" id="modelo" name="modelo" class="form-control">
+                                    <label for="modelo_breack">Modelo del No-Breack</label>
+                                    <input type="text" id="modelo_breack" name="modelo_breack" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_breack">Numero de serie</label>
+                                    <input type="text" id="serie_breack" name="serie_breack" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
 
                             <!-- Sección para el tipo de equipo "Impresora" -->
-                            <div class="no_breack campos-equipo" style="display: none;">
+                            <div class="impresora campos-equipo" style="display: none;">
                                 <div class="form-group">
-                                    <label for="marca">Marca de la impresora</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_impresora">Marca de la impresora</label>
+                                    <input type="text" id="marca_impresora" name="marca_impresora" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modelo">Modelo de la impresora</label>
-                                    <input type="text" id="modelo" name="modelo" class="form-control">
+                                    <label for="modelo_impresora">Modelo de la impresora</label>
+                                    <input type="text" id="modelo_impresora" name="modelo_impresora" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_impresora">Numero de serie</label>
+                                    <input type="text" id="serie_impresora" name="serie_impresora" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
 
                             <!-- Sección para el tipo de equipo "Lector" -->
-                            <div class="no_breack campos-equipo" style="display: none;">
+                            <div class="lector campos-equipo" style="display: none;">
                                 <div class="form-group">
-                                    <label for="marca">Marca del lector</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_lector">Marca del lector</label>
+                                    <input type="text" id="marca_lector" name="marca_lector" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modelo">Modelo del lector</label>
-                                    <input type="text" id="modelo" name="modelo" class="form-control">
+                                    <label for="modelo_lector">Modelo del lector</label>
+                                    <input type="text" id="modelo_lector" name="modelo_lector" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_lector">Numero de serie</label>
+                                    <input type="text" id="serie_lector" name="serie_lector" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
@@ -198,16 +205,16 @@
                             <!-- Sección para el tipo de equipo "Scanner" -->
                             <div class="scanner campos-equipo" style="display: none;">
                                 <div class="form-group">
-                                    <label for="marca">Marca del escanner</label>
-                                    <input type="text" id="marca" name="marca" class="form-control">
+                                    <label for="marca_escanner">Marca del escanner</label>
+                                    <input type="text" id="marca_escanner" name="marca_escanner" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="modelo">Modelo del escanner</label>
-                                    <input type="text" id="modelo" name="modelo" class="form-control">
+                                    <label for="modelo_escanner">Modelo del escanner</label>
+                                    <input type="text" id="modelo_escanner" name="modelo_escanner" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="serie">Numero de serie</label>
-                                    <input type="text" id="serie" name="serie" class="form-control">
+                                    <label for="serie_escanner">Numero de serie</label>
+                                    <input type="text" id="serie_escanner" name="serie_escanner" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
@@ -219,8 +226,8 @@
                                     <input type="text" id="nombre_app" name="nombre_app" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="clave">Clave de activacion</label>
-                                    <input type="text" id="clave" name="clave" class="form-control">
+                                    <label for="clave_app">Clave de activacion</label>
+                                    <input type="text" id="clave_app" name="clave_app" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
@@ -232,8 +239,8 @@
                                     <input type="text" id="so" name="so" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="clave">Clave de activacion</label>
-                                    <input type="text" id="clave" name="clave" class="form-control">
+                                    <label for="clave_so">Clave de activacion</label>
+                                    <input type="text" id="clave_so" name="clave_so" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
@@ -245,8 +252,8 @@
                                     <input type="text" id="office" name="office" class="form-control">
                                 </div>
                                 <div class="form-group">
-                                    <label for="clave">Clave de activacion</label>
-                                    <input type="text" id="clave" name="clave" class="form-control">
+                                    <label for="clave_office">Clave de activacion</label>
+                                    <input type="text" id="clave_office" name="clave_office" class="form-control">
                                 </div>
                                 <!-- Agrega más campos específicos para teclado aquí -->
                             </div>
@@ -254,7 +261,7 @@
                             <!-- Agrega más secciones para otros tipos de equipo aquí -->
                             <br>
                             <button type="submit" class="btn btn-primary">Guardar Equipo</button>
-                        </form>
+                        </form-->
                         
                       </div>
                   </div>            
