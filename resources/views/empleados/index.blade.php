@@ -73,24 +73,19 @@
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                        <img width="15" height="15" src="https://img.icons8.com/ios-glyphs/30/menu-2.png" alt="menu-2"/>
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
                                                     </button>
                                                     <div class="dropdown-menu">
-                                                        <a href="{{ route('empleados.show', $empleado->id) }}" class="dropdown-item">
-                                                            <i class="bx bx-show-alt me-1"></i> Show
-                                                        </a>
-                                                        <a href="{{ route('empleados.edit', $empleado->id) }}" class="dropdown-item" href="javascript:void(0);">
-                                                            <i class="bx bx-edit me-1"></i> Edit
-                                                        </a>
-                                                        <form class="dropdown-item" action="{{ route('empleados.destroy', $empleado->id) }}" method="POST" class="d-inline" id="miFormulario">
+                                                        <!-- Aquí se agregarán las opciones -->
+                                                        <a class="dropdown-item" href="{{ route('empleados.show', $empleado->id) }}"><i class="bx bx-show-alt me-1"></i>Ver</a>
+                                                        <a class="dropdown-item" href="{{ route('empleados.edit', $empleado->id) }}"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                        <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit">
-                                                                <i class="bx bx-trash me-1"></i> Eliminar
-                                                            </button>
+                                                            <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i class="bx bx-trash me-1"></i>Eliminar</button>
                                                         </form>
                                                     </div>
-                                                </div>                                                                                        
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -109,4 +104,24 @@
         </div>
         <!-- / Content -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                var query = $(this).val();
+
+                $.ajax({
+                    url: "{{ route('empleados.search') }}",
+                    type: "POST",
+                    data: {
+                        query: query,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        $('#searchResults').html(response);
+                    }
+                });
+            });
+        });
+    </script>
 </x-app-layout>

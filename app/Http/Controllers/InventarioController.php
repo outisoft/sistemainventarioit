@@ -41,8 +41,11 @@ class InventarioController extends Controller
             'descripcion' => "Se creó el registro {$registro->nombre}",
             'registro_id' => $registro->id,
         ]);
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Registro {$registro->nombre} creado.");
 
-        return redirect()->route('inventario.index')->with('success', 'Registro creado exitosamente.');
+        return redirect()->route('inventario.index');
     }
 
     // Método para mostrar un registro específico    no breack asistente chef, mause dañado
@@ -77,7 +80,11 @@ class InventarioController extends Controller
             'registro_id' => $registro->id,
         ]);
 
-        return redirect()->route('inventario.index')->with('success', 'Registro actualizado exitosamente.');
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Registro {$registro->nombre} actualizado.");
+
+        return redirect()->route('inventario.index');
     }
 
     // Método para eliminar un registro
@@ -91,10 +98,11 @@ class InventarioController extends Controller
             'descripcion' => "Se elimino el registro {$registro->nombre}",
             'registro_id' => $registro->id,
         ]);
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Registro {$registro->nombre} eliminado.");
 
-        Session::flash('success', 'Registro eliminado exitosamente.');
-
-        return Redirect::route('inventario.index');
+        return redirect()->route('inventario.index');
     }
 
     public function search(Request $request)

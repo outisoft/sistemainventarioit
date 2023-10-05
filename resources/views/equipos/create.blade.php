@@ -275,25 +275,5 @@
         </div>
         <!-- / Content -->
     </div>
-    <script>
-        // Aquí se mostrarán los mensajes Toastr
-        function mostrarToastr(message, type) {
-            toastr[type](message, type.charAt(0).toUpperCase() + type.slice(1));
-        }
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#tipo').change(function() {
-                var selectedTipo = $(this).val();
-
-                // Oculta todas las secciones de tipo de equipo
-                $('.campos-equipo').hide();
-
-                // Muestra la sección correspondiente al tipo seleccionado
-                $('.' + selectedTipo).show();
-            });
-        });
-    </script>
 
 </x-app-layout>

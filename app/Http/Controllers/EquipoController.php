@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Equipo;
 use App\Models\Historial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class EquipoController extends Controller
 {
@@ -62,7 +63,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
 
                 break;
 
@@ -85,7 +89,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
 
             case 'teclado':
@@ -104,7 +111,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
             
             case 'mouse':
@@ -123,7 +133,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
             
             case 'cargador':
@@ -144,7 +157,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
 
             case 'no_breack':
@@ -165,7 +181,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
             
             case 'impresora':
@@ -186,7 +205,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
 
             case 'lector':
@@ -207,7 +229,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
 
             case 'scanner':
@@ -228,7 +253,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
 
             case 'aplicacion':
@@ -246,7 +274,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
 
             case 'so':
@@ -264,7 +295,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
 
             case 'office':
@@ -282,7 +316,10 @@ class EquipoController extends Controller
                     'descripcion' => "Se creó el registro {$registro->tipo}",
                     'registro_id' => $registro->id,
                 ]);
-                return response()->json(['message' => 'Registro creado exitosamente']); 
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo} creado.");
+                return redirect()->route('equipo.index');
                 break;
             // Agrega más casos para otros tipos de equipo aquí
         }      
@@ -324,8 +361,11 @@ class EquipoController extends Controller
             'descripcion' => "Se actualizo el registro {$registro->tipo}",
             'registro_id' => $registro->id,
         ]);
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Registro {$registro->tipo} actualizado.");
 
-        return redirect()->route('equipos.index')->with('success', 'Registro actualizado exitosamente.');
+        return redirect()->route('equipo.index');
     }
 
     /**
@@ -341,10 +381,12 @@ class EquipoController extends Controller
             'descripcion' => "Se elimino el registro {$registro->tipo}",
             'registro_id' => $registro->id,
         ]);
-        return response()->json(['message' => 'Eliminacion exitosa']);
-        /*Session::flash('success', 'Registro eliminado exitosamente.');
 
-        return Redirect::route('inventario.index');*/
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Registro {$registro->tipo} eliminado.");
+
+        return redirect()->route('equipo.index');
     }
 
     public function search(Request $request)

@@ -8,6 +8,8 @@ use App\Models\Historial;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -46,7 +48,11 @@ class UserController extends Controller
             'registro_id' => $user->id,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Registro creado exitosamente.');
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Usuario {$user->name} creado.");
+
+        return redirect()->route('users.index');
     }
 
     // Método para mostrar un usuario específico
@@ -82,8 +88,11 @@ class UserController extends Controller
             'descripcion' => "Se actualizo el usuario {$registro->name}",
             'registro_id' => $registro->id,
         ]);
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Usuario {$registro->name} actualizado.");
 
-        return redirect()->route('users.index')->with('success', 'Registro actualizado exitosamente.');
+        return redirect()->route('users.index');
     }
 
     // Método para eliminar un registro
@@ -97,10 +106,11 @@ class UserController extends Controller
             'descripcion' => "Se elimino el usuario {$registro->name}",
             'registro_id' => $registro->id,
         ]);
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Usuario {$registro->name} eliminado.");
 
-        return response()->json(['message' => 'Eliminacion exitosa']);
-
-        //return Redirect::route('empleados.index');
+        return redirect()->route('users.index');
     }
 
 

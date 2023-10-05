@@ -1,12 +1,10 @@
-import './bootstrap';
+import 'jquery';
+import 'popper.js';
 import 'bootstrap'; // Asegúrate de que bootstrap esté importado
-import 'toastr/build/toastr.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import Alpine from 'alpinejs';
-import toastr from 'toastr';
-import 'toastr/toastr.scss';
+window.bootstrap = require('bootstrap');
 
-// Agrega las siguientes líneas para importar Toastr
-window.toastr = toastr;
 
 const app = new Vue({
     el: '#app',

@@ -49,9 +49,10 @@ class EmpleadoController extends Controller
             'registro_id' => $registro->id,
         ]);
 
-        return response()->json(['message' => 'Registro creado exitosamente']); 
-
-        //return redirect()->route('empleados.index')->with('success', 'Registro creado exitosamente.');
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Empleado {$registro->name} creado.");
+        return redirect()->route('empleados.index');
     }
 
     // Método para mostrar un registro específico
@@ -96,11 +97,11 @@ class EmpleadoController extends Controller
             'registro_id' => $registro->id,
         ]);
         // Mostrar notificación Toastr para éxito
-        toastr()->success('Registro exitoso.');
-        Session::forget('toastr');
 
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Empleado {$registro->name} actualizado.");
         return redirect()->route('empleados.index');
-        //return redirect()->route('empleados.index')->with('success', 'Registro actualizado exitosamente.');
     }
 
     // Método para eliminar un registro
@@ -114,10 +115,11 @@ class EmpleadoController extends Controller
             'descripcion' => "Se elimino el registro {$registro->name}",
             'registro_id' => $registro->id,
         ]);
-
-        return response()->json(['message' => 'Eliminacion exitosa']);
-
-        //return Redirect::route('empleados.index');
+        
+        toastr()
+        ->timeOut(3000) // 3 second
+        ->addSuccess("Empleado {$registro->name} eliminado.");
+        return redirect()->route('empleados.index');
     }
 
     public function search(Request $request)

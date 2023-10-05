@@ -76,40 +76,7 @@
     </div>
     <!-- / Layout wrapper -->
   </body>
-  
-  
-  <!--script>
-    // Aquí se mostrarán los mensajes Toastr
-    function mostrarToastr(message, type) {
-        toastr[type](message, type.charAt(0).toUpperCase() + type.slice(1));
-    }
-  </script-->
-  <!-- Page JS -->
-  <script src="{{ asset('assets/js/ui-toasts.js')}}"></script>
-  <script src="{{ asset('assets/vendor/js/bootstrap.js')}}"></script>
-  <!--script src="https://code.jquery.com/jquery-3.6.0.min.js"></script-->
-  <!-- Agrega el script de Toastr al final del cuerpo del documento -->
-  <!--script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script-->
-  <!-- Inicializa Toastr (opcional) -->
-  <!--script>
-  //Agrega este script en tu vista Blade o en un archivo JavaScript separado
-      $(document).ready(function () {
-          $('#miFormulario').on('submit', function (e) {
-              e.preventDefault();
-              $.ajax({
-                  type: 'POST',
-                  url: $(this).attr('action'),
-                  data: $(this).serialize(),
-                  success: function (response) {
-                      mostrarToastr(response.message, 'bg-secondary');
-                  },
-                  error: function (error) {
-                      mostrarToastr(error.responseJSON.message, 'error');
-                  }
-              });
-          });
-      });
-  </script-->
+ 
   @include('layouts.scripts')
   
 </html>

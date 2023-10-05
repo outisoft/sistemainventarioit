@@ -122,10 +122,4 @@
         </div>
         <!-- / Content -->
       </div>
-    <script>
-        // Aquí se mostrarán los mensajes Toastr
-        function mostrarToastr(message, type) {
-            toastr[type](message, type.charAt(0).toUpperCase() + type.slice(1));
-        }
-    </script>
 </x-app-layout>

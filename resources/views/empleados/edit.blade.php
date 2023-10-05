@@ -6,7 +6,6 @@
           </a>
         </div>
       </div>
-    <div id="toastr-container"></div>
 
     <div class="content-wrapper">
         <!-- Content -->
@@ -75,17 +74,6 @@
         </div>
         <!-- / Content -->
     </div>
-    <script>
-        $(document).ready(function() {
-        // Mostrar notificación Toastr si está presente en la sesión
-        if ("{{ Session::has('toastr') }}") {
-            var toastrMessage = "{{ Session::get('toastr.message') }}";
-            var toastrType = "{{ Session::get('toastr.type') }}";
-
-            toastr[toastrType](toastrMessage);
-        }
-        });
-    </script>
 </x-app-layout>
 
 
