@@ -23,32 +23,37 @@
                             
                             <form method="POST" action="{{ route('asignacion.asignar') }}">
                                 @csrf
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label class="form-label" for="empleado">Selecciona un Empleado:</label>
                                     <div class="input-group input-group-merge">
-                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                        <!--span id="basic-icon-default-fullname2" class="input-group-text">
                                             <i class='bx bx-user'></i>
-                                        </span>
-                                        <select name="empleado_id" class="form-control">
+                                        </span-->
+                                        <select id="empleado_id" name="empleado_id" class="form-control" aria-label="Default select example">
                                             @foreach ($empleados as $empleado)
-                                                <option value="{{ $empleado->id }}">{{ $empleado->name }}</option>
+                                                <option value="{{ $empleado->id }}">{{ $empleado->name }} - {{ $empleado->departamento }} - {{ $empleado->puesto }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                         
                                 <div class="form-group">
-                                    <label class="form-label" for="equipo">Selecciona un Equipo:</label>
-                                    <div class="input-group input-group-merge">
-                                        <span id="basic-icon-default-fullname2" class="input-group-text">
-                                            <i class='bx bx-desktop'></i>
-                                        </span>
-                                        <select name="equipo_id" class="form-control">
-                                            @foreach ($equipos as $equipo)
-                                                <option value="{{ $equipo->id }}">{{ $equipo->tipo }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    @if ($equiposSinAsignar->isEmpty())
+                                        <h5 class="card-header">No se encontro equipos disponibles.</h5>
+                                    @else
+                                        <label class="form-label" for="equipo">Selecciona un Equipo:</label>
+                                        <div class="input-group input-group-merge">
+                                            <!--span id="basic-icon-default-fullname2" class="input-group-text">
+                                                <i class='bx bx-desktop'></i>
+                                            </span-->
+                                            <select name="equipo_id" class="form-control">
+                                                @foreach($equiposSinAsignar as $equipo)
+                                                    <option value="{{ $equipo->id }}">{{ $equipo->tipo }} - {{ $equipo->marca }} - {{ $equipo->modelo }}</option>
+                                                @endforeach
+                                            </select>
+                                            
+                                        </div>
+                                    @endif
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-primary">Asignar Equipo</button>
@@ -56,18 +61,22 @@
                             <br>
                             <hr class="my-0">
                             <br>
-                            <h2>Equipos Asignados</h2>
-                            <ul>
-                                @foreach ($empleados as $empleado)
-                                    <li>
-                                        {{ $empleado->name }}:
-                                        @foreach ($empleado->equipos as $equipo)
-                                            {{ $equipo->tipo }}
-                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm">Desvincular</a>
-                                        @endforeach
-                                    </li>
-                                @endforeach
-                            </ul>
+                            <h5 class="card-header">Equipos asignados.</h5>
+                            @if ($empleadosConEquipos->isEmpty())
+                                <h5 class="card-header">No se encontro asignaciones entre empleados y equipos.</h5>
+                            @else
+                                <ul>
+                                    @foreach ($empleadosConEquipos as $empleado)
+                                        <li>
+                                            {{ $empleado->name }}:
+                                            @foreach ($empleado->equipos as $equipo)
+                                                {{ $equipo->tipo }}
+                                                <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm">X</a>
+                                            @endforeach
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
                     </div>            
                   </div>

@@ -18,7 +18,14 @@ class Empleado extends Model
 
     public function equipos()
     {
-        return $this->belongsToMany(Equipo::class, 'empleado_equipo');
+        return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'empleado_id', 'equipo_id');
     }
+
+
+    public function empleados_equipos()
+    {
+        return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'empleado_id', 'equipo_id');
+    }
+
 }
 // mantenimiento siankan - secretariamantenimientobpska

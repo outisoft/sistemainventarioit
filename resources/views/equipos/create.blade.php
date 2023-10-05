@@ -25,64 +25,112 @@
                         <form action="{{ route('equipo.store') }}" method="POST">
                             @csrf
                         
-                            <div class="form-group">
-                                <label for="tipo">Tipo de Equipo</label>
-                                <select id="tipo" name="tipo" class="form-control">
-                                    <option value="">Seleccione una opcion</option>
-                                    <option value="cpu">CPU</option>
-                                    <option value="monitor">Monitor</option>
-                                    <option value="teclado">Teclado</option>
-                                    <option value="mouse">Mouse</option>
-                                    <option value="cargador">Cargador</option>
-                                    <option value="no_breack">No Breack</option>
-                                    <option value="impresora">Impresora</option>
-                                    <option value="lector">Lector</option>
-                                    <option value="scanner">Escanner de Pasaporte</option>
-                                    <option value="aplicacion">Aplicacion</option>
-                                    <option value="so">Sistema Operativo</option>
-                                    <option value="office">Office</option>
-                                    <!-- Agrega más opciones de tipo de equipo aquí -->
-                                </select>
+                            <div class="mb-3">
+                                <label for="tipo" class="form-label">Tipo de Equipo</label>
+                                <div class="input-group input-group-merge">
+                                    <select id="tipo" name="tipo" class="form-control"  aria-label="Default select example">
+                                            <option value="">Seleccione una opcion</option>
+                                            <option value="cpu">CPU</option>
+                                            <option value="monitor">Monitor</option>
+                                            <option value="teclado">Teclado</option>
+                                            <option value="mouse">Mouse</option>
+                                            <option value="cargador">Cargador</option>
+                                            <option value="no_breack">No Breack</option>
+                                            <option value="impresora">Impresora</option>
+                                            <option value="lector">Lector</option>
+                                            <option value="scanner">Escanner de Pasaporte</option>
+                                            <option value="aplicacion">Aplicacion</option>
+                                            <option value="so">Sistema Operativo</option>
+                                            <option value="office">Office</option>
+                                            <!-- Agrega más opciones de tipo de equipo aquí -->
+                                    </select>
+                                </div>
                             </div>
 
                             <!-- Sección para el tipo de equipo "CPU" -->
-                            <div class="cpu campos-equipo" style="display: none;">
-                                <div class="form-group">
-                                    <label for="no_equipo">Numero de equipo</label>
-                                    <input type="text" id="no_equipo" name="no_equipo" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="estado">Estado</label>
-                                    <input type="text" id="estado" name="estado" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="equipo">Equipo</label>
-                                    <input type="text" id="equipo" name="equipo" class="form-control">
-                                </div>
+                            <div class="cpu campos-equipo mb-3" style="display: none;">
+                                <div class="mb-3">
 
-                                <div class="form-group">
-                                    <label for="marca_equipo">Marca del equipo</label>
-                                    <input type="text" id="marca_equipo" name="marca_equipo" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="modelo_equipo">Modelo del equipo</label>
-                                    <input type="text" id="modelo_equipo" name="modelo_equipo" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="serie_equipo">Numero de serie</label>
-                                    <input type="text" id="serie_equipo" name="serie_equipo" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="nombre_equipo">Nombre del equipo</label>
-                                    <input type="text" id="nombre_equipo" name="nombre_equipo" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="ip">Ip del equipo</label>
-                                    <input type="text" id="ip" name="ip" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="contrato">Numero de contrato</label>
-                                    <input type="text" id="contrato" name="contrato" class="form-control">
+                                    <label class="form-label" for="no_equipo">Numero de equipo</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="no_equipo"  name="no_equipo" aria-describedby="basic-icon-default-fullname2" required autofocus autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('no_equipo')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="estado">Estado</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="estado"  name="estado" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('estado')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="equipo">Equipo</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="equipo"  name="equipo" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('equipo')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="marca_equipo">Marca del equipo</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="marca_equipo"  name="marca_equipo" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('marca_equipo')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="modelo_equipo">Modelo del equipo</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="modelo_equipo"  name="modelo_equipo" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('modelo_equipo')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="serie_equipo">Numero de serie</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="modelo_equipo"  name="serie_equipo" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('serie_equipo')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="nombre_equipo">Nombre del equipo</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="nombre_equipo"  name="nombre_equipo" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('nombre_equipo')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="ip">Ip del equipo</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="ip"  name="ip" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('ip')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="contrato">Numero de contrato</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-broadcast'></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="contrato"  name="contrato" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('contrato')" class="mt-2" />
+                                    </div>
                                 </div>
                                 <!-- Agrega más campos específicos para CPU aquí -->
                             </div>
@@ -275,5 +323,19 @@
         </div>
         <!-- / Content -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tipo').change(function() {
+                var selectedTipo = $(this).val();
+    
+                // Oculta todas las secciones de tipo de equipo
+                $('.campos-equipo').hide();
+    
+                // Muestra la sección correspondiente al tipo seleccionado
+                $('.' + selectedTipo).show();
+            });
+        });
+    </script>
 
 </x-app-layout>

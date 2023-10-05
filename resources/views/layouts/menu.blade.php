@@ -79,7 +79,7 @@
       </li>
 
       <!-- Empleados -->
-      <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('asignar') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
+      <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('empleado.agregar') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class='menu-icon tf-icons bx bx-user-pin'></i>
           <div data-i18n="Layouts">Empleados</div>

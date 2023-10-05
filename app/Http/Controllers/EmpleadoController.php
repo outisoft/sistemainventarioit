@@ -136,8 +136,10 @@ class EmpleadoController extends Controller
     {
         $empleados = Empleado::all();
         $equipos = Equipo::all();
+        $empleadosConEquipos = Empleado::whereHas('empleados_equipos')->get();
+        $equiposSinAsignar = Equipo::whereDoesntHave('empleados')->get();
 
-        return view('empleados.asignacion', compact('empleados', 'equipos'));
+        return view('empleados.asignacion', compact('empleados', 'equipos', 'empleadosConEquipos', 'equiposSinAsignar'));
     }
 
     public function asignar(Request $request)
