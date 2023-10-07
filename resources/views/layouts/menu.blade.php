@@ -3,7 +3,7 @@
     <div class="app-brand demo">
         <span class="app-brand-logo demo">
             <div class="shrink-0 flex items-center">
-            <a href="{{ route('dashboard') }}">
+            <a href="{{ route('home') }}">
                 <img src="{{ asset('images/gp-Logo.png') }}" alt="Imagen de ejemplo" width="36" height="36"/>
             </a>
             </div>
@@ -18,11 +18,11 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-      <!-- Dashboard -->
+      <!-- home -->
       <br>
       <!-- Home -->
-      <li class="menu-item {{ Request::routeIs('dashboard') ? 'active' : '' }}">
-        <a href="{{ route('dashboard') }}" class="menu-link">
+      <li class="menu-item {{ Request::routeIs('home') ? 'active' : '' }}">
+        <a href="{{ route('home') }}" class="menu-link">
             <i class='menu-icon tf-icons bx bx-home' ></i>
           <div data-i18n="Analytics">Home</div>
         </a>
@@ -79,7 +79,7 @@
       </li>
 
       <!-- Empleados -->
-      <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('empleado.agregar') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
+      <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('asignacion.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class='menu-icon tf-icons bx bx-user-pin'></i>
           <div data-i18n="Layouts">Empleados</div>

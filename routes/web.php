@@ -7,6 +7,7 @@ use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipoController;
+use App\Models\Empleado;
 
 
 
@@ -27,9 +28,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/users/search', [UserController::class, 'search'])->name('users.search');//buscador de usuarios
     Route::post('/equipo/search', [EquipoController::class, 'search'])->name('equipo.search');//buscador de usuarios
 
-    Route::post('/asignar', [EmpleadoController::class, 'asignarEquipo'])->name('asignar.equipo');
+    /*Route::post('/asignar', [EmpleadoController::class, 'asignarEquipo'])->name('asignar.equipo');
     Route::post('desvincular', [EmpleadoController::class, 'desvincularEquipo'])->name('desvincular.equipo');
-    Route::get('asignar', [EmpleadoController::class, 'asignar'])->name('asignar');//muestra viee de asignacion
+    Route::get('asignar', [EmpleadoController::class, 'asignar'])->name('asignar');*///muestra viee de asignacion
 
     Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
     Route::post('/asignacion/asignar', [EmpleadoController::class, 'asignar'])->name('asignacion.asignar');
@@ -39,13 +40,17 @@ Route::middleware('auth')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/toast', function () {
-    return view('toast.toast');
-});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/tablas', function () {
+    $empleados = Empleado::select(['name', 'email', 'puesto'])->paginate(5); // 10 registros por página
+
+    return view('tablas', compact('empleados'));
+});
+Route::get('empleados/data', [EmpleadoController::class, 'getData'])->name('empleados.data');
+
+Route::get('/home', function () {
+    return view('home');
+})->middleware(['auth', 'verified'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

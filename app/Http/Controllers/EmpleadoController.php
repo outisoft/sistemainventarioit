@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Models\Empleado;
 use App\Models\Equipo;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 use App\Models\User; // Asegúrate de importar tu modelo de usuario si es necesario
-
+use DataTables;
 
 class EmpleadoController extends Controller
 {
@@ -224,5 +223,13 @@ class EmpleadoController extends Controller
             return redirect()->back()->with('error', 'Ocurrió un error al asignar el rol.');
         }
     }
+
+    public function getData()
+    {
+        $empleados = Empleado::select(['nombre', 'correo', 'puesto'])->get();
+        
+        return Datatables::of($empleados)->make(true);
+    }
+
 
 }
