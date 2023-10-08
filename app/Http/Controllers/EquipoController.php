@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use App\Models\Historial;
+use App\Models\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -15,7 +16,13 @@ class EquipoController extends Controller
     public function index()
     {   
         // Filtrar equipos por tipo
+        // Obtener todos los equipos
         $equipos = Equipo::all();
+
+        // Iterar sobre los equipos y verificar si están asignados a un empleado
+        foreach ($equipos as $equipo) {
+            $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
+        }
 
         return view('equipos.index', compact('equipos'));
     }
@@ -43,7 +50,6 @@ class EquipoController extends Controller
                 $data = $request->validate([
                     'tipo' => 'required',
                     'no_equipo' => 'required',
-                    'estado' => 'required',
                     'equipo' => 'required',
                     'marca_equipo' => 'required',
                     'modelo_equipo' => 'required',

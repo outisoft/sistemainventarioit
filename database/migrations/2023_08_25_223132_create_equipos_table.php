@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('tipo'); // Ejemplo: pc, laptop, tablet, mouse
             //equipo
             $table->string('no_equipo')->nullable();
-            $table->string('estado')->nullable();
+            //$table->string('estado')->nullable();
             $table->string('equipo')->nullable();
             $table->string('marca')->nullable();
             $table->string('modelo')->nullable();

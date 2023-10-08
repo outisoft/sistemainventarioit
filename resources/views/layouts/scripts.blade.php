@@ -27,3 +27,8 @@
 <!--Search-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<!--Datatables-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+

@@ -2792,11 +2792,11 @@ textarea.form-control-lg {
 
 .btn-link {
   font-weight: 400;
-  color: #696cff;
+  color: var(--bs-primary);
   text-decoration: none;
 }
 .btn-link:hover {
-  color: #5f61e6;
+  color: var(--bs-primary);
 }
 .btn-link:disabled, .btn-link.disabled {
   color: rgba(67, 89, 113, 0.6);
@@ -3278,7 +3278,7 @@ textarea.form-control-lg {
   }
 }
 .nav-link:hover, .nav-link:focus {
-  color: #5f61e6;
+  color: var(--bs-primary);
 }
 .nav-link.disabled {
   color: #c7cdd4;
@@ -4269,7 +4269,7 @@ textarea.form-control-lg {
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  background-color: #696cff;
+  background-color: var(--bs-primary);
   transition: width 0.6s ease;
 }
 @media (prefers-reduced-motion: reduce) {

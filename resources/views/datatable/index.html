@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Incluir jQuery y DataTables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <style>
+        /* Estilos personalizados para la tabla */
+        #miTabla {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #miTabla th,
+        #miTabla td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        #miTabla th {
+            background-color: #f2f2f2;
+        }
+
+        #miTabla tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+</head>
+<body>
+    <table id="miTabla">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Correo Electrónico</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se cargarán aquí dinámicamente -->
+        </tbody>
+    </table>
+    <script>
+        // Datos de ejemplo (reemplázalos con tus propios datos)
+        const datos = [
+            { nombre: 'Juan', edad: 25, correo: 'juan@example.com' },
+            { nombre: 'María', edad: 30, correo: 'maria@example.com' },
+            { nombre: 'Pedro', edad: 30, correo: 'pedro@example.com' },
+            // Agrega más datos aquí
+        ];
+
+        // Función para cargar datos en la tabla
+        function cargarDatos() {
+            const tabla = document.querySelector('#miTabla tbody');
+            tabla.innerHTML = ''; // Limpiar tabla antes de cargar datos
+
+            datos.forEach((fila) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${fila.nombre}</td>
+                    <td>${fila.edad}</td>
+                    <td>${fila.correo}</td>
+                `;
+                tabla.appendChild(tr);
+            });
+        }
+
+        // Llamar a la función para cargar datos inicialmente
+        cargarDatos();
+
+        // Inicializar DataTable
+        $(document).ready(function () {
+            $('#miTabla').DataTable();
+        });
+    </script>    
+</body>
+</html>

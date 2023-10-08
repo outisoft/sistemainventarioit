@@ -28,10 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/users/search', [UserController::class, 'search'])->name('users.search');//buscador de usuarios
     Route::post('/equipo/search', [EquipoController::class, 'search'])->name('equipo.search');//buscador de usuarios
 
-    /*Route::post('/asignar', [EmpleadoController::class, 'asignarEquipo'])->name('asignar.equipo');
-    Route::post('desvincular', [EmpleadoController::class, 'desvincularEquipo'])->name('desvincular.equipo');
-    Route::get('asignar', [EmpleadoController::class, 'asignar'])->name('asignar');*///muestra viee de asignacion
-
     Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
     Route::post('/asignacion/asignar', [EmpleadoController::class, 'asignar'])->name('asignacion.asignar');
     Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
@@ -40,13 +36,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/tablas', function () {
-    $empleados = Empleado::select(['name', 'email', 'puesto'])->paginate(5); // 10 registros por página
-
-    return view('tablas', compact('empleados'));
-});
-Route::get('empleados/data', [EmpleadoController::class, 'getData'])->name('empleados.data');
 
 Route::get('/home', function () {
     return view('home');
