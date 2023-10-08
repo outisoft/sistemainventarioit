@@ -50,6 +50,21 @@
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
                             </div>
+
+                            <!-- Rol -->
+                            <div class="mt-4">
+                                <label for="exampleFormControlSelect1" class="form-label">Rol</label>
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-fullname2" class="input-group-text">
+                                        <i class='bx bxs-user-detail'></i>
+                                    </span>
+                                    <select name="rol" class="form-control" id="rol" aria-label="Default select example">
+                                        @foreach ($roles as $rol)
+                                            <option value="{{ $rol->name }}">{{ $rol->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>                                
+                            </div>
                     
                             <!-- Password -->
                             <div class="mt-4">

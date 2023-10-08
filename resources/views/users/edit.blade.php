@@ -40,6 +40,29 @@
                                         <label class="form-label" for="email">Email</label>
                                         <x-text-input type="email" name="email" class="form-control" value="{{ $users->email }}" required />
                                     </div>
+                                    <!-- Mostrar el rol actual del usuario -->
+                                    <!--div class="form-group">
+                                        <label for="rol">Rol Actual</label>
+                                        <input type="text" value="{{ $users->getRoleNames()->implode(', ') }}" class="form-control" disabled>
+                                    </div-->
+                                    <div class="form-group">
+                                        <label for="rol">Selecciona un rol:</label>
+                                        @if ($tieneRoles)
+                                            <!-- Campo de selección para el rol si el usuario ya tiene roles asignados -->
+                                            <div class="form-group">
+                                                <label for="rol">Rol</label>
+                                                <select name="rol" class="form-control" id="rol">
+                                                    @foreach ($roles as $rol => $nombre)
+                                                        <option value="{{ $rol }}" {{ $rol == $users->roles->first()->name ? 'selected' : '' }}>
+                                                            {{ $nombre }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @else
+                                            <p>Este usuario aún no tiene roles asignados.</p>
+                                        @endif
+                                    </div>
                                     <div class="form-group">
                                         <label class="form-label" for="password">Contraseña</label>
                                         <x-text-input type="password" name="password" class="form-control" value="{{ $users->password }}" required />
@@ -60,4 +83,14 @@
         </div>
         <!-- / Content -->
       </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Agregar un evento al cambio de rol para mostrarlo en el select
+            const rolSelect = document.getElementById('rol');
+            rolSelect.addEventListener('change', function () {
+                const selectedOption = rolSelect.options[rolSelect.selectedIndex];
+                selectedOption.selected = true;
+            });
+        });
+    </script>
 </x-app-layout>

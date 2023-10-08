@@ -111,8 +111,10 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Nombre</th>
                                         <th>Correo Electrónico</th>
+                                        <th>Rol</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -120,8 +122,17 @@
                                     <!-- Aquí se mostrarán los empleados -->
                                     @foreach($users as $user)
                                         <tr>
+                                            <td></td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>
+                                                @foreach ($user->roles as $rol)
+                                                    {{ $rol->name }}
+                                                    @if (!$loop->last)
+                                                        , <!-- Agregar coma si no es el último rol -->
+                                                    @endif
+                                                @endforeach
+                                            </td>
                                             <td>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
