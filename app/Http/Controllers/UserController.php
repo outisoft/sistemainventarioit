@@ -6,11 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Historial;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -30,33 +25,6 @@ class UserController extends Controller
     // Método para guardar un nuevo registro
     public function store(Request $request)
     {
-        /*$request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-        
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-        event(new Registered($user));
-
-        // Obtener el rol seleccionado
-        $nombreRol = $request->input('rol');
-
-        // Asignar el rol al usuario
-        $rol = Role::where('name', $nombreRol)->firstOrFail();
-        $user->assignRole($rol);
-
-        Historial::create([
-            'accion' => 'creacion',
-            'descripcion' => "Se creó el usuario {$user->name}",
-            'registro_id' => $user->id,
-        ]);*/
-
         // Crear el usuario
         $usuario = User::create([
             'name' => $request->input('name'),

@@ -18,15 +18,37 @@ class RolesSeeder extends Seeder
         $proRole = Role::create(['name' => 'pro']);
         $basicoRole = Role::create(['name' => 'basico']);
 
+        Permission::create(['name' => 'home'])->syncRoles($adminRole, $proRole, $basicoRole);
+
+        Permission::create(['name' => 'inventario.index'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'inventario.create'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'inventario.edit'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'inventario.destroy'])->syncRoles($adminRole, $proRole, $basicoRole);
+
+        Permission::create(['name' => 'empleados.index'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'empleados.create'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'empleados.edit'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'empleados.destroy'])->syncRoles($adminRole, $proRole);
+
+        Permission::create(['name' => 'equipos.index'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'equipos.create'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'equipos.edit'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'equipos.destroy'])->syncRoles($adminRole, $proRole);
+
+        Permission::create(['name' => 'users.index'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'users.create'])->syncRoles($adminRole);
+        Permission::create(['name' => 'users.edit'])->syncRoles($adminRole);
+        Permission::create(['name' => 'users.destroy'])->syncRoles($adminRole);
+
         // Asignar permisos
-        $crearPermiso = Permission::create(['name' => 'crear-publicación']);
+        /*$crearPermiso = Permission::create(['name' => 'crear-publicación']);
         $editarPermiso = Permission::create(['name' => 'editar-publicación']);
         $verPermiso = Permission::create(['name' => 'ver-publicación']);
         $eliminarPermiso = Permission::create(['name' => 'eliminar-publicación']);
         // Asigna permisos a roles
         $adminRole->givePermissionTo($crearPermiso, $editarPermiso, $verPermiso, $eliminarPermiso);
         $proRole->givePermissionTo($crearPermiso, $editarPermiso, $verPermiso);
-        $basicoRole->givePermissionTo($verPermiso);
+        $basicoRole->givePermissionTo($verPermiso);*/
 
         /*Role::create(['name' => 'básico']);
         Role::create(['name' => 'pro']);

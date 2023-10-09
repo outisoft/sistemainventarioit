@@ -104,7 +104,8 @@
         </ul>
       </li>
 
-      <!-- Administrador -->
+      @can('users.index')
+          <!-- Administrador -->
       <li class="menu-header small text-uppercase">
         <span class="menu-header-text">Administrador</span>
       </li>
@@ -127,6 +128,7 @@
           </li>
         </ul>
       </li>
+      @endcan
 
       <!-- Perfil -->
       <li class="menu-header small text-uppercase"><span class="menu-header-text">Perfil</span></li>
