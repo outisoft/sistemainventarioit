@@ -7,6 +7,7 @@ use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\ChartController;
 
 Route::middleware('auth')->group(function () {
     
@@ -36,6 +37,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
     Route::post('/asignacion/asignar', [EmpleadoController::class, 'asignar'])->name('asignacion.asignar');
     Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
+
+    Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
+
+    // Ruta para la gráfica de usuarios
+    Route::get('/usuarios-grafica', 'GraficaController@usuariosGrafica');
+
+    // Ruta para la gráfica de empleados
+    Route::get('/empleados-grafica', 'GraficaController@empleadosGrafica');
+
+    // Ruta para la gráfica de equipos
+    Route::get('/equipos-grafica', 'GraficaController@equiposGrafica');
+
 });
 
 Route::get('/', function () {

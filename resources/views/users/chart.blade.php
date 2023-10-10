@@ -1,0 +1,78 @@
+<x-app-layout>
+    <div class="container-xxl navbar-expand-xl align-items-center">
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+            </a>
+        </div>
+      </div>
+    <div class="content-wrapper">
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
+                <a href="{{ route('users.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Regresar">
+                    <span>
+                        <i class='bx bx-arrow-back'></i>
+                    </span>
+                </a>
+                 .. / Usuarios /</span> Grafica </h4>
+    
+            <!-- Basic Bootstrap Table -->
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-header">Graficas de Registros</h5>
+                </div>
+                <div class="content-wrapper">
+                  <div class="table-responsive text-nowrap">
+                    <div class="card-datatable table-responsive pt-0">
+                        <div class="table-responsive text-nowrap">
+                            <div class="card-body">
+                                <div class="container" width="200" height="200">
+                                    <canvas id="graficaPastel" ></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>            
+                  </div>
+                </div>
+            </div>
+            <!--/ Basic Bootstrap Table -->    
+        </div>
+        <!-- / Content -->
+    </div>
+    
+    <script src="{{ asset('js/chart.min.js') }}"></script>
+    <script>
+        var data = <?php echo json_encode($data); ?>;
+        var ctx = document.getElementById('graficaPastel').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: data.map(item => item.value),
+
+                    backgroundColor: ['#219ebc', '#ffb703', '#fb8500'], // Colores para las partes del pastel
+                }],
+                labels: data.map(item => item.label),
+            },
+            options: {
+                // Opciones de configuración de la gráfica
+                responsive: true, // Hacer que la gráfica sea responsive
+                maintainAspectRatio: false, // Desactivar el aspect ratio para ajustar el tamaño
+                // Otras opciones de configuración
+            }
+        });
+        var graficaUsuarios = new Chart(ctxUsuarios, {
+            // Configuración de la gráfica de usuarios
+        });
+
+        var graficaEmpleados = new Chart(ctxEmpleados, {
+            // Configuración de la gráfica de empleados
+        });
+
+        var graficaEquipos = new Chart(ctxEquipos, {
+            // Configuración de la gráfica de equipos
+        });
+
+    </script>
+</x-app-layout>
