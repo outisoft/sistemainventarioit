@@ -17,10 +17,12 @@
                       <div class="card-body">
                             <p><strong>Tipo de equipo:</strong> {{ $registro->tipo }}</p>
                             <a href="{{ route('equipo.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
+                            @can('equipos.edit')
                             <a href="{{ route('equipo.edit', $registro->id) }}" class="btn btn-primary">
                                 <i class="bx bx-edit me-1"></i>
                                 Editar
                             </a>
+                            @endcan                            
                       </div>
                   </div>            
                 </div>

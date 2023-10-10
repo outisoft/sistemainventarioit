@@ -9,6 +9,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipoController;
 
 Route::middleware('auth')->group(function () {
+    
+    Route::get('/home', function () {return view('home');})->name('home');
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
     Route::resource('inventario', InventarioController::class);// Rutas Inventario
     Route::resource('empleados', EmpleadoController::class);// Rutas Empleados
     Route::resource('equipo', EquipoController::class);// Rutas Equipos
@@ -17,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial');// Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index');//muestra view historial
     Route::get('/export', [InventarioController::class, 'export'])->name('export');//expotador de reporte en excel
+    Route::post('/import', [InventarioController::class, 'import'])->name('import');//importador de reporte en excel
 
     Route::post('/asignar-rol/{usuarioId}/{rol}', [EmpleadoController::class, 'asignarRol'])->name('asignar.rol');
 
@@ -34,14 +42,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return view('home');
-})->middleware(['auth', 'verified'])->name('home');
+//Route::get('/home', function () {return view('home');})->middleware(['auth', 'verified'])->name('home');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__.'/auth.php';

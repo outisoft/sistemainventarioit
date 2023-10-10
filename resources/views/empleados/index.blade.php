@@ -34,9 +34,11 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <div class="nav-item w-px-40 h-auto">
-                                <a href="{{ route('empleados.create') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Registro">
-                                    <i class='bx bx-add-to-queue icon-lg'></i>
-                                </a>
+                                @can('empleados.create')
+                                    <a href="{{ route('empleados.create') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Registro">
+                                        <i class='bx bx-add-to-queue icon-lg'></i>
+                                    </a>
+                                @endcan                                
                             </div>
                         </div>
                     </div>
@@ -77,13 +79,21 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <!-- Aquí se agregarán las opciones -->
-                                                        <a class="dropdown-item" href="{{ route('empleados.show', $empleado->id) }}"><i class="bx bx-show-alt me-1"></i>Ver</a>
-                                                        <a class="dropdown-item" href="{{ route('empleados.edit', $empleado->id) }}"><i class="bx bx-edit me-1"></i>Editar</a>
-                                                        <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i class="bx bx-trash me-1"></i>Eliminar</button>
-                                                        </form>
+                                                        @can('empleados.show')
+                                                        <a class="dropdown-item" href="{{ route('empleados.show', $empleado->id) }}"><i class="bx bx-show-alt me-1"></i>Ver</a>    
+                                                        @endcan
+                                                        
+                                                        @can('empleados.edit')
+                                                        <a class="dropdown-item" href="{{ route('empleados.edit', $empleado->id) }}"><i class="bx bx-edit me-1"></i>Editar</a>    
+                                                        @endcan
+
+                                                        @can('empleados.destroy')
+                                                            <form action="{{ route('empleados.destroy', $empleado->id) }}" method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i class="bx bx-trash me-1"></i>Eliminar</button>
+                                                            </form>
+                                                        @endcan
                                                     </div>
                                                 </div>
                                             </td>
@@ -98,9 +108,6 @@
                 </div>
             </div>
             <!--/ Basic Bootstrap Table -->
-    
-            <hr class="my-5" />
-    
         </div>
         <!-- / Content -->
     </div>

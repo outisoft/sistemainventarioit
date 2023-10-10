@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Inventario;
 use App\Models\Historial;
 use App\Exports\InventarioExport;
+use App\Imports\InventarioImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
@@ -123,10 +124,24 @@ class InventarioController extends Controller
         return view('inventario.historial', compact('registro', 'historial'));
     }
 
+    public function import(Request $request) 
+    {
+        $importacion = $request->validate([
+ 
+            'file' => 'required',
+  
+         ]);
+        Excel::import(new InventarioImport, $request->file('file')->store('temp'));
+        return back()->with('status', 'The file has been excel/csv imported to database in Laravel 10');
+        //return redirect('excel-csv-file')->with('status', 'The file has been excel/csv imported to database in Laravel 10');
+    }
     // Método para exportar a Excel
     public function export()
     {
         //$fileName = 'inventario.xlsx';
-        return Excel::download(new InventarioExport(), 'inventario.xlsx');
+        //return Excel::download(new InventarioExport(), 'inventario.xlsx');
+        return Excel::download(new InventarioExport, 'inventario.xlsx');
+        /*Excel::import(new ImportEmployee, $request->file('file')->store('temp'));
+        return back();*/
     }
 }

@@ -85,13 +85,22 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <!-- Aquí se agregarán las opciones -->
+                                            @can('equipos.show')
                                             <a class="dropdown-item" href="{{ route('equipo.show', $equipo->id) }}"><i class="bx bx-show-alt me-1"></i>Ver</a>
+                                            @endcan
+                                            
+                                            @can('equipos.edit')
                                             <a class="dropdown-item" href="{{ route('equipo.edit', $equipo->id) }}"><i class="bx bx-edit me-1"></i>Editar</a>
+                                            @endcan
+                                            
+                                            @can('equipos.destroy')
                                             <form action="{{ route('equipo.destroy', $equipo->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="dropdown-item btn-danger" onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i class="bx bx-trash me-1"></i>Eliminar</button>
                                             </form>
+                                            @endcan
+                                            
                                         </div>
                                     </div>
                                 </td>
@@ -104,9 +113,6 @@
             </div>
           </div>
           <!--/ Basic Bootstrap Table -->
-
-          <hr class="my-5" />
-
         </div>
         <!-- / Content -->
       </div>

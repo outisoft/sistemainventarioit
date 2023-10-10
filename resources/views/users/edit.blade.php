@@ -45,8 +45,9 @@
                                         <label for="rol">Rol Actual</label>
                                         <input type="text" value="{{ $users->getRoleNames()->implode(', ') }}" class="form-control" disabled>
                                     </div-->
+                                    <br>
                                     <div class="form-group">
-                                        <label for="rol">Selecciona un rol:</label>
+                                        <!--label for="rol">Selecciona un rol:</label-->
                                         @if ($tieneRoles)
                                             <!-- Campo de selección para el rol si el usuario ya tiene roles asignados -->
                                             <div class="form-group">
@@ -82,8 +83,8 @@
     
         </div>
         <!-- / Content -->
-      </div>
-      <script>
+    </div>
+    <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Agregar un evento al cambio de rol para mostrarlo en el select
             const rolSelect = document.getElementById('rol');

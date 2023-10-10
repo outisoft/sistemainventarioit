@@ -161,9 +161,6 @@
                 </div>
             </div>
             <!--/ Basic Bootstrap Table -->
-    
-            <hr class="my-5" />
-    
         </div>
         <!-- / Content -->
     </div>

@@ -21,7 +21,6 @@ class Empleado extends Model
         return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'empleado_id', 'equipo_id');
     }
 
-
     public function empleados_equipos()
     {
         return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'empleado_id', 'equipo_id');

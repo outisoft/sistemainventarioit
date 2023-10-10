@@ -41,11 +41,13 @@
               <div data-i18n="Without menu">Listado</div>
             </a>
           </li>
+          @can('inventario.create')
           <li class="menu-item">
             <a href="{{ route('inventario.create') }}" class="menu-link">
               <div data-i18n="Without navbar">Nuevo</div>
             </a>
           </li>
+          @endcan
         </ul>
       </li>
 
@@ -62,11 +64,13 @@
               <div data-i18n="Without menu">Listado</div>
             </a>
           </li>
+          @can('equipos.create')
           <li class="menu-item">
             <a href="{{ route('equipo.create') }}" class="menu-link">
               <div data-i18n="Without navbar">Nuevo</div>
             </a>
-          </li>
+          </li>              
+          @endcan
         </ul>
       </li>
 
@@ -91,16 +95,21 @@
               <div data-i18n="Without menu">Listado</div>
             </a>
           </li>
+          @can('empleados.create')
           <li class="menu-item">
             <a href="{{ route('empleados.create') }}" class="menu-link">
               <div data-i18n="Without navbar">Nuevo</div>
             </a>
-          </li>
+          </li>              
+          @endcan
+
+          @can('asignacion')
           <li class="menu-item">
             <a href="{{ url('asignacion') }}" class="menu-link">
               <div data-i18n="Without navbar">Asignar Equipo</div>
             </a>
-          </li>
+          </li>              
+          @endcan
         </ul>
       </li>
 
@@ -142,7 +151,7 @@
           </div>
           <div class="flex-grow-1">
               <div data-i18n="Account Settings">{{ Auth::user()->name }}</div>
-              <small class="text-muted">Admin</small>
+              <small data-i18n="Account Settings">Admin</small>
           </div>
         </a>
         <ul class="menu-sub">
