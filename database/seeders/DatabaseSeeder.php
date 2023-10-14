@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             HotelesSeeder::class,
             RolesSeeder::class,
             RoleUserSeeder::class,
+            DepartamentoSeeder::class,
         ]);
 
         User::factory()->count(8)->create();

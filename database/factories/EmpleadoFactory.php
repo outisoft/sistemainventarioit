@@ -18,8 +18,8 @@ class EmpleadoFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'puesto' => $this->faker->jobTitle,
-            'departamento' => $this->faker->word,
-            'hotel_id' => rand(1,4),
+            'departamento_id' => rand(1,66),
+            'hotel_id' => rand(1,9),
             'ad' => $this->faker->userName,
         ];
     }

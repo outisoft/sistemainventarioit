@@ -31,7 +31,7 @@
                                         </span-->
                                         <select id="empleado_id" name="empleado_id" class="form-control" aria-label="Default select example">
                                             @foreach ($empleados as $empleado)
-                                                <option value="{{ $empleado->id }}">{{ $empleado->name }} - {{ $empleado->departamento }} - {{ $empleado->puesto }}</option>
+                                                <option value="{{ $empleado->id }}">{{ $empleado->name }} - {{ $empleado->hotel->nombre }} - {{ $empleado->departamento->name }} - {{ $empleado->puesto }}</option>
                                             @endforeach
                                         </select>
                                     </div>

@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">  </span> Home</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">  </span> Bienvenido - {{ now()->format('d/m/Y') }}</h4>
     <!-- Horizontal -->
     <!--h5 class="pb-1 mb-4">Horizontal</h5-->
     <div class="row mb-5">
@@ -85,6 +85,4 @@
     </div>
   <!--/ Horizontal -->
   </div>
-  
-
 </x-app-layout>

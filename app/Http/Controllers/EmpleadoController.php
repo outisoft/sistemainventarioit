@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Departamento;
 use App\Models\Empleado;
 use App\Models\Equipo;
 use App\Models\Historial;
@@ -10,31 +12,31 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Spatie\Permission\Models\Role;
 use App\Models\User; // Asegúrate de importar tu modelo de usuario si es necesario
-
+use Illuminate\Support\Facades\DB;
 
 class EmpleadoController extends Controller
 {
     public function index()
     {
-        $empleados = Empleado::with('hotel')->get();
+        $empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
         return view('empleados.index', compact('empleados'));
     }
 
     public function create()
     {
         $hoteles = Hotel::all();
-        return view('empleados.create', compact('hoteles'));
+        $departamentos = Departamento::all();
+        return view('empleados.create', compact('hoteles', 'departamentos'));
     }
 
     public function store(Request $request)
     {
-
         $data = $request->validate([
             'no_empleado' => 'required',
             'name' => 'required',
             'email' => 'required|email',
             'puesto' => 'required',
-            'departamento' => 'required',
+            'departamento_id' => 'required',
             'hotel_id' => 'required|exists:hotels,id',
             'ad' => 'required',
         ]);
@@ -44,7 +46,7 @@ class EmpleadoController extends Controller
 
         Historial::create([
             'accion' => 'creacion',
-            'descripcion' => "Se creó el registro {$registro->nombre}",
+            'descripcion' => "Se creó el registro {$registro->name}",
             'registro_id' => $registro->id,
         ]);
 
@@ -65,10 +67,11 @@ class EmpleadoController extends Controller
     // Método para mostrar el formulario de edición
     public function edit($id)
     {
-        $registro = Empleado::findOrFail($id);
+        //$empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
+        $empleados = Empleado::findOrFail($id);
         $hoteles = Hotel::all(); // Obtén la lista de hoteles
-        $hotelSeleccionado = Hotel::find($registro->hotel_id); // Obtén el hotel asociado al empleado
-        return view('empleados.edit', compact('registro','hoteles', 'hotelSeleccionado'));
+        $departamentos = Departamento::all();
+        return view('empleados.edit', compact('empleados', 'hoteles', 'departamentos'));
     }
 
     // Método para actualizar un registro
@@ -80,7 +83,7 @@ class EmpleadoController extends Controller
             'name' => 'required',
             'email' => 'required|email',
             'puesto' => 'required',
-            'departamento' => 'required',
+            'departamento_id' => 'required|exists:departamentos,id',
             'hotel_id' => 'required|exists:hotels,id',
             'ad' => 'required',
         ]);
@@ -133,8 +136,8 @@ class EmpleadoController extends Controller
 
     public function agregar()
     {
-        $empleados = Empleado::all();
-        $equipos = Equipo::all();
+        $empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
+        $equipos = DB::table('equipos')->orderBy('tipo', 'asc')->get();
         $empleadosConEquipos = Empleado::whereHas('empleados_equipos')->get();
         $equiposSinAsignar = Equipo::whereDoesntHave('empleados')->get();
 
@@ -161,45 +164,6 @@ class EmpleadoController extends Controller
 
         return redirect()->route('asignacion.index');
     }
-
-    
-    /*public function asignar()
-    {
-        $empleados = Empleado::all();
-        $equipos = Equipo::all();
-
-        $vincular = Empleado::whereNull('equipo_id')->get();
-        $desvincular = Empleado::whereNotNull('equipo_id')->get();
-        return view('empleados.asignacion', compact('vincular', 'equipos', 'desvincular'));
-    }*/
-
-    /*public function asignarEquipo(Request $request)
-    {
-        //dd($request);
-        // Validar y procesar la asignación de equipo aquí.
-        $empleadoId = $request->input('empleado_id');
-        $equipoId = $request->input('equipo_id');
-
-        // Realizar la asignación
-        $empleado = Empleado::find($empleadoId);
-        $empleado->equipo_id = $equipoId;
-        $empleado->save();
-
-        return redirect()->back()->with('success', 'Equipo asignado exitosamente');
-    }
-
-    public function desvincularEquipo(Request $request)
-    {
-        // Validar y procesar la desvinculación de equipo aquí.
-        $empleadoId = $request->input('empleado_id_desvincular');
-
-        // Realizar la desvinculación
-        $empleado = Empleado::find($empleadoId);
-        $empleado->equipo_id = null; // Asignar null para desvincular el equipo
-        $empleado->save();
-
-        return redirect()->back()->with('success', 'Equipo desvinculado exitosamente');
-    }*/
 
     public function asignarRol($usuarioId, $rol)
     {

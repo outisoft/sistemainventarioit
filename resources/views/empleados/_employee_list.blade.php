@@ -9,7 +9,7 @@
                 <th>Nombre</th>
                 <th>Puesto</th>
                 <th>Hotel</th>
-                <!--th>Equipo</th-->
+                <th>Departamento</th>
                 <th>Ad</th>
                 <th>Acciones</th>
             </tr>
@@ -22,6 +22,7 @@
                     <td>{{ $empleado->name }}</td>
                     <td>{{ $empleado->puesto }}</td>
                     <td>{{ $empleado->hotel->nombre }}</td>
+                    <td>{{ $empleado->departamento->name }}</td>
                     <!--td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td-->
                     <td>{{ $empleado->ad }}</td>
                     <td>

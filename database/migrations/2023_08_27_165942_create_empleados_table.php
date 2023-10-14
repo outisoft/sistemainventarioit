@@ -17,13 +17,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('puesto');
-            $table->string('departamento');
-            $table->unsignedBigInteger('hotel_id');
+            $table->foreignId('departamento_id')->references('id')->on('departamentos')->cascadeOnDelete();
+            $table->foreignId('hotel_id')->references('id')->on('hotels')->cascadeOnDelete();
             $table->string('ad')->unique();
             //$table->unsignedBigInteger('equipo_id')->nullable();
 
             // Configura la clave foránea
-            $table->foreign('hotel_id')->references('id')->on('hotels');
+            //$table->foreign('hotel_id')->references('id')->on('hotels');
             //$table->foreign('equipo_id')->references('id')->on('equipos');
             $table->timestamps();
         });

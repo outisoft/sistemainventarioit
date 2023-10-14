@@ -19,45 +19,48 @@
                 </div>
                 <div class="table-responsive text-nowrap">
                     <div class="card-body">
-                        <form action="{{ route('empleados.update', $registro->id) }}" method="POST" id="miFormulario">
+                        <form action="{{ route('empleados.update', $empleados->id) }}" method="POST" id="miFormulario">
                             @csrf
                             @method('PUT')
     
                             <div class="form-group">
                                 <label for="no_empleado">No. Colaborador</label>
-                                <x-text-input type="text" name="no_empleado" class="form-control" value="{{ $registro->no_empleado }}" readonly />
+                                <x-text-input type="text" name="no_empleado" class="form-control" value="{{ $empleados->no_empleado }}" />
                             </div>
                             <div class="form-group">
                                 <label for="name">Nombre</label>
-                                <x-text-input type="text" name="name" class="form-control" value="{{ $registro->name }}" required />
+                                <x-text-input type="text" name="name" class="form-control" value="{{ $empleados->name }}" required />
                             </div>
                             <div class="form-group">
                                 <label for="email">Correo</label>
-                                <x-text-input type="email" name="email" class="form-control" value="{{ $registro->email }}" required />
+                                <x-text-input type="email" name="email" class="form-control" value="{{ $empleados->email }}" required />
                             </div>
                             <div class="form-group">
                                 <label for="puesto">Puesto</label>
-                                <x-text-input type="text" name="puesto" class="form-control" value="{{ $registro->puesto }}" required />
+                                <x-text-input type="text" name="puesto" class="form-control" value="{{ $empleados->puesto }}" required />
                             </div>
+                            
                             <div class="form-group">
-                                <label for="departamento">Departamento</label>
-                                <x-text-input type="text" name="departamento" class="form-control" value="{{ $registro->departamento }}" required />
+                                <label for="departamento_id">Departamento:</label>
+                                <select class="form-control" id="departamento_id" name="departamento_id" aria-label="Default select example">
+                                    @foreach ($departamentos as $departamento)
+                                    <option value="{{ $departamento->id }}" {{ $empleados->departamento_id == $departamento->id ? 'selected' : '' }}>{{ $departamento->name }}</option>
+                                @endforeach
+                                </select>
                             </div>
-    
+
                             <div class="form-group">
-                                <label for="hotel_id">Selecciona un hotel:</label>
+                                <label for="hotel_id">Hoteles:</label>
                                 <select class="form-control" id="hotel_id" name="hotel_id" aria-label="Default select example">
                                     @foreach ($hoteles as $hotel)
-                                        <option value="{{ $hotel->id }}" {{ $hotel->id == $hotelSeleccionado->id ? 'selected' : '' }}>
-                                            {{ $hotel->nombre }}
-                                        </option>
-                                    @endforeach
+                                    <option value="{{ $hotel->id }}" {{ $empleados->hotel_id == $hotel->id ? 'selected' : '' }}>{{ $hotel->nombre }}</option>
+                                @endforeach
                                 </select>
                             </div>
     
                             <div class="form-group">
                                 <label for="ad">AD</label>
-                                <x-text-input type="text" name="ad" class="form-control" value="{{ $registro->ad }}" required />
+                                <x-text-input type="text" name="ad" class="form-control" value="{{ $empleados->ad }}" required />
                             </div>
 
                             <br>

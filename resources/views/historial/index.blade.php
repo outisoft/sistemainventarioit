@@ -37,7 +37,7 @@
                                     <td></td>
                                     <td>{{ $registro->accion }}</td>
                                     <td>{{ $registro->descripcion }}</td>
-                                    <td>{{ $registro->created_at }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($registro->created_at)->format('d/m/Y') }}</td>
                                 </tr>
                                 @endforeach
                             </tbody>

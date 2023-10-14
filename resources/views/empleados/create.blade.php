@@ -70,16 +70,19 @@
                                     </div>
                                 </div>
     
-                                <!-- Departamento -->
+                                <!-- departamento -->
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-icon-default-fullname">Departamento</label>
+                                    <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text">
                                             <i class='bx bx-building' ></i>
                                         </span>
-                                        <x-text-input type="text" class="form-control" id="departamento"  name="departamento" placeholder="Alimentos & bebidas" aria-label="Alimentos & bebidas" aria-describedby="basic-icon-default-fullname2" required autofocus autocomplete="departamento" />
-                                        <x-input-error :messages="$errors->get('departamento')" class="mt-2" />
-                                    </div>
+                                        <select name="departamento_id" class="form-control" id="departamento_id" aria-label="Default select example">
+                                            @foreach ($departamentos as $departamento)
+                                                <option value="{{ $departamento->id }}">{{ $departamento->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>                                
                                 </div>
     
                                 <!-- Hotel -->
