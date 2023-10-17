@@ -39,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
 
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
+    Route::get('/grafica-tablas', [ChartController::class, 'index'])->name('charts.index');
 
     // Ruta para la gráfica de usuarios
     Route::get('/usuarios-grafica', 'GraficaController@usuariosGrafica');
