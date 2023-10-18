@@ -113,6 +113,14 @@
         </ul>
       </li>
 
+      <!-- Graficas -->
+      <li class="menu-item {{ Request::routeIs('charts.index') ? 'active' : '' }}">
+        <a href="{{ route('charts.index') }}" class="menu-link">
+          <i class='menu-icon tf-icons bx bxs-bar-chart-alt-2'></i>
+          <div data-i18n="Analytics">Graficas</div>
+        </a>
+      </li>
+
       @can('users.index')
           <!-- Administrador -->
       <li class="menu-header small text-uppercase">

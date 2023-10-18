@@ -43,23 +43,29 @@
                         <div class="table-responsive text-nowrap">
                             <div class="card-body">
                                 <div class="container" width="200" height="200">
-                                    <form method="GET" action="{{ route('charts.index') }}">
-                                        <label for="tipo_seleccionado">Selecciona el tipo:</label>
-                                        <select name="tipo_seleccionado" id="tipo_seleccionado">
-                                            <option value="hotel" {{ $tipoSeleccionado === 'hotel' ? 'selected' : '' }}>Hotel</option>
-                                            <option value="departamento" {{ $tipoSeleccionado === 'departamento' ? 'selected' : '' }}>Departamento</option>
-                                        </select>
-                                        <button type="submit">Actualizar</button>
-                                    </form>
-                                    
-                                    <canvas id="graficaEmpleados"></canvas>
-                                    
+                                    <h1>Gráfica de Empleados por Hotel</h1>
+                                    <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>                                
                                 </div>                                
                             </div>
                         </div>
                     </div>            
                   </div>
                 </div>
+
+                <div class="content-wrapper">
+                    <div class="table-responsive text-nowrap">
+                      <div class="card-datatable table-responsive pt-0">
+                          <div class="table-responsive text-nowrap">
+                              <div class="card-body">
+                                  <div class="container" width="200" height="200">
+                                    <h1>Gráfica de Empleados por Departamento</h1>
+                                    <canvas id="graficaEmpleadosPorDepartamento" width="400" height="200"></canvas>
+                                  </div>                                
+                              </div>
+                          </div>
+                      </div>            
+                    </div>
+                  </div>
             </div>
             <!--/ Basic Bootstrap Table -->
         </div>
@@ -68,29 +74,79 @@
     <!-- Vendors JS -->
     <script src="{{ asset('js/chart.min.js') }}"></script>
     <script>
-        var ctx = document.getElementById('graficaEmpleados').getContext('2d');
+        var empleadosPorHotel = @json($empleadosPorHotel);
     
-        var data = {
-            labels: ['Tipo 1', 'Tipo 2', 'Tipo 3'],
-            datasets: [
-                {
-                    label: 'Cantidad de Empleados',
-                    data: [{{ $empleadosTipo1 }}, {{ $empleadosTipo2 }}, {{ $empleadosTipo3 }}],
-                    backgroundColor: ['blue', 'green', 'orange']
-                }
-            ]
-        };
+        var labels = empleadosPorHotel.map(function(data) {
+            return data.hotel;
+        });
     
-        var opciones = {
-            responsive: true,
-            maintainAspectRatio: false
-        };
+        var data = empleadosPorHotel.map(function(data) {
+            return data.cantidad_empleados;
+        });
     
-        var graficaEmpleados = new Chart(ctx, {
+        // Define un array de colores personalizados para las barras
+        var customColors = ['#a9d6e5', '#89c2d9', '#61a5c2', '#468faf', '#2C7DA0', '#2A6F97', '#014F86', '#01497C', '#013A63'];
+    
+        var ctx = document.getElementById('graficaEmpleadosPorHotel').getContext('2d');
+        var myChart = new Chart(ctx, {
             type: 'bar',
-            data: data,
-            options: opciones
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Empleados',
+                    data: data,
+                    backgroundColor: customColors, // Asigna los colores personalizados
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
         });
     </script>
+
+    <script>
+        var empleadosPorDepartamento = @json($empleadosPorDepartamento);
+
+        var labels = empleadosPorDepartamento.map(function(data) {
+            return data.departamento;
+        });
+
+        var data = empleadosPorDepartamento.map(function(data) {
+            return data.cantidad_empleados;
+        });
+
+        // Define un array de colores personalizados para las barras
+        var customColors = ['#e3f2fd', '#bbdefb', '#90caf9', '#64b5f6', '#42a5f5', '#2196F3', '#1E88E5', '#1976D2', '#1565C0', '#0D47A1'];
+
+        var ctx = document.getElementById('graficaEmpleadosPorDepartamento').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cantidad de Empleados',
+                    data: data,
+                    backgroundColor: customColors,
+                    borderColor: customColors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    
+    
+    
       
 </x-app-layout>

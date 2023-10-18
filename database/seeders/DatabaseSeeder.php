@@ -24,10 +24,11 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             RoleUserSeeder::class,
             DepartamentoSeeder::class,
+            TipoSeeder::class,
         ]);
 
         User::factory()->count(8)->create();
-        Empleado::factory()->count(30)->create(); // Crea empleados (ajusta el número según tus necesidades)
+        Empleado::factory()->count(150)->create(); // Crea empleados (ajusta el número según tus necesidades)
         //Inventario::factory()->count(30)->create();
         Equipo::factory()->count(10)->create();
 

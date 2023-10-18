@@ -65,7 +65,7 @@
                             @foreach ($equipos as $equipo)
                             <tr>
                                 <td></td>
-                                <td>{{ $equipo->tipo}}</td>
+                                <td>{{ $equipo->tipo->name}}</td>
                                 <td>{{ $equipo->no_equipo}}</td>
                                 <td>
                                     @if ($equipo->estado === 'Libre')

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo'); // Ejemplo: pc, laptop, tablet, mouse
+            $table->foreignId('tipo_id')->references('id')->on('tipos')->cascadeOnDelete();
             //equipo
             $table->string('no_equipo')->nullable();
             //$table->string('estado')->nullable();

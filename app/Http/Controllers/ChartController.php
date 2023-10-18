@@ -6,17 +6,40 @@ use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Equipo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ChartController extends Controller
 {
     // En tu controlador
+    // En tu controlador
     public function index()
     {
-        $numEmpleados = Empleado::count();
-        $numUsuarios = User::count();
-        $numEquipos = Equipo::count();
+        $empleadosPorHotel = DB::table('empleados')
+            ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
+            ->select('hotels.nombre as hotel', DB::raw('count(*) as cantidad_empleados'))
+            ->groupBy('hotels.nombre')
+            ->get();
 
-        return view('charts.index', compact('numEmpleados', 'numUsuarios', 'numEquipos'));
+        $empleadosPorDepartamento = DB::table('empleados')
+            ->join('departamentos', 'empleados.departamento_id', '=', 'departamentos.id')
+            ->select('departamentos.name as departamento', DB::raw('count(*) as cantidad_empleados'))
+            ->groupBy('departamentos.name')
+            ->get();
+
+        return view('charts.index', compact('empleadosPorHotel', 'empleadosPorDepartamento'));
+    }
+
+    public function show(Request $request)
+    {
+        $tipoSeleccionado = $request->input('tipo_seleccionado', 'hotel'); // Por defecto, muestra datos del hotel.
+
+        if ($tipoSeleccionado === 'hotel') {
+            $empleados = Empleado::where('tipo', 'hotel')->get();
+        } else {
+            $empleados = Empleado::where('tipo', 'departamento')->get();
+        }
+
+        return view('charts.show', compact('empleados', 'tipoSeleccionado'));
     }
 
     public function empleados(Request $request)

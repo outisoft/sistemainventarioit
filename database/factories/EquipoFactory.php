@@ -18,7 +18,7 @@ class EquipoFactory extends Factory
     public function definition(): array
     {
         return [
-            'tipo' => $this->faker->randomElement(['pc', 'laptop', 'tablet', 'mouse', 'teclado']),
+            'tipo_id' => rand(1,12),
             'no_equipo' => $this->faker->unique()->numberBetween(1, 100),
             'marca' => $this->faker->word,
             'modelo' => $this->faker->word,

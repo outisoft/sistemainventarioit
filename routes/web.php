@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('empleados', EmpleadoController::class);// Rutas Empleados
     Route::resource('equipo', EquipoController::class);// Rutas Equipos
     Route::resource('users', UserController::class);// Rutas Usuario
+    Route::resource('charts', ChartController::class);// Rutas Graficas
 
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial');// Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index');//muestra view historial
@@ -39,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
 
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
-    Route::get('/grafica-tablas', [ChartController::class, 'index'])->name('charts.index');
+    //Route::get('/grafica-tablas', [ChartController::class, 'index'])->name('charts.index');
 
     // Ruta para la gráfica de usuarios
     Route::get('/usuarios-grafica', 'GraficaController@usuariosGrafica');
