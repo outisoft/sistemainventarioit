@@ -26,7 +26,13 @@ class ChartController extends Controller
             ->groupBy('departamentos.name')
             ->get();
 
-        return view('charts.index', compact('empleadosPorHotel', 'empleadosPorDepartamento'));
+        $equiposPorTipo = DB::table('equipos')
+            ->join('tipos', 'equipos.tipo_id', '=', 'tipos.id')
+            ->select('tipos.name as tipo', DB::raw('count(*) as cantidad_equipos'))
+            ->groupBy('tipos.name')
+            ->get();
+
+        return view('charts.index', compact('empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
     }
 
     public function show(Request $request)

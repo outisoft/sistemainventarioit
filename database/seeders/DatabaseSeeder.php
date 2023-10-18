@@ -30,28 +30,6 @@ class DatabaseSeeder extends Seeder
         User::factory()->count(8)->create();
         Empleado::factory()->count(150)->create(); // Crea empleados (ajusta el número según tus necesidades)
         //Inventario::factory()->count(30)->create();
-        Equipo::factory()->count(10)->create();
-
-        /*Role::create(['name' => 'básico']);
-        Role::create(['name' => 'pro']);
-        Role::create(['name' => 'administrador']);
-
-        Permission::create(['name' => 'ver contenido']);
-        Permission::create(['name' => 'editar contenido']);
-        Permission::create(['name' => 'eliminar contenido']);*/
-
-        /*$this->call([
-            HotelesSeeder::class,
-        ]);*/
-         //\App\Models\Inventario::factory(5)->create();php
-
-         
-
-         //Empleado::factory()->count(20)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        Equipo::factory()->count(100)->create();
     }
 }

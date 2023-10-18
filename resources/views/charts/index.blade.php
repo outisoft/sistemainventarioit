@@ -38,32 +38,61 @@
                 </div>
                 
                 <div class="content-wrapper">
-                  <div class="table-responsive text-nowrap">
-                    <div class="card-datatable table-responsive pt-0">
-                        <div class="table-responsive text-nowrap">
-                            <div class="card-body">
-                                <div class="container" width="200" height="200">
-                                    <h1>Gráfica de Empleados por Hotel</h1>
-                                    <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>                                
-                                </div>                                
+                    <div class="table-responsive text-nowrap">
+                        <div class="card-datatable table-responsive pt-0">
+                            <div class="table-responsive text-nowrap">
+                                <div class="card-body">
+                                    <div class="container" width="200" height="200">
+                                        <h1>Gráfica de Empleados por Hotel</h1>
+                                        <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>                                
+                                    </div>                                
+                                </div>
                             </div>
-                        </div>
-                    </div>            
-                  </div>
+                        </div>            
+                    </div>
                 </div>
 
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
-                      <div class="card-datatable table-responsive pt-0">
-                          <div class="table-responsive text-nowrap">
-                              <div class="card-body">
-                                  <div class="container" width="200" height="200">
-                                    <h1>Gráfica de Empleados por Departamento</h1>
-                                    <canvas id="graficaEmpleadosPorDepartamento" width="400" height="200"></canvas>
-                                  </div>                                
-                              </div>
-                          </div>
-                      </div>            
+                        <div class="card-datatable table-responsive pt-0">
+                            <div class="table-responsive text-nowrap">
+                                <div class="card-body">
+                                    <div class="container" width="200" height="200">
+                                        <h1>Gráfica de Empleados por Departamento</h1>
+                                        <canvas id="graficaEmpleadosPorDepartamento" width="400" height="200"></canvas>
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                  </div>
+
+                  <div class="content-wrapper">
+                    <div class="table-responsive text-nowrap">
+                        <div class="card-datatable table-responsive pt-0">
+                            <div class="table-responsive text-nowrap">
+                                <div class="card-body">
+                                    <div class="container" width="200" height="200">
+                                        <h1>Gráfica de Equipos por Tipo</h1>
+                                        <canvas id="graficaEquiposPorTipo" width="400" height="200"></canvas>                                
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                  </div>
+                  <div class="content-wrapper">
+                    <div class="table-responsive text-nowrap">
+                        <div class="card-datatable table-responsive pt-0">
+                            <div class="table-responsive text-nowrap">
+                                <div class="card-body">
+                                    <div class="container" width="200" height="200">
+                                        <h1>Gráfica de Equipos por Tipo</h1>
+                                        <canvas id="graficaEquiposPorTipo2" width="400" height="200"></canvas>                                
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>            
                     </div>
                   </div>
             </div>
@@ -73,6 +102,9 @@
     </div>
     <!-- Vendors JS -->
     <script src="{{ asset('js/chart.min.js') }}"></script>
+    
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+    <script src="{{ asset('assets/js/dashboards-analytics.js')}}"></script>
     <script>
         var empleadosPorHotel = @json($empleadosPorHotel);
     
@@ -121,7 +153,7 @@
         });
 
         // Define un array de colores personalizados para las barras
-        var customColors = ['#e3f2fd', '#bbdefb', '#90caf9', '#64b5f6', '#42a5f5', '#2196F3', '#1E88E5', '#1976D2', '#1565C0', '#0D47A1'];
+        var customColors = ['#a9d6e5', '#89c2d9', '#61a5c2', '#468faf', '#2C7DA0', '#2A6F97', '#014F86', '#01497C', '#013A63'];
 
         var ctx = document.getElementById('graficaEmpleadosPorDepartamento').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -145,8 +177,66 @@
             }
         });
     </script>
-    
-    
-    
-      
+
+    <script>
+        var equiposPorTipo = @json($equiposPorTipo);
+
+        var labels = equiposPorTipo.map(function(data) {
+            return data.tipo;
+        });
+
+        var data = equiposPorTipo.map(function(data) {
+            return data.cantidad_equipos;
+        });
+
+        var customColors = ['#a9d6e5', '#89c2d9', '#61a5c2', '#468faf', '#2C7DA0', '#2A6F97', '#014F86', '#01497C', '#013A63'];
+
+        var ctx = document.getElementById('graficaEquiposPorTipo').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Cantidad de Equipos',
+                    data: data,
+                    backgroundColor: customColors, // Asigna los colores personalizados
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+    <script>
+        var equiposPorTipo = @json($equiposPorTipo);
+
+        var labels = equiposPorTipo.map(function(data) {
+            return data.tipo;
+        });
+
+        var data = equiposPorTipo.map(function(data) {
+            return data.cantidad_equipos;
+        });
+
+        var customColors = ['#a9d6e5', '#89c2d9', '#61a5c2', '#468faf', '#2C7DA0', '#2A6F97', '#014F86', '#01497C', '#013A63'];
+
+        var ctx = document.getElementById('graficaEquiposPorTipo2').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie', // Tipo de gráfica de pastel
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: customColors, // Asigna los colores personalizados
+                    borderWidth: 6
+                }]
+            }
+        });
+    </script>
 </x-app-layout>
