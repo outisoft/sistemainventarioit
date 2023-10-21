@@ -87,8 +87,8 @@
                             <div class="table-responsive text-nowrap">
                                 <div class="card-body">
                                     <div class="container" width="200" height="200">
-                                        <h1>Gráfica de Equipos por Tipo</h1>
-                                        <canvas id="graficaEquiposPorTipo2" width="400" height="200"></canvas>                                
+                                        <h1>Gráfica de Hotel por Tipo CPU</h1>
+                                        <canvas id="graficaEmpleados" width="400" height="200"></canvas>                                
                                     </div>                                
                                 </div>
                             </div>
@@ -213,7 +213,7 @@
         });
     </script>
 
-    <script>
+    <!--script>
         var equiposPorTipo = @json($equiposPorTipo);
 
         var labels = equiposPorTipo.map(function(data) {
@@ -238,5 +238,29 @@
                 }]
             }
         });
+    </script-->
+
+    <script>
+        // Datos de ejemplo: Reemplaza estos datos con los resultados reales
+        const contadorEmpleadosCpu = 5; // Supongamos que tienes 5 empleados con tipo "cpu"
+    
+        // Configuración de la gráfica
+        const ctx = document.getElementById('graficaEmpleados').getContext('2d');
+        const data = {
+            labels: ['Tipo CPU'],
+            datasets: [{
+                label: 'Cantidad de empleados',
+                data: [contadorEmpleadosCpu],
+                backgroundColor: ['blue'], // Color de la barra
+            }],
+        };
+        const config = {
+            type: 'bar',
+            data: data,
+        };
+    
+        // Crea y muestra la gráfica
+        const myChart = new Chart(ctx, config);
     </script>
+
 </x-app-layout>

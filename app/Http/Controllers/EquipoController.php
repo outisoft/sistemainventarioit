@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Equipo;
 use App\Models\Historial;
 use App\Models\Empleado;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
@@ -33,7 +34,8 @@ class EquipoController extends Controller
      */
     public function create()
     {
-        return view('equipos.create');
+        $tipos = Tipo::all();
+        return view('equipos.create', compact('tipos'));
     }
 
     /**
@@ -42,14 +44,15 @@ class EquipoController extends Controller
     public function store(Request $request)
     {   
         
-        $tipo = $request->input('tipo');
+        //dd($request);
+        $tipo = $request->input('tipo_id');
 
         // Guarda los datos en la tabla correspondiente según el tipo de equipo
         switch ($tipo) {
-            case 'cpu':
+            case '3':
                 // Guarda en la tabla de CPUs
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'no_equipo' => 'required',
                     'equipo' => 'required',
                     'marca_equipo' => 'required',
@@ -77,7 +80,7 @@ class EquipoController extends Controller
 
                 break;
 
-            case 'monitor':
+            case '6':
                 // Guarda en la tabla de monitores
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -102,7 +105,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case 'teclado':
+            case '12':
                 // Guarda en la tabla de teclados
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -124,7 +127,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
             
-            case 'mouse':
+            case '7':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -146,7 +149,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
             
-            case 'cargador':
+            case '2':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -170,7 +173,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case 'no_breack':
+            case '8':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -194,7 +197,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
             
-            case 'impresora':
+            case '4':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -218,7 +221,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case 'lector':
+            case '5':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -242,7 +245,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case 'scanner':
+            case '10':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -266,7 +269,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case 'aplicacion':
+            case '1':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -287,7 +290,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case 'so':
+            case '11':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',
@@ -308,7 +311,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case 'office':
+            case '9':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo' => 'required',

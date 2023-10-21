@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Equipo;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -32,7 +33,42 @@ class ChartController extends Controller
             ->groupBy('tipos.name')
             ->get();
 
-        return view('charts.index', compact('empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
+        // Obtener el tipo "cpu" de la tabla "tipo"
+        $tipoCpu = Tipo::where('name', 'cpu')->first();
+        $empleados = Empleado::all();
+        if ($tipoCpu) {
+            // Ahora tienes el tipo "cpu" en la variable $tipoCpu
+            $nombreTipo = $tipoCpu->nombre;
+            // Puedes acceder a otros atributos del tipo según sea necesario
+        } else {
+            // El tipo "cpu" no se encontró en la tabla
+            $nombreTipo = "No se encontró";
+        }
+
+        if ($tipoCpu) {
+            // Ahora tienes el tipo "cpu" en la variable $tipoCpu
+
+            // Contador para contar empleados con el tipo "cpu"
+            $contadorEmpleadosCpu = 0;
+
+            // Itera sobre la colección de empleados
+            foreach ($empleados as $empleado) {
+
+                // Comprueba si el tipo del empleado coincide con el tipo "cpu"
+                if ($empleado->tipo_id === $tipoCpu->id) {
+                    // Incrementa el contador
+                    $contadorEmpleadosCpu++;
+                }
+                dd($contadorEmpleadosCpu);
+            }
+
+            // $contadorEmpleadosCpu ahora contiene la cantidad de empleados con el tipo "cpu" en $empleadosPorHotel
+        } else {
+            // El tipo "cpu" no se encontró en la tabla
+            $contadorEmpleadosCpu = 0;
+        }
+
+        return view('charts.index', compact('empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo', 'contadorEmpleadosCpu'));
     }
 
     public function show(Request $request)

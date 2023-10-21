@@ -137,7 +137,8 @@ class EmpleadoController extends Controller
     public function agregar()
     {
         $empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
-        $equipos = DB::table('equipos')->orderBy('tipo', 'asc')->get();
+        $equipos = Equipo::with('tipo')->get();
+        //$equipos = DB::table('equipos')->get();
         $empleadosConEquipos = Empleado::whereHas('empleados_equipos')->get();
         $equiposSinAsignar = Equipo::whereDoesntHave('empleados')->get();
 

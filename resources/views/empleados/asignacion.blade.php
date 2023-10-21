@@ -48,7 +48,7 @@
                                             </span-->
                                             <select name="equipo_id" class="form-control">
                                                 @foreach($equiposSinAsignar as $equipo)
-                                                    <option value="{{ $equipo->id }}">{{ $equipo->tipo }} - {{ $equipo->marca }} - {{ $equipo->modelo }}</option>
+                                                    <option value="{{ $equipo->id }}">{{ $equipo->tipo->name }} - {{ $equipo->marca }} - {{ $equipo->modelo }}</option>
                                                 @endforeach
                                             </select>
                                             
@@ -70,7 +70,7 @@
                                         <li>
                                             {{ $empleado->name }}:
                                             @foreach ($empleado->equipos as $equipo)
-                                                {{ $equipo->tipo }}
+                                                {{ $equipo->tipo->name }}
                                                 <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm">X</a>
                                             @endforeach
                                         </li>

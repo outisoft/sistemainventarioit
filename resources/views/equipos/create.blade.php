@@ -28,27 +28,27 @@
                             <div class="mb-3">
                                 <label for="tipo" class="form-label">Tipo de Equipo</label>
                                 <div class="input-group input-group-merge">
-                                    <select id="tipo" name="tipo" class="form-control"  aria-label="Default select example">
+                                    <select id="tipo_id" name="tipo_id" class="form-control"  aria-label="Default select example">
                                             <option value="">Seleccione una opcion</option>
-                                            <option value="cpu">CPU</option>
-                                            <option value="monitor">Monitor</option>
-                                            <option value="teclado">Teclado</option>
-                                            <option value="mouse">Mouse</option>
-                                            <option value="cargador">Cargador</option>
-                                            <option value="no_breack">No Breack</option>
-                                            <option value="impresora">Impresora</option>
-                                            <option value="lector">Lector</option>
-                                            <option value="scanner">Escanner de Pasaporte</option>
-                                            <option value="aplicacion">Aplicacion</option>
-                                            <option value="so">Sistema Operativo</option>
-                                            <option value="office">Office</option>
+                                            <option value="3">CPU</option>
+                                            <option value="6">Monitor</option>
+                                            <option value="12">Teclado</option>
+                                            <option value="7">Mouse</option>
+                                            <option value="2">Cargador</option>
+                                            <option value="8">No Breack</option>
+                                            <option value="4">Impresora</option>
+                                            <option value="5">Lector</option>
+                                            <option value="10">Escanner de Pasaporte</option>
+                                            <option value="1">Aplicacion</option>
+                                            <option value="11">Sistema Operativo</option>
+                                            <option value="9">Office</option>
                                             <!-- Agrega más opciones de tipo de equipo aquí -->
                                     </select>
                                 </div>
                             </div>
 
                             <!-- Sección para el tipo de equipo "CPU" -->
-                            <div class="cpu campos-equipo mb-3" style="display: none;">
+                            <div class="3 campos-equipo mb-3" style="display: none;">
                                 <div class="mb-3">
 
                                     <label class="form-label" for="no_equipo">Numero de equipo</label>
@@ -136,7 +136,7 @@
                             </div>
                         
                             <!-- Sección para el tipo de equipo "Monitor" -->
-                            <div class="monitor campos-equipo" style="display: none;">
+                            <div class="6 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="marca_monitor">Marca del Monitor</label>
                                     <input type="text" id="marca_monitor" name="marca_monitor" class="form-control">
@@ -157,7 +157,7 @@
                             </div>
                         
                             <!-- Sección para el tipo de equipo "Teclado" -->
-                            <div class="teclado campos-equipo" style="display: none;">
+                            <div class="12 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="marca_teclado">Marca del Teclado</label>
                                     <input type="text" id="marca_teclado" name="marca_teclado" class="form-control">
@@ -170,7 +170,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "Mouse" -->
-                            <div class="mouse campos-equipo" style="display: none;">
+                            <div class="7 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="marca_mouse">Marca del mouse</label>
                                     <input type="text" id="marca_mouse" name="marca_mouse" class="form-control">
@@ -183,7 +183,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "Cargador" -->
-                            <div class="cargador campos-equipo" style="display: none;">
+                            <div class="2 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="marca_cargador">Marca del cargador</label>
                                     <input type="text" id="marca_cargador" name="marca_cargador" class="form-control">
@@ -200,7 +200,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "No breack" -->
-                            <div class="no_breack campos-equipo" style="display: none;">
+                            <div class="8 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="marca_breack">Marca del No-Breack</label>
                                     <input type="text" id="marca_breack" name="marca_breack" class="form-control">
@@ -217,7 +217,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "Impresora" -->
-                            <div class="impresora campos-equipo" style="display: none;">
+                            <div class="4 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="marca_impresora">Marca de la impresora</label>
                                     <input type="text" id="marca_impresora" name="marca_impresora" class="form-control">
@@ -234,7 +234,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "Lector" -->
-                            <div class="lector campos-equipo" style="display: none;">
+                            <div class="5 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="marca_lector">Marca del lector</label>
                                     <input type="text" id="marca_lector" name="marca_lector" class="form-control">
@@ -251,7 +251,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "Scanner" -->
-                            <div class="scanner campos-equipo" style="display: none;">
+                            <div class="10 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="marca_escanner">Marca del escanner</label>
                                     <input type="text" id="marca_escanner" name="marca_escanner" class="form-control">
@@ -268,7 +268,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "Aplicacion" -->
-                            <div class="aplicacion campos-equipo" style="display: none;">
+                            <div class="1 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="nombre_app">Nombre de la aplicacion</label>
                                     <input type="text" id="nombre_app" name="nombre_app" class="form-control">
@@ -281,7 +281,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "SO" -->
-                            <div class="so campos-equipo" style="display: none;">
+                            <div class="11 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="so">Sistema operativo</label>
                                     <input type="text" id="so" name="so" class="form-control">
@@ -294,7 +294,7 @@
                             </div>
 
                             <!-- Sección para el tipo de equipo "Office" -->
-                            <div class="office campos-equipo" style="display: none;">
+                            <div class="9 campos-equipo" style="display: none;">
                                 <div class="form-group">
                                     <label for="office">Paqueteria Office</label>
                                     <input type="text" id="office" name="office" class="form-control">
@@ -326,7 +326,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#tipo').change(function() {
+            $('#tipo_id').change(function() {
                 var selectedTipo = $(this).val();
     
                 // Oculta todas las secciones de tipo de equipo
