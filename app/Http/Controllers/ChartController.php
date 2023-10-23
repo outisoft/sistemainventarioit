@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Empleado;
 use App\Models\Equipo;
 use App\Models\Tipo;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -33,42 +34,19 @@ class ChartController extends Controller
             ->groupBy('tipos.name')
             ->get();
 
-        // Obtener el tipo "cpu" de la tabla "tipo"
-        $tipoCpu = Tipo::where('name', 'cpu')->first();
-        $empleados = Empleado::all();
-        if ($tipoCpu) {
-            // Ahora tienes el tipo "cpu" en la variable $tipoCpu
-            $nombreTipo = $tipoCpu->nombre;
-            // Puedes acceder a otros atributos del tipo según sea necesario
-        } else {
-            // El tipo "cpu" no se encontró en la tabla
-            $nombreTipo = "No se encontró";
-        }
+        $equiposCpu = Equipo::whereHas('tipo', function ($query) {
+                $query->where('name', 'CPU');
+            })->get();
+        // Obtén todos los hoteles con sus empleados
+        $hoteles = Hotel::with('empleados')->get();
 
-        if ($tipoCpu) {
-            // Ahora tienes el tipo "cpu" en la variable $tipoCpu
+        $hotels = Hotel::with('equiposCpu')->get();
+        $labels = $hotels->pluck('nombre')->toArray();
+        $data = $hotels->map(function ($hotel) {
+            return $hotel->equiposCpu->count();
+        })->toArray();
 
-            // Contador para contar empleados con el tipo "cpu"
-            $contadorEmpleadosCpu = 0;
-
-            // Itera sobre la colección de empleados
-            foreach ($empleados as $empleado) {
-
-                // Comprueba si el tipo del empleado coincide con el tipo "cpu"
-                if ($empleado->tipo_id === $tipoCpu->id) {
-                    // Incrementa el contador
-                    $contadorEmpleadosCpu++;
-                }
-                dd($contadorEmpleadosCpu);
-            }
-
-            // $contadorEmpleadosCpu ahora contiene la cantidad de empleados con el tipo "cpu" en $empleadosPorHotel
-        } else {
-            // El tipo "cpu" no se encontró en la tabla
-            $contadorEmpleadosCpu = 0;
-        }
-
-        return view('charts.index', compact('empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo', 'contadorEmpleadosCpu'));
+        return view('charts.index', compact('labels','data','hotels','equiposCpu','hoteles','empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
     }
 
     public function show(Request $request)

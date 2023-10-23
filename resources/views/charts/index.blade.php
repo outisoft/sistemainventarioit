@@ -65,9 +65,9 @@
                             </div>
                         </div>            
                     </div>
-                  </div>
+                </div>
 
-                  <div class="content-wrapper">
+                <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap">
@@ -80,8 +80,8 @@
                             </div>
                         </div>            
                     </div>
-                  </div>
-                  <div class="content-wrapper">
+                </div>
+                <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap">
@@ -94,7 +94,119 @@
                             </div>
                         </div>            
                     </div>
-                  </div>
+                </div>
+                <div class="content-wrapper">
+                    <div class="table-responsive text-nowrap">
+                        <div class="card-datatable table-responsive pt-0">
+                            <div class="table-responsive text-nowrap">
+                                <div class="card-body">
+                                    <div class="container" width="200" height="200">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Hotel</th>
+                                                    <th>Nombre del Empleado</th>
+                                                    <th>Correo Electrónico</th>
+                                                    <!-- Agrega más columnas según tus necesidades -->
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($hoteles as $hotel)
+                                                <tr>
+                                                    <td>{{ $hotel->nombre }}</td>
+                                                    <td>
+                                                        @foreach($hotel->empleados as $empleado)
+                                                            {{ $empleado->name }}<br>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
+                                                        @foreach($hotel->empleados as $empleado)
+                                                            {{ $empleado->email }}<br>
+                                                        @endforeach
+                                                    </td>
+                                                    <!-- Agrega más columnas según tus necesidades -->
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>                                                                      
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                </div>
+                <div class="content-wrapper">
+                    <div class="table-responsive text-nowrap">
+                        <div class="card-datatable table-responsive pt-0">
+                            <div class="table-responsive text-nowrap">
+                                <div class="card-body">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nombre</th>
+                                                <!-- Agrega más columnas según tus necesidades -->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($equiposCpu as $equipo)
+                                            <tr>
+                                                <td>{{ $equipo->id }}</td>
+                                                <td>{{ $equipo->tipo->name }}</td>
+                                                <!-- Agrega más columnas según tus necesidades -->
+                                            </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                                                   
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                </div>
+                <div class="content-wrapper">
+                    <div class="table-responsive text-nowrap">
+                        <div class="card-datatable table-responsive pt-0">
+                            <div class="table-responsive text-nowrap">
+                                <div class="card-body">
+                                    <div class="container" width="200" height="200">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Hotel</th>
+                                                    <th>Cantidad de Equipos CPU</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($hotels as $hotel)
+                                                <tr>
+                                                    <td>{{ $hotel->nombre }}</td>
+                                                    <td>{{ $hotel->equiposCpu->count() }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                                                        
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                </div>
+                <div class="content-wrapper">
+                    <div class="table-responsive text-nowrap">
+                        <div class="card-datatable table-responsive pt-0">
+                            <div class="table-responsive text-nowrap">
+                                <div class="card-body">
+                                    <div class="container" width="200" height="200">
+                                        <h1>Gráfica de Hotel por Tipo CPU</h1>
+                                        <canvas id="graficaEquipos"></canvas>                                                                        
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>            
+                    </div>
+                </div>
             </div>
             <!--/ Basic Bootstrap Table -->
         </div>
@@ -261,6 +373,40 @@
     
         // Crea y muestra la gráfica
         const myChart = new Chart(ctx, config);
+    </script>
+
+    <script>
+        var ctx = document.getElementById('graficaEquipos').getContext('2d');
+
+        var data = {
+            labels: @json($labels),
+            datasets: [{
+                label: 'Cantidad de Equipos CPU por Hotel',
+                data: @json($data),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            }],
+        };
+
+        var options = {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Cantidad de Equipos CPU',
+                    },
+                },
+            },
+        };
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: data,
+            options: options,
+        });
+
     </script>
 
 </x-app-layout>

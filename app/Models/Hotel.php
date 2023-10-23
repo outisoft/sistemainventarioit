@@ -13,6 +13,15 @@ class Hotel extends Model
 
     public function empleados()
     {
-        return $this->hasMany(Empleado::class);
+        return $this->hasMany(Empleado::class, 'hotel_id');
+    }
+
+    // Modelo Hotel
+    public function equiposCpu()
+    {
+        return $this->belongsToMany(Equipo::class, 'empleado_equipo','equipo_id')
+            ->whereHas('tipo', function ($query) {
+                $query->where('name', 'CPU');
+            });
     }
 }
