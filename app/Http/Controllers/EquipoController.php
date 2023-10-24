@@ -52,6 +52,7 @@ class EquipoController extends Controller
                 // Guarda en la tabla de CPUs
                 $data = $request->validate([
                     'tipo_id' => 'required',
+                    'orden' => 'required',
                     'marca_equipo' => 'required',
                     'modelo_equipo' => 'required',
                     'serie_equipo' => 'required',

@@ -15,7 +15,7 @@
                 <div class="table-responsive text-nowrap">
                   <div class="card-datatable table-responsive pt-0">
                       <div class="card-body">
-                            <p><strong>Tipo de equipo:</strong> {{ $registro->tipo }}</p>
+                            <p><strong>Tipo de equipo:</strong> {{ $registro->tipo->name }}</p>
                             <a href="{{ route('equipo.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
                             @can('equipos.edit')
                             <a href="{{ route('equipo.edit', $registro->id) }}" class="btn btn-primary">

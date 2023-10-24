@@ -17,7 +17,7 @@ return new class extends Migration
             //equipo
             //$table->string('no_equipo')->nullable();
             //$table->string('estado')->nullable();
-            //$table->string('equipo')->nullable();
+            $table->string('orden')->nullable();
             $table->string('marca')->nullable();
             $table->string('modelo')->nullable();
             $table->string('serie')->nullable();

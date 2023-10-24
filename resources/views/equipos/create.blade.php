@@ -50,6 +50,15 @@
                             <!-- Sección para el tipo de equipo "CPU" -->
                             <div class="3 campos-equipo mb-3" style="display: none;">
                                 <div class="mb-3">
+                                    <label class="form-label" for="orden">Orden de compra</label>
+                                    <div class="input-group input-group-merge">
+                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                            <i class='bx bx-registered' ></i>
+                                        </span>
+                                        <x-text-input type="text" class="form-control" id="orden"  name="orden" aria-describedby="basic-icon-default-fullname2" autocomplete="orden" />
+                                        <x-input-error :messages="$errors->get('orden')" class="mt-2" />
+                                    </div>
+
                                     <label class="form-label" for="marca_equipo">Marca del equipo</label>
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text">

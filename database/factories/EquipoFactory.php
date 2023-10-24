@@ -19,6 +19,7 @@ class EquipoFactory extends Factory
     {
         return [
             'tipo_id' => rand(1,12),
+            'orden' => $this->faker->word,
             'marca' => $this->faker->word,
             'modelo' => $this->faker->word,
             'serie' => $this->faker->word,
