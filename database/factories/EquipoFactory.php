@@ -22,6 +22,7 @@ class EquipoFactory extends Factory
             'marca' => $this->faker->word,
             'modelo' => $this->faker->word,
             'serie' => $this->faker->word,
+            'nombre_equipo' => $this->faker->word,
             'ip' => $this->faker->ipv4,
             // Otros campos si los tienes
         ];

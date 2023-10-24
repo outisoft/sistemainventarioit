@@ -78,7 +78,6 @@ class EquipoController extends Controller
                 break;
 
             case '6':
-                dd($request);
                 // Guarda en la tabla de monitores
                 $data = $request->validate([
                     'tipo_id' => 'required',
@@ -106,7 +105,7 @@ class EquipoController extends Controller
             case '12':
                 // Guarda en la tabla de teclados
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'marca_teclado' => 'required',
                     'serie_teclado' => 'required',
                 ]);
@@ -121,14 +120,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
             
             case '7':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'marca_mouse' => 'required',
                     'serie_mouse' => 'required',
                 ]);
@@ -143,14 +142,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
             
             case '2':
-                // Guarda en la tabla de MOUSES
+                // Guarda en la tabla de cargador
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'marca_cargador' => 'required',
                     'modelo_cargador' => 'required',
                     'serie_cargador' => 'required',
@@ -167,14 +166,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
 
             case '8':
-                // Guarda en la tabla de MOUSES
+                // Guarda en la tabla de no_breack
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'marca_breack' => 'required',
                     'modelo_breack' => 'required',
                     'serie_breack' => 'required',
@@ -191,14 +190,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
             
             case '4':
-                // Guarda en la tabla de MOUSES
+                // Guarda en la tabla de IMPRESORA
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'marca_impresora' => 'required',
                     'modelo_impresora' => 'required',
                     'serie_impresora' => 'required',
@@ -215,14 +214,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
 
             case '5':
-                // Guarda en la tabla de MOUSES
+                // Guarda en la tabla de Lector
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'marca_lector' => 'required',
                     'modelo_lector' => 'required',
                     'serie_lector' => 'required',
@@ -239,14 +238,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
 
             case '10':
-                // Guarda en la tabla de MOUSES
+                // Guarda en la tabla de SCANNER
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'marca_escanner' => 'required',
                     'modelo_escanner' => 'required',
                     'serie_escanner' => 'required',
@@ -263,14 +262,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
 
             case '1':
-                // Guarda en la tabla de MOUSES
+                // Guarda en la tabla de Aplicacion
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'nombre_app' => 'required',
                     'clave_app' => 'required',
                 ]);
@@ -284,14 +283,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
 
             case '11':
-                // Guarda en la tabla de MOUSES
+                // Guarda en la tabla de SO
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'so' => 'required',
                     'clave_so' => 'required',
                 ]);
@@ -305,14 +304,14 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
 
             case '9':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'office' => 'required',
                     'clave_office' => 'required',
                 ]);
@@ -326,7 +325,7 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
             // Agrega más casos para otros tipos de equipo aquí
