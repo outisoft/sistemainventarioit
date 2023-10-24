@@ -18,13 +18,40 @@
                 </div>
                 <div class="table-responsive text-nowrap">
                     <div class="card-body">
-                        <form action="{{ route('equipo.update', $registro->id) }}" method="POST" id="miFormulario">
+                        <form action="{{ route('equipo.update', $equipos->id) }}" method="POST" id="miFormulario">
                             @csrf
                             @method('PUT')
-    
                             <div class="form-group">
-                                <label for="no_empleado">Tipo de equipo</label>
-                                <x-text-input type="text" id="tipo" name="tipo" class="form-control" value="{{ $registro->tipo }}" required />
+                                <label for="tipo_id">Tipo de equipo</label>
+                                <select class="form-control" id="tipo_id" name="tipo_id" aria-label="Default select example" onlyshow>
+                                    @foreach ($tipos as $tipo)
+                                    <option value="{{ $tipo->id }}" {{ $equipos->tipo_id == $tipo->id ? 'selected' : '' }}>{{ $tipo->name }}</option>
+                                @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="marca">Marca</label>
+                                <x-text-input type="text" id="marca" name="marca" class="form-control" value="{{ $equipos->marca }}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="modelo">Modelo</label>
+                                <x-text-input type="text" id="modelo" name="modelo" class="form-control" value="{{ $equipos->modelo }}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="serie">Serie</label>
+                                <x-text-input type="text" id="serie" name="serie" class="form-control" value="{{ $equipos->serie }}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="nombre_equipo">Nombre de equipo</label>
+                                <x-text-input type="text" id="nombre_equipo" name="nombre_equipo" class="form-control" value="{{ $equipos->nombre_equipo }}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="ip">IP</label>
+                                <x-text-input type="text" id="ip" name="ip" class="form-control" value="{{ $equipos->ip }}" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="no_contrato">Contrato</label>
+                                <x-text-input type="text" id="no_contrato" name="no_contrato" class="form-control" value="{{ $equipos->no_contrato }}" required />
                             </div>
 
                             <br>

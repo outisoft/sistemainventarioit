@@ -50,34 +50,6 @@
                             <!-- Sección para el tipo de equipo "CPU" -->
                             <div class="3 campos-equipo mb-3" style="display: none;">
                                 <div class="mb-3">
-
-                                    <label class="form-label" for="no_equipo">Numero de equipo</label>
-                                    <div class="input-group input-group-merge">
-                                        <span id="basic-icon-default-fullname2" class="input-group-text">
-                                            <i class='bx bx-hash' ></i>
-                                        </span>
-                                        <x-text-input type="text" class="form-control" id="no_equipo"  name="no_equipo" aria-describedby="basic-icon-default-fullname2" required autofocus autocomplete="name" />
-                                        <x-input-error :messages="$errors->get('no_equipo')" class="mt-2" />
-                                    </div>
-
-                                    <!--label class="form-label" for="estado">Estado</label>
-                                    <div class="input-group input-group-merge">
-                                        <span id="basic-icon-default-fullname2" class="input-group-text">
-                                            <i class='bx bx-broadcast'></i>
-                                        </span>
-                                        <x-text-input type="text" class="form-control" id="estado"  name="estado" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
-                                        <x-input-error :messages="$errors->get('estado')" class="mt-2" />
-                                    </div-->
-
-                                    <label class="form-label" for="equipo">Equipo</label>
-                                    <div class="input-group input-group-merge">
-                                        <span id="basic-icon-default-fullname2" class="input-group-text">
-                                            <i class='bx bx-desktop'></i>
-                                        </span>
-                                        <x-text-input type="text" class="form-control" id="equipo"  name="equipo" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
-                                        <x-input-error :messages="$errors->get('equipo')" class="mt-2" />
-                                    </div>
-
                                     <label class="form-label" for="marca_equipo">Marca del equipo</label>
                                     <div class="input-group input-group-merge">
                                         <span id="basic-icon-default-fullname2" class="input-group-text">
@@ -134,26 +106,35 @@
                                 </div>
                                 <!-- Agrega más campos específicos para CPU aquí -->
                             </div>
-                        
-                            <!-- Sección para el tipo de equipo "Monitor" -->
-                            <div class="6 campos-equipo" style="display: none;">
-                                <div class="form-group">
-                                    <label for="marca_monitor">Marca del Monitor</label>
-                                    <input type="text" id="marca_monitor" name="marca_monitor" class="form-control">
+
+                            <!-- Sección para el tipo de equipo "CPU" -->
+                            <div class="6 campos-equipo mb-3" style="display: none;">
+                                <div class="mb-3">
+                                    <label class="form-label" for="marca_monitor">Marca del monitor</label>
+                                    <div class="input-group input-group-merge">
+                                        <x-text-input type="text" class="form-control" id="marca_monitor"  name="marca_monitor" aria-describedby="basic-icon-default-fullname2" required autocomplete="marca_monitor" />
+                                        <x-input-error :messages="$errors->get('marca_monitor')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="modelo_monitor">Modelo del monitor</label>
+                                    <div class="input-group input-group-merge">
+                                        <x-text-input type="text" class="form-control" id="modelo_monitor"  name="modelo_monitor" aria-describedby="basic-icon-default-fullname2" required autocomplete="modelo_monitor" />
+                                        <x-input-error :messages="$errors->get('modelo_monitor')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="serie_monitor">Numero de serie</label>
+                                    <div class="input-group input-group-merge">
+                                        <x-text-input type="text" class="form-control" id="modelo_equipo"  name="serie_monitor" aria-describedby="basic-icon-default-fullname2" required autocomplete="serie_monitor" />
+                                        <x-input-error :messages="$errors->get('serie_monitor')" class="mt-2" />
+                                    </div>
+
+                                    <label class="form-label" for="no_contrato">Numero de contrato</label>
+                                    <div class="input-group input-group-merge">
+                                        <x-text-input type="text" class="form-control" id="no_contrato"  name="no_contrato" aria-describedby="basic-icon-default-fullname2" required autocomplete="name" />
+                                        <x-input-error :messages="$errors->get('no_contrato')" class="mt-2" />
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="modelo_monitor">Modelo del Monitor</label>
-                                    <input type="text" id="modelo_monitor" name="modelo_monitor" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="serie_monitor">Numero de serie</label>
-                                    <input type="text" id="serie_monitor" name="serie_monitor" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label for="no_contrato">Numero de contrato</label>
-                                    <input type="text" id="no_contrato" name="no_contrato" class="form-control">
-                                </div>
-                                <!-- Agrega más campos específicos para monitor aquí -->
+                                <!-- Agrega más campos específicos para CPU aquí -->
                             </div>
                         
                             <!-- Sección para el tipo de equipo "Teclado" -->

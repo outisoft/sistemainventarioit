@@ -8,10 +8,10 @@
                 <tr>
                     <th></th>
                     <th>Tipo</th>
-                    <th>Numero de equipo</th>
                     <th>Estado</th>
                     <th>Marca</th>
                     <th>Modelo</th>
+                    <th>Nombre del Equipo</th>
                     <th>Acciones</th>
                     <!-- Otros encabezados de columnas según sea necesario -->
                 </tr>
@@ -20,19 +20,19 @@
                 @foreach ($equipos as $equipo)
                 <tr>
                     <td></td>
-                    <td>{{ $equipo->tipo}}</td>
-                    <td>{{ $equipo->no_equipo}}</td>
+                    <td>{{ $equipo->tipo->name}}</td>
                     <td>
-                        @if ($equipo->estado === 'libre')
-                            <span class="badge bg-label-success">Libre</span-->
+                        @if ($equipo->estado === 'Libre')
+                            <span class="badge bg-label-success">{{$equipo->estado}}</td></span-->
                             <!--span class="badge rounded-pill bg-success">Libre</span-->
-                        @elseif ($equipo->estado === 'en uso')
-                            <span class="badge bg-label-danger">En uso</span>
+                        @elseif ($equipo->estado === 'En Uso')
+                            <span class="badge bg-label-danger">{{$equipo->estado}}</span>
                             <!--span class="badge rounded-pill bg-danger">En uso</span-->
                         @endif
                     </td>
                     <td>{{ $equipo->marca }}</td>
                     <td>{{ $equipo->modelo }}</td>
+                    <td>{{ $equipo->nombre_equipo }}</td>
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

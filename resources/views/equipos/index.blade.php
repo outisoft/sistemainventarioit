@@ -53,10 +53,10 @@
                             <tr>
                                 <th></th>
                                 <th>Tipo</th>
-                                <th>Numero de equipo</th>
                                 <th>Estado</th>
                                 <th>Marca</th>
                                 <th>Modelo</th>
+                                <th>Nombre de equipo</th>
                                 <th>Acciones</th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
                             </tr>
@@ -66,7 +66,6 @@
                             <tr>
                                 <td></td>
                                 <td>{{ $equipo->tipo->name}}</td>
-                                <td>{{ $equipo->no_equipo}}</td>
                                 <td>
                                     @if ($equipo->estado === 'Libre')
                                         <span class="badge bg-label-success">{{$equipo->estado}}</td></span-->
@@ -78,6 +77,7 @@
                                 </td>
                                 <td>{{ $equipo->marca }}</td>
                                 <td>{{ $equipo->modelo }}</td>
+                                <td>{{ $equipo->nombre_equipo }}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('tipo_id')->references('id')->on('tipos')->cascadeOnDelete();
             //equipo
-            $table->string('no_equipo')->nullable();
+            //$table->string('no_equipo')->nullable();
             //$table->string('estado')->nullable();
-            $table->string('equipo')->nullable();
+            //$table->string('equipo')->nullable();
             $table->string('marca')->nullable();
             $table->string('modelo')->nullable();
             $table->string('serie')->nullable();

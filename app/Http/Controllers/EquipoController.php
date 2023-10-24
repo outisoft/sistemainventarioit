@@ -43,7 +43,6 @@ class EquipoController extends Controller
      */
     public function store(Request $request)
     {   
-        
         //dd($request);
         $tipo = $request->input('tipo_id');
 
@@ -53,8 +52,6 @@ class EquipoController extends Controller
                 // Guarda en la tabla de CPUs
                 $data = $request->validate([
                     'tipo_id' => 'required',
-                    'no_equipo' => 'required',
-                    'equipo' => 'required',
                     'marca_equipo' => 'required',
                     'modelo_equipo' => 'required',
                     'serie_equipo' => 'required',
@@ -75,15 +72,16 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
 
                 break;
 
             case '6':
+                dd($request);
                 // Guarda en la tabla de monitores
                 $data = $request->validate([
-                    'tipo' => 'required',
+                    'tipo_id' => 'required',
                     'marca_monitor' => 'required',
                     'modelo_monitor' => 'required',
                     'serie_monitor' => 'required',
@@ -101,7 +99,7 @@ class EquipoController extends Controller
                 ]);
                 toastr()
                 ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo} creado.");
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
 
@@ -341,7 +339,7 @@ class EquipoController extends Controller
      */
     public function show(string $id)
     {
-        $registro = Equipo::findOrFail($id);
+        $registro = Equipo::findOrFail($id)->with('tipo');
         return view('equipos.show', compact('registro'));
     }
 
@@ -350,8 +348,9 @@ class EquipoController extends Controller
      */
     public function edit(string $id)
     {
-        $registro = Equipo::findOrFail($id);
-        return view('equipos.edit', compact('registro'));
+        $equipos = Equipo::findOrFail($id);
+        $tipos = Tipo::all();
+        return view('equipos.edit', compact('equipos', 'tipos'));
     }
 
     /**
@@ -359,21 +358,29 @@ class EquipoController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        //dd($request);
         $data = $request->validate([
-            'tipo' => 'required',
+            'tipo_id' => 'required',
+            'marca' => 'required',
+            'modelo' => 'required',
+            'serie' => 'required',
+            'nombre_equipo' => 'required',
+            'ip' => 'required',
+            'no_contrato' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);
+        //dd($registro);
         $registro->update($data);
 
         Historial::create([
             'accion' => 'actualizacion',
-            'descripcion' => "Se actualizo el registro {$registro->tipo}",
+            'descripcion' => "Se actualizo el registro {$registro->marca}",
             'registro_id' => $registro->id,
         ]);
         toastr()
         ->timeOut(3000) // 3 second
-        ->addSuccess("Registro {$registro->tipo} actualizado.");
+        ->addSuccess("Registro {$registro->tipo->name} actualizado.");
 
         return redirect()->route('equipo.index');
     }
@@ -401,11 +408,18 @@ class EquipoController extends Controller
 
     public function search(Request $request)
     {
+        
+
         $query = $request->get('query');
-        $equipos = Equipo::where('tipo', 'like', '%' . $query . '%')
+        $equipos = Equipo::where('tipo_id', 'like', '%' . $query . '%')
                             ->orWhere('marca', 'like', '%' . $query . '%')
-                            ->orWhere('estado', 'like', '%' . $query . '%')
+                            ->orWhere('nombre_equipo', 'like', '%' . $query . '%')
                             ->get();
+
+        // Iterar sobre los equipos y verificar si están asignados a un empleado
+        foreach ($equipos as $equipo) {
+            $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
+        }
 
         return view('equipos._employee_list', compact('equipos'));
     }
