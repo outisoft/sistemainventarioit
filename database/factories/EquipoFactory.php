@@ -24,6 +24,11 @@ class EquipoFactory extends Factory
             'serie' => $this->faker->word,
             'nombre_equipo' => $this->faker->word,
             'ip' => $this->faker->ipv4,
+            'no_contrato' => $this->faker->word,
+            'nombre_app' => $this->faker->word,
+            'so' => $this->faker->word,
+            'office' => $this->faker->word,
+            'clave' => $this->faker->word,
             // Otros campos si los tienes
         ];
     }

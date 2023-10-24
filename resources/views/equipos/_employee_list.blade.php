@@ -8,10 +8,10 @@
                 <tr>
                     <th></th>
                     <th>Tipo</th>
-                    <th>Estado</th>
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Nombre del Equipo</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                     <!-- Otros encabezados de columnas según sea necesario -->
                 </tr>
@@ -21,6 +21,9 @@
                 <tr>
                     <td></td>
                     <td>{{ $equipo->tipo->name}}</td>
+                    <td>{{ $equipo->marca }}</td>
+                    <td>{{ $equipo->modelo }}</td>
+                    <td>{{ $equipo->nombre_equipo }}</td>
                     <td>
                         @if ($equipo->estado === 'Libre')
                             <span class="badge bg-label-success">{{$equipo->estado}}</td></span-->
@@ -30,9 +33,6 @@
                             <!--span class="badge rounded-pill bg-danger">En uso</span-->
                         @endif
                     </td>
-                    <td>{{ $equipo->marca }}</td>
-                    <td>{{ $equipo->modelo }}</td>
-                    <td>{{ $equipo->nombre_equipo }}</td>
                     <td>
                         <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
