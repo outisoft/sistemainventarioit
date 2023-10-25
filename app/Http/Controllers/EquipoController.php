@@ -339,8 +339,9 @@ class EquipoController extends Controller
      */
     public function show(string $id)
     {
-        $registro = Equipo::findOrFail($id)->with('tipo');
-        return view('equipos.show', compact('registro'));
+        $registro = Equipo::findOrFail($id);
+        $tipo = Tipo::find($registro->tipo_id);
+        return view('equipos.show', compact('registro', 'tipo'));
     }
 
     /**

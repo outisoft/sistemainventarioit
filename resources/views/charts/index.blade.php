@@ -215,8 +215,6 @@
     <!-- Vendors JS -->
     <script src="{{ asset('js/chart.min.js') }}"></script>
     
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-    <script src="{{ asset('assets/js/dashboards-analytics.js')}}"></script>
     <script>
         var empleadosPorHotel = @json($empleadosPorHotel);
     
