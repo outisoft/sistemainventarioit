@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css')}}" />
 
+    @yield('css')
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
 
@@ -98,7 +99,7 @@
 
     
   </body>
- 
+  @yield('js')
   @include('layouts.scripts')
   
 </html>

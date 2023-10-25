@@ -2,8 +2,8 @@
     @if ($users->isEmpty())
         <h5 class="card-header">No se encontro registro de usuarios.</h5>
     @else
-    <table class="table">
-        <thead>
+    <table id="usuarios" class="table">
+        <thead class="bg-primary">
             <tr>
                 <th>Nombre</th>
                 <th>Correo Electrónico</th>
