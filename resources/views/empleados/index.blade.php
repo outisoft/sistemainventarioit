@@ -50,10 +50,9 @@
                             @if ($empleados->isEmpty())
                                 <h5 class="card-header">No se encontro registro de empleados.</h5>
                             @else
-                            <table class="table">
-                                <thead>
+                            <table id="empleados" class="table">
+                                <thead class="bg-primary">
                                     <tr>
-                                        <th></th>
                                         <th>Nombre</th>
                                         <th>Puesto</th>
                                         <th>Hotel</th>
@@ -61,12 +60,11 @@
                                         <th>AD</th>
                                         <th>Acciones</th>
                                     </tr>
-                                </thead>
+                                </thead>                                
                                 <tbody id="employeeList">
                                     <!-- Aquí se mostrarán los empleados -->
                                     @foreach($empleados as $empleado)
                                         <tr>
-                                            <td></td>
                                             <td>{{ $empleado->name }}</td>
                                             <td>{{ $empleado->puesto }}</td>
                                             <td>{{ $empleado->hotel->nombre }}</td>
@@ -112,24 +110,39 @@
         </div>
         <!-- / Content -->
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#searchInput').on('input', function() {
-                var query = $(this).val();
+    @section('js')
+        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+        <script>
+            //new DataTable('#empleados');
+            $('#empleados').DataTable({
+                "lengthMenu": [ [-1], ["Todos"] ],
+                "searching": false,
+                "lengthChange": false,
+                "info": false,
+                "paging": false
+            });
 
-                $.ajax({
-                    url: "{{ route('empleados.search') }}",
-                    type: "POST",
-                    data: {
-                        query: query,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#searchResults').html(response);
-                    }
+        </script>
+        <script>
+            $(document).ready(function() {
+                $('#searchInput').on('input', function() {
+                    var query = $(this).val();
+
+                    $.ajax({
+                        url: "{{ route('empleados.search') }}",
+                        type: "POST",
+                        data: {
+                            query: query,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $('#searchResults').html(response);
+                        }
+                    });
                 });
             });
-        });
-    </script>
+        </script>    
+    @endsection
 </x-app-layout>

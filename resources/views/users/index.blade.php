@@ -113,28 +113,36 @@
         <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
         <script>
-            new DataTable('#usuarios');
+            //new DataTable('#usuarios');
+            $('#usuarios').DataTable({
+                "lengthMenu": [ [-1], ["Todos"] ],
+                "searching": false,
+                "lengthChange": false,
+                "info": false,
+                "paging": false
+            });
+
         </script>
-    @endsection
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#searchInput').on('input', function() {
-                var query = $(this).val();
+        <script>
+            $(document).ready(function() {
+                $('#searchInput').on('input', function() {
+                    var query = $(this).val();
 
-                $.ajax({
-                    url: "{{ route('users.search') }}",
-                    type: "POST",
-                    data: {
-                        query: query,
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        $('#searchResults').html(response);
-                    }
+                    $.ajax({
+                        url: "{{ route('users.search') }}",
+                        type: "POST",
+                        data: {
+                            query: query,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            $('#searchResults').html(response);
+                        }
+                    });
                 });
             });
-        });
-    </script>
+        </script>
+        
+    @endsection
 </x-app-layout>

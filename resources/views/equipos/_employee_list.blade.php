@@ -3,10 +3,9 @@
     @if ($equipos->isEmpty())
         <h5 class="card-header">No se encontro registro de equipos.</h5>
     @else
-        <table class="table">
-            <thead>
+        <table id="equipos" class="table">
+            <thead class="bg-primary">
                 <tr>
-                    <th></th>
                     <th>Tipo</th>
                     <th>Marca</th>
                     <th>Modelo</th>
@@ -16,10 +15,9 @@
                     <!-- Otros encabezados de columnas según sea necesario -->
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="employeeList">
                 @foreach ($equipos as $equipo)
                 <tr>
-                    <td></td>
                     <td>{{ $equipo->tipo->name}}</td>
                     <td>{{ $equipo->marca }}</td>
                     <td>{{ $equipo->modelo }}</td>
