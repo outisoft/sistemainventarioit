@@ -17,7 +17,7 @@
                       <div class="card-body">
                         <table class="table">
                           <tr>
-                              <th>Tipo de equipo</th>
+                              <th class="bg-secondary">Tipo de equipo</th>
                               <td>{{ $registro->tipo->name }}</td>
                           </tr>
                           <tr>
