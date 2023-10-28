@@ -15,7 +15,7 @@ class ChartController extends Controller
     // En tu controlador
     // En tu controlador
     public function index()
-    {
+    {            
         $empleadosPorHotel = DB::table('empleados')
             ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
             ->select('hotels.nombre as hotel', DB::raw('count(*) as cantidad_empleados'))
@@ -34,11 +34,19 @@ class ChartController extends Controller
             ->groupBy('tipos.name')
             ->get();
 
-        $equiposCpu = Equipo::whereHas('tipo', function ($query) {
+        $equiposCpu = Equipo::whereHas('tipo', function ($query) {//obtiene el equipo CPU 
                 $query->where('name', 'CPU');
             })->get();
+            
         // Obtén todos los hoteles con sus empleados
         $hoteles = Hotel::with('empleados')->get();
+
+        $e_e = DB::table('empleado_equipo')
+            ->join('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.tipo_id')
+            ->where('equipos.tipo_id', '=', 1)
+            ->count();
+
+        //dd($e_e);
 
         $hotels = Hotel::with('equiposCpu')->get();
         $labels = $hotels->pluck('nombre')->toArray();

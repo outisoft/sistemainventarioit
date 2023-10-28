@@ -32,8 +32,6 @@ class DepartamentoSeeder extends Seeder
                 ['name' => 'EXPRESS SERVICE'],
                 ['name' => 'FINANZAS RESIDENCIAL'],
                 ['name' => 'FINANZAS'],
-                ['name' => 'FINANZAS'],
-                ['name' => 'FINANZAS'],
                 ['name' => 'FUNDACION'],
                 ['name' => 'GEB'],
                 ['name' => 'GOLF'],

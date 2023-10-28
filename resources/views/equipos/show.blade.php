@@ -15,45 +15,53 @@
                 <div class="table-responsive text-nowrap">
                   <div class="card-datatable table-responsive pt-0">
                       <div class="card-body">
-                        <table class="table">
+                        <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
                           <tr>
                               <th class="bg-secondary">Tipo de equipo</th>
                               <td>{{ $registro->tipo->name }}</td>
                           </tr>
                           <tr>
-                              <th>Orden de compra</th>
+                              <th class="bg-primary">Orden de compra</th>
                               <td>{{ $registro->orden }}</td>
                           </tr>
                           <tr>
-                              <th>Marca</th>
+                              <th class="bg-secondary">Marca</th>
                               <td>{{ $registro->marca }}</td>
                           </tr>
                           <tr>
-                            <th>Modelo</th>
+                            <th class="bg-primary">Modelo</th>
                             <td>{{ $registro->modelo }}</td>
                           </tr>
                           <tr>
-                            <th>Numero de serie</th>
+                            <th class="bg-secondary">Numero de serie</th>
                             <td>{{ $registro->serie }}</td>
                           </tr>
                           <tr>
-                            <th>Nombre de equipo</th>
+                            <th class="bg-primary">Nombre de equipo</th>
                             <td>{{ $registro->nombre_equipo }}</td>
                           </tr>
                           <tr>
-                            <th>IP</th>
+                            <th class="bg-secondary">IP</th>
                             <td>{{ $registro->ip }}</td>
                           </tr>
                           <tr>
-                            <th>Sistema Operativo</th>
+                            <th class="bg-primary">NUMERO DE CONTRATO</th>
+                            <td>{{ $registro->no_contrato }}</td>
+                          </tr>
+                          <tr>
+                            <th class="bg-secondary">NOMBRE DE APLICACION</th>
+                            <td>{{ $registro->nombre_app }}</td>
+                          </tr>
+                          <tr>
+                            <th class="bg-primary">Sistema Operativo</th>
                             <td>{{ $registro->so }}</td>
                           </tr>
                           <tr>
-                            <th>Office</th>
+                            <th class="bg-secondary">Office</th>
                             <td>{{ $registro->office }}</td>
                           </tr>
                           <tr>
-                            <th>Clave del producto</th>
+                            <th class="bg-primary">Clave del producto</th>
                             <td>{{ $registro->clave }}</td>
                           </tr>
                         </table>

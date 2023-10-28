@@ -116,11 +116,15 @@
 }
 
 .text-body[href]:hover {
-  color: #5f61e6 !important;
+  color: var(--bs-primary) !important;
 }
 
 .bg-primary {
   background-color: var(--bs-primary) !important;
+}
+
+.bg-secondary {
+  background-color: #00c8dd !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus {
