@@ -19,7 +19,9 @@ class EmpleadoController extends Controller
     public function index()
     {
         $empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
-        return view('empleados.index', compact('empleados'));
+        $hoteles = Hotel::all();
+        $departamentos = Departamento::all();
+        return view('empleados.index', compact('empleados', 'hoteles', 'departamentos'));
     }
 
     public function create()
@@ -61,7 +63,8 @@ class EmpleadoController extends Controller
     {
         $registro = Empleado::findOrFail($id);
         $hotel = Hotel::find($registro->hotel_id); // Obtiene el hotel asociado al empleado
-        return view('empleados.show', compact('registro', 'hotel'));
+        $departamento = Departamento::find($registro->departamento_id); 
+        return view('empleados.show', compact('registro', 'hotel', 'departamento'));
     }
 
     // Método para mostrar el formulario de edición

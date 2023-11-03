@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Historial;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +14,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('roles')->get();
-        return view('users.index', compact('users'));
+        $roles = Role::all();
+        return view('users.index', compact('users', 'roles'));
     }
 
     public function create()
@@ -97,17 +99,25 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
+            'password' => 'sometimes|confirmed',
         ]);
 
         //dd($data);
+        $user = User::find($id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        if ($request->has('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+        $user->save();
 
-        $registro = User::findOrFail($id);
-        $registro->update($data);
+        /*$registro = User::findOrFail($id);
+        $registro->update($data);*/
 
         Historial::create([
             'accion' => 'actualizacion',
-            'descripcion' => "Se actualizo el usuario {$registro->name}",
-            'registro_id' => $registro->id,
+            'descripcion' => "Se actualizo el usuario {$user->name}",
+            'registro_id' => $user->id,
         ]);
         // Actualizar el rol del usuario si se ha seleccionado un nuevo rol
         if ($request->has('rol')) {

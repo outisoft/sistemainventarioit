@@ -22,8 +22,7 @@
 <script src="{{ asset('assets/js/dashboards-analytics.js')}}"></script>
 
 <!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<script src="{{ asset('js/app.js') }}"></script>      
+<script async defer src="https://buttons.github.io/buttons.js"></script>    
 
 <!--Script Modal-->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>    

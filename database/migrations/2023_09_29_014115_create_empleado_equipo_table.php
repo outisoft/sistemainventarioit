@@ -13,11 +13,8 @@ return new class extends Migration
     {
         Schema::create('empleado_equipo', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('empleado_id');
-            $table->unsignedBigInteger('equipo_id');
-            // Agrega las llaves foráneas
-            $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
-            $table->foreign('equipo_id')->references('id')->on('equipos')->onDelete('cascade');
+            $table->foreignId('empleado_id')->references('id')->on('empleados')->cascadeOnDelete();
+            $table->foreignId('equipo_id')->references('id')->on('equipos')->cascadeOnDelete(); 
             $table->timestamps();
         });
     }

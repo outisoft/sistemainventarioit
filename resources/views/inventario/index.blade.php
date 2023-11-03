@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <button class="btn btn-primary">Import data</button>
-                    <a class="btn btn-success" href="{{ route('export') }}">Export data</a>
+                    <a class="btn btn-secondary" href="{{ route('export') }}">Export data</a>
                 </form>
             @else
             

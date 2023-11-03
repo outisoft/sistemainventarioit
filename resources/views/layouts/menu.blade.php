@@ -154,7 +154,7 @@
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <div class="flex-shrink-0 me-3">
               <div class="avatar avatar-online">
-                  <img src="../assets/img/avatars/3.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                  <img src="{{ asset('assets/img/avatars/3.jpg')}}" alt class="w-px-40 h-auto rounded-circle" />
               </div>
           </div>
           <div class="flex-grow-1">

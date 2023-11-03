@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" for="password">Contraseña</label>
-                                        <x-text-input type="password" name="password" class="form-control" value="{{ $users->password }}" required />
+                                        <x-text-input type="password" name="password" class="form-control" value="{{ $users->password }}" />
                                     </div>
                                     <br>
                                     <button type="submit" class="btn btn-primary"><i class='bx bx-refresh' ></i>Actualizar</button>
