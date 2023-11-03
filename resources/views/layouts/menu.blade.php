@@ -29,7 +29,7 @@
       </li>
 
       <!-- Inventario -->
-      <li class="menu-item {{ Request::routeIs('inventario.index') ? 'active' : '' }} || {{ Request::routeIs('inventario.create') ? 'active' : '' }} || {{ Request::routeIs('inventario.show') ? 'active' : '' }} || {{ Request::routeIs('inventario.edit') ? 'active' : '' }}">
+      <!--li class="menu-item {{ Request::routeIs('inventario.index') ? 'active' : '' }} || {{ Request::routeIs('inventario.create') ? 'active' : '' }} || {{ Request::routeIs('inventario.show') ? 'active' : '' }} || {{ Request::routeIs('inventario.edit') ? 'active' : '' }}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon tf-icons bx bx-file'></i>
           <div data-i18n="Layouts">Inventario</div>
@@ -49,7 +49,7 @@
           </li>
           @endcan
         </ul>
-      </li>
+      </li-->
 
       <!-- Equipo -->
       <li class="menu-item {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}">
@@ -72,14 +72,6 @@
           </li>              
           @endcan
         </ul>
-      </li>
-
-      <!-- Historial -->
-      <li class="menu-item {{ Request::routeIs('historial.index') ? 'active' : '' }}">
-        <a href="{{ route('historial.index') }}" class="menu-link">
-            <i class='menu-icon tf-icons bx bx-history' ></i>
-          <div data-i18n="Analytics">Historial</div>
-        </a>
       </li>
 
       <!-- Empleados -->
@@ -111,6 +103,14 @@
           </li>              
           @endcan
         </ul>
+      </li>
+
+      <!-- Historial -->
+      <li class="menu-item {{ Request::routeIs('historial.index') ? 'active' : '' }}">
+        <a href="{{ route('historial.index') }}" class="menu-link">
+            <i class='menu-icon tf-icons bx bx-history' ></i>
+          <div data-i18n="Analytics">Historial</div>
+        </a>
       </li>
 
       <!-- Graficas -->

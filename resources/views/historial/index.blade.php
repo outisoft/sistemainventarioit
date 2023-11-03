@@ -22,8 +22,8 @@
                         @if ($historial->isEmpty())
                             <h5 class="card-header">No se encontro registro.</h5>
                         @else
-                        <table class="table table-striped">
-                            <thead>
+                        <table id="equipos" class="table table-striped">
+                            <thead class="bg-primary">
                                 <tr>
                                     <th></th>
                                     <th>Acción</th>

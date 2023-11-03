@@ -18,6 +18,7 @@ class TipoSeeder extends Seeder
             ['name' => 'CARGADOR'],
             ['name' => 'CPU'],
             ['name' => 'IMPRESORA'],
+            ['name' => 'LAPTOP'],
             ['name' => 'LECTOR'],
             ['name' => 'MONITOR'],
             ['name' => 'MOUSE'],

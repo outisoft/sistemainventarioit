@@ -30,6 +30,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/asignar-rol/{usuarioId}/{rol}', [EmpleadoController::class, 'asignarRol'])->name('asignar.rol');
 
+    Route::get('/equipoexport', [EquipoController::class, 'export']);//exportar de usuarios
+
+
     Route::post('/empleados/search', [EmpleadoController::class, 'search'])->name('empleados.search');//buscador de empleados
     Route::post('/inventario/search', [InventarioController::class, 'search'])->name('inventario.search');//buscador de inventario
     Route::post('/users/search', [UserController::class, 'search'])->name('users.search');//buscador de usuarios

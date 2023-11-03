@@ -15,6 +15,17 @@
 .icon-lg {
   font-size: 35px; /* Ajusta el tamaño según tus necesidades */
   color: var(--bs-primary);
+  margin: 10px;
+}
+
+.icon-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30vh;
+  font-size: 80px; /* Ajusta el tamaño según tus necesidades */
+  color: var(--bs-primary);
+  margin: 10px;
 }
 
 .icon-margin {

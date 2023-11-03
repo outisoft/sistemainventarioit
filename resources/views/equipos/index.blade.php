@@ -33,11 +33,19 @@
                 <h5 class="card-header">Listado de Equipos</h5>
                 <div class="navbar-nav align-items-center">
                     <div class="nav-item d-flex align-items-center">
-                        <div class="nav-item w-px-40 h-auto">
-                            <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Registro">
-                                <i class='bx bx-add-to-queue icon-lg'></i>
+                        <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Agregar Nuevo Registro">
+                            <i class='bx bx-add-to-queue icon-lg'></i>
+                        </a>
+
+                        @if ($equipos->isEmpty())
+                            <a href="#" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Importar registros">
+                                <i class='bx bxs-cloud-upload icon-lg' ></i>
+                            </a>                            
+                        @else
+                            <a href="{{ url('/equipoexport') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Exportar registros">
+                                <i class='bx bxs-download icon-lg'></i>
                             </a>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -46,7 +54,10 @@
             <div class="table-responsive text-nowrap" id="searchResults">
     
                 @if ($equipos->isEmpty())
-                    <h5 class="card-header">No se encontro registro de equipos.</h5>
+                    <h5 class="card-header">No se encontro registro de equipos. Importar registros</h5>
+                    <a href="#" class="btn-ico align-middle" data-toggle="tooltip" data-placement="top" title="Importar registros">
+                        <i class='bx bxs-cloud-upload icon-bg' ></i>
+                    </a> 
                 @else
                     <table id="equipos" class="table">
                         <thead class="bg-primary">

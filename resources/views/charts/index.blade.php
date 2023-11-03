@@ -225,9 +225,10 @@
         var data = empleadosPorHotel.map(function(data) {
             return data.cantidad_empleados;
         });
+
     
         // Define un array de colores personalizados para las barras
-        var customColors = ['#a9d6e5', '#89c2d9', '#61a5c2', '#468faf', '#2C7DA0', '#2A6F97', '#014F86', '#01497C', '#013A63'];
+        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f', '#dad3ae'];
     
         var ctx = document.getElementById('graficaEmpleadosPorHotel').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -263,7 +264,7 @@
         });
 
         // Define un array de colores personalizados para las barras
-        var customColors = ['#a9d6e5', '#89c2d9', '#61a5c2', '#468faf', '#2C7DA0', '#2A6F97', '#014F86', '#01497C', '#013A63'];
+        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f', '#dad3ae', '#ece9d5'];
 
         var ctx = document.getElementById('graficaEmpleadosPorDepartamento').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -299,7 +300,7 @@
             return data.cantidad_equipos;
         });
 
-        var customColors = ['#a9d6e5', '#89c2d9', '#61a5c2', '#468faf', '#2C7DA0', '#2A6F97', '#014F86', '#01497C', '#013A63'];
+        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f', '#dad3ae', '#ece9d5'];
 
         var ctx = document.getElementById('graficaEquiposPorTipo').getContext('2d');
         var myChart = new Chart(ctx, {

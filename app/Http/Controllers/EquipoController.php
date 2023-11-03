@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipo;
 use App\Models\Historial;
-use App\Models\Empleado;
 use App\Models\Tipo;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
+use App\Exports\EquipoExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EquipoController extends Controller
 {
@@ -396,13 +396,13 @@ class EquipoController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el registro {$registro->tipo}",
+            'descripcion' => "Se elimino el registro {$registro->tipo->name}",
             'registro_id' => $registro->id,
         ]);
 
         toastr()
         ->timeOut(3000) // 3 second
-        ->addSuccess("Registro {$registro->tipo} eliminado.");
+        ->addSuccess("Registro {$registro->tipo->name} eliminado.");
 
         return redirect()->route('equipo.index');
     }
@@ -423,5 +423,12 @@ class EquipoController extends Controller
         }
 
         return view('equipos._employee_list', compact('equipos'));
+    }
+
+    public function export()
+    {
+        $equipos = Equipo::all();
+
+        return Excel::download(new EquipoExport($equipos), 'equipos.xlsx');
     }
 }

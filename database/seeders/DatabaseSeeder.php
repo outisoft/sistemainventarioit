@@ -30,6 +30,6 @@ class DatabaseSeeder extends Seeder
         User::factory()->count(8)->create();
         Empleado::factory()->count(150)->create(); // Crea empleados (ajusta el número según tus necesidades)
         //Inventario::factory()->count(30)->create();
-        Equipo::factory()->count(100)->create();
+        //Equipo::factory()->count(100)->create();
     }
 }
