@@ -7,6 +7,7 @@ use App\Models\Historial;
 use App\Models\Tipo;
 use Illuminate\Http\Request;
 use App\Exports\EquipoExport;
+use App\Imports\EquipoImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class EquipoController extends Controller
@@ -428,7 +429,21 @@ class EquipoController extends Controller
     public function export()
     {
         $equipos = Equipo::all();
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Exportacion de datos correctamente.");
 
         return Excel::download(new EquipoExport($equipos), 'equipos.xlsx');
+    }
+
+    public function import() 
+    {
+        Excel::import(new EquipoImport, request()->file('file'));
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Importacion de datos correctamente.");
+        
+        return redirect()->route('equipo.index');
     }
 }

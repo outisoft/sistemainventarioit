@@ -54,10 +54,14 @@
             <div class="table-responsive text-nowrap" id="searchResults">
     
                 @if ($equipos->isEmpty())
-                    <h5 class="card-header">No se encontro registro de equipos. Importar registros</h5>
-                    <a href="#" class="btn-ico align-middle" data-toggle="tooltip" data-placement="top" title="Importar registros">
-                        <i class='bx bxs-cloud-upload icon-bg' ></i>
-                    </a> 
+                <div style="text-align: center;">
+                    <form action="{{ url('equipoimport') }}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        @csrf
+                        <input type="file" name="file" id="myFileInput" style="display: none;">
+                        <label for="myFileInput" style=" color: black; padding: 12px 20px; text-align: center; display: inline-block; cursor: pointer;"><i class='bx bxs-cloud-upload icon-bg'></i>Seleccionar archivo</label>
+                        <button type="submit" class="btn btn-primary">Importar</button>
+                    </form>
+                </div>
                 @else
                     <table id="equipos" class="table">
                         <thead class="bg-primary">
@@ -158,6 +162,15 @@
                     });
                 });
             });
+        </script>
+        <script>
+            function validateForm() {
+                var fileInput = document.getElementById('myFileInput');
+                if (fileInput.value == '') {
+                alert('Por favor seleccione un archivo.');
+                return false;
+                }
+            }
         </script>
     @endsection
 </x-app-layout>

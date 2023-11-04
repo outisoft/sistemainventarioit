@@ -25,13 +25,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial');// Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index');//muestra view historial
-    Route::get('/export', [InventarioController::class, 'export'])->name('export');//expotador de reporte en excel
+    
+    //imports
     Route::post('/import', [InventarioController::class, 'import'])->name('import');//importador de reporte en excel
+    Route::post('/equipoimport', [EquipoController::class, 'import']);//importador de reporte en excel
 
-    Route::post('/asignar-rol/{usuarioId}/{rol}', [EmpleadoController::class, 'asignarRol'])->name('asignar.rol');
-
+    //export
+    Route::get('/export', [InventarioController::class, 'export'])->name('export');//expotador de reporte en excel
     Route::get('/equipoexport', [EquipoController::class, 'export']);//exportar de usuarios
 
+    Route::post('/asignar-rol/{usuarioId}/{rol}', [EmpleadoController::class, 'asignarRol'])->name('asignar.rol');
 
     Route::post('/empleados/search', [EmpleadoController::class, 'search'])->name('empleados.search');//buscador de empleados
     Route::post('/inventario/search', [InventarioController::class, 'search'])->name('inventario.search');//buscador de inventario
