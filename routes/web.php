@@ -17,6 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //Rutas de CRUD
     Route::resource('inventario', InventarioController::class);// Rutas Inventario
     Route::resource('empleados', EmpleadoController::class);// Rutas Empleados
     Route::resource('equipo', EquipoController::class);// Rutas Equipos
@@ -28,19 +29,23 @@ Route::middleware('auth')->group(function () {
     
     //imports
     Route::post('/import', [InventarioController::class, 'import'])->name('import');//importador de reporte en excel
-    Route::post('/equipoimport', [EquipoController::class, 'import']);//importador de reporte en excel
+    Route::post('/importequipo', [EquipoController::class, 'import']);//importador de reporte en excel
+    Route::post('/importempleado', [EmpleadoController::class, 'import']);//importador de reporte en excel
 
     //export
     Route::get('/export', [InventarioController::class, 'export'])->name('export');//expotador de reporte en excel
-    Route::get('/equipoexport', [EquipoController::class, 'export']);//exportar de usuarios
+    Route::get('/exportequipo', [EquipoController::class, 'export']);//exportar de usuarios
+    Route::get('/exportempleado', [EmpleadoController::class, 'export']);//exportar de usuarios
 
     Route::post('/asignar-rol/{usuarioId}/{rol}', [EmpleadoController::class, 'asignarRol'])->name('asignar.rol');
 
+    //serachs
     Route::post('/empleados/search', [EmpleadoController::class, 'search'])->name('empleados.search');//buscador de empleados
     Route::post('/inventario/search', [InventarioController::class, 'search'])->name('inventario.search');//buscador de inventario
     Route::post('/users/search', [UserController::class, 'search'])->name('users.search');//buscador de usuarios
     Route::post('/equipo/search', [EquipoController::class, 'search'])->name('equipo.search');//buscador de usuarios
 
+    //asignacion de equipo a empleado
     Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
     Route::post('/asignacion/asignar', [EmpleadoController::class, 'asignar'])->name('asignacion.asignar');
     Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');

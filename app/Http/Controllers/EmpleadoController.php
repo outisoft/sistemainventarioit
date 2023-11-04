@@ -8,11 +8,11 @@ use App\Models\Equipo;
 use App\Models\Historial;
 use App\Models\Hotel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Redirect;
+use App\Exports\EmpleadoExport;
+use App\Imports\EmpleadoImport;
 use Spatie\Permission\Models\Role;
 use App\Models\User; // Asegúrate de importar tu modelo de usuario si es necesario
-use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmpleadoController extends Controller
 {
@@ -190,5 +190,26 @@ class EmpleadoController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Ocurrió un error al asignar el rol.');
         }
+    }
+
+    public function export()
+    {
+        $equipos = Equipo::all();
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Exportacion de datos correctamente.");
+
+        return Excel::download(new EmpleadoExport($equipos), 'empleados.xlsx');
+    }
+
+    public function import() 
+    {
+        Excel::import(new EmpleadoImport, request()->file('file'));
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Importacion de datos correctamente.");
+        
+        return redirect()->route('empleados.index');
     }
 }

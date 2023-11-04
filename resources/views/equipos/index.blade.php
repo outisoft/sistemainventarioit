@@ -42,7 +42,7 @@
                                 <i class='bx bxs-cloud-upload icon-lg' ></i>
                             </a>                            
                         @else
-                            <a href="{{ url('/equipoexport') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Exportar registros">
+                            <a href="{{ url('/exportequipo') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Exportar registros">
                                 <i class='bx bxs-download icon-lg'></i>
                             </a>
                         @endif
@@ -55,7 +55,7 @@
     
                 @if ($equipos->isEmpty())
                 <div style="text-align: center;">
-                    <form action="{{ url('equipoimport') }}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+                    <form action="{{ url('importequipo') }}" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
                         @csrf
                         <input type="file" name="file" id="myFileInput" style="display: none;">
                         <label for="myFileInput" style=" color: black; padding: 12px 20px; text-align: center; display: inline-block; cursor: pointer;"><i class='bx bxs-cloud-upload icon-bg'></i>Seleccionar archivo</label>
