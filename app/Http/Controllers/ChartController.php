@@ -53,8 +53,6 @@ class ChartController extends Controller
             ->whereIn('tipos.name', ['CPU'])
             ->groupBy('hotels.id', 'tipo_equipo')
             ->get();
-        
-        //dd($datos);
 
         return view('charts.index', compact('datosLap', 'datosCPU','empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
     }
