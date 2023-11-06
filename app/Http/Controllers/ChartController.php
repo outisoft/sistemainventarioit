@@ -33,28 +33,30 @@ class ChartController extends Controller
             ->select('tipos.name as tipo', DB::raw('count(*) as cantidad_equipos'))
             ->groupBy('tipos.name')
             ->get();
+        
+        $datosLap = DB::table('hotels')
+            ->select('hotels.nombre as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
+            ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
+            ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
+            ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
+            ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
+            ->whereIn('tipos.name', ['laptop'])
+            ->groupBy('hotels.id', 'tipo_equipo')
+            ->get();
 
-        $equiposCpu = Equipo::whereHas('tipo', function ($query) {//obtiene el equipo CPU 
-                $query->where('name', 'CPU');
-            })->get();
-            
-        // Obtén todos los hoteles con sus empleados
-        $hoteles = Hotel::with('empleados')->get();
+        $datosCPU = DB::table('hotels')
+            ->select('hotels.nombre as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
+            ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
+            ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
+            ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
+            ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
+            ->whereIn('tipos.name', ['CPU'])
+            ->groupBy('hotels.id', 'tipo_equipo')
+            ->get();
+        
+        //dd($datos);
 
-        $e_e = DB::table('empleado_equipo')
-            ->join('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.tipo_id')
-            ->where('equipos.tipo_id', '=', 1)
-            ->count();
-
-        //dd($e_e);
-
-        $hotels = Hotel::with('equiposCpu')->get();
-        $labels = $hotels->pluck('nombre')->toArray();
-        $data = $hotels->map(function ($hotel) {
-            return $hotel->equiposCpu->count();
-        })->toArray();
-
-        return view('charts.index', compact('labels','data','hotels','equiposCpu','hoteles','empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
+        return view('charts.index', compact('datosLap', 'datosCPU','empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
     }
 
     public function show(Request $request)

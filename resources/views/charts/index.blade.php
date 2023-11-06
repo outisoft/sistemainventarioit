@@ -36,171 +36,29 @@
                         </ul>
                     </div>
                 </div>
-                
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="table-responsive text-nowrap">
-                                <div class="card-body">
-                                    <div class="container" width="200" height="200">
-                                        <h1>Gráfica de Empleados por Hotel</h1>
-                                        <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>                                
-                                    </div>                                
-                                </div>
-                            </div>
-                        </div>            
-                    </div>
-                </div>
 
+                <!--Graficas-->
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap">
                                 <div class="card-body">
                                     <div class="container" width="200" height="200">
-                                        <h1>Gráfica de Empleados por Departamento</h1>
+                                        <h1>Total de Empleados por Hotel</h1>
+                                        <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>  
+                                        <br>                              
+                                        <h1>Total de Empleados por Departamento</h1>
                                         <canvas id="graficaEmpleadosPorDepartamento" width="400" height="200"></canvas>
-                                    </div>                                
-                                </div>
-                            </div>
-                        </div>            
-                    </div>
-                </div>
-
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="table-responsive text-nowrap">
-                                <div class="card-body">
-                                    <div class="container" width="200" height="200">
-                                        <h1>Gráfica de Equipos por Tipo</h1>
-                                        <canvas id="graficaEquiposPorTipo" width="400" height="200"></canvas>                                
-                                    </div>                                
-                                </div>
-                            </div>
-                        </div>            
-                    </div>
-                </div>
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="table-responsive text-nowrap">
-                                <div class="card-body">
-                                    <div class="container" width="200" height="200">
-                                        <h1>Gráfica de Hotel por Tipo CPU</h1>
-                                        <canvas id="graficaEmpleados" width="400" height="200"></canvas>                                
-                                    </div>                                
-                                </div>
-                            </div>
-                        </div>            
-                    </div>
-                </div>
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="table-responsive text-nowrap">
-                                <div class="card-body">
-                                    <div class="container" width="200" height="200">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Hotel</th>
-                                                    <th>Nombre del Empleado</th>
-                                                    <th>Correo Electrónico</th>
-                                                    <!-- Agrega más columnas según tus necesidades -->
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($hoteles as $hotel)
-                                                <tr>
-                                                    <td>{{ $hotel->nombre }}</td>
-                                                    <td>
-                                                        @foreach($hotel->empleados as $empleado)
-                                                            {{ $empleado->name }}<br>
-                                                        @endforeach
-                                                    </td>
-                                                    <td>
-                                                        @foreach($hotel->empleados as $empleado)
-                                                            {{ $empleado->email }}<br>
-                                                        @endforeach
-                                                    </td>
-                                                    <!-- Agrega más columnas según tus necesidades -->
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>                                                                      
-                                    </div>                                
-                                </div>
-                            </div>
-                        </div>            
-                    </div>
-                </div>
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="table-responsive text-nowrap">
-                                <div class="card-body">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Nombre</th>
-                                                <!-- Agrega más columnas según tus necesidades -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach($equiposCpu as $equipo)
-                                            <tr>
-                                                <td>{{ $equipo->id }}</td>
-                                                <td>{{ $equipo->tipo->name }}</td>
-                                                <!-- Agrega más columnas según tus necesidades -->
-                                            </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                                                   
-                                </div>
-                            </div>
-                        </div>            
-                    </div>
-                </div>
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="table-responsive text-nowrap">
-                                <div class="card-body">
-                                    <div class="container" width="200" height="200">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Hotel</th>
-                                                    <th>Cantidad de Equipos CPU</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach($hotels as $hotel)
-                                                <tr>
-                                                    <td>{{ $hotel->nombre }}</td>
-                                                    <td>{{ $hotel->equiposCpu->count() }}</td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                                                        
-                                    </div>                                
-                                </div>
-                            </div>
-                        </div>            
-                    </div>
-                </div>
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="table-responsive text-nowrap">
-                                <div class="card-body">
-                                    <div class="container" width="200" height="200">
-                                        <h1>Gráfica de Hotel por Tipo CPU</h1>
-                                        <canvas id="graficaEquipos"></canvas>                                                                        
+                                        <br>
+                                        <h1>Total de Equipos por Tipo</h1>
+                                        <canvas id="graficaEquiposPorTipo" width="400" height="200"></canvas>    
+                                        <br>                            
+                                        <h1>Total de Laptops por Hotel</h1>
+                                        <canvas id="chartlap" width="400" height="200"></canvas>   
+                                        <br>
+                                        <h1>Total de CPU por Hotel</h1>
+                                        <canvas id="grafica" width="400" height="200"></canvas>  
+                                        <br>                     
                                     </div>                                
                                 </div>
                             </div>
@@ -215,6 +73,7 @@
     <!-- Vendors JS -->
     <script src="{{ asset('js/chart.min.js') }}"></script>
     
+    <!--empleados por hotel-->
     <script>
         var empleadosPorHotel = @json($empleadosPorHotel);
     
@@ -252,6 +111,7 @@
         });
     </script>
 
+    <!--empleados por departamento-->
     <script>
         var empleadosPorDepartamento = @json($empleadosPorDepartamento);
 
@@ -289,6 +149,7 @@
         });
     </script>
 
+    <!--equipos por tipo-->
     <script>
         var equiposPorTipo = @json($equiposPorTipo);
 
@@ -323,89 +184,74 @@
             }
         });
     </script>
+    <!--TOTAL DE LAPTOPS POR HOTEL-->
+    <script>
+        var datosLap = @json($datosLap);
 
-    <!--script>
-        var equiposPorTipo = @json($equiposPorTipo);
+        var hoteles = datosLap.map(item => item.hotel);
+        
+        var equiposLaptop = datosLap.filter(item => item.tipo_equipo === 'LAPTOP').map(item => item.cantidad_equipos);
+        
+        var ctx = document.getElementById('grafica').getContext('2d');
 
-        var labels = equiposPorTipo.map(function(data) {
-            return data.tipo;
-        });
-
-        var data = equiposPorTipo.map(function(data) {
-            return data.cantidad_equipos;
-        });
-
-        var customColors = ['#a9d6e5', '#89c2d9', '#61a5c2', '#468faf', '#2C7DA0', '#2A6F97', '#014F86', '#01497C', '#013A63'];
-
-        var ctx = document.getElementById('graficaEquiposPorTipo2').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'pie', // Tipo de gráfica de pastel
+            type: 'bar',
             data: {
-                labels: labels,
+                labels: hoteles,
                 datasets: [{
-                    data: data,
-                    backgroundColor: customColors, // Asigna los colores personalizados
-                    borderWidth: 6
+                    label: 'Equipos Laptop',
+                    data: equiposLaptop,
+                    backgroundColor: '#c5b87f',
+                    borderWidth: 1
                 }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
         });
-    </script-->
-
-    <script>
-        // Datos de ejemplo: Reemplaza estos datos con los resultados reales
-        const contadorEmpleadosCpu = 5; // Supongamos que tienes 5 empleados con tipo "cpu"
-    
-        // Configuración de la gráfica
-        const ctx = document.getElementById('graficaEmpleados').getContext('2d');
-        const data = {
-            labels: ['Tipo CPU'],
-            datasets: [{
-                label: 'Cantidad de empleados',
-                data: [contadorEmpleadosCpu],
-                backgroundColor: ['blue'], // Color de la barra
-            }],
-        };
-        const config = {
-            type: 'bar',
-            data: data,
-        };
-    
-        // Crea y muestra la gráfica
-        const myChart = new Chart(ctx, config);
     </script>
-
+    <!--TOTAL DE CPU POR HOTEL-->
     <script>
-        var ctx = document.getElementById('graficaEquipos').getContext('2d');
+        var datosCPU = @json($datosCPU);
+        var datosLap = @json($datosLap);
 
-        var data = {
-            labels: @json($labels),
-            datasets: [{
-                label: 'Cantidad de Equipos CPU por Hotel',
-                data: @json($data),
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-            }],
-        };
+        var hoteles = datosCPU.map(item => item.hotel);
+        var hotelesLap = datosLap.map(item => item.hotel);
+        /*var equiposCPU = datos.filter(item => item.tipo_equipo === 'CPU').map(item => item.cantidad_equipos);
+        var equiposLaptop = datos.filter(item => item.tipo_equipo === 'laptop').map(item => item.cantidad_equipos);*/
 
-        var options = {
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Cantidad de Equipos CPU',
-                    },
-                },
-            },
-        };
-
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: data,
-            options: options,
+        var cantidadCPU = datosCPU.filter(item => item.tipo_equipo === 'CPU').map(function(cantidadCPU) {
+            return cantidadCPU.cantidad_equipos;
         });
 
+        var cantidadLap = datosLap.filter(item => item.tipo_equipo === 'LAPTOP').map(function(cantidadLap) {
+            return cantidadLap.cantidad_equipos;
+        });
+
+        var ctx = document.getElementById('chartlap').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: hoteles,
+                datasets: [{
+                    label: 'Equipos CPU',
+                    data: cantidadCPU,
+                    backgroundColor: '#8d7141',
+                },]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     </script>
 
 </x-app-layout>
