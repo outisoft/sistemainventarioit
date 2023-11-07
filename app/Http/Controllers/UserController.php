@@ -99,10 +99,8 @@ class UserController extends Controller
         $data = $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'sometimes|confirmed',
         ]);
 
-        //dd($data);
         $user = User::find($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -122,12 +120,12 @@ class UserController extends Controller
         // Actualizar el rol del usuario si se ha seleccionado un nuevo rol
         if ($request->has('rol')) {
             $nuevoRol = $request->input('rol');
-            $registro->syncRoles([$nuevoRol]); // Asigna el nuevo rol
+            $user->syncRoles([$nuevoRol]); // Asigna el nuevo rol
         }
 
         toastr()
         ->timeOut(3000) // 3 second
-        ->addSuccess("Usuario {$registro->name} actualizado.");
+        ->addSuccess("Usuario {$user->name} actualizado.");
 
         return redirect()->route('users.index');
     }
