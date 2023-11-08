@@ -212,4 +212,13 @@ class EmpleadoController extends Controller
         
         return redirect()->route('empleados.index');
     }
+
+    public function detalles($id)
+    {
+        $empleado = Empleado::find($id); // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
+        $hotel = Hotel::find($empleado->hotel_id); // Obtiene el hotel asociado al empleado
+        $departamento = Departamento::find($empleado->departamento_id); 
+        return view('empleados.detalles', compact('empleado','hotel', 'departamento'));
+    }
+
 }

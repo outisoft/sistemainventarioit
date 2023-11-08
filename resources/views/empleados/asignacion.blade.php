@@ -102,7 +102,7 @@
                                             </td>
                                             <td>{{ \Carbon\Carbon::parse($empleado->created_at)->format('d/m/Y') }}</td>
                                             <td>
-                                                <a href="#" class="btn-ico" data-placement="top" title="Mostrar detalles">
+                                                <a href="{{ route('empleados.detalles', ['id' => $empleado->id]) }}" class="btn-ico" data-placement="top" title="Mostrar detalles">
                                                     <i class='bx bx-detail me-1' ></i>Ver
                                                 </a>
                                             </td>

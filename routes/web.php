@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
     Route::post('/asignacion/asignar', [EmpleadoController::class, 'asignar'])->name('asignacion.asignar');
     Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
+    Route::get('/detalles/{id}', [EmpleadoController::class, 'detalles'])->name('empleados.detalles');
+
 
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
 });
