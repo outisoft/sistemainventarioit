@@ -44,15 +44,6 @@
                                         <td>{{ $empleado->ad }}</td>
                                     </tr>
                                 </table>
-                                
-                                <br>
-                                <a href="{{ route('empleados.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
-                                @can('empleados.edit')
-                                    <!--a href="{{ route('empleados.edit', $empleado->id) }}" class="btn btn-primary">
-                                        <i class="bx bx-edit me-1"></i>
-                                        Editar
-                                    </a-->                            
-                                @endcan
                             </div>
                         </div>
                     </div>
@@ -62,27 +53,6 @@
                     <h5 class="card-header">Equipos asignados</strong></h5>
                 </div>
 
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="card-body">
-                                <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
-                                    <tr>
-                                        <th class="bg-secondary">Equipos vinculados</th>
-                                    </tr>
-                                    <tr>
-                                        @foreach ($empleado->equipos as $equipo)
-                                            {{ $equipo->tipo->name }}
-                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm">X</a>
-                                        @endforeach
-                                    </tr>
-                                </table>
-                                
-                                <br>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="card-datatable table-responsive pt-0">
                     <div class="table-responsive text-nowrap" id="searchResults">
                         
@@ -117,7 +87,12 @@
                                                 Null
                                             @endif
                                         </td>
-                                        <td> {{ $equipo->orden }} </td>
+                                        <td>
+                                            @if (!empty($equipo->orden))
+                                                {{ $equipo->orden }} </td>
+                                            @else
+                                                Null
+                                            @endif
                                         <td> {{ $equipo->marca }} </td>
                                         <td> {{ $equipo->modelo }} </td>
                                         <td> {{ $equipo->serie }} </td>
@@ -129,21 +104,20 @@
                                         <td> {{ $equipo->office }} </td>
                                         <td> {{ $equipo->clave }} </td>
                                         <td>
-                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm">X</a>
+                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        
+                        <br>
+                        <a href="{{ route('empleados.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
+                        <br>
                     </div>
                 </div>
-
             </div>
             <!--/ Basic Bootstrap Table -->
-    
             <hr class="my-5" />
-    
         </div>
         <!-- / Content -->
       </div>

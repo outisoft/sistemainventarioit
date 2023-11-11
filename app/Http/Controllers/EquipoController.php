@@ -49,23 +49,151 @@ class EquipoController extends Controller
 
         // Guarda los datos en la tabla correspondiente según el tipo de equipo
         switch ($tipo) {
+            case '1':
+                // Guarda en la tabla de Aplicacion
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'nombre_app' => 'required',
+                    'clave_app' => 'required',
+                ]);
+                $registro = Equipo::create($data);
+                $registro->clave = $request->input('clave_app');
+                $registro->save();
+                Historial::create([
+                    'accion' => 'creacion',
+                    'descripcion' => "Se creó el registro {$registro->tipo->name} - {$registro->nombre_app}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
+                return redirect()->route('equipo.index');
+                break;
+
+            case '2':
+                    // Guarda en la tabla de cargador
+                    $data = $request->validate([
+                        'tipo_id' => 'required',
+                        'marca_cargador' => 'required',
+                        'modelo_cargador' => 'required',
+                        'serie_cargador' => 'required',
+                    ]);
+                    $registro = Equipo::create($data);
+                    $registro->marca = $request->input('marca_cargador');
+                    $registro->modelo = $request->input('modelo_cargador');
+                    $registro->serie = $request->input('serie_cargador');
+                    $registro->save();
+                    Historial::create([
+                        'accion' => 'creacion',
+                        'descripcion' => "Se creó el registro {$registro->tipo->name} marca {$registro->marca} modelo {$registro->modelo}",
+                        'registro_id' => $registro->id,
+                    ]);
+                    toastr()
+                    ->timeOut(3000) // 3 second
+                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    return redirect()->route('equipo.index');
+                    break;
+    
+                
+            
             case '3':
                 // Guarda en la tabla de CPUs
                 $data = $request->validate([
                     'tipo_id' => 'required',
-                    'orden' => 'required',
-                    'marca_equipo' => 'required',
-                    'modelo_equipo' => 'required',
-                    'serie_equipo' => 'required',
-                    'nombre_equipo' => 'required',
-                    'ip' => 'required',
-                    'contrato' => 'required',
+                    'orden_cpu' => 'required',
+                    'marca_cpu' => 'required',
+                    'modelo_cpu' => 'required',
+                    'serie_cpu' => 'required',
+                    'nombre_equipo_cpu' => 'required',
+                    'ip_cpu' => 'required',
+                    'contrato_cpu' => 'required',
                 ]);
                 $registro = Equipo::create($data);
-                $registro->marca = $request->input('marca_equipo');
-                $registro->modelo = $request->input('modelo_equipo');
-                $registro->serie = $request->input('serie_equipo');
-                $registro->no_contrato = $request->input('contrato');
+                $registro->orden = $request->input('orden_cpu');
+                $registro->marca = $request->input('marca_cpu');
+                $registro->modelo = $request->input('modelo_cpu');
+                $registro->serie = $request->input('serie_cpu');
+                $registro->nombre_equipo = $request->input('nombre_equipo_cpu');
+                $registro->ip = $request->input('ip_cpu');
+                $registro->no_contrato = $request->input('contrato_cpu');
+                $registro->save();
+                Historial::create([
+                    'accion' => 'creacion',
+                    'descripcion' => "Se creó el registro {$registro->tipo->name} Marca {$registro->marca} Modelo {$registro->modelo}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Se creo registro {$registro->tipo->name}");
+                return redirect()->route('equipo.index');
+
+                break;
+            
+            case '4':
+                // Guarda en la tabla de IMPRESORA
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca_impresora' => 'required',
+                    'modelo_impresora' => 'required',
+                    'serie_impresora' => 'required',
+                ]);
+                $registro = Equipo::create($data);
+                $registro->marca = $request->input('marca_impresora');
+                $registro->modelo = $request->input('modelo_impresora');
+                $registro->serie = $request->input('serie_impresora');
+                $registro->save();
+                Historial::create([
+                    'accion' => 'creacion',
+                    'descripcion' => "Se creó el registro {$registro->tipo} Marca {$registro->marca} Modelo {$registro->modelo}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
+                return redirect()->route('equipo.index');
+                break;        
+            case '5':
+                    // Guarda en la tabla de CPUs
+                    $data = $request->validate([
+                        'tipo_id' => 'required',
+                        'orden' => 'required',
+                        'marca_equipo' => 'required',
+                        'modelo_equipo' => 'required',
+                        'serie_equipo' => 'required',
+                        'nombre_equipo' => 'required',
+                        'ip' => 'required',
+                        'contrato' => 'required',
+                    ]);
+                    $registro = Equipo::create($data);
+                    $registro->marca = $request->input('marca_equipo');
+                    $registro->modelo = $request->input('modelo_equipo');
+                    $registro->serie = $request->input('serie_equipo');
+                    $registro->no_contrato = $request->input('contrato');
+                    $registro->save();
+                    Historial::create([
+                        'accion' => 'creacion',
+                        'descripcion' => "Se creó el registro {$registro->tipo}",
+                        'registro_id' => $registro->id,
+                    ]);
+                    toastr()
+                    ->timeOut(3000) // 3 second
+                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    return redirect()->route('equipo.index');
+    
+                    break;
+                
+            case '6':
+                // Guarda en la tabla de Lector
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca_lector' => 'required',
+                    'modelo_lector' => 'required',
+                    'serie_lector' => 'required',
+                ]);
+                $registro = Equipo::create($data);
+                $registro->marca = $request->input('marca_lector');
+                $registro->modelo = $request->input('modelo_lector');
+                $registro->serie = $request->input('serie_lector');
                 $registro->save();
                 Historial::create([
                     'accion' => 'creacion',
@@ -76,10 +204,9 @@ class EquipoController extends Controller
                 ->timeOut(3000) // 3 second
                 ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
-
-                break;
-
-            case '6':
+                break;        
+            
+            case '7':
                 // Guarda en la tabla de monitores
                 $data = $request->validate([
                     'tipo_id' => 'required',
@@ -104,29 +231,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case '12':
-                // Guarda en la tabla de teclados
-                $data = $request->validate([
-                    'tipo_id' => 'required',
-                    'marca_teclado' => 'required',
-                    'serie_teclado' => 'required',
-                ]);
-                $registro = Equipo::create($data);
-                $registro->marca = $request->input('marca_teclado');
-                $registro->serie = $request->input('serie_teclado');
-                $registro->save();
-                Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
-                    'registro_id' => $registro->id,
-                ]);
-                toastr()
-                ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo->name} creado.");
-                return redirect()->route('equipo.index');
-                break;
-            
-            case '7':
+            case '8':
                 // Guarda en la tabla de MOUSES
                 $data = $request->validate([
                     'tipo_id' => 'required',
@@ -148,31 +253,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
             
-            case '2':
-                // Guarda en la tabla de cargador
-                $data = $request->validate([
-                    'tipo_id' => 'required',
-                    'marca_cargador' => 'required',
-                    'modelo_cargador' => 'required',
-                    'serie_cargador' => 'required',
-                ]);
-                $registro = Equipo::create($data);
-                $registro->marca = $request->input('marca_cargador');
-                $registro->modelo = $request->input('modelo_cargador');
-                $registro->serie = $request->input('serie_cargador');
-                $registro->save();
-                Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
-                    'registro_id' => $registro->id,
-                ]);
-                toastr()
-                ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo->name} creado.");
-                return redirect()->route('equipo.index');
-                break;
-
-            case '8':
+            case '9':
                 // Guarda en la tabla de no_breack
                 $data = $request->validate([
                     'tipo_id' => 'required',
@@ -196,55 +277,27 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
             
-            case '4':
-                // Guarda en la tabla de IMPRESORA
-                $data = $request->validate([
-                    'tipo_id' => 'required',
-                    'marca_impresora' => 'required',
-                    'modelo_impresora' => 'required',
-                    'serie_impresora' => 'required',
-                ]);
-                $registro = Equipo::create($data);
-                $registro->marca = $request->input('marca_impresora');
-                $registro->modelo = $request->input('modelo_impresora');
-                $registro->serie = $request->input('serie_impresora');
-                $registro->save();
-                Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
-                    'registro_id' => $registro->id,
-                ]);
-                toastr()
-                ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo->name} creado.");
-                return redirect()->route('equipo.index');
-                break;
-
-            case '5':
-                // Guarda en la tabla de Lector
-                $data = $request->validate([
-                    'tipo_id' => 'required',
-                    'marca_lector' => 'required',
-                    'modelo_lector' => 'required',
-                    'serie_lector' => 'required',
-                ]);
-                $registro = Equipo::create($data);
-                $registro->marca = $request->input('marca_lector');
-                $registro->modelo = $request->input('modelo_lector');
-                $registro->serie = $request->input('serie_lector');
-                $registro->save();
-                Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
-                    'registro_id' => $registro->id,
-                ]);
-                toastr()
-                ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo->name} creado.");
-                return redirect()->route('equipo.index');
-                break;
-
             case '10':
+                // Guarda en la tabla de OFFICE
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'office' => 'required',
+                    'clave_office' => 'required',
+                ]);
+                $registro = Equipo::create($data);
+                $registro->clave = $request->input('clave_office');
+                $registro->save();
+                Historial::create([
+                    'accion' => 'creacion',
+                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} creado.");
+                return redirect()->route('equipo.index');
+                break;
+            case '11':
                 // Guarda en la tabla de SCANNER
                 $data = $request->validate([
                     'tipo_id' => 'required',
@@ -268,28 +321,7 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case '1':
-                // Guarda en la tabla de Aplicacion
-                $data = $request->validate([
-                    'tipo_id' => 'required',
-                    'nombre_app' => 'required',
-                    'clave_app' => 'required',
-                ]);
-                $registro = Equipo::create($data);
-                $registro->clave = $request->input('clave_app');
-                $registro->save();
-                Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
-                    'registro_id' => $registro->id,
-                ]);
-                toastr()
-                ->timeOut(3000) // 3 second
-                ->addSuccess("Registro {$registro->tipo->name} creado.");
-                return redirect()->route('equipo.index');
-                break;
-
-            case '11':
+            case '12':
                 // Guarda en la tabla de SO
                 $data = $request->validate([
                     'tipo_id' => 'required',
@@ -310,15 +342,17 @@ class EquipoController extends Controller
                 return redirect()->route('equipo.index');
                 break;
 
-            case '9':
-                // Guarda en la tabla de MOUSES
+            
+            case '13':
+                // Guarda en la tabla de teclados
                 $data = $request->validate([
                     'tipo_id' => 'required',
-                    'office' => 'required',
-                    'clave_office' => 'required',
+                    'marca_teclado' => 'required',
+                    'serie_teclado' => 'required',
                 ]);
                 $registro = Equipo::create($data);
-                $registro->clave = $request->input('clave_office');
+                $registro->marca = $request->input('marca_teclado');
+                $registro->serie = $request->input('serie_teclado');
                 $registro->save();
                 Historial::create([
                     'accion' => 'creacion',
@@ -330,7 +364,9 @@ class EquipoController extends Controller
                 ->addSuccess("Registro {$registro->tipo->name} creado.");
                 return redirect()->route('equipo.index');
                 break;
-            // Agrega más casos para otros tipos de equipo aquí
+            
+                
+                // Agrega más casos para otros tipos de equipo aquí
         }      
         //return redirect()->route('equipos.index')->with('success', 'Registro creado exitosamente.');
     }
