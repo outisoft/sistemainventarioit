@@ -89,20 +89,81 @@
                                         </td>
                                         <td>
                                             @if (!empty($equipo->orden))
-                                                {{ $equipo->orden }} </td>
+                                                {{ $equipo->orden }} 
                                             @else
                                                 Null
                                             @endif
-                                        <td> {{ $equipo->marca }} </td>
-                                        <td> {{ $equipo->modelo }} </td>
-                                        <td> {{ $equipo->serie }} </td>
-                                        <td> {{ $equipo->nombre_equipo }} </td>
-                                        <td> {{ $equipo->ip }} </td>
-                                        <td> {{ $equipo->no_contrato }} </td>
-                                        <td> {{ $equipo->nombre_app }} </td>
-                                        <td> {{ $equipo->so }} </td>
-                                        <td> {{ $equipo->office }} </td>
-                                        <td> {{ $equipo->clave }} </td>
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->marca ))
+                                                {{ $equipo->marca  }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->modelo ))
+                                                {{ $equipo->modelo }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->serie))
+                                                {{ $equipo->serie }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->nombre_equipo))
+                                                {{ $equipo->nombre_equipo }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->ip))
+                                                {{ $equipo->ip }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->no_contrato))
+                                                {{ $equipo->no_contrato }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->nombre_app))
+                                                {{ $equipo->nombre_app }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->so))
+                                                {{ $equipo->so }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->office))
+                                                {{ $equipo->office }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!empty($equipo->clave))
+                                                {{ $equipo->clave }} 
+                                            @else
+                                                Null
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
                                         </td>

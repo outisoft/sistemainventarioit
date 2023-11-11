@@ -15,56 +15,321 @@
                 <div class="table-responsive text-nowrap">
                   <div class="card-datatable table-responsive pt-0">
                       <div class="card-body">
-                        <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
-                          <tr>
-                              <th class="bg-secondary">Tipo de equipo</th>
-                              <td>{{ $registro->tipo->name }}</td>
-                          </tr>
-                          <tr>
-                              <th class="bg-primary">Orden de compra</th>
-                              <td>{{ $registro->orden }}</td>
-                          </tr>
-                          <tr>
-                              <th class="bg-secondary">Marca</th>
+                        @if ( $registro->tipo->name == "APLICACION")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">NOMBRE DE APLICACION</th>
+                              <td>{{ $registro->nombre_app }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Clave del producto</th>
+                              <td>{{ $registro->clave }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "CARGADOR")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">MARCA</th>
                               <td>{{ $registro->marca }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-primary">Modelo</th>
-                            <td>{{ $registro->modelo }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-secondary">Numero de serie</th>
-                            <td>{{ $registro->serie }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-primary">Nombre de equipo</th>
-                            <td>{{ $registro->nombre_equipo }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-secondary">IP</th>
-                            <td>{{ $registro->ip }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-primary">NUMERO DE CONTRATO</th>
-                            <td>{{ $registro->no_contrato }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-secondary">NOMBRE DE APLICACION</th>
-                            <td>{{ $registro->nombre_app }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-primary">Sistema Operativo</th>
-                            <td>{{ $registro->so }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-secondary">Office</th>
-                            <td>{{ $registro->office }}</td>
-                          </tr>
-                          <tr>
-                            <th class="bg-primary">Clave del producto</th>
-                            <td>{{ $registro->clave }}</td>
-                          </tr>
-                        </table>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">MODELO</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE SERIE</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "CPU")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-primary">Orden de compra</th>
+                                <td>{{ $registro->orden }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-secondary">Marca</th>
+                                <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Modelo</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">Numero de serie</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Nombre de equipo</th>
+                              <td>{{ $registro->nombre_equipo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">IP</th>
+                              <td>{{ $registro->ip }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE CONTRATO</th>
+                              <td>{{ $registro->no_contrato }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "IMPRESORA")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">MARCA</th>
+                              <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">MODELO</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE SERIE</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "LAPTOP")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-primary">Orden de compra</th>
+                                <td>{{ $registro->orden }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-secondary">Marca</th>
+                                <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Modelo</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">Numero de serie</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Nombre de equipo</th>
+                              <td>{{ $registro->nombre_equipo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">IP</th>
+                              <td>{{ $registro->ip }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE CONTRATO</th>
+                              <td>{{ $registro->no_contrato }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "LECTOR")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">MARCA</th>
+                              <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">MODELO</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE SERIE</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "MONITOR" )
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">MARCA</th>
+                              <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">MODELO</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE SERIE</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE CONTRATO</th>
+                              <td>{{ $registro->no_contrato }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "MOUSE")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">MARCA</th>
+                              <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE SERIE</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "NO BREACK")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">MARCA</th>
+                              <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">MODELO</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE SERIE</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "OFFICE")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">PAQUETERIA OFFICE</th>
+                              <td>{{ $registro->office }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">CLAVE DE ACTIVACION</th>
+                              <td>{{ $registro->clave }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "SCANNER")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">MARCA</th>
+                              <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">MODELO</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE SERIE</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "SO")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">SISTEMA OPERATIVO</th>
+                              <td>{{ $registro->so }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">CLAVE DE ACTIVACION</th>
+                              <td>{{ $registro->clave }}</td>
+                            </tr>
+                          </table>
+                        @elseif ( $registro->tipo->name == "TECLADO")
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">MARCA</th>
+                              <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE SERIE</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                          </table>
+                        @else
+                          <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
+                            <tr>
+                                <th class="bg-secondary">Tipo de equipo</th>
+                                <td>{{ $registro->tipo->name }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-primary">Orden de compra</th>
+                                <td>{{ $registro->orden }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-secondary">Marca</th>
+                                <td>{{ $registro->marca }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Modelo</th>
+                              <td>{{ $registro->modelo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">Numero de serie</th>
+                              <td>{{ $registro->serie }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Nombre de equipo</th>
+                              <td>{{ $registro->nombre_equipo }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">IP</th>
+                              <td>{{ $registro->ip }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">NUMERO DE CONTRATO</th>
+                              <td>{{ $registro->no_contrato }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">NOMBRE DE APLICACION</th>
+                              <td>{{ $registro->nombre_app }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Sistema Operativo</th>
+                              <td>{{ $registro->so }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-secondary">Office</th>
+                              <td>{{ $registro->office }}</td>
+                            </tr>
+                            <tr>
+                              <th class="bg-primary">Clave del producto</th>
+                              <td>{{ $registro->clave }}</td>
+                            </tr>
+                          </table>
+                        @endif
                         <br>
                         <a href="{{ route('equipo.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
                         @can('equipos.edit')
