@@ -18,7 +18,7 @@ class EmpleadoController extends Controller
 {
     public function index()
     {
-        $empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
+        $empleados = Empleado::with('hotel', 'departamento')->orderBy('name', 'asc')->get();
         $hoteles = Hotel::all();
         $departamentos = Departamento::all();
         return view('empleados.index', compact('empleados', 'hoteles', 'departamentos'));
@@ -53,8 +53,8 @@ class EmpleadoController extends Controller
         ]);
 
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Empleado {$registro->name} creado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Empleado {$registro->name} creado.");
         return redirect()->route('empleados.index');
     }
 
@@ -63,7 +63,7 @@ class EmpleadoController extends Controller
     {
         $registro = Empleado::findOrFail($id);
         $hotel = Hotel::find($registro->hotel_id); // Obtiene el hotel asociado al empleado
-        $departamento = Departamento::find($registro->departamento_id); 
+        $departamento = Departamento::find($registro->departamento_id);
         return view('empleados.show', compact('registro', 'hotel', 'departamento'));
     }
 
@@ -104,8 +104,8 @@ class EmpleadoController extends Controller
         // Mostrar notificación Toastr para éxito
 
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Empleado {$registro->name} actualizado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Empleado {$registro->name} actualizado.");
         return redirect()->route('empleados.index');
     }
 
@@ -120,10 +120,10 @@ class EmpleadoController extends Controller
             'descripcion' => "Se elimino el registro {$registro->name}",
             'registro_id' => $registro->id,
         ]);
-        
+
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Empleado {$registro->name} eliminado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Empleado {$registro->name} eliminado.");
         return redirect()->route('empleados.index');
     }
 
@@ -131,15 +131,15 @@ class EmpleadoController extends Controller
     {
         $query = $request->get('query');
         $empleados = Empleado::where('name', 'like', '%' . $query . '%')
-                            ->orWhere('ad', 'like', '%' . $query . '%')
-                            ->get();
+            ->orWhere('ad', 'like', '%' . $query . '%')
+            ->get();
 
         return view('empleados._employee_list', compact('empleados'));
     }
 
     public function agregar()
     {
-        $empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
+        $empleados = Empleado::with('hotel', 'departamento')->orderBy('name', 'asc')->get();
         $equipos = Equipo::with('tipo')->get();
         //$equipos = DB::table('equipos')->get();
         $empleadosConEquipos = Empleado::whereHas('empleados_equipos')->get();
@@ -202,14 +202,14 @@ class EmpleadoController extends Controller
         return Excel::download(new EmpleadoExport($equipos), 'empleados.xlsx');
     }
 
-    public function import() 
+    public function import()
     {
         Excel::import(new EmpleadoImport, request()->file('file'));
 
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Importacion de datos correctamente.");
-        
+
         return redirect()->route('empleados.index');
     }
 
@@ -217,8 +217,7 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::find($id); // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
         $hotel = Hotel::find($empleado->hotel_id); // Obtiene el hotel asociado al empleado
-        $departamento = Departamento::find($empleado->departamento_id); 
-        return view('empleados.detalles', compact('empleado','hotel', 'departamento'));
+        $departamento = Departamento::find($empleado->departamento_id);
+        return view('empleados.detalles', compact('empleado', 'hotel', 'departamento'));
     }
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+
 use Faker\Generator as Faker;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -18,7 +19,7 @@ class EquipoFactory extends Factory
     public function definition(): array
     {
         return [
-            'tipo_id' => rand(1,13),
+            'tipo_id' => rand(1, 13),
             'orden' => $this->faker->word,
             'marca' => $this->faker->word,
             'modelo' => $this->faker->word,

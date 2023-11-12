@@ -10,5 +10,4 @@ class Inventario extends Model
     use HasFactory;
 
     protected $fillable = ['nombre', 'cantidad', 'precio'];
-
 }

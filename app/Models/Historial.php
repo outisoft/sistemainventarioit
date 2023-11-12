@@ -15,5 +15,4 @@ class Historial extends Model
     {
         return $this->belongsTo(Inventario::class, 'registro_id');
     }
-
 }

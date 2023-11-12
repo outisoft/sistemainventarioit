@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Toastr;
 use Illuminate\Http\Request;
 use App\Models\Inventario;
@@ -43,8 +44,8 @@ class InventarioController extends Controller
             'registro_id' => $registro->id,
         ]);
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Registro {$registro->nombre} creado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Registro {$registro->nombre} creado.");
 
         return redirect()->route('inventario.index');
     }
@@ -82,8 +83,8 @@ class InventarioController extends Controller
         ]);
 
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Registro {$registro->nombre} actualizado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Registro {$registro->nombre} actualizado.");
 
         return redirect()->route('inventario.index');
     }
@@ -100,8 +101,8 @@ class InventarioController extends Controller
             'registro_id' => $registro->id,
         ]);
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Registro {$registro->nombre} eliminado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Registro {$registro->nombre} eliminado.");
 
         return redirect()->route('inventario.index');
     }
@@ -110,8 +111,8 @@ class InventarioController extends Controller
     {
         $query = $request->get('query');
         $inventario = Inventario::where('nombre', 'like', '%' . $query . '%')
-                            ->orWhere('cantidad', 'like', '%' . $query . '%')
-                            ->get();
+            ->orWhere('cantidad', 'like', '%' . $query . '%')
+            ->get();
 
         return view('inventario._employee_list', compact('inventario'));
     }
@@ -124,13 +125,13 @@ class InventarioController extends Controller
         return view('inventario.historial', compact('registro', 'historial'));
     }
 
-    public function import(Request $request) 
+    public function import(Request $request)
     {
         $importacion = $request->validate([
- 
+
             'file' => 'required',
-  
-         ]);
+
+        ]);
         Excel::import(new InventarioImport, $request->file('file')->store('temp'));
         return back()->with('status', 'The file has been excel/csv imported to database in Laravel 10');
         //return redirect('excel-csv-file')->with('status', 'The file has been excel/csv imported to database in Laravel 10');

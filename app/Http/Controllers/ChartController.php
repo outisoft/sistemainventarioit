@@ -15,7 +15,7 @@ class ChartController extends Controller
     // En tu controlador
     // En tu controlador
     public function index()
-    {            
+    {
         $empleadosPorHotel = DB::table('empleados')
             ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
             ->select('hotels.nombre as hotel', DB::raw('count(*) as cantidad_empleados'))
@@ -33,7 +33,7 @@ class ChartController extends Controller
             ->select('tipos.name as tipo', DB::raw('count(*) as cantidad_equipos'))
             ->groupBy('tipos.name')
             ->get();
-        
+
         $datosLap = DB::table('hotels')
             ->select('hotels.nombre as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
             ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
@@ -54,7 +54,7 @@ class ChartController extends Controller
             ->groupBy('hotels.id', 'tipo_equipo')
             ->get();
 
-        return view('charts.index', compact('datosLap', 'datosCPU','empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
+        return view('charts.index', compact('datosLap', 'datosCPU', 'empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
     }
 
     public function show(Request $request)

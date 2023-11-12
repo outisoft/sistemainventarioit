@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Factories;
+
 use App\Models\Empleado;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,8 +19,8 @@ class EmpleadoFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'puesto' => $this->faker->jobTitle,
-            'departamento_id' => rand(1,64),
-            'hotel_id' => rand(1,9),
+            'departamento_id' => rand(1, 64),
+            'hotel_id' => rand(1, 9),
             'ad' => $this->faker->userName,
         ];
     }

@@ -3,7 +3,7 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Empleados /</span> Detalles </h4>
-    
+
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
@@ -55,9 +55,9 @@
 
                 <div class="card-datatable table-responsive pt-0">
                     <div class="table-responsive text-nowrap" id="searchResults">
-                        
-                            <h5 class="card-header">No se encontro equipos asignados al empleado.</h5>
-                        
+
+                        <h5 class="card-header">No se encontro equipos asignados al empleado.</h5>
+
                         <table id="empleados" class="table table-striped footer">
                             <thead class="bg-primary">
                                 <tr>
@@ -75,12 +75,12 @@
                                     <th>Clave de activaciion</th>
                                     <th>Acciones</th>
                                 </tr>
-                            </thead>                                
+                            </thead>
                             <tbody id="employeeList">
                                 <!-- Aquí se mostrarán los empleados -->
                                 @foreach ($empleado->equipos as $equipo)
                                     <tr>
-                                        <td> 
+                                        <td>
                                             @if (!empty($equipo->tipo->name))
                                                 {{ $equipo->tipo->name }}
                                             @else
@@ -89,90 +89,92 @@
                                         </td>
                                         <td>
                                             @if (!empty($equipo->orden))
-                                                {{ $equipo->orden }} 
+                                                {{ $equipo->orden }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
-                                            @if (!empty($equipo->marca ))
-                                                {{ $equipo->marca  }} 
+                                            @if (!empty($equipo->marca))
+                                                {{ $equipo->marca }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
-                                            @if (!empty($equipo->modelo ))
-                                                {{ $equipo->modelo }} 
+                                            @if (!empty($equipo->modelo))
+                                                {{ $equipo->modelo }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
                                             @if (!empty($equipo->serie))
-                                                {{ $equipo->serie }} 
+                                                {{ $equipo->serie }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
                                             @if (!empty($equipo->nombre_equipo))
-                                                {{ $equipo->nombre_equipo }} 
+                                                {{ $equipo->nombre_equipo }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
                                             @if (!empty($equipo->ip))
-                                                {{ $equipo->ip }} 
+                                                {{ $equipo->ip }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
                                             @if (!empty($equipo->no_contrato))
-                                                {{ $equipo->no_contrato }} 
+                                                {{ $equipo->no_contrato }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
                                             @if (!empty($equipo->nombre_app))
-                                                {{ $equipo->nombre_app }} 
+                                                {{ $equipo->nombre_app }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
                                             @if (!empty($equipo->so))
-                                                {{ $equipo->so }} 
+                                                {{ $equipo->so }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
                                             @if (!empty($equipo->office))
-                                                {{ $equipo->office }} 
+                                                {{ $equipo->office }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
                                             @if (!empty($equipo->clave))
-                                                {{ $equipo->clave }} 
+                                                {{ $equipo->clave }}
                                             @else
                                                 Null
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}" class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
+                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
+                                                class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <br>
-                        <a href="{{ route('empleados.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
+                        <a href="{{ route('empleados.index') }}" class="btn btn-secondary"><i
+                                class='bx bx-arrow-back'></i>Volver</a>
                         <br>
                     </div>
                 </div>
@@ -181,5 +183,5 @@
             <hr class="my-5" />
         </div>
         <!-- / Content -->
-      </div>
+    </div>
 </x-app-layout>

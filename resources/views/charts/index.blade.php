@@ -5,30 +5,32 @@
                 <i class="bx bx-menu bx-sm"></i>
             </a>
         </div>
-      </div>
+    </div>
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-                <a href="{{ route('users.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top" title="Regresar">
-                    <span>
-                        <i class='bx bx-arrow-back'></i>
-                    </span>
-                </a>
-                 .. / Usuarios /</span> Grafica </h4>
-    
+                    <a href="{{ route('users.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
+                        title="Regresar">
+                        <span>
+                            <i class='bx bx-arrow-back'></i>
+                        </span>
+                    </a>
+                    .. / Usuarios /</span> Grafica </h4>
+
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-header">Graficas de Registros</h5>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             Tablas
                         </button>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="javascript:void(0);">Empleados</a></li>
                             <li><a class="dropdown-item" href="javascript:void(0);">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Equipos  </a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0);">Equipos </a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
@@ -45,24 +47,25 @@
                                 <div class="card-body">
                                     <div class="container" width="200" height="200">
                                         <h1>Total de Empleados por Hotel</h1>
-                                        <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>  
-                                        <br>                              
+                                        <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>
+                                        <br>
                                         <h1>Total de Empleados por Departamento</h1>
-                                        <canvas id="graficaEmpleadosPorDepartamento" width="400" height="200"></canvas>
+                                        <canvas id="graficaEmpleadosPorDepartamento" width="400"
+                                            height="200"></canvas>
                                         <br>
                                         <h1>Total de Equipos por Tipo</h1>
-                                        <canvas id="graficaEquiposPorTipo" width="400" height="200"></canvas>    
-                                        <br>                            
+                                        <canvas id="graficaEquiposPorTipo" width="400" height="200"></canvas>
+                                        <br>
                                         <h1>Total de Laptops por Hotel</h1>
-                                        <canvas id="chartlap" width="400" height="200"></canvas>   
+                                        <canvas id="chartlap" width="400" height="200"></canvas>
                                         <br>
                                         <h1>Total de CPU por Hotel</h1>
-                                        <canvas id="grafica" width="400" height="200"></canvas>  
-                                        <br>                     
-                                    </div>                                
+                                        <canvas id="grafica" width="400" height="200"></canvas>
+                                        <br>
+                                    </div>
                                 </div>
                             </div>
-                        </div>            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -72,23 +75,25 @@
     </div>
     <!-- Vendors JS -->
     <script src="{{ asset('js/chart.min.js') }}"></script>
-    
+
     <!--empleados por hotel-->
     <script>
         var empleadosPorHotel = @json($empleadosPorHotel);
-    
+
         var labels = empleadosPorHotel.map(function(data) {
             return data.hotel;
         });
-    
+
         var data = empleadosPorHotel.map(function(data) {
             return data.cantidad_empleados;
         });
 
-    
+
         // Define un array de colores personalizados para las barras
-        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f', '#dad3ae'];
-    
+        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f',
+            '#dad3ae'
+        ];
+
         var ctx = document.getElementById('graficaEmpleadosPorHotel').getContext('2d');
         var myChart = new Chart(ctx, {
             type: 'bar',
@@ -124,7 +129,9 @@
         });
 
         // Define un array de colores personalizados para las barras
-        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f', '#dad3ae', '#ece9d5'];
+        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f',
+            '#dad3ae', '#ece9d5'
+        ];
 
         var ctx = document.getElementById('graficaEmpleadosPorDepartamento').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -161,7 +168,9 @@
             return data.cantidad_equipos;
         });
 
-        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f', '#dad3ae', '#ece9d5'];
+        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f',
+            '#dad3ae', '#ece9d5'
+        ];
 
         var ctx = document.getElementById('graficaEquiposPorTipo').getContext('2d');
         var myChart = new Chart(ctx, {
@@ -189,9 +198,9 @@
         var datosLap = @json($datosLap);
 
         var hoteles = datosLap.map(item => item.hotel);
-        
+
         var equiposLaptop = datosLap.filter(item => item.tipo_equipo === 'LAPTOP').map(item => item.cantidad_equipos);
-        
+
         var ctx = document.getElementById('grafica').getContext('2d');
 
         var myChart = new Chart(ctx, {
@@ -242,7 +251,7 @@
                     label: 'Equipos CPU',
                     data: cantidadCPU,
                     backgroundColor: '#8d7141',
-                },]
+                }, ]
             },
             options: {
                 scales: {

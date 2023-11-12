@@ -19,7 +19,7 @@ class UserController extends Controller
     }
 
     public function create()
-    {        
+    {
         $roles = Role::all();
         return view('users.create', compact('roles'));
     }
@@ -38,7 +38,7 @@ class UserController extends Controller
         $tipoUsuario = $request->input('rol');
 
         //dd($tipoUsuario);
-        
+
         // Asignar el rol correspondiente al tipo de usuario
         if ($tipoUsuario === 'administrador') {
             $usuario->assignRole('administrador');
@@ -49,8 +49,8 @@ class UserController extends Controller
         }
 
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Usuario {$usuario->name} creado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Usuario {$usuario->name} creado.");
 
         // Redireccionar o mostrar un mensaje de éxito
         return redirect()->route('users.index');
@@ -124,8 +124,8 @@ class UserController extends Controller
         }
 
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Usuario {$user->name} actualizado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Usuario {$user->name} actualizado.");
 
         return redirect()->route('users.index');
     }
@@ -142,8 +142,8 @@ class UserController extends Controller
             'registro_id' => $registro->id,
         ]);
         toastr()
-        ->timeOut(3000) // 3 second
-        ->addSuccess("Usuario {$registro->name} eliminado.");
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Usuario {$registro->name} eliminado.");
 
         return redirect()->route('users.index');
     }
@@ -153,8 +153,8 @@ class UserController extends Controller
     {
         $query = $request->get('query');
         $users = User::where('name', 'like', '%' . $query . '%')
-                            ->orWhere('email', 'like', '%' . $query . '%')
-                            ->get();
+            ->orWhere('email', 'like', '%' . $query . '%')
+            ->get();
 
         return view('users._employee_list', compact('users'));
     }

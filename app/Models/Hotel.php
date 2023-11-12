@@ -9,7 +9,7 @@ class Hotel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre','tipo'];
+    protected $fillable = ['nombre', 'tipo'];
 
     public function empleados()
     {
@@ -19,7 +19,7 @@ class Hotel extends Model
     // Modelo Hotel
     public function equiposCpu()
     {
-        return $this->belongsToMany(Equipo::class, 'empleado_equipo','equipo_id')
+        return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'equipo_id')
             ->whereHas('tipo', function ($query) {
                 $query->where('name', 'CPU');
             });
