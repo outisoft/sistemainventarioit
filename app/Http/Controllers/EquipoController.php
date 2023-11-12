@@ -388,6 +388,7 @@ class EquipoController extends Controller
     {
         $equipos = Equipo::findOrFail($id);
         $tipos = Tipo::all();
+        //dd($equipos);
         return view('equipos.edit', compact('equipos', 'tipos'));
     }
 
@@ -396,24 +397,349 @@ class EquipoController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $tipo = $request->input('tipo_id');
+
+        // Guarda los datos en la tabla correspondiente según el tipo de equipo
+        switch ($tipo) {
+            case 1:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'nombre_app' => 'required',
+                    'clave' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->nombre_app}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+            
+            case 2:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca' => 'required',
+                    'modelo' => 'required',
+                    'serie' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+
+            case 3:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'orden' => 'required',
+                    'marca' => 'required',
+                    'modelo' => 'required',
+                    'serie' => 'required',
+                    'nombre_equipo' => 'required',
+                    'ip' => 'required',
+                    'no_contrato' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - Marca: {$registro->marca} -Modelo: {$registro->modelo}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+            case 4:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca' => 'required',
+                    'modelo' => 'required',
+                    'serie' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+            case 5:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'orden' => 'required',
+                    'marca' => 'required',
+                    'modelo' => 'required',
+                    'serie' => 'required',
+                    'nombre_equipo' => 'required',
+                    'ip' => 'required',
+                    'no_contrato' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - Marca: {$registro->marca} -Modelo: {$registro->modelo}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+
+            case 6:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca' => 'required',
+                    'modelo' => 'required',
+                    'serie' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+
+            case 7:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca' => 'required',
+                    'modelo' => 'required',
+                    'serie' => 'required',
+                    'no_contrato' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+
+            case 8:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca' => 'required',
+                    'serie' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+            case 9:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca' => 'required',
+                    'modelo' => 'required',
+                    'serie' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+
+            case 10:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'office' => 'required',
+                    'clave' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->office}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+            
+            case 11:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca' => 'required',
+                    'modelo' => 'required',
+                    'serie' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+
+            case 12:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'so' => 'required',
+                    'clave' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->so}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+
+            case 13:
+                //dd($request);
+                $data = $request->validate([
+                    'tipo_id' => 'required',
+                    'marca' => 'required',
+                    'serie' => 'required',
+                ]);
+
+                $registro = Equipo::findOrFail($id);
+                //dd($data);
+                $registro->update($data);
+
+                Historial::create([
+                    'accion' => 'actualizacion',
+                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'registro_id' => $registro->id,
+                ]);
+                toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+
+                return redirect()->route('equipo.index');
+                break;
+                
+        }
         //dd($request);
         $data = $request->validate([
             'tipo_id' => 'required',
-            'marca' => 'required',
-            'modelo' => 'required',
-            'serie' => 'required',
-            'nombre_equipo' => 'required',
-            'ip' => 'required',
-            'no_contrato' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);
-        //dd($registro);
+        //dd($data);
         $registro->update($data);
 
         Historial::create([
             'accion' => 'actualizacion',
-            'descripcion' => "Se actualizo el registro {$registro->marca}",
+            'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
             'registro_id' => $registro->id,
         ]);
         toastr()
