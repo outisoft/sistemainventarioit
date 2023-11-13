@@ -35,10 +35,12 @@
                     <h5 class="card-header">Listado de Equipos</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip"
-                                data-placement="top" title="Agregar Nuevo Registro">
-                                <i class='bx bx-add-to-queue icon-lg'></i>
-                            </a>
+                            @can('equipo.create')
+                                <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip"
+                                    data-placement="top" title="Agregar Nuevo Registro">
+                                    <i class='bx bx-add-to-queue icon-lg'></i>
+                                </a>
+                            @endcan
 
                             @if ($equipos->isEmpty())
                                 <a href="#" class="btn-ico" data-toggle="tooltip" data-placement="top"

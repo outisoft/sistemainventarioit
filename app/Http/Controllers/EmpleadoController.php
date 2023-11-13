@@ -16,6 +16,15 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EmpleadoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:empleados.index')->only('index');
+        $this->middleware('can:empleados.create')->only('create', 'store');
+        $this->middleware('can:empleados.edit')->only('edit', 'update');
+        $this->middleware('can:empleados.show')->only('show');
+        $this->middleware('can:empleados.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $empleados = Empleado::with('hotel', 'departamento')->orderBy('name', 'asc')->get();

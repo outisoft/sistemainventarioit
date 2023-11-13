@@ -44,18 +44,18 @@
                                     data-placement="top" title="Agregar Nuevo Registro">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
-                                @if ($empleados->isEmpty())
-                                    <a href="{{ url('importempleado') }}" class="btn-ico" data-toggle="tooltip"
-                                        data-placement="top" title="Importar registros">
-                                        <i class='bx bxs-cloud-upload icon-lg'></i>
-                                    </a>
-                                @else
-                                    <a href="{{ url('exportempleado') }}" class="btn-ico" data-toggle="tooltip"
-                                        data-placement="top" title="Exportar registros">
-                                        <i class='bx bxs-download icon-lg'></i>
-                                    </a>
-                                @endif
                             @endcan
+                            @if ($empleados->isEmpty())
+                                <a href="{{ url('importempleado') }}" class="btn-ico" data-toggle="tooltip"
+                                    data-placement="top" title="Importar registros">
+                                    <i class='bx bxs-cloud-upload icon-lg'></i>
+                                </a>
+                            @else
+                                <a href="{{ url('exportempleado') }}" class="btn-ico" data-toggle="tooltip"
+                                    data-placement="top" title="Exportar registros">
+                                    <i class='bx bxs-download icon-lg'></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -161,7 +161,8 @@
                                                 aria-label="Default select example">
                                                 @foreach ($hoteles as $hotel)
                                                     <option value="{{ $hotel->id }}">{{ $hotel->nombre }}
-                                                        ({{ $hotel->tipo }})</option>
+                                                        ({{ $hotel->tipo }})
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>

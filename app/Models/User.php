@@ -48,7 +48,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('Spatie\Permission\Models\Role');
     }
-    protected static function boot() //guardar en mayusculas
+    /*protected static function boot() //guardar en mayusculas
     {
         parent::boot();
 
@@ -59,5 +59,5 @@ class User extends Authenticatable
                 }
             }
         });
-    }
+    }*/
 }
