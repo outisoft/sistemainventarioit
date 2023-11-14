@@ -20,6 +20,10 @@ class RolesSeeder extends Seeder
 
         Permission::create(['name' => 'home'])->syncRoles($adminRole, $proRole, $basicoRole);
 
+        Permission::charts(['name' => 'charts.index'])->syncRoles($adminRole, $proRole, $basicoRole);
+
+        Permission::charts(['name' => 'historial.index'])->syncRoles($adminRole, $proRole, $basicoRole);
+
         Permission::create(['name' => 'inventario.index'])->syncRoles($adminRole, $proRole, $basicoRole);
         Permission::create(['name' => 'inventario.show'])->syncRoles($adminRole, $proRole, $basicoRole);
         Permission::create(['name' => 'inventario.create'])->syncRoles($adminRole, $proRole, $basicoRole);
@@ -31,6 +35,8 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'empleados.create'])->syncRoles($adminRole, $proRole);
         Permission::create(['name' => 'empleados.edit'])->syncRoles($adminRole, $proRole);
         Permission::create(['name' => 'empleados.destroy'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'empleados.asignacion'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'empleados.detalles'])->syncRoles($adminRole, $proRole, $basicoRole);
 
         Permission::create(['name' => 'equipos.index'])->syncRoles($adminRole, $proRole, $basicoRole);
         Permission::create(['name' => 'equipos.show'])->syncRoles($adminRole, $proRole, $basicoRole);

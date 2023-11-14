@@ -2,17 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Empleado;
-use App\Models\Equipo;
-use App\Models\Tipo;
-use App\Models\Hotel;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ChartController extends Controller
 {
-    // En tu controlador
     // En tu controlador
     public function index()
     {
@@ -55,50 +48,5 @@ class ChartController extends Controller
             ->get();
 
         return view('charts.index', compact('datosLap', 'datosCPU', 'empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
-    }
-
-    public function show(Request $request)
-    {
-        $tipoSeleccionado = $request->input('tipo_seleccionado', 'hotel'); // Por defecto, muestra datos del hotel.
-
-        if ($tipoSeleccionado === 'hotel') {
-            $empleados = Empleado::where('tipo', 'hotel')->get();
-        } else {
-            $empleados = Empleado::where('tipo', 'departamento')->get();
-        }
-
-        return view('charts.show', compact('empleados', 'tipoSeleccionado'));
-    }
-
-    public function empleados(Request $request)
-    {
-        $tipoSeleccionado = $request->input('tipo_seleccionado', 'hotel'); // Por defecto, muestra datos del hotel.
-
-        if ($tipoSeleccionado === 'hotel') {
-            $empleados = Empleado::where('tipo', 'hotel')->get();
-        } else {
-            $empleados = Empleado::where('tipo', 'departamento')->get();
-        }
-
-        return view('charts.index', compact('empleados', 'tipoSeleccionado'));
-    }
-
-
-    public function userChart()
-    {
-        //$data = User::all();
-        $numUsuarios = User::count();
-        $numEmpleados = Empleado::count();
-        $numEquipos = Equipo::count();
-
-        $data = [
-            ['label' => 'Usuarios', 'value' => $numUsuarios],
-            ['label' => 'Empleados', 'value' => $numEmpleados],
-            ['label' => 'Equipos', 'value' => $numEquipos],
-        ];
-
-        //dd($data);
-
-        return view('users.chart')->with('data', $data);
     }
 }
