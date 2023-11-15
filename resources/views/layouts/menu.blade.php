@@ -43,10 +43,10 @@
           </li>
           @can('inventario.create')
     <li class="menu-item">
-                <a href="{{ route('inventario.create') }}" class="menu-link">
-                  <div data-i18n="Without navbar">Nuevo</div>
-                </a>
-              </li>
+                                                    <a href="{{ route('inventario.create') }}" class="menu-link">
+                                                      <div data-i18n="Without navbar">Nuevo</div>
+                                                    </a>
+                                                  </li>
 @endcan
         </ul>
       </li-->
@@ -149,6 +149,13 @@
                 </ul>
             </li>
         @endcan
+        <!-- Historial -->
+        <li class="menu-item {{ Request::routeIs('historial.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.roles.index') }}" class="menu-link">
+                <i class='menu-icon tf-icons bx bxs-user-detail'></i>
+                <div data-i18n="Analytics">Lista de roles</div>
+            </a>
+        </li>
 
         <!-- Perfil -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Perfil</span></li>
