@@ -32,15 +32,14 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required'
+        $role = Role::create([
+            'name' => $request->input('name'),
         ]);
 
-        $role = Role::create($request->all());
+        // Asignar permisos al nuevo rol
+        $role->givePermissionTo($request->input('permissions', []));
 
-        $role->permissions()->sync($request->perissions);
-
-        return redirect()->route('admin.roles.edit', $role)->with('info', 'El rol se creo con exito');
+        return redirect()->route('roles.edit', $role)->with('info', 'El rol se creo con exito');
     }
 
     /**
@@ -63,17 +62,17 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required'
-        ]);
+        dd($id);
+        $role = Role::find($id);
+        $role->name = $request->input('name');
+        $role->save();
 
-        $role->update($request->all());
+        // Sincronizar los permisos del rol
+        $role->syncPermissions($request->input('permissions', []));
 
-        $role->permissions()->sync($request->perissions);
-
-        return redirect()->route('admin.roles.edit', $role)->with('info', 'El rol se actualizo con exito');
+        return redirect()->route('roles.index')->with('success', 'Rol actualizado exitosamente');
     }
 
     /**
@@ -82,6 +81,6 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('admin.roles.index')->with('info', 'El rol se elimino con exito');
+        return redirect()->route('roles.index')->with('info', 'El rol se elimino con exito');
     }
 }

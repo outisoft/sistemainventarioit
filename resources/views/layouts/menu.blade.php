@@ -149,9 +149,9 @@
                 </ul>
             </li>
         @endcan
-        <!-- Historial -->
-        <li class="menu-item {{ Request::routeIs('historial.index') ? 'active' : '' }}">
-            <a href="{{ route('admin.roles.index') }}" class="menu-link">
+        <!-- Roles -->
+        <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }}">
+            <a href="{{ route('roles.index') }}" class="menu-link">
                 <i class='menu-icon tf-icons bx bxs-user-detail'></i>
                 <div data-i18n="Analytics">Lista de roles</div>
             </a>

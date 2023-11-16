@@ -48,7 +48,7 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <div class="nav-item w-px-40 h-auto">
-                                <a href="{{ route('admin.roles.create') }}" class="btn-ico" data-placement="top"
+                                <a href="{{ route('roles.create') }}" class="btn-ico" data-placement="top"
                                     title="Agregar Nuevo Registro">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
@@ -76,11 +76,11 @@
                                                 <td>{{ $role->id }}</td>
                                                 <td>{{ $role->name }}</td>
                                                 <td width="10px">
-                                                    <a href="{{ route('admin.roles.edit', $role) }}"
+                                                    <a href="{{ route('roles.edit', $role) }}"
                                                         class="btn btn-sm btn-primary">Editar</a>
                                                 </td>
                                                 <td width="10px">
-                                                    <form action="{{ route('admin.roles.destroy', $role) }}"
+                                                    <form action="{{ route('roles.destroy', $role) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

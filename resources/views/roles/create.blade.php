@@ -25,7 +25,7 @@
                 </div>
                 <div class="table-responsive text-nowrap">
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.roles.store') }}">
+                        <form method="POST" action="{{ route('roles.store') }}">
                             @csrf
 
                             @include('roles.partials.form')

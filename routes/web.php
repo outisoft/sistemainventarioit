@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('equipo', EquipoController::class); // Rutas Equipos
     Route::resource('users', UserController::class); // Rutas Usuario
     Route::resource('charts', ChartController::class); // Rutas Graficas
-    Route::resource('roles', RoleController::class)->names('admin.roles'); // Rutas Graficas
+    Route::resource('roles', RoleController::class); // Rutas Graficas
 
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial'); // Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index'); //muestra view historial
