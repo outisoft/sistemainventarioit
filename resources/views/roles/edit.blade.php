@@ -30,22 +30,24 @@
                 </div>
                 <div class="table-responsive text-nowrap">
                     <div class="card-body">
-                        <form method="PUT" action="{{ route('roles.update', $role->id) }}">
+
+                        <form method="post" action="{{ route('roles.update', $role->id) }}">
                             @csrf
-                            @method('PUT')
+                            @method('patch')
 
                             <!-- Name -->
                             <div class="mb-3">
                                 <x-input-label class="form-label" for="name" :value="__('Name')" />
                                 <div class="input-group input-group-merge">
-                                    <x-text-input id="name" class="form-control" type="text" name="name" value="{{ $role->name }}" required autofocus/>
+                                    <x-text-input id="name" class="form-control" type="text" name="name"
+                                        value="{{ $role->name }}" required autofocus />
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
                             </div>
 
                             <h2 class="h3">Lista de Permisos</h2>
 
-                            @foreach($permissions as $permission)
+                            @foreach ($permissions as $permission)
                                 <div>
                                     <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
                                         {{ $role->permissions->contains($permission) ? 'checked' : '' }}>
