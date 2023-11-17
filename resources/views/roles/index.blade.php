@@ -61,8 +61,8 @@
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap" id="searchResults">
-                                <table class="table table-striped">
-                                    <thead>
+                                <table class="table">
+                                    <thead class="bg-primary">
                                         <tr>
                                             <th>Id</th>
                                             <th>Role</th>
