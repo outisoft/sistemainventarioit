@@ -64,7 +64,6 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd($id);
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
