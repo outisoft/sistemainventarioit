@@ -43,10 +43,10 @@
           </li>
           @can('inventario.create')
     <li class="menu-item">
-                                                    <a href="{{ route('inventario.create') }}" class="menu-link">
-                                                      <div data-i18n="Without navbar">Nuevo</div>
-                                                    </a>
-                                                  </li>
+                                                                <a href="{{ route('inventario.create') }}" class="menu-link">
+                                                                  <div data-i18n="Without navbar">Nuevo</div>
+                                                                </a>
+                                                              </li>
 @endcan
         </ul>
       </li-->
@@ -97,7 +97,7 @@
                     </li>
                 @endcan
 
-                @can('asignacion')
+                @can('empleados.asignacion')
                     <li class="menu-item">
                         <a href="{{ url('asignacion') }}" class="menu-link">
                             <div data-i18n="Without navbar">Asignar Equipo</div>
@@ -150,12 +150,14 @@
             </li>
         @endcan
         <!-- Roles -->
-        <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }}">
-            <a href="{{ route('roles.index') }}" class="menu-link">
-                <i class='menu-icon tf-icons bx bxs-user-detail'></i>
-                <div data-i18n="Analytics">Lista de roles</div>
-            </a>
-        </li>
+        @can('roles.index')
+            <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }}">
+                <a href="{{ route('roles.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bxs-user-detail'></i>
+                    <div data-i18n="Analytics">Lista de roles</div>
+                </a>
+            </li>
+        @endcan
 
         <!-- Perfil -->
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Perfil</span></li>

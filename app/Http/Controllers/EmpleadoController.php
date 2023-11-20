@@ -24,9 +24,9 @@ class EmpleadoController extends Controller
         $this->middleware('can:empleados.show')->only('show');
         $this->middleware('can:empleados.destroy')->only('destroy');
         $this->middleware('can:empleados.search')->only('search');
-        $this->middleware('can:empleados.agregar')->only('agregar');
-        $this->middleware('can:empleados.asignar')->only('asignar');
-        $this->middleware('can:empleados.desvincular')->only('desvincular');
+        $this->middleware('can:empleados.asignacion')->only('agregar');
+        $this->middleware('can:empleados.asignacion')->only('asignar');
+        $this->middleware('can:empleados.asignacion')->only('desvincular');
         $this->middleware('can:empleados.detalles')->only('detalles');
     }
 

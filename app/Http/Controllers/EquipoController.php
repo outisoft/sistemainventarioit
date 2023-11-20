@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Exports\EquipoExport;
 use App\Imports\EquipoImport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
+
 
 class EquipoController extends Controller
 {
@@ -47,9 +49,6 @@ class EquipoController extends Controller
         return view('equipos.create', compact('tipos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         //dd($request);
@@ -330,12 +329,27 @@ class EquipoController extends Controller
                 break;
 
             case '12':
+
+                $rules = [
+                    'codigo_activacion' => ['required', 'regex:/^[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}$/'],
+                ];
+
+                $validator = Validator::make($request->all(), $rules);
+
+                if ($validator->fails()) {
+                    toastr()
+                        ->timeOut(3000) // 3 second
+                        ->addError(" El código de activación no cumple con la estructura requerida");
+                    return redirect()->route('equipo.create');
+                }
+
                 // Guarda en la tabla de SO
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'so' => 'required',
-                    'clave_so' => 'required',
+                    'clave_so' => ['required', 'regex:/^[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}$/'],
                 ]);
+
                 $registro = Equipo::create($data);
                 $registro->clave = $request->input('clave_so');
                 $registro->save();

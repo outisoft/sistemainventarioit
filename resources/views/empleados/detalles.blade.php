@@ -173,7 +173,7 @@
                             </tbody>
                         </table>
                         <br>
-                        <a href="{{ route('empleados.index') }}" class="btn btn-secondary"><i
+                        <a href="{{ route('asignacion.index') }}" class="btn btn-secondary"><i
                                 class='bx bx-arrow-back'></i>Volver</a>
                         <br>
                     </div>
