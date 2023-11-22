@@ -104,15 +104,10 @@ class UserController extends Controller
     // Método para actualizar un registro
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
-
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        if ($request->has('password')) {
+        if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }
         $user->save();

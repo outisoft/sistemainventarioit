@@ -1,3 +1,8 @@
+@php
+    $user = Auth::user();
+    $role = $user->roles()->first();
+@endphp
+
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <!-- Logo -->
     <div class="app-brand demo">
@@ -172,7 +177,7 @@
                 </div>
                 <div class="flex-grow-1">
                     <div data-i18n="Account Settings">{{ Auth::user()->name }}</div>
-                    <small data-i18n="Account Settings">Admin</small>
+                    <small data-i18n="Account Settings">{{ $role->name }}</small>
                 </div>
             </a>
             <ul class="menu-sub">
