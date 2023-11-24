@@ -3,6 +3,7 @@
 :root {
   --bs-primary: #b5a160;
   --bs-secondary: #8d7141;
+  --bs-background: #f7f6ef;
 }
 
 .section_our_solution .row {
@@ -449,7 +450,7 @@ button.list-group-item-primary.active {
   color: #fff;
   background-color: var(--bs-primary);
   border-color: var(--bs-primary);
-  box-shadow: 0 0.125rem 0.25rem 0 rgba(163, 186, 195, 1);
+  box-shadow: 0 0.125rem 0.25rem 0 var(--bs-background);
 }
 
 .btn-primary:hover {
