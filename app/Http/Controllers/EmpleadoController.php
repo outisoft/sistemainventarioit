@@ -61,8 +61,8 @@ class EmpleadoController extends Controller
         $registro = Empleado::create($data);
 
         Historial::create([
-            'accion' => 'creacion',
-            'descripcion' => "Se creó el registro {$registro->name}",
+            'accion' => 'Creacion',
+            'descripcion' => "Se creó el empleado {$registro->name}, con numero de colaborador {$registro->no_empleado}",
             'registro_id' => $registro->id,
         ]);
 
@@ -111,8 +111,8 @@ class EmpleadoController extends Controller
         $registro->update($data);
 
         Historial::create([
-            'accion' => 'actualizacion',
-            'descripcion' => "Se actualizo el registro {$registro->name}",
+            'accion' => 'Actualizacion',
+            'descripcion' => "Se actualizo el empleado: {$registro->name}",
             'registro_id' => $registro->id,
         ]);
         // Mostrar notificación Toastr para éxito
@@ -131,7 +131,7 @@ class EmpleadoController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el registro {$registro->name}",
+            'descripcion' => "Se elimino el empleado {$registro->name}",
             'registro_id' => $registro->id,
         ]);
 
@@ -172,6 +172,20 @@ class EmpleadoController extends Controller
         $empleado = Empleado::find($request->input('empleado_id'));
         $empleado->equipos()->attach($request->input('equipo_id'));
 
+        $equipo = Equipo::where('id', $request->equipo_id)->with('tipo')->first();
+        //dd($equipo->tipo->name);
+
+        Historial::create([
+            'accion' => 'Asignacion',
+            'descripcion' => "Se asigno al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name}",
+            'registro_id' => $empleado->id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Empleado {$empleado->name} asignado.");
+
+
         return redirect()->route('asignacion.index');
     }
 
@@ -179,6 +193,20 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::find($empleado_id);
         $empleado->equipos()->detach($equipo_id);
+
+        $equipo = Equipo::where('id', $equipo_id)->with('tipo')->first();
+        //dd($equipo->tipo->name);
+
+        Historial::create([
+            'accion' => 'Desvinculó',
+            'descripcion' => "Se desvinculó al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name}",
+            'registro_id' => $empleado->id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Empleado {$empleado->name} desvinculado.");
+
 
         return redirect()->route('asignacion.index');
     }

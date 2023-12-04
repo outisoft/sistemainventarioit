@@ -67,13 +67,13 @@ class EquipoController extends Controller
                 $registro->clave = $request->input('clave_app');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo->name} - {$registro->nombre_app}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego la {$registro->tipo->name} - {$registro->nombre_app}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego la app {$registro->nombre_app} correctamente.");
                 return redirect()->route('equipo.index');
                 break;
 
@@ -91,13 +91,13 @@ class EquipoController extends Controller
                 $registro->serie = $request->input('serie_cargador');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo->name} marca {$registro->marca} modelo {$registro->modelo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego el {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego un nuevo {$registro->tipo->name} exitosamente.");
                 return redirect()->route('equipo.index');
                 break;
 
@@ -124,14 +124,15 @@ class EquipoController extends Controller
                 $registro->ip = $request->input('ip_cpu');
                 $registro->no_contrato = $request->input('contrato_cpu');
                 $registro->save();
+
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo->name} Marca {$registro->marca} Modelo {$registro->modelo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego un {$registro->tipo->name} de la Marca {$registro->marca} y Modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Se creo registro {$registro->tipo->name}");
+                    ->addSuccess("Se agrego un {$registro->tipo->name} exitosamente");
                 return redirect()->route('equipo.index');
 
                 break;
@@ -150,17 +151,17 @@ class EquipoController extends Controller
                 $registro->serie = $request->input('serie_impresora');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo} Marca {$registro->marca} Modelo {$registro->modelo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego una {$registro->tipo->name} de la Marca {$registro->marca} y Modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego una {$registro->tipo->name} exitosamente.");
                 return redirect()->route('equipo.index');
                 break;
             case '5':
-                // Guarda en la tabla de CPUs
+                // Guarda en la tabla de Laptop
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'orden' => 'required',
@@ -178,13 +179,13 @@ class EquipoController extends Controller
                 $registro->no_contrato = $request->input('contrato');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego una {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego una {$registro->tipo->name} correctamente.");
                 return redirect()->route('equipo.index');
 
                 break;
@@ -203,13 +204,13 @@ class EquipoController extends Controller
                 $registro->serie = $request->input('serie_lector');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego {$registro->tipo->name} correctamente.");
                 return redirect()->route('equipo.index');
                 break;
 
@@ -228,13 +229,13 @@ class EquipoController extends Controller
                 $registro->serie = $request->input('serie_monitor');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego un {$registro->tipo->name} exitosamente.");
                 return redirect()->route('equipo.index');
                 break;
 
@@ -250,13 +251,13 @@ class EquipoController extends Controller
                 $registro->serie = $request->input('serie_mouse');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego un {$registro->tipo->name} correctamente.");
                 return redirect()->route('equipo.index');
                 break;
 
@@ -274,13 +275,13 @@ class EquipoController extends Controller
                 $registro->serie = $request->input('serie_breack');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego un nuevo {$registro->tipo->name} exitosamente.");
                 return redirect()->route('equipo.index');
                 break;
 
@@ -289,19 +290,27 @@ class EquipoController extends Controller
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'office' => 'required',
-                    'clave_office' => 'required',
+                    'clave_office' => ['required', 'regex:/^[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}$/'],
                 ]);
+
+                if ($data === "") {
+                    toastr()
+                        ->timeOut(3000) // 3 second
+                        ->addError(" El código de activación no cumple con la estructura requerida");
+                    return redirect()->route('equipo.create');
+                }
+
                 $registro = Equipo::create($data);
                 $registro->clave = $request->input('clave_office');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego nueva licencia {$registro->tipo->name} - {$registro->office}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego nueva licencia de {$registro->tipo->name} exitosamente.");
                 return redirect()->route('equipo.index');
                 break;
             case '11':
@@ -318,20 +327,20 @@ class EquipoController extends Controller
                 $registro->serie = $request->input('serie_escanner');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego un nuevo {$registro->tipo->name} exitosamente.");
                 return redirect()->route('equipo.index');
                 break;
 
             case '12':
-
+                //registro de SO
                 $rules = [
-                    'codigo_activacion' => ['required', 'regex:/^[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}$/'],
+                    'clave_so' => ['required', 'regex:/^[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}-[A-Z0-9]{5}$/'],
                 ];
 
                 $validator = Validator::make($request->all(), $rules);
@@ -340,7 +349,6 @@ class EquipoController extends Controller
                     toastr()
                         ->timeOut(3000) // 3 second
                         ->addError(" El código de activación no cumple con la estructura requerida");
-                    return redirect()->route('equipo.create');
                 }
 
                 // Guarda en la tabla de SO
@@ -354,13 +362,13 @@ class EquipoController extends Controller
                 $registro->clave = $request->input('clave_so');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego nueva licencia de {$registro->tipo->name} - {$registro->so}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego nueva licencia de {$registro->tipo->name} exitosamente.");
                 return redirect()->route('equipo.index');
                 break;
 
@@ -377,20 +385,19 @@ class EquipoController extends Controller
                 $registro->serie = $request->input('serie_teclado');
                 $registro->save();
                 Historial::create([
-                    'accion' => 'creacion',
-                    'descripcion' => "Se creó el registro {$registro->tipo}",
+                    'accion' => 'Creacion',
+                    'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} creado.");
+                    ->addSuccess("Se agrego un nuevo {$registro->tipo->name} exitosamente.");
                 return redirect()->route('equipo.index');
                 break;
 
 
                 // Agrega más casos para otros tipos de equipo aquí
         }
-        //return redirect()->route('equipos.index')->with('success', 'Registro creado exitosamente.');
     }
 
     /**
@@ -436,13 +443,13 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->nombre_app}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo la {$registro->tipo->name} - {$registro->nombre_app}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo la {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
@@ -461,13 +468,13 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo el {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
@@ -490,13 +497,13 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - Marca: {$registro->marca} -Modelo: {$registro->modelo}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo el {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
@@ -514,18 +521,18 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo la {$registro->tipo->name} con la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo la {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
             case 5:
-                //dd($request);
+                //Laptop
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'orden' => 'required',
@@ -542,19 +549,19 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - Marca: {$registro->marca} -Modelo: {$registro->modelo}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo la {$registro->tipo->name} con la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo la {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
 
             case 6:
-                //dd($request);
+                //Lector
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'marca' => 'required',
@@ -567,19 +574,19 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} con la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo el {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
 
             case 7:
-                //dd($request);
+                //Monitor
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'marca' => 'required',
@@ -593,8 +600,8 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->marca}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
@@ -605,7 +612,7 @@ class EquipoController extends Controller
                 break;
 
             case 8:
-                //dd($request);
+                //Mouse
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'marca' => 'required',
@@ -617,18 +624,18 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->marca}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo el {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
             case 9:
-                //dd($request);
+                //No Breack
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'marca' => 'required',
@@ -641,19 +648,19 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->marca}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo el {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
 
             case 10:
-                //dd($request);
+                //Office
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'office' => 'required',
@@ -665,19 +672,19 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->office}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->office}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo el {$registro->tipo->name} Correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
 
             case 11:
-                //dd($request);
+                //Scanner
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'marca' => 'required',
@@ -690,19 +697,19 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
 
             case 12:
-                //dd($request);
+                //SO
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'so' => 'required',
@@ -714,19 +721,19 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->so}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->so}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo {$registro->tipo->name} correctamente.");
 
                 return redirect()->route('equipo.index');
                 break;
 
             case 13:
-                //dd($request);
+                //Teclado
                 $data = $request->validate([
                     'tipo_id' => 'required',
                     'marca' => 'required',
@@ -738,19 +745,19 @@ class EquipoController extends Controller
                 $registro->update($data);
 
                 Historial::create([
-                    'accion' => 'actualizacion',
-                    'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
+                    'accion' => 'Actualizacion',
+                    'descripcion' => "Se actualizo el {$registro->tipo->name} de la marca {$registro->marca}",
                     'registro_id' => $registro->id,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
-                    ->addSuccess("Registro {$registro->tipo->name} actualizado.");
+                    ->addSuccess("Se actualizo el {$registro->tipo->name} correcatamente.");
 
                 return redirect()->route('equipo.index');
                 break;
         }
         //dd($request);
-        $data = $request->validate([
+        /*$data = $request->validate([
             'tipo_id' => 'required',
         ]);
 
@@ -759,7 +766,7 @@ class EquipoController extends Controller
         $registro->update($data);
 
         Historial::create([
-            'accion' => 'actualizacion',
+            'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
             'registro_id' => $registro->id,
         ]);
@@ -767,7 +774,7 @@ class EquipoController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Registro {$registro->tipo->name} actualizado.");
 
-        return redirect()->route('equipo.index');
+        return redirect()->route('equipo.index');*/
     }
 
     /**
@@ -780,13 +787,13 @@ class EquipoController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el registro {$registro->tipo->name}",
+            'descripcion' => "Se elimino el {$registro->tipo->name} correctamente",
             'registro_id' => $registro->id,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Registro {$registro->tipo->name} eliminado.");
+            ->addSuccess("Se elimino el {$registro->tipo->name}.");
 
         return redirect()->route('equipo.index');
     }

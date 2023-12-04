@@ -1,34 +1,29 @@
 <x-guest-layout>
-    <h2>
-        <img src="{{ asset('images/gp-Logo.png')}}" alt="Iniciar Sesión" width="90"> Inventario
-    </h2>
+    <!-- Session Status -->
+    <x-auth-session-status class="mb-4" :status="session('status')" />
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
-    
+
         <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label class="form-label" for="email" :value="__('Email')" />
-            <div class="input-group input-group-merge">
-                <span id="basic-icon-default-fullname2" class="input-group-text">
-                    <i class='bx bx-envelope' ></i>
-                </span>
-                <x-text-input id="email" class="form-control" type="email" name="email" placeholder="correo@ejemplo.com" :value="old('email')" required autofocus autocomplete="username" />
-            </div>
+        <div>
+            <x-input-label for="email" :value="__('Email')" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-    
+
         <!-- Password -->
         <div class="mt-4">
-            <x-input-label class="form-label" for="password" :value="__('Password')" />
-            <div class="input-group input-group-merge">
-                <span id="basic-icon-default-fullname2" class="input-group-text">
-                    <i class='bx bx-lock-alt'></i>
-                </span>
-                <x-text-input id="password" class="form-control" type="password" name="password" placeholder="••••••••" required autocomplete="current-password" />
-            </div>
+            <x-input-label for="password" :value="__('Password')" />
+
+            <x-text-input id="password" class="block mt-1 w-full"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
-    
+
         <!-- Remember Me -->
         <div class="block mt-4">
             <label for="remember_me" class="inline-flex items-center">
@@ -44,7 +39,7 @@
                 </a>
             @endif
 
-            <x-primary-button class="btn btn-primary">
+            <x-primary-button class="ml-3">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

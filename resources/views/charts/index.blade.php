@@ -23,21 +23,22 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-header">Graficas de Registros</h5>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+                        <button type="button" class="btn btn-primary dropdown-toggle" id="menu" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Tablas
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="javascript:void(0);">Empleados</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Usuarios</a></li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Equipos </a></li>
+                            <li value="op-1"><a class="dropdown-item">Empleados por hotel</a></li>
+                            <li value="op-2"><a class="dropdown-item">Empleados por departamento</a></li>
+                            <li value="op-3"><a class="dropdown-item">Equipos por tipo</a></li>
+                            <li value="op-4"><a class="dropdown-item">Laptops por hotel</a></li>
+                            <li value="op-5"><a class="dropdown-item">CPU por hotel</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
-                            <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
                         </ul>
                     </div>
-                </div>
+                </div>                
 
                 <!--Graficas-->
                 <div class="content-wrapper">
@@ -45,20 +46,28 @@
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap">
                                 <div class="card-body">
-                                    <div class="container" width="200" height="200">
+                                    <div id="op-1-content" class="container" width="200" height="200">
                                         <h1>Total de Empleados por Hotel</h1>
                                         <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>
                                         <br>
+                                    </div>
+                                    <div id="op-2-content" class="container" width="200" height="200">
                                         <h1>Total de Empleados por Departamento</h1>
                                         <canvas id="graficaEmpleadosPorDepartamento" width="400"
                                             height="200"></canvas>
                                         <br>
+                                    </div>
+                                    <div id="op-3-content" class="container" width="200" height="200">
                                         <h1>Total de Equipos por Tipo</h1>
                                         <canvas id="graficaEquiposPorTipo" width="400" height="200"></canvas>
                                         <br>
+                                    </div>
+                                    <div id="op-4-content" class="container" width="200" height="200">
                                         <h1>Total de Laptops por Hotel</h1>
                                         <canvas id="chartlap" width="400" height="200"></canvas>
                                         <br>
+                                    </div>
+                                    <div id="op-5-content" class="container" width="200" height="200">
                                         <h1>Total de CPU por Hotel</h1>
                                         <canvas id="grafica" width="400" height="200"></canvas>
                                         <br>
@@ -262,5 +271,22 @@
             }
         });
     </script>
+
+<script>
+    const dropdown = document.getElementById('menu');
+    const contents = document.querySelectorAll('.content');
+
+    dropdown.addEventListener('change', () => {
+        const selectedOption = dropdown.value;
+
+        contents.forEach(content => {
+            if (content.id === selectedOption + '-content') {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+        });
+    });
+</script>
 
 </x-app-layout>

@@ -39,6 +39,10 @@
                     <h5 class="card-header">Listado de Empleados</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
+                            <a href="{{ route('charts.index') }}" class="btn-ico" data-toggle="tooltip"
+                                    data-placement="top" title="Grafica">
+                                <i class='bx bxs-bar-chart-alt-2 icon-lg'></i>
+                            </a>
                             @can('empleados.create')
                                 <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
                                     data-placement="top" title="Agregar Nuevo Registro">
