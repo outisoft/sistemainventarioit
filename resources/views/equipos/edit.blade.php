@@ -105,37 +105,37 @@
                                 <div class="form-group">
                                     <label for="orden">Orden de compra</label>
                                     <x-text-input type="text" id="orden" name="orden" class="form-control"
-                                        value="{{ $equipos->orden }}" />
+                                        value="{{ $equipos->orden }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="marca">Marca</label>
                                     <x-text-input type="text" id="marca" name="marca" class="form-control"
-                                        value="{{ $equipos->marca }}" />
+                                        value="{{ $equipos->marca }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="modelo">Modelo</label>
                                     <x-text-input type="text" id="modelo" name="modelo" class="form-control"
-                                        value="{{ $equipos->modelo }}" />
+                                        value="{{ $equipos->modelo }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="serie">Serie</label>
                                     <x-text-input type="text" id="serie" name="serie" class="form-control"
-                                        value="{{ $equipos->serie }}" />
+                                        value="{{ $equipos->serie }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="nombre_equipo">Nombre de equipo</label>
                                     <x-text-input type="text" id="nombre_equipo" name="nombre_equipo"
-                                        class="form-control" value="{{ $equipos->nombre_equipo }}" />
+                                        class="form-control" value="{{ $equipos->nombre_equipo }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="ip">IP</label>
                                     <x-text-input type="text" id="ip" name="ip" class="form-control"
-                                        value="{{ $equipos->ip }}" />
+                                        value="{{ $equipos->ip }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="no_contrato">Contrato</label>
                                     <x-text-input type="text" id="no_contrato" name="no_contrato"
-                                        class="form-control" value="{{ $equipos->no_contrato }}" />
+                                        class="form-control" value="{{ $equipos->no_contrato }}" required/>
                                 </div>
 
                                 <br>
@@ -199,37 +199,37 @@
                                 <div class="form-group">
                                     <label for="orden">Orden de compra</label>
                                     <x-text-input type="text" id="orden" name="orden" class="form-control"
-                                        value="{{ $equipos->orden }}" />
+                                        value="{{ $equipos->orden }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="marca">Marca</label>
                                     <x-text-input type="text" id="marca" name="marca" class="form-control"
-                                        value="{{ $equipos->marca }}" />
+                                        value="{{ $equipos->marca }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="modelo">Modelo</label>
                                     <x-text-input type="text" id="modelo" name="modelo" class="form-control"
-                                        value="{{ $equipos->modelo }}" />
+                                        value="{{ $equipos->modelo }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="serie">Serie</label>
                                     <x-text-input type="text" id="serie" name="serie" class="form-control"
-                                        value="{{ $equipos->serie }}" />
+                                        value="{{ $equipos->serie }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="nombre_equipo">Nombre de equipo</label>
                                     <x-text-input type="text" id="nombre_equipo" name="nombre_equipo"
-                                        class="form-control" value="{{ $equipos->nombre_equipo }}" />
+                                        class="form-control" value="{{ $equipos->nombre_equipo }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="ip">IP</label>
                                     <x-text-input type="text" id="ip" name="ip" class="form-control"
-                                        value="{{ $equipos->ip }}" />
+                                        value="{{ $equipos->ip }}" required/>
                                 </div>
                                 <div class="form-group">
                                     <label for="no_contrato">Contrato</label>
                                     <x-text-input type="text" id="no_contrato" name="no_contrato"
-                                        class="form-control" value="{{ $equipos->no_contrato }}" />
+                                        class="form-control" value="{{ $equipos->no_contrato }}" required/>
                                 </div>
 
                                 <br>
