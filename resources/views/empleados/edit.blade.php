@@ -26,22 +26,26 @@
                             <div class="form-group">
                                 <label for="no_empleado">No. Colaborador</label>
                                 <x-text-input type="text" name="no_empleado" class="form-control"
-                                    value="{{ $empleados->no_empleado }}" />
+                                    value="{{ $empleados->no_empleado }}" required/>
+                                <x-input-error :messages="$errors->get('no_empleado')" class="mt-2" />
                             </div>
                             <div class="form-group">
                                 <label for="name">Nombre</label>
                                 <x-text-input type="text" name="name" class="form-control"
                                     value="{{ $empleados->name }}" required />
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                             <div class="form-group">
                                 <label for="email">Correo</label>
                                 <x-text-input type="email" name="email" class="form-control"
                                     value="{{ $empleados->email }}" required />
+                                <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
                             <div class="form-group">
                                 <label for="puesto">Puesto</label>
                                 <x-text-input type="text" name="puesto" class="form-control"
                                     value="{{ $empleados->puesto }}" required />
+                                <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                             </div>
 
                             <div class="form-group">
@@ -54,6 +58,7 @@
                                             {{ $departamento->name }}</option>
                                     @endforeach
                                 </select>
+                                <x-input-error :messages="$errors->get('departamento_id')" class="mt-2" />
                             </div>
 
                             <div class="form-group">
@@ -66,12 +71,14 @@
                                             {{ $hotel->nombre }}</option>
                                     @endforeach
                                 </select>
+                                <x-input-error :messages="$errors->get('hotel_id')" class="mt-2" />
                             </div>
 
                             <div class="form-group">
                                 <label for="ad">AD</label>
                                 <x-text-input type="text" name="ad" class="form-control"
                                     value="{{ $empleados->ad }}" required />
+                                <x-input-error :messages="$errors->get('ad')" class="mt-2" />
                             </div>
 
                             <br>

@@ -55,8 +55,8 @@
                 </td>
                 <!-- Otros campos de la tabla -->
                 </tr>
-    @endforeach
-    </tbody>
-    </table>
+            @endforeach
+            </tbody>
+        </table>
     @endif
 </div>

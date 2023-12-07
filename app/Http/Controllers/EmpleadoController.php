@@ -23,7 +23,6 @@ class EmpleadoController extends Controller
         $this->middleware('can:empleados.edit')->only('edit', 'update');
         $this->middleware('can:empleados.show')->only('show');
         $this->middleware('can:empleados.destroy')->only('destroy');
-        $this->middleware('can:empleados.search')->only('search');
         $this->middleware('can:empleados.asignacion')->only('agregar');
         $this->middleware('can:empleados.asignacion')->only('asignar');
         $this->middleware('can:empleados.asignacion')->only('desvincular');
@@ -48,13 +47,13 @@ class EmpleadoController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'no_empleado' => 'required',
+            'no_empleado' => 'numeric|required|unique:empleados|digits_between:5,8',
             'name' => 'required',
-            'email' => 'required|email',
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Empleado::class],
             'puesto' => 'required',
             'departamento_id' => 'required',
             'hotel_id' => 'required|exists:hotels,id',
-            'ad' => 'required',
+            'ad' => 'required|unique:empleados',
         ]);
         //dd($data);
 

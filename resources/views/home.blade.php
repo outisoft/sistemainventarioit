@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> </span> Bienvenido - {{ now()->format('d/m/Y') }}
+        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> </span> Bienvenido - {{ now()->format('d/m/Y') }}  <p id="hora_actual">{{ $hora_actual }}</p>
         </h4>
         <!-- Horizontal -->
         <!--h5 class="pb-1 mb-4">Horizontal</h5-->
@@ -134,3 +134,25 @@
         <!--/ Horizontal -->
     </div>
 </x-app-layout>
+
+<script>
+    function actualizarHora() {
+        var fecha = new Date();
+        var hora = fecha.getHours();
+        var minutos = fecha.getMinutes();
+        var segundos = fecha.getSeconds();
+        var am_pm = hora >= 12 ? 'PM' : 'AM';
+
+        // Formatear la hora
+        hora = hora % 12;
+        hora = hora ? hora : 12;
+        minutos = minutos < 10 ? '0' + minutos : minutos;
+        segundos = segundos < 10 ? '0' + segundos : segundos;
+
+        // Actualizar el contenido del elemento HTML
+        document.getElementById('hora_actual').innerHTML = hora + ':' + minutos + ':' + segundos + ' ' + am_pm;
+    }
+
+    // Actualizar la hora cada segundo
+    setInterval(actualizarHora, 1000);
+</script>

@@ -14,7 +14,7 @@
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <!-- Search -->
             <div class="navbar-nav align-items-center">
-                <form action="{{ route('inventario.search') }}" method="post">
+                <form action="{{ route('empleados.search') }}" method="post">
                     @csrf
                     <div class="search-box nav-item d-flex align-items-center">
                         <i class="bx bx-search fs-4 lh-0"></i>
@@ -23,9 +23,6 @@
                     </div>
                 </form>
             </div>
-
-            <ul class="navbar-nav flex-row align-items-center ms-auto">
-            </ul>
         </div>
     </nav>
     <div class="content-wrapper">
@@ -89,8 +86,8 @@
                                                 name="no_empleado" placeholder="0038628" aria-label="0038628"
                                                 aria-describedby="basic-icon-default-fullname2" required autofocus
                                                 autocomplete="no_empleado" />
-                                            <x-input-error :messages="$errors->get('no_empleado')" class="mt-2" />
                                         </div>
+                                        <x-input-error :messages="$errors->get('no_empleado')" class="mt-2" />
                                     </div>
 
                                     <!-- Nombre -->
@@ -103,8 +100,8 @@
                                             <x-text-input id="name" class="form-control" type="text"
                                                 name="name" placeholder="Katrina Jones" :value="old('name')" required
                                                 autocomplete="name" />
-                                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                         </div>
+                                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
                                     <!-- Email Address -->
@@ -117,8 +114,8 @@
                                             <x-text-input id="email" class="form-control" type="email"
                                                 name="email" placeholder="correo@ejemplo.com" :value="old('email')"
                                                 required autocomplete="username" />
-                                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                         </div>
+                                        <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                     </div>
 
                                     <!-- Puesto -->
@@ -133,8 +130,8 @@
                                                 aria-label="Chef de partida"
                                                 aria-describedby="basic-icon-default-fullname2" required autofocus
                                                 autocomplete="puesto" />
-                                            <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                                         </div>
+                                        <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                                     </div>
 
                                     <!-- departamento -->
@@ -182,8 +179,8 @@
                                             <x-text-input name="ad" class="form-control" id="ad"
                                                 type="text" placeholder="jkatrina" aria-label="jkatrina"
                                                 aria-describedby="basic-icon-default-fullname2" required />
-                                            <x-input-error :messages="$errors->get('ad')" class="mt-2" />
                                         </div>
+                                        <x-input-error :messages="$errors->get('ad')" class="mt-2" />
                                     </div>
                                     <br>
                                     <button type="submit" class="btn btn-primary">Guardar</button>

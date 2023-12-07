@@ -9,11 +9,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\RoleController;
+use Carbon\Carbon;
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/home', function () {
-        return view('home');
+        $hora_actual = Carbon::now()->format('H:i:s A');
+        return view('home', compact('hora_actual'));
     })->name('home');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

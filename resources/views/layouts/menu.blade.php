@@ -95,11 +95,11 @@
                     </a>
                 </li>
                 @can('empleados.create')
-                    <li class="menu-item">
+                    <!--li class="menu-item">
                         <a href="{{ route('empleados.create') }}" class="menu-link">
                             <div data-i18n="Without navbar">Nuevo</div>
                         </a>
-                    </li>
+                    </li-->
                 @endcan
 
                 @can('empleados.asignacion')
@@ -146,11 +146,11 @@
                             <div data-i18n="Account">Listado</div>
                         </a>
                     </li>
-                    <li class="menu-item">
+                    <!--li class="menu-item">
                         <a href="{{ route('users.create') }}" class="menu-link">
                             <div data-i18n="Notifications">Nuevo</div>
                         </a>
-                    </li>
+                    </li-->
                 </ul>
             </li>
         @endcan
