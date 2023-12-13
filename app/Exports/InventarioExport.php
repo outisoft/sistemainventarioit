@@ -9,16 +9,16 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 class InventarioExport implements FromCollection, WithHeadings
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         //return Inventario::all();
-        return Inventario::get(['id','nombre', 'cantidad', 'precio']);
+        return Inventario::get(['id', 'nombre', 'cantidad', 'precio']);
     }
 
     public function headings(): array
     {
-        return ["Id","Nombre", "Cantidad", "Precio"];
+        return ["Id", "Nombre", "Cantidad", "Precio"];
     }
 }

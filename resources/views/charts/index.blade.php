@@ -47,6 +47,7 @@
                             <div class="table-responsive text-nowrap">
                                 <div class="card-body">
                                     <div id="op-1-content" class="container" width="200" height="200">
+                                        <a href="{{ url('exportar-grafica')}}">Exportar grafica</a>
                                         <h1>Total de Empleados por Hotel</h1>
                                         <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>
                                         <br>

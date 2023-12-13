@@ -10,6 +10,8 @@ use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\RoleController;
 use Carbon\Carbon;
+use App\Exports\EmpleadoExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 Route::middleware('auth')->group(function () {
 
@@ -17,6 +19,10 @@ Route::middleware('auth')->group(function () {
         $hora_actual = Carbon::now()->format('H:i:s A');
         return view('home', compact('hora_actual'));
     })->name('home');
+
+    Route::get('/exportar-grafica', function () {
+        return Excel::download(new EmpleadoExport, 'datos-grafica.xlsx');
+    });
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
