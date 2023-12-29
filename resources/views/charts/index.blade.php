@@ -7,14 +7,6 @@
         </div>
     </div>
 
-
-    <!-- Canvas para cada gráfico
-    <canvas id="grafico1"></canvas>
-    <canvas id="grafico2"></canvas>
-    <canvas id="grafico3"></canvas>
-    <canvas id="grafico4"></canvas>
-    <canvas id="grafico5"></canvas>-->
-
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -25,22 +17,22 @@
                             <i class='bx bx-arrow-back'></i>
                         </span>
                     </a>
-                    .. / Usuarios /</span> Grafica </h4>
+                    .. / Usuarios /</span> Graficas </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Graficas de Registros</h5>
+                    <!--h5 class="card-header">Graficas de Registros</h5-->
                     <div class="btn-group">
                         <!-- Selección de gráfica -->
                         <select class="btn btn-primary dropdown-toggle" id="seleccionGrafica"
                             onchange="mostrarGrafica()">
-                            <option value="">Seleccionar grafica</option>
-                            <option value="grafico1">Empleados por hotel</option>
-                            <option value="grafico2">Empleados por departamento</option>
-                            <option value="grafico3">Equipos por tipo</option>
-                            <option value="grafico4">Laptops por hotel</option>
-                            <option value="grafico5">CPU por hotel</option>
+                            <option class="select-option" value="">Seleccionar grafica</option>
+                            <option class="select-option" value="grafico1">Empleados por hotel</option>
+                            <option class="select-option" value="grafico2">Empleados por departamento</option>
+                            <option class="select-option" value="grafico3">Equipos por tipo</option>
+                            <option class="select-option" value="grafico4">Laptops por hotel</option>
+                            <option class="select-option" value="grafico5">CPU por hotel</option>
                         </select>
                     </div>
                 </div>

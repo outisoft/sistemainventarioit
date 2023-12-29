@@ -446,6 +446,13 @@ button.list-group-item-primary.active {
   color: var(--bs-primary);
 }
 
+.select-option {
+  color: black;
+  background-color: #fff;
+  border-color: var(--bs-primary);
+  box-shadow: 0 0.125rem 0.25rem 0 var(--bs-background);
+}
+
 .btn-primary {
   color: #fff;
   background-color: var(--bs-primary);

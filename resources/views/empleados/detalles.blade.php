@@ -2,7 +2,7 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Empleados /</span> Detalles </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Empleados / Asignacion /</span> Detalles </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -55,8 +55,6 @@
 
                 <div class="card-datatable table-responsive pt-0">
                     <div class="table-responsive text-nowrap" id="searchResults">
-
-                        <h5 class="card-header">No se encontro equipos asignados al empleado.</h5>
 
                         <table id="empleados" class="table table-striped footer">
                             <thead class="bg-primary">
