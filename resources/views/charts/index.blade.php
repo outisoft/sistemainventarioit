@@ -6,6 +6,15 @@
             </a>
         </div>
     </div>
+
+
+    <!-- Canvas para cada gráfico
+    <canvas id="grafico1"></canvas>
+    <canvas id="grafico2"></canvas>
+    <canvas id="grafico3"></canvas>
+    <canvas id="grafico4"></canvas>
+    <canvas id="grafico5"></canvas>-->
+
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -23,22 +32,25 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-header">Graficas de Registros</h5>
                     <div class="btn-group">
-                        <button type="button" class="btn btn-primary dropdown-toggle" id="menu" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Tablas
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li value="op-1"><a class="dropdown-item">Empleados por hotel</a></li>
-                            <li value="op-2"><a class="dropdown-item">Empleados por departamento</a></li>
-                            <li value="op-3"><a class="dropdown-item">Equipos por tipo</a></li>
-                            <li value="op-4"><a class="dropdown-item">Laptops por hotel</a></li>
-                            <li value="op-5"><a class="dropdown-item">CPU por hotel</a></li>
-                            <li>
-                                <hr class="dropdown-divider" />
-                            </li>
-                        </ul>
+                        <!-- Selección de gráfica -->
+                        <select class="btn btn-primary dropdown-toggle" id="seleccionGrafica"
+                            onchange="mostrarGrafica()">
+                            <option value="">Seleccionar grafica</option>
+                            <option value="grafico1">Empleados por hotel</option>
+                            <option value="grafico2">Empleados por departamento</option>
+                            <option value="grafico3">Equipos por tipo</option>
+                            <option value="grafico4">Laptops por hotel</option>
+                            <option value="grafico5">CPU por hotel</option>
+                        </select>
                     </div>
-                </div>                
+                </div>
+
+                <!-- Encabezado para cada gráfica -->
+                <h2 id="encabezadoGrafico1">Encabezado Gráfico 1</h2>
+                <h2 id="encabezadoGrafico2">Encabezado Gráfico 2</h2>
+                <h2 id="encabezadoGrafico3">Encabezado Gráfico 3</h2>
+                <h2 id="encabezadoGrafico4">Encabezado Gráfico 4</h2>
+                <h2 id="encabezadoGrafico5">Encabezado Gráfico 5</h2>
 
                 <!--Graficas-->
                 <div class="content-wrapper">
@@ -47,30 +59,24 @@
                             <div class="table-responsive text-nowrap">
                                 <div class="card-body">
                                     <div id="op-1-content" class="container" width="200" height="200">
-                                        <a href="{{ url('exportar-grafica')}}">Exportar grafica</a>
-                                        <h1>Total de Empleados por Hotel</h1>
-                                        <canvas id="graficaEmpleadosPorHotel" width="400" height="200"></canvas>
+                                        <!--a href="{{ url('exportar-grafica') }}">Exportar grafica</a-->
+                                        <canvas id="grafico1" width="400" height="200"></canvas>
                                         <br>
                                     </div>
                                     <div id="op-2-content" class="container" width="200" height="200">
-                                        <h1>Total de Empleados por Departamento</h1>
-                                        <canvas id="graficaEmpleadosPorDepartamento" width="400"
-                                            height="200"></canvas>
+                                        <canvas id="grafico2" width="400" height="200"></canvas>
                                         <br>
                                     </div>
                                     <div id="op-3-content" class="container" width="200" height="200">
-                                        <h1>Total de Equipos por Tipo</h1>
-                                        <canvas id="graficaEquiposPorTipo" width="400" height="200"></canvas>
+                                        <canvas id="grafico3" width="400" height="200"></canvas>
                                         <br>
                                     </div>
                                     <div id="op-4-content" class="container" width="200" height="200">
-                                        <h1>Total de Laptops por Hotel</h1>
-                                        <canvas id="chartlap" width="400" height="200"></canvas>
+                                        <canvas id="grafico4" width="400" height="200"></canvas>
                                         <br>
                                     </div>
                                     <div id="op-5-content" class="container" width="200" height="200">
-                                        <h1>Total de CPU por Hotel</h1>
-                                        <canvas id="grafica" width="400" height="200"></canvas>
+                                        <canvas id="grafico5" width="400" height="200"></canvas>
                                         <br>
                                     </div>
                                 </div>
@@ -83,165 +89,54 @@
         </div>
         <!-- / Content -->
     </div>
-    <!-- Vendors JS -->
-    <script src="{{ asset('js/chart.min.js') }}"></script>
 
-    <!--empleados por hotel-->
     <script>
+        //<!--empleados por hotel-->
         var empleadosPorHotel = @json($empleadosPorHotel);
 
-        var labels = empleadosPorHotel.map(function(data) {
+        var labelsEPH = empleadosPorHotel.map(function(data) {
             return data.hotel;
         });
 
-        var data = empleadosPorHotel.map(function(data) {
+        var dataEPH = empleadosPorHotel.map(function(data) {
             return data.cantidad_empleados;
         });
 
-
-        // Define un array de colores personalizados para las barras
-        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f',
-            '#dad3ae'
-        ];
-
-        var ctx = document.getElementById('graficaEmpleadosPorHotel').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Empleados',
-                    data: data,
-                    backgroundColor: customColors, // Asigna los colores personalizados
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-
-    <!--empleados por departamento-->
-    <script>
+        //empleados por departamento
         var empleadosPorDepartamento = @json($empleadosPorDepartamento);
 
-        var labels = empleadosPorDepartamento.map(function(data) {
+        var labelsEPD = empleadosPorDepartamento.map(function(data) {
             return data.departamento;
         });
 
-        var data = empleadosPorDepartamento.map(function(data) {
+        var dataEPD = empleadosPorDepartamento.map(function(data) {
             return data.cantidad_empleados;
         });
 
-        // Define un array de colores personalizados para las barras
-        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f',
-            '#dad3ae', '#ece9d5'
-        ];
-
-        var ctx = document.getElementById('graficaEmpleadosPorDepartamento').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Cantidad de Empleados',
-                    data: data,
-                    backgroundColor: customColors,
-                    borderColor: customColors,
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-
-    <!--equipos por tipo-->
-    <script>
+        //equipos por tipo
         var equiposPorTipo = @json($equiposPorTipo);
 
-        var labels = equiposPorTipo.map(function(data) {
+        var labelsEPT = equiposPorTipo.map(function(data) {
             return data.tipo;
         });
 
-        var data = equiposPorTipo.map(function(data) {
+        var dataEPT = equiposPorTipo.map(function(data) {
             return data.cantidad_equipos;
         });
 
-        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f',
-            '#dad3ae', '#ece9d5'
-        ];
-
-        var ctx = document.getElementById('graficaEquiposPorTipo').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Cantidad de Equipos',
-                    data: data,
-                    backgroundColor: customColors, // Asigna los colores personalizados
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-    <!--TOTAL DE LAPTOPS POR HOTEL-->
-    <script>
+        //TOTAL DE LAPTOPS POR HOTEL
         var datosLap = @json($datosLap);
 
         var hoteles = datosLap.map(item => item.hotel);
 
         var equiposLaptop = datosLap.filter(item => item.tipo_equipo === 'LAPTOP').map(item => item.cantidad_equipos);
 
-        var ctx = document.getElementById('grafica').getContext('2d');
-
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: hoteles,
-                datasets: [{
-                    label: 'Equipos Laptop',
-                    data: equiposLaptop,
-                    backgroundColor: '#c5b87f',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-    <!--TOTAL DE CPU POR HOTEL-->
-    <script>
+        //TOTAL DE CPU POR HOTEL
         var datosCPU = @json($datosCPU);
         var datosLap = @json($datosLap);
 
-        var hoteles = datosCPU.map(item => item.hotel);
+        var hoteles2 = datosCPU.map(item => item.hotel);
         var hotelesLap = datosLap.map(item => item.hotel);
-        /*var equiposCPU = datos.filter(item => item.tipo_equipo === 'CPU').map(item => item.cantidad_equipos);
-        var equiposLaptop = datos.filter(item => item.tipo_equipo === 'laptop').map(item => item.cantidad_equipos);*/
 
         var cantidadCPU = datosCPU.filter(item => item.tipo_equipo === 'CPU').map(function(cantidadCPU) {
             return cantidadCPU.cantidad_equipos;
@@ -251,17 +146,46 @@
             return cantidadLap.cantidad_equipos;
         });
 
-        var ctx = document.getElementById('chartlap').getContext('2d');
+        // Define un array de colores personalizados para las barras
+        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f',
+            '#dad3ae', '#ece9d5'
+        ];
 
-        new Chart(ctx, {
+        // Datos y etiquetas para cada gráfico
+        const datosYEtiquetas = [{
+                datos: dataEPH,
+                etiquetas: labelsEPH,
+            },
+            {
+                datos: dataEPD,
+                etiquetas: labelsEPD,
+            },
+            {
+                datos: dataEPT,
+                etiquetas: labelsEPT,
+            },
+            {
+                datos: equiposLaptop,
+                etiquetas: hoteles,
+            },
+            {
+                datos: cantidadCPU,
+                etiquetas: hoteles2,
+            }
+        ];
+
+        // Configuración común para los gráficos
+        const configuracionComun = {
             type: 'bar',
             data: {
-                labels: hoteles,
+                labels: [],
                 datasets: [{
-                    label: 'Equipos CPU',
-                    data: cantidadCPU,
-                    backgroundColor: '#8d7141',
-                }, ]
+                    label: [],
+                    backgroundColor: customColors,
+                    borderColor: customColors,
+                    borderWidth: 1,
+                    data: []
+                }]
             },
             options: {
                 scales: {
@@ -270,24 +194,48 @@
                     }
                 }
             }
+        };
+
+        // Crear los gráficos y ocultarlos
+        datosYEtiquetas.forEach((item, index) => {
+            const canvas = document.getElementById(`grafico${index + 1}`);
+            canvas.style.display = 'none';
+
+            const encabezado = document.getElementById(`encabezadoGrafico${index + 1}`);
+            encabezado.style.display = 'none';
+
+            const configuracionGrafico = {
+                ...configuracionComun,
+                data: {
+                    ...configuracionComun.data,
+                    labels: item.etiquetas,
+                    datasets: [{
+                        ...configuracionComun.data.datasets[0],
+                        data: item.datos
+                    }]
+                }
+            };
+            new Chart(canvas.getContext('2d'), configuracionGrafico);
         });
+
+        // Función para mostrar la gráfica seleccionada
+        function mostrarGrafica() {
+            // Oculta todas las gráficas
+            datosYEtiquetas.forEach((_, index) => {
+                const canvas = document.getElementById(`grafico${index + 1}`);
+                canvas.style.display = 'none';
+
+                const encabezado = document.getElementById(`encabezadoGrafico${index + 1}`);
+                encabezado.style.display = 'none';
+            });
+
+            // Muestra la gráfica seleccionada
+            const seleccion = document.getElementById('seleccionGrafica').value;
+            const seleccionCanvas = document.getElementById(seleccion);
+            seleccionCanvas.style.display = 'block';
+
+            const seleccionEncabezado = document.getElementById(`encabezado${seleccion.charAt(seleccion.length - 1)}`);
+            seleccionEncabezado.style.display = 'block';
+        }
     </script>
-
-<script>
-    const dropdown = document.getElementById('menu');
-    const contents = document.querySelectorAll('.content');
-
-    dropdown.addEventListener('change', () => {
-        const selectedOption = dropdown.value;
-
-        contents.forEach(content => {
-            if (content.id === selectedOption + '-content') {
-                content.style.display = 'block';
-            } else {
-                content.style.display = 'none';
-            }
-        });
-    });
-</script>
-
 </x-app-layout>
