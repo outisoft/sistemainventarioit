@@ -52,12 +52,12 @@ class User extends Authenticatable
     {
         parent::boot();
 
-        static::saving(function ($model) {
+        /*static::saving(function ($model) {
             foreach ($model->getAttributes() as $key => $value) {
                 if (is_string($value)) {
                     $model->{$key} = strtoupper($value);
                 }
             }
-        });
+        });*/
     }
 }
