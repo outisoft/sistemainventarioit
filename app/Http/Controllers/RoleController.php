@@ -47,7 +47,10 @@ class RoleController extends Controller
         // Asignar permisos al nuevo rol
         $role->givePermissionTo($request->input('permissions', []));
 
-        return redirect()->route('roles.edit', $role)->with('info', 'El rol se creo con exito');
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Role {$role->name} creado.");
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -79,7 +82,10 @@ class RoleController extends Controller
         // Sincronizar los permisos del rol
         $role->syncPermissions($request->input('permissions', []));
 
-        return redirect()->route('roles.index')->with('success', 'Rol actualizado exitosamente');
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Role {$role->name} actualizado.");
+        return redirect()->route('roles.index');
     }
 
     /**
@@ -88,6 +94,10 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         $role->delete();
-        return redirect()->route('roles.index')->with('info', 'El rol se elimino con exito');
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Role {$role->name} eliminado.");
+        return redirect()->route('roles.index');
     }
 }
