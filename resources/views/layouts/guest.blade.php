@@ -7,6 +7,8 @@
     
     <title>Inventario</title>
     <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://bsuite.grupo-pinero.com/bsuite/favicon.ico">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Agrega Font Awesome -->
     
     <!-- Icons. Uncomment required icon fonts -->

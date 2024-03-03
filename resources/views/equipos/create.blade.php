@@ -46,7 +46,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="nombre_app"
                                                     name="nombre_app" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="nombre_app" required/>
+                                                    autocomplete="nombre_app"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('nombre_app')" class="mt-2" />
 
@@ -54,7 +54,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="clave_app"
                                                     name="clave_app" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="clave_app" required/>
+                                                    autocomplete="clave_app"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('clave_app')" class="mt-2" />
                                         </div>
@@ -69,7 +69,7 @@
                                                 <x-text-input type="text" class="form-control" id="marca_cargador"
                                                     name="marca_cargador"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="marca_cargador" required/>
+                                                    autocomplete="marca_cargador"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_cargador')" class="mt-2" />
 
@@ -78,7 +78,7 @@
                                                 <x-text-input type="text" class="form-control" id="modelo_cargador"
                                                     name="modelo_cargador"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="modelo_cargador" required/>
+                                                    autocomplete="modelo_cargador"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('modelo_cargador')" class="mt-2" />
 
@@ -87,7 +87,7 @@
                                                 <x-text-input type="text" class="form-control" id="serie_cargador"
                                                     name="serie_cargador"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_cargador" required/>
+                                                    autocomplete="serie_cargador"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_cargador')" class="mt-2" />
                                         </div>
@@ -101,7 +101,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="orden_cpu"
                                                     name="orden_cpu" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="orden" required/>
+                                                    autocomplete="orden"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('orden_cpu')" class="mt-2" />
 
@@ -109,7 +109,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="marca_cpu"
                                                     name="marca_cpu" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_cpu')" class="mt-2" />
 
@@ -117,7 +117,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="modelo_cpu"
                                                     name="modelo_cpu" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('modelo_cpu')" class="mt-2" />
 
@@ -125,7 +125,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="serie_cpu"
                                                     name="serie_cpu" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_cpu')" class="mt-2" />
 
@@ -135,7 +135,7 @@
                                                 <x-text-input type="text" class="form-control"
                                                     id="nombre_equipo_cpu" name="nombre_equipo_cpu"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('nombre_equipo_cpu')" class="mt-2" />
 
@@ -143,7 +143,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="ip_cpu"
                                                     name="ip_cpu" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('ip_cpu')" class="mt-2" />
 
@@ -152,7 +152,7 @@
                                                 <x-text-input type="text" class="form-control" id="contrato_cpu"
                                                     name="contrato_cpu"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('contrato_cpu')" class="mt-2" />
                                         </div>
@@ -168,7 +168,7 @@
                                                 <x-text-input type="text" class="form-control"
                                                     id="marca_impresora" name="marca_impresora"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="marca_impresora" required/>
+                                                    autocomplete="marca_impresora"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_impresora')" class="mt-2" />
 
@@ -178,7 +178,7 @@
                                                 <x-text-input type="text" class="form-control"
                                                     id="modelo_impresora" name="modelo_impresora"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="modelo_impresora" required/>
+                                                    autocomplete="modelo_impresora"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('modelo_impresora')" class="mt-2" />
 
@@ -187,7 +187,7 @@
                                                 <x-text-input type="text" class="form-control" id="serie_breack"
                                                     name="serie_impresora"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_impresora" required/>
+                                                    autocomplete="serie_impresora"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_impresora')" class="mt-2" />
                                         </div>
@@ -201,7 +201,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="orden"
                                                     name="orden" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="orden" required/>
+                                                    autocomplete="orden"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('orden')" class="mt-2" />
 
@@ -210,7 +210,7 @@
                                                 <x-text-input type="text" class="form-control" id="marca_equipo"
                                                     name="marca_equipo"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_equipo')" class="mt-2" />
 
@@ -219,7 +219,7 @@
                                                 <x-text-input type="text" class="form-control" id="modelo_equipo"
                                                     name="modelo_equipo"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="modelo_equipo" required/>
+                                                    autocomplete="modelo_equipo"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('modelo_equipo')" class="mt-2" />
 
@@ -228,7 +228,7 @@
                                                 <x-text-input type="text" class="form-control" id="modelo_equipo"
                                                     name="serie_equipo"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_equipo" required/>
+                                                    autocomplete="serie_equipo"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_equipo')" class="mt-2" />
 
@@ -237,7 +237,7 @@
                                                 <x-text-input type="text" class="form-control" id="nombre_equipo"
                                                     name="nombre_equipo"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="nombre_equipo" required/>
+                                                    autocomplete="nombre_equipo"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('nombre_equipo')" class="mt-2" />
 
@@ -245,7 +245,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="ip"
                                                     name="ip" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('ip')" class="mt-2" />
 
@@ -253,7 +253,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="contrato"
                                                     name="contrato" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('contrato')" class="mt-2" />
                                         </div>
@@ -268,7 +268,7 @@
                                                 <x-text-input type="text" class="form-control" id="marca_lector"
                                                     name="marca_lector"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="marca_lector" required/>
+                                                    autocomplete="marca_lector"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_lector')" class="mt-2" />
 
@@ -277,7 +277,7 @@
                                                 <x-text-input type="text" class="form-control" id="modelo_lector"
                                                     name="modelo_lector"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="modelo_lector" required/>
+                                                    autocomplete="modelo_lector"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('modelo_lector')" class="mt-2" />
 
@@ -286,7 +286,7 @@
                                                 <x-text-input type="text" class="form-control" id="serie_breack"
                                                     name="serie_lector"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_lector" required/>
+                                                    autocomplete="serie_lector"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_lector')" class="mt-2" />
                                         </div>
@@ -301,7 +301,7 @@
                                                 <x-text-input type="text" class="form-control" id="marca_monitor"
                                                     name="marca_monitor"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="marca_monitor" required/>
+                                                    autocomplete="marca_monitor"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_monitor')" class="mt-2" />
 
@@ -310,7 +310,7 @@
                                                 <x-text-input type="text" class="form-control" id="modelo_monitor"
                                                     name="modelo_monitor"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="modelo_monitor" required/>
+                                                    autocomplete="modelo_monitor"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('modelo_monitor')" class="mt-2" />
 
@@ -319,7 +319,7 @@
                                                 <x-text-input type="text" class="form-control" id="modelo_equipo"
                                                     name="serie_monitor"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_monitor" required/>
+                                                    autocomplete="serie_monitor"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_monitor')" class="mt-2" />
 
@@ -327,7 +327,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="no_contrato"
                                                     name="no_contrato" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="name" required/>
+                                                    autocomplete="name"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('no_contrato')" class="mt-2" />
                                         </div>
@@ -341,7 +341,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="marca_mouse"
                                                     name="marca_mouse" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="marca_mouse" required/>
+                                                    autocomplete="marca_mouse"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_mouse')" class="mt-2" />
 
@@ -349,7 +349,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="serie_mouse"
                                                     name="serie_mouse" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_mouse" required/>
+                                                    autocomplete="serie_mouse"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_mouse')" class="mt-2" />
                                         </div>
@@ -364,7 +364,7 @@
                                                 <x-text-input type="text" class="form-control" id="marca_breack"
                                                     name="marca_breack"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="marca_breack" required/>
+                                                    autocomplete="marca_breack"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_breack')" class="mt-2" />
 
@@ -373,7 +373,7 @@
                                                 <x-text-input type="text" class="form-control" id="modelo_breack"
                                                     name="modelo_breack"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="modelo_breack" required/>
+                                                    autocomplete="modelo_breack"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('modelo_breack')" class="mt-2" />
 
@@ -382,7 +382,7 @@
                                                 <x-text-input type="text" class="form-control" id="serie_breack"
                                                     name="serie_breack"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_breack" required/>
+                                                    autocomplete="serie_breack"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_breack')" class="mt-2" />
                                         </div>
@@ -396,7 +396,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="office"
                                                     name="office" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="office" required/>
+                                                    autocomplete="office"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('office')" class="mt-2" />
 
@@ -405,7 +405,7 @@
                                                 <x-text-input type="text" class="form-control" id="clave_office"
                                                     name="clave_office"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="clave_office" required/>
+                                                    autocomplete="clave_office"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('clave_office')" class="mt-2" />
                                         </div>
@@ -420,7 +420,7 @@
                                                 <x-text-input type="text" class="form-control" id="marca_escanner"
                                                     name="marca_escanner"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="marca_escanner" required/>
+                                                    autocomplete="marca_escanner"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_escanner')" class="mt-2" />
 
@@ -430,7 +430,7 @@
                                                 <x-text-input type="text" class="form-control"
                                                     id="modelo_escanner" name="modelo_escanner"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="modelo_escanner" required/>
+                                                    autocomplete="modelo_escanner"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('modelo_escanner')" class="mt-2" />
 
@@ -439,7 +439,7 @@
                                                 <x-text-input type="text" class="form-control" id="serie_escanner"
                                                     name="serie_escanner"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_escanner" required/>
+                                                    autocomplete="serie_escanner"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_escanner')" class="mt-2" />
                                         </div>
@@ -453,7 +453,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="so"
                                                     name="so" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="so" required/>
+                                                    autocomplete="so"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('so')" class="mt-2" />
 
@@ -461,7 +461,7 @@
                                             <div class="input-group input-group-merge">
                                                 <x-text-input type="text" class="form-control" id="clave_so"
                                                     name="clave_so" aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="clave_so" required/>
+                                                    autocomplete="clave_so"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('clave_so')" class="mt-2" />
                                         </div>
@@ -476,7 +476,7 @@
                                                 <x-text-input type="text" class="form-control" id="marca_teclado"
                                                     name="marca_teclado"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="marca_teclado" required/>
+                                                    autocomplete="marca_teclado"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('marca_teclado')" class="mt-2" />
 
@@ -485,7 +485,7 @@
                                                 <x-text-input type="text" class="form-control" id="serie_teclado"
                                                     name="serie_teclado"
                                                     aria-describedby="basic-icon-default-fullname2"
-                                                    autocomplete="serie_teclado" required/>
+                                                    autocomplete="serie_teclado"  />
                                             </div>
                                             <x-input-error :messages="$errors->get('serie_teclado')" class="mt-2" />
                                         </div>
