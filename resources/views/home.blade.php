@@ -8,23 +8,28 @@
     </div>                
                 <!-- seo end -->
                 <div class="container-xxl flex-grow-1 container-p-y">
-                    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> </span> Bienvenido - {{ now()->format('d/m/Y') }}
-                        <p id="hora_actual">{{ $hora_actual }}</p>
+                    <h4 class="fw-bold py-3 mb-4"> Hola, {{ Auth::user()->name }} - {{ now()->format('d/m/Y') }}
                     </h4>
+                    <h6>
+                        <p id="hora_actual">{{ $hora_actual }} - </p>
+                    </h6>
                     <div class="row">
                         <div class="col-xl-4 col-md-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-6">
-                                            <h3>16,756</h3>
+                                            <h3>{{ $totalEmpleados }}</h3>
                                             <h6 class="text-muted m-b-0">Empleados<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
                                         </div>
                                         <div class="col-6">
-                                            <div id="seo-chart1" class="d-flex align-items-end"></div>
+                                            <div class="so_top_icon">
+                                                <i class='bx bx-user-pin bx-lg' ></i>
+                                                <a href="{{ route('empleados.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                            </div>                                   
                                         </div>
                                     </div>
-                                </div>
+                                </div>            
                             </div>
                         </div>
                         <div class="col-xl-4 col-md-6">
@@ -32,11 +37,14 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-6">
-                                            <h3>4,955</h3>
+                                            <h3>{{ $totalEquipos }}</h3>
                                             <h6 class="text-muted m-b-0">Equipos<i class="fa fa-caret-up text-c-green m-l-10"></i></h6>
                                         </div>
                                         <div class="col-6">
-                                            <div id="seo-chart2" class="d-flex align-items-end"></div>
+                                            <div class="so_top_icon">
+                                                <i class='bx bx-desktop bx-lg' ></i>
+                                                <a href="{{ route('equipo.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -47,11 +55,14 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-6">
-                                            <h3>6</h3>
+                                            <h3>{{ $totalUsuarios }}</h3>
                                             <h6 class="text-muted m-b-0">Usuarios<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
                                         </div>
                                         <div class="col-6">
-                                            <div id="seo-chart3" class="d-flex align-items-end"></div>
+                                            <div class="so_top_icon">
+                                                <i class='bx bxs-user bx-lg'></i>
+                                                <a href="{{ route('users.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +72,7 @@
                     <br>
                     <!-- Horizontal -->
                     <!--h5 class="pb-1 mb-4">Horizontal</h5-->
-                    <div class="row mb-5 flex">
+                    <!--div class="row mb-5 flex">
                         @can('equipos.index')
                             <div class="col-md">
                                 <div class="section_our_solution">
@@ -189,7 +200,7 @@
                                 </div>
                             </div>
                         @endcan
-                    </div>
+                    </div-->
                     <!--/ Horizontal -->
                 </div>
 </x-app-layout>

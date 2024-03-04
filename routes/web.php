@@ -11,13 +11,20 @@ use App\Http\Controllers\ChartController;
 use App\Http\Controllers\RoleController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
+use App\Models\Empleado;
+use App\Models\Equipo;
+use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/home', function () {
+        // Obtén el total de elementos
+        $totalEmpleados = Empleado::count();
+        $totalEquipos = Equipo::count();
+        $totalUsuarios = User::count();
         $hora_actual = Carbon::now()->format('H:i:s A');
-        return view('home', compact('hora_actual'));
+        return view('home', compact('hora_actual', 'totalEmpleados', 'totalEquipos', 'totalUsuarios'));
     })->name('home');
 
     Route::get('/exportar-grafica', function () {
