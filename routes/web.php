@@ -14,17 +14,25 @@ use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
 use App\Models\Equipo;
 use App\Models\User;
+use App\Models\Hotel;
+use App\Models\Tipo;
 use Maatwebsite\Excel\Facades\Excel;
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/home', function () {
+         // Obtener la cantidad de equipos de cada tipo
+         $tipos = Tipo::withCount('equipos')->get();
+        
+         $labels = $tipos->pluck('name')->toArray();
+         $data = $tipos->pluck('equipos_count')->toArray();
+            
         // Obtén el total de elementos
         $totalEmpleados = Empleado::count();
         $totalEquipos = Equipo::count();
         $totalUsuarios = User::count();
         $hora_actual = Carbon::now()->format('H:i:s A');
-        return view('home', compact('hora_actual', 'totalEmpleados', 'totalEquipos', 'totalUsuarios'));
+        return view('home', compact('hora_actual', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data'));
     })->name('home');
 
     Route::get('/exportar-grafica', function () {
@@ -70,14 +78,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
     Route::get('/detalles/{id}', [EmpleadoController::class, 'detalles'])->name('empleados.detalles');
 
-
+    //CHARTS
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
 });
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
+    return view('auth.login');
+})->name('login');
 //Route::get('/home', function () {return view('home');})->middleware(['auth', 'verified'])->name('home');
 
 

@@ -134,24 +134,11 @@
                 <span class="menu-header-text">Administrador</span>
             </li>
             <!--Usuarios-->
-            <li
-                class="menu-item {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.create') ? 'active' : '' }} || {{ Request::routeIs('users.show') ? 'active' : '' }} || {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.edit') ? 'active' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <li class="menu-item {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.create') ? 'active' : '' }} || {{ Request::routeIs('users.show') ? 'active' : '' }} || {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.edit') ? 'active' : '' }}">
+                <a href="{{ route('users.index') }}" class="menu-link">
                     <i class='menu-icon tf-icons bx bxs-user-circle'></i>
-                    <div data-i18n="Account Settings">Usuarios</div>
+                    <div data-i18n="Analytics">Usuarios</div>
                 </a>
-                <ul class="menu-sub">
-                    <li class="menu-item">
-                        <a href="{{ route('users.index') }}" class="menu-link">
-                            <div data-i18n="Account">Listado</div>
-                        </a>
-                    </li>
-                    <!--li class="menu-item">
-                        <a href="{{ route('users.create') }}" class="menu-link">
-                            <div data-i18n="Notifications">Nuevo</div>
-                        </a>
-                    </li-->
-                </ul>
             </li>
         @endcan
         <!-- Roles -->
@@ -159,7 +146,7 @@
             <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }}">
                 <a href="{{ route('roles.index') }}" class="menu-link">
                     <i class='menu-icon tf-icons bx bxs-user-detail'></i>
-                    <div data-i18n="Analytics">Lista de roles</div>
+                    <div data-i18n="Analytics">Roles</div>
                 </a>
             </li>
         @endcan
@@ -171,7 +158,7 @@
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                        <img src="{{ asset('assets/img/avatars/3.jpg') }}" alt
+                        <img src="{{ asset('images/UserP.png') }}" alt
                             class="w-px-40 h-auto rounded-circle" />
                     </div>
                 </div>
