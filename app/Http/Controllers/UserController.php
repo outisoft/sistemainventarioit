@@ -122,7 +122,7 @@ class UserController extends Controller
         $registro->update($data);*/
 
         Historial::create([
-            'accion' => 'actualizacion',
+            'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo el usuario {$user->name}",
             'registro_id' => $user->id,
         ]);

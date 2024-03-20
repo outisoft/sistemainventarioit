@@ -71,32 +71,20 @@
         </div>
         <br>
     </div>
+
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="row">
-                <!-- Total Equipo por tipo  -->
-                <div class="col-xl-6 col-12 mb-4">
-                    <div class="card">
-                        <div class="card-header header-elements">
-                            <h5 class="card-title mb-0">Total de equipos {{ now()->format('Y') }}</h5>
-                            <div class="card-action-element ms-auto py-0">
-                                <div class="dropdown">
-                                    <button type="button" class="btn dropdown-toggle px-0" data-bs-toggle="dropdown" aria-expanded="false"><i class='bx bxs-file-doc'></i></button>
-                                    <ul class="dropdown-menu dropdown-menu-end" style="">
-                                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">Excel</a></li>
-                                        <li><a href="javascript:void(0);" class="dropdown-item d-flex align-items-center">PDF</a></li>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div id="chart"></div>
-                        </div>
-                    </div>
-                </div>
+                <!-- Grafica Total de Equipos -->
+                @include('partials-home.total_equipos')
+
+                <!-- Grafica Total de CPU -->
+                @include('partials-home.total_cpu')
             </div>
         </div>
     </div>
+
 </x-app-layout>
 <script>
     function actualizarHora() {
@@ -120,13 +108,14 @@
     setInterval(actualizarHora, 1000);
 </script>
 
+<!-- Script Total de Equipos -->
 <script>
     var labels = {!! json_encode($labels) !!};
     var data = {!! json_encode($data) !!};
     let headingColor = config.colors.headingColor;
     let axisColor = config.colors.axisColor;
     let cardColor = config.colors.white;
-    var customColors = ['#2f2119', '#604933','#8d7141', '#b5a160', '#c5b87f', '#dad3ae'];
+    var customColors = [ '#8d7141', '#b5a160','#604933', '#c5b87f', '#2f2119','#dad3ae'];
 
     var options = {
         series: data,
@@ -186,5 +175,29 @@
     };
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+</script>
+
+<!-- Script Total de CPU -->
+<script>
+    var options = {
+        chart: {
+            type: 'bar'
+        },
+        series: [{
+            data: [{
+            x: 'category A',
+            y: 10
+            }, {
+            x: 'category B',
+            y: 18
+            }, {
+            x: 'category C',
+            y: 13
+            }]
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#cpuChart"), options);
     chart.render();
 </script>

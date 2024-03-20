@@ -17,22 +17,33 @@ use App\Models\User;
 use App\Models\Hotel;
 use App\Models\Tipo;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/home', function () {
-         // Obtener la cantidad de equipos de cada tipo
-         $tipos = Tipo::withCount('equipos')->get();
-        
-         $labels = $tipos->pluck('name')->toArray();
-         $data = $tipos->pluck('equipos_count')->toArray();
-            
+        // Obtener la cantidad de equipos de cada tipo
+        $tipos = Tipo::withCount('equipos')->get();
+
+        $labels = $tipos->pluck('name')->toArray();
+        $data = $tipos->pluck('equipos_count')->toArray();
+
+        $datosCPU = DB::table('hotels')
+            ->select('hotels.nombre as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
+            ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
+            ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
+            ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
+            ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
+            ->whereIn('tipos.name', ['CPU'])
+            ->groupBy('hotels.id', 'tipo_equipo')
+            ->get();
+
         // Obtén el total de elementos
         $totalEmpleados = Empleado::count();
         $totalEquipos = Equipo::count();
         $totalUsuarios = User::count();
         $hora_actual = Carbon::now()->format('H:i:s A');
-        return view('home', compact('hora_actual', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data'));
+        return view('home', compact('hora_actual', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datosCPU'));
     })->name('home');
 
     Route::get('/exportar-grafica', function () {
@@ -71,6 +82,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/inventario/search', [InventarioController::class, 'search'])->name('inventario.search'); //buscador de inventario
     Route::post('/users/search', [UserController::class, 'search'])->name('users.search'); //buscador de usuarios
     Route::post('/equipo/search', [EquipoController::class, 'search'])->name('equipo.search'); //buscador de usuarios
+    Route::get('/buscar', [EmpleadoController::class, 'buscar'])->name('buscar'); //buscador de usuarios
 
     //asignacion de equipo a empleado
     Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');

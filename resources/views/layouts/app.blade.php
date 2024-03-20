@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
         class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/serach.css') }}" />
 
     @yield('css')
     <!-- Vendors CSS -->

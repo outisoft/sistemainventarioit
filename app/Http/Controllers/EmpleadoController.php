@@ -145,9 +145,21 @@ class EmpleadoController extends Controller
         $query = $request->get('query');
         $empleados = Empleado::where('name', 'like', '%' . $query . '%')
             ->orWhere('ad', 'like', '%' . $query . '%')
+            ->orWhere('email', 'like', '%' . $query . '%')
             ->get();
 
         return view('empleados._employee_list', compact('empleados'));
+    }
+
+    public function buscar(Request $request)
+    {
+        $query = $request->get('query');
+        $empleados = Empleado::where('name', 'like', '%' . $query . '%')
+            ->orWhere('ad', 'like', '%' . $query . '%')
+            ->orWhere('email', 'like', '%' . $query . '%')
+            ->get();
+
+        return view('empleados._asignacion_list', compact('empleados'));
     }
 
     public function agregar()
