@@ -36,13 +36,14 @@ class UserController extends Controller
     // Método para guardar un nuevo registro
     public function store(Request $request)
     {
+        //dd($request);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         // Crear el usuario
-        $usuario = User::create([
+        $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
@@ -50,44 +51,20 @@ class UserController extends Controller
 
         // Obtener el tipo de usuario (por ejemplo, "admin", "editor", "usuario")
         $tipoUsuario = $request->input('rol');
+        $user->assignRole([$tipoUsuario]);
 
-        //dd($tipoUsuario);
-
-        // Asignar el rol correspondiente al tipo de usuario
-        if ($tipoUsuario === 'administrador') {
-            $usuario->assignRole('administrador');
-        } elseif ($tipoUsuario === 'pro') {
-            $usuario->assignRole('pro');
-        } else {
-            $usuario->assignRole('basico');
-        }
+        Historial::create([
+            'accion' => 'Creaccion',
+            'descripcion' => "Se creo el usuario {$user->name}",
+            'registro_id' => $user->id,
+        ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Usuario {$usuario->name} creado.");
+            ->addSuccess("Usuario {$user->name} creado.");
 
         // Redireccionar o mostrar un mensaje de éxito
         return redirect()->route('users.index');
-    }
-
-    public function crearUsuario(Request $request)
-    {
-        // Crear el usuario
-        $usuario = User::create([
-            'name' => $request->input('nombre'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')), // Asegúrate de gestionar la contraseña de manera segura
-        ]);
-
-        // Obtener el rol seleccionado
-        $nombreRol = $request->input('rol');
-
-        // Asignar el rol al usuario
-        $rol = Role::findByName($nombreRol);
-        $usuario->assignRole($rol);
-
-        // Redireccionar o mostrar un mensaje de éxito
-        return redirect()->route('lista-usuarios')->with('success', 'Usuario creado exitosamente.');
     }
 
     // Método para mostrar un usuario específico

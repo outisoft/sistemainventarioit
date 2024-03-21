@@ -186,6 +186,7 @@
 
     var options = {
         chart: {
+            height: 350,
             type: 'bar'
         },
         colors: customColors,
@@ -193,8 +194,20 @@
             name: 'Equipos',
             data: datos_grafica.map(item => item.total)
         }],
+        plotOptions: {
+          bar: {
+            borderRadius: 10,
+            dataLabels: {
+              position: 'top', // top, center, bottom
+            },
+          }
+        },
         xaxis: {
-            categories: datos_grafica.map(item => item.estado)
+            categories: datos_grafica.map(item => item.estado),
+            position: 'top',
+            axisBorder: {
+                show: false
+            },
         }
     };
 
@@ -213,8 +226,20 @@
             name: 'Equipos',
             data: total_laptops.map(item => item.total)
         }],
+        plotOptions: {
+          bar: {
+            borderRadius: 10,
+            dataLabels: {
+              position: 'top', // top, center, bottom
+            },
+          }
+        },
         xaxis: {
-            categories: total_laptops.map(item => item.estado)
+            categories: total_laptops.map(item => item.estado),
+            position: 'top',
+            axisBorder: {
+                show: false
+            },
         }
     };
 
