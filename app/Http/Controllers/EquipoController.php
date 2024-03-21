@@ -30,7 +30,6 @@ class EquipoController extends Controller
         // Filtrar equipos por tipo
         // Obtener todos los equipos
         $equipos = Equipo::with('tipo')->get();
-        //$empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {

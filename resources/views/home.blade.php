@@ -79,8 +79,11 @@
                 <!-- Grafica Total de Equipos -->
                 @include('partials-home.total_equipos')
 
-                <!-- Grafica Total de CPU -->
-                @include('partials-home.total_cpu')
+                <!-- Grafica Total de CPU Libres o en uso-->
+                @include('partials-home.total_cpu_libres_o_en_uso')
+
+                <!-- Grafica Total de Laptops Libres o en uso-->
+                @include('partials-home.total_laptops_libres_o_en_uso')
             </div>
         </div>
     </div>
@@ -108,14 +111,15 @@
     setInterval(actualizarHora, 1000);
 </script>
 
-<!-- Script Total de Equipos -->
+
 <script>
+    /*Script Total de Equipos*/
     var labels = {!! json_encode($labels) !!};
     var data = {!! json_encode($data) !!};
     let headingColor = config.colors.headingColor;
     let axisColor = config.colors.axisColor;
     let cardColor = config.colors.white;
-    var customColors = [ '#8d7141', '#b5a160','#604933', '#c5b87f', '#2f2119','#dad3ae'];
+    var customColors = [ '#b5a160','#604933', '#c5b87f', '#2f2119','#dad3ae','#8d7141'];
 
     var options = {
         series: data,
@@ -176,28 +180,44 @@
 
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
-</script>
 
-<!-- Script Total de CPU -->
-<script>
+/* Script Total de equipos libre / ocupados*/
+    var datos_grafica = @json($datos_grafica);
+
     var options = {
         chart: {
             type: 'bar'
         },
+        colors: customColors,
         series: [{
-            data: [{
-            x: 'category A',
-            y: 10
-            }, {
-            x: 'category B',
-            y: 18
-            }, {
-            x: 'category C',
-            y: 13
-            }]
-        }]
+            name: 'Equipos',
+            data: datos_grafica.map(item => item.total)
+        }],
+        xaxis: {
+            categories: datos_grafica.map(item => item.estado)
+        }
     };
 
     var chart = new ApexCharts(document.querySelector("#cpuChart"), options);
+    chart.render();
+
+/* Script Total de equipos libre / ocupados*/
+    var total_laptops = @json($total_laptops);
+
+    var options = {
+        chart: {
+            type: 'bar'
+        },
+        colors: customColors,
+        series: [{
+            name: 'Equipos',
+            data: total_laptops.map(item => item.total)
+        }],
+        xaxis: {
+            categories: total_laptops.map(item => item.estado)
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#laptopChart"), options);
     chart.render();
 </script>

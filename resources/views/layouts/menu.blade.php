@@ -128,6 +128,18 @@
             </a>
         </li>
 
+        <!-- COMING2 -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">COMING2</span>
+        </li>
+        <!--Usuarios-->
+        <li class="menu-item {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.create') ? 'active' : '' }} || {{ Request::routeIs('users.show') ? 'active' : '' }} || {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.edit') ? 'active' : '' }}">
+            <a href="{{ route('users.index') }}" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-tab'></i>
+                <div data-i18n="Analytics">Tablets</div>
+            </a>
+        </li>
+
         @can('users.index')
             <!-- Administrador -->
             <li class="menu-header small text-uppercase">

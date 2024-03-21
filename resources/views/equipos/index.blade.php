@@ -98,14 +98,14 @@
                                         <td>{{ $equipo->nombre_equipo }}</td>
                                         <td>
                                             @if ($equipo->estado === 'Libre')
-                                                <span class="badge bg-label-success">{{ $equipo->estado }}
-                                        </td></span-->
-                                        <!--span class="badge rounded-pill bg-success">Libre</span-->
-                                    @elseif ($equipo->estado === 'En Uso')
-                                        <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
-                                        <!--span class="badge rounded-pill bg-danger">En uso</span-->
-                                @endif
-                                </td>
+                                                <span class="badge bg-label-success">{{ $equipo->estado }}</span>
+                                                </td>
+                                                <!--span class="badge rounded-pill bg-success">Libre</span-->
+                                            @elseif ($equipo->estado === 'En Uso')
+                                                <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
+                                                <!--span class="badge rounded-pill bg-danger">En uso</span-->
+                                            @endif
+                                        </td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

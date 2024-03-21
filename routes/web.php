@@ -28,22 +28,72 @@ Route::middleware('auth')->group(function () {
         $labels = $tipos->pluck('name')->toArray();
         $data = $tipos->pluck('equipos_count')->toArray();
 
-        $datosCPU = DB::table('hotels')
-            ->select('hotels.nombre as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
-            ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
-            ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
-            ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
-            ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
-            ->whereIn('tipos.name', ['CPU'])
-            ->groupBy('hotels.id', 'tipo_equipo')
-            ->get();
+        // Obtener todos los equipos disponibles u ocupado de tupo CPU
+        $equiposCPU = Equipo::with('tipo')
+        ->whereHas('tipo', function ($query) {
+            $query->where('name', 'CPU');
+        })
+        ->get();
+
+        $equipos_en_uso = 0;
+        $equipos_libres = 0;
+
+        foreach ($equiposCPU as $equipo) {
+            if ($equipo->empleados->isEmpty()) {
+                $equipos_libres++;
+            } else {
+                $equipos_en_uso++;
+            }
+        }
+
+        // Datos para la gráfica
+        $datos_grafica = [
+            [
+                'estado' => 'En Uso',
+                'total' => $equipos_en_uso
+            ],
+            [
+                'estado' => 'Libre',
+                'total' => $equipos_libres
+            ]
+        ];
+
+        // Obtener todos los equipos disponibles u ocupado de tupo Laptop
+        $equiposLap = Equipo::with('tipo')
+        ->whereHas('tipo', function ($query) {
+            $query->where('name', 'LAPTOP');
+        })
+        ->get();
+
+        $laptops_en_uso = 0;
+        $laptops_libres = 0;
+
+        foreach ($equiposLap as $lap) {
+            if ($lap->empleados->isEmpty()) {
+                $laptops_libres++;
+            } else {
+                $laptops_en_uso++;
+            }
+        }
+
+        // Datos para la gráfica
+        $total_laptops = [
+            [
+                'estado' => 'En Uso',
+                'total' => $laptops_en_uso
+            ],
+            [
+                'estado' => 'Libre',
+                'total' => $laptops_libres
+            ]
+        ];
 
         // Obtén el total de elementos
         $totalEmpleados = Empleado::count();
         $totalEquipos = Equipo::count();
         $totalUsuarios = User::count();
         $hora_actual = Carbon::now()->format('H:i:s A');
-        return view('home', compact('hora_actual', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datosCPU'));
+        return view('home', compact('hora_actual', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
     })->name('home');
 
     Route::get('/exportar-grafica', function () {

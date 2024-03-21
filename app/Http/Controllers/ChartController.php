@@ -34,7 +34,7 @@ class ChartController extends Controller
             ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
             ->whereIn('tipos.name', ['laptop'])
-            ->groupBy('hotels.id', 'tipo_equipo')
+            ->groupBy('hotels.nombre', 'hotels.id', 'tipo_equipo')
             ->get();
 
         $datosCPU = DB::table('hotels')
@@ -44,7 +44,7 @@ class ChartController extends Controller
             ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
             ->whereIn('tipos.name', ['CPU'])
-            ->groupBy('hotels.id', 'tipo_equipo')
+            ->groupBy('hotels.nombre', 'hotels.id', 'tipo_equipo')
             ->get();
 
         return view('charts.index', compact('datosLap', 'datosCPU', 'empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));
