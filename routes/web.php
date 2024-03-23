@@ -9,12 +9,12 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TabletController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
 use App\Models\Equipo;
 use App\Models\User;
-use App\Models\Hotel;
 use App\Models\Tipo;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
@@ -30,10 +30,10 @@ Route::middleware('auth')->group(function () {
 
         // Obtener todos los equipos disponibles u ocupado de tupo CPU
         $equiposCPU = Equipo::with('tipo')
-        ->whereHas('tipo', function ($query) {
-            $query->where('name', 'CPU');
-        })
-        ->get();
+            ->whereHas('tipo', function ($query) {
+                $query->where('name', 'CPU');
+            })
+            ->get();
 
         $equipos_en_uso = 0;
         $equipos_libres = 0;
@@ -60,10 +60,10 @@ Route::middleware('auth')->group(function () {
 
         // Obtener todos los equipos disponibles u ocupado de tupo Laptop
         $equiposLap = Equipo::with('tipo')
-        ->whereHas('tipo', function ($query) {
-            $query->where('name', 'LAPTOP');
-        })
-        ->get();
+            ->whereHas('tipo', function ($query) {
+                $query->where('name', 'LAPTOP');
+            })
+            ->get();
 
         $laptops_en_uso = 0;
         $laptops_libres = 0;
@@ -110,7 +110,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('equipo', EquipoController::class); // Rutas Equipos
     Route::resource('users', UserController::class); // Rutas Usuario
     Route::resource('charts', ChartController::class); // Rutas Graficas
-    Route::resource('roles', RoleController::class); // Rutas Graficas
+    Route::resource('roles', RoleController::class); // Rutas roles
+    Route::resource('tablets', TabletController::class); // Rutas Usuario
 
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial'); // Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index'); //muestra view historial

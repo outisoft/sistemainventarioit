@@ -128,15 +128,15 @@
             </a>
         </li>
 
-        <!-- COMING2 -->
+        <!-- TABLETAS -->
         <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">COMING2</span>
+            <span class="menu-header-text">TABLETAS</span>
         </li>
-        <!--Usuarios-->
-        <li class="menu-item {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.create') ? 'active' : '' }} || {{ Request::routeIs('users.show') ? 'active' : '' }} || {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.edit') ? 'active' : '' }}">
-            <a href="{{ route('users.index') }}" class="menu-link">
+        <!--TABS-->
+        <li class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
+            <a href="{{ route('tablets.index') }}" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-tab'></i>
-                <div data-i18n="Analytics">Tablets</div>
+                <div data-i18n="Analytics">Tabletas</div>
             </a>
         </li>
 
