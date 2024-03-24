@@ -13,17 +13,17 @@ return new class extends Migration
     {
         Schema::create('tablets', function (Blueprint $table) {
             $table->id();
-            $table->string('destino');
-            $table->string('operarios');
-            $table->string('usuarios');
-            $table->string('password');
-            $table->string('app');
-            $table->string('numero_tablet');
-            $table->string('imei');
-            $table->string('serial');
-            $table->string('sim');
-            $table->string('numero_telefono');
+            $table->string('operario');
+            $table->string('puesto');
             $table->string('email')->unique();
+            $table->string('usuario');
+            $table->string('password');
+            $table->string('numero_tableta');
+            $table->string('serial');
+            $table->string('numero_telefono');
+            $table->string('imei');
+            $table->string('sim');
+            $table->string('politica');
             $table->boolean('configurada');
             $table->boolean('carta_firmada');
             $table->longText('observacion');
