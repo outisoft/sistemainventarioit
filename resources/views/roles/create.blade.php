@@ -10,13 +10,13 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-                    <a href="{{ route('users.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
+                    <a href="{{ route('roles.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
                         title="Regresar">
                         <span>
                             <i class='bx bx-arrow-back'></i>
                         </span>
                     </a>
-                    .. / Roles /</span> Nuevo </h4>
+                    / Roles /</span> Nuevo </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">

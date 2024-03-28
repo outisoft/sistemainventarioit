@@ -56,6 +56,12 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'roles.edit', 'description' => 'Editar roles'])->syncRoles($adminRole);
         Permission::create(['name' => 'roles.destroy', 'description' => 'Eliminar roles'])->syncRoles($adminRole);
 
+        Permission::create(['name' => 'tablets.index', 'description' => 'Ver listado de tablets'])->syncRoles($adminRole);
+        Permission::create(['name' => 'tablets.show', 'description' => 'Ver detalles de tablets'])->syncRoles($adminRole);
+        Permission::create(['name' => 'tablets.create', 'description' => 'Registrar nueva tablet'])->syncRoles($adminRole);
+        Permission::create(['name' => 'tablets.edit', 'description' => 'Editar tablet'])->syncRoles($adminRole);
+        Permission::create(['name' => 'tablets.destroy', 'description' => 'Eliminar tablet'])->syncRoles($adminRole);
+
         // Asignar permisos
         /*$crearPermiso = Permission::create(['name' => 'crear-publicación']);
         $editarPermiso = Permission::create(['name' => 'editar-publicación']);

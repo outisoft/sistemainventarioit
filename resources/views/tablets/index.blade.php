@@ -21,7 +21,7 @@
             </div>
         </div>
     </nav>
-    <!-- Grafica Total de Equipos -->
+    <!-- Modal de creacion -->
     @include('tablets.create')
     <div class="content-wrapper">
         <!-- Content -->
@@ -46,7 +46,7 @@
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap" id="searchResults">
-                            @if ($tablets->isEmpty())
+                                @if ($tablets->isEmpty())
                                     <h5 class="card-header">No se encontro registro de tabletas.</h5>
                                 @else
                                     <table id="usuarios" class="table">

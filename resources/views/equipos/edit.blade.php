@@ -9,7 +9,7 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Empleados /</span> Editar </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipo /</span> Editar </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">

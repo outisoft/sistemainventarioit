@@ -16,7 +16,7 @@
                             <i class='bx bx-arrow-back'></i>
                         </span>
                     </a>
-                    .. / Roles /</span> Editar </h4>
+                     / Roles /</span> Editar </h4>
 
             @if (session('info'))
                 <div class="alert alert-success">

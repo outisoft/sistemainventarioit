@@ -76,7 +76,7 @@ class TabletController extends Controller
 
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se creó el empleado {$tablet->name}",
+            'descripcion' => "Se creó el registro de tableta para {$tablet->operario}",
             'registro_id' => $tablet->id,
         ]);
 
@@ -98,9 +98,13 @@ class TabletController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tablet $tablet)
+    public function edit($id)
     {
-        //
+        $tablets = Tablet::findOrFail($id);
+        $configurada = $tablets->configurada;
+
+        //dd($configurada);
+        return view('tablets.edit', compact('tablets', 'configurada'));
     }
 
     /**
