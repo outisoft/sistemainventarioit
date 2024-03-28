@@ -103,6 +103,7 @@
                                 <x-input-error :messages="$errors->get('sim')" class="mt-2" />
                             </div>
 
+                            <!-- Politica -->
                             <div class="form-group">
                                 <label for="politica">Politica aplicada</label>
                                 <x-text-input type="text" name="politica" class="form-control"
@@ -140,6 +141,7 @@
                                 </div>
                             </div>
 
+                            <!-- giacode -->
                             <div class="form-group">
                                 <label for="giacode">Giacode</label>
                                 <x-text-input type="text" name="giacode" class="form-control"
@@ -147,6 +149,7 @@
                                 <x-input-error :messages="$errors->get('giacode')" class="mt-2" />
                             </div>
 
+                            <!-- Personalsdscode -->
                             <div class="form-group">
                                 <label for="personalsdscode">Personalsdscode</label>
                                 <x-text-input type="text" name="personalsdscode" class="form-control"
@@ -154,6 +157,7 @@
                                 <x-input-error :messages="$errors->get('personalsdscode')" class="mt-2" />
                             </div>
 
+                            <!-- Folio de baja -->
                             <div class="form-group">
                                 <label for="folio_baja">Folio de baja</label>
                                 <x-text-input type="text" name="folio_baja" class="form-control"

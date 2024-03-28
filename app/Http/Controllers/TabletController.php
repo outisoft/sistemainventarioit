@@ -74,7 +74,7 @@ class TabletController extends Controller
      */
     public function show(Tablet $tablet)
     {
-        //
+        return view('tablets.show', compact('tablet'));
     }
 
     /**
@@ -118,7 +118,7 @@ class TabletController extends Controller
         $registro->update($data);
 
         Historial::create([
-            'accion' => 'actualizacion',
+            'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo el registro de {$registro->operario}",
             'registro_id' => $registro->id,
         ]);
@@ -135,6 +135,17 @@ class TabletController extends Controller
      */
     public function destroy(Tablet $tablet)
     {
-        //
+        $tablet->delete();
+
+        Historial::create([
+            'accion' => 'Eliminacion',
+            'descripcion' => "Se elimino el registro de {$tablet->operario}",
+            'registro_id' => $tablet->id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Tablet de {$tablet->operario} eliminado.");
+        return redirect()->route('tablets.index');
     }
 }

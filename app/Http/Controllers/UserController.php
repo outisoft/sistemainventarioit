@@ -53,12 +53,6 @@ class UserController extends Controller
         $tipoUsuario = $request->input('rol');
         $user->assignRole([$tipoUsuario]);
 
-        Historial::create([
-            'accion' => 'Creaccion',
-            'descripcion' => "Se creo el usuario {$user->name}",
-            'registro_id' => $user->id,
-        ]);
-
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Usuario {$user->name} creado.");
@@ -95,14 +89,6 @@ class UserController extends Controller
         }
         $user->save();
 
-        /*$registro = User::findOrFail($id);
-        $registro->update($data);*/
-
-        Historial::create([
-            'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el usuario {$user->name}",
-            'registro_id' => $user->id,
-        ]);
         // Actualizar el rol del usuario si se ha seleccionado un nuevo rol
         if ($request->has('rol')) {
             $nuevoRol = $request->input('rol');
@@ -122,11 +108,6 @@ class UserController extends Controller
         $registro = User::findOrFail($id);
         $registro->delete();
 
-        Historial::create([
-            'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el usuario {$registro->name}",
-            'registro_id' => $registro->id,
-        ]);
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Usuario {$registro->name} eliminado.");
