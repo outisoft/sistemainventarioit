@@ -133,6 +133,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/inventario/search', [InventarioController::class, 'search'])->name('inventario.search'); //buscador de inventario
     Route::post('/users/search', [UserController::class, 'search'])->name('users.search'); //buscador de usuarios
     Route::post('/equipo/search', [EquipoController::class, 'search'])->name('equipo.search'); //buscador de usuarios
+    Route::post('/tablet/search', [TabletController::class, 'search'])->name('tablet.search'); //buscador de usuarios
     Route::get('/buscar', [EmpleadoController::class, 'buscar'])->name('buscar'); //buscador de usuarios
 
     //asignacion de equipo a empleado

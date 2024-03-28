@@ -58,7 +58,7 @@ class TabletController extends Controller
 
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se creó el registro de tableta para {$registro->operario}",
+            'descripcion' => "Se creó la tableta para {$registro->operario}",
             'registro_id' => $registro->id,
         ]);
 
@@ -119,7 +119,7 @@ class TabletController extends Controller
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el registro de {$registro->operario}",
+            'descripcion' => "Se actualizo la tableta de {$registro->operario}",
             'registro_id' => $registro->id,
         ]);
 
@@ -139,7 +139,7 @@ class TabletController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el registro de {$tablet->operario}",
+            'descripcion' => "Se elimino la tableta de {$tablet->operario}",
             'registro_id' => $tablet->id,
         ]);
 
@@ -147,5 +147,19 @@ class TabletController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Tablet de {$tablet->operario} eliminado.");
         return redirect()->route('tablets.index');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        $tablet = Tablet::where('operario', 'like', '%' . $query . '%')
+            ->orWhere('usuario', 'like', '%' . $query . '%')
+            ->orWhere('email', 'like', '%' . $query . '%')
+            ->orWhere('serial', 'like', '%' . $query . '%')
+            ->orWhere('numero_tableta', 'like', '%' . $query . '%')
+            ->orWhere('imei', 'like', '%' . $query . '%')
+            ->get();
+
+        return view('tablets._tablet_list', compact('tablet'));
     }
 }

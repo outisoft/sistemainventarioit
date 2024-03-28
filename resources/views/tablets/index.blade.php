@@ -10,7 +10,7 @@
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <!-- Search -->
             <div class="navbar-nav align-items-center">
-                <form action="#" method="post">
+            <form action="{{ route('tablet.search') }}" method="post">
                     @csrf
                     <div class="search-box nav-item d-flex align-items-center">
                         <i class="bx bx-search fs-4 lh-0"></i>
@@ -145,5 +145,6 @@
         </div>
         <!-- / Content -->
     </div>
+    @include('tablets.script')
 </x-app-layout>
 
