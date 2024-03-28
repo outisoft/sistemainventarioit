@@ -32,7 +32,7 @@ class TabletController extends Controller
     {
         //dd($request);
 
-        $request->validate([
+        $data = $request->validate([
             'operario' => 'required',
             'puesto' => 'required',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Tablet::class],
@@ -52,32 +52,14 @@ class TabletController extends Controller
             'folio_baja' => 'required',
         ]);
 
-        // Crear el usuario
-        $tablet = Tablet::create([
-            'operario' => $request->input('operario'),
-            'puesto' => $request->input('puesto'),
-            'email' => $request->input('email'),
-            'usuario' => $request->input('usuario'),
-            'password' => $request->input('password'),
-            'numero_tableta' => $request->input('numero_tableta'),
-            'serial' => $request->input('serial'),
-            'numero_telefono' => $request->input('numero_telefono'),
-            'imei' => $request->input('imei'),
-            'sim' => $request->input('sim'),
-            'politica' => $request->input('politica'),
-            'configurada' => $request->input('configurada'),
-            'carta_firmada' => $request->input('carta_firmada'),
-            'observacion' => $request->input('observacion'),
-            'giacode' => $request->input('giacode'),
-            'personalsdscode' => $request->input('personalsdscode'),
-            'folio_baja' => $request->input('folio_baja'),
-        ]);
+        $registro = Tablet::create($data);
+
         //dd($request);
 
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se creó el registro de tableta para {$tablet->operario}",
-            'registro_id' => $tablet->id,
+            'descripcion' => "Se creó el registro de tableta para {$registro->operario}",
+            'registro_id' => $registro->id,
         ]);
 
         toastr()
@@ -101,18 +83,51 @@ class TabletController extends Controller
     public function edit($id)
     {
         $tablets = Tablet::findOrFail($id);
-        $configurada = $tablets->configurada;
 
         //dd($configurada);
-        return view('tablets.edit', compact('tablets', 'configurada'));
+        return view('tablets.edit', compact('tablets'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tablet $tablet)
+    public function update(Request $request, $id)
     {
-        //
+        //dd($request);
+        $data = $request->validate([
+            'operario' => 'required',
+            'puesto' => 'required',
+            'email' => 'required|email',
+            'usuario' => 'required',
+            'password' => 'required',
+            'numero_tableta' => 'required',
+            'serial' => 'required',
+            'numero_telefono' => 'required',
+            'imei' => 'required',
+            'sim' => 'required',
+            'politica' => 'required',
+            'configurada' => 'required',
+            'carta_firmada' => 'required',
+            'observacion' => 'required',
+            'giacode' => 'required',
+            'personalsdscode' => 'required',
+            'folio_baja' => 'required',
+        ]);
+
+        $registro = Tablet::findOrFail($id);
+        $registro->update($data);
+
+        Historial::create([
+            'accion' => 'actualizacion',
+            'descripcion' => "Se actualizo el registro de {$registro->operario}",
+            'registro_id' => $registro->id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Registro {$registro->operario} actualizado.");
+
+        return redirect()->route('tablets.index');
     }
 
     /**

@@ -216,7 +216,7 @@
                                         <label class="form-check-label" for="configurada">Si</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="configurada" id="configurada" value="0"/>
+                                        <input class="form-check-input" type="radio" name="configurada" id="configurada" value="0" checked/>
                                         <label class="form-check-label" for="configurada">No</label>
                                     </div>
                                 </div>
@@ -231,7 +231,7 @@
                                         <label class="form-check-label" for="carta_firmada">Si</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="carta_firmada" id="carta_firmada" value="0"/>
+                                        <input class="form-check-input" type="radio" name="carta_firmada" id="carta_firmada" value="0"checked/>
                                         <label class="form-check-label" for="carta_firmada">No</label>
                                     </div>
                                 </div>

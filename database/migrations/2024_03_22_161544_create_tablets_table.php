@@ -24,8 +24,8 @@ return new class extends Migration
             $table->string('imei');
             $table->string('sim');
             $table->string('politica');
-            $table->boolean('configurada');
-            $table->boolean('carta_firmada');
+            $table->boolean('configurada')->default(false);
+            $table->boolean('carta_firmada')->default(false);
             $table->longText('observacion');
             $table->string('giacode');
             $table->string('personalsdscode');
