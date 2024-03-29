@@ -1,8 +1,8 @@
-<div class="table-responsive text-nowrap" id="resultados">
-    @if ($empleados->isEmpty())
-        <h5 class="card-header">No se encontro registro de empleados.</h5>
+<div class="table-responsive text-nowrap" id="searchResults">
+    @if ($empleado->isEmpty())
+        <h5 class="card-header">No se encontro registro de asignacion.</h5>
     @else
-    <table id="asignacion" class="table table-striped footer">
+    <table id="usuarios" class="table table-striped footer">
         <thead class="bg-primary">
             <tr>
                 <th>Nombre</th>
@@ -39,5 +39,4 @@
             @endforeach
         </tbody>
     </table>
-    @endif
 </div>
