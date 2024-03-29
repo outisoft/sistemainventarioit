@@ -2507,6 +2507,7 @@ progress {
   padding: 0.25rem 0.625rem;
   font-size: 0.75rem;
   border-radius: 0.25rem;
+  margin: 10px;
 }
 
 .form-control-sm::file-selector-button {

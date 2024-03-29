@@ -77,13 +77,13 @@
                     <h5 class="card-header">No se encontro asignaciones entre empleados y equipos.</h5>
                 @else
                     <!--h5 class="card-header">Equipos asignados.</h5-->
-                    <form action="{{ route('empleados.buscar') }}" method="post">
+                    <!--form-- action="{{ route('empleados.buscar') }}" method="post">
                         @csrf
                         <div class="group-search">
                             <svg class="icon-search" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
                             <input placeholder="Search" id="searchInput" name="query" type="text" class="input-search">
                         </div>
-                    </form>
+                    </!--form-->
 
                     <div class="card-datatable table-responsive pt-0">
                         <div class="table-responsive text-nowrap" id="searchResults">
@@ -102,10 +102,10 @@
                                     <!-- Aquí se mostrarán los empleados -->
                                     @foreach ($empleadosConEquipos as $empleado)
                                         <tr>
-                                            <td>{{ $empleado->name }}</td>
+                                            <td>{{ Str::limit($empleado->name, 20, '...'); }}</td>
                                             <td>{{ $empleado->hotel->nombre }}</td>
                                             <td>{{ $empleado->ad }}</td>
-                                            <td>
+                                            <td>                                           
                                                 @foreach ($empleado->equipos as $equipo)
                                                     {{ $equipo->tipo->name }}
                                                     <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
@@ -147,33 +147,13 @@
                     [-1],
                     ["Todos"]
                 ],
-                "searching": false,
+                "searching": true,
                 "lengthChange": false,
                 "info": false,
                 "paging": false
             });
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-        <script>
-            $(document).ready(function() {
-                $('#searchInput').on('input', function() {
-                    var query = $(this).val();
-
-                    $.ajax({
-                        url: "{{ route('empleados.buscar') }}",
-                        type: "POST",
-                        data: {
-                            query: query,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            $('#searchResults').html(response);
-                        }
-                    });
-                });
-            });
-        </script>
     @endsection
 
 
