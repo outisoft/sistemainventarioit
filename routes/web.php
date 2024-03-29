@@ -142,6 +142,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
     Route::get('/detalles/{id}', [EmpleadoController::class, 'detalles'])->name('empleados.detalles');
 
+    //Generacion de hojas de resguardo
+    Route::get('/save-pdf/{id}', [TabletController::class, 'save_pdf'])->name('save-pdf');
+
     //CHARTS
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
 });

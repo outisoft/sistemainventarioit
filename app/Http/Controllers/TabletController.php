@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tablet;
 use App\Models\Historial;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Carbon\Carbon;
 
 class TabletController extends Controller
 {
@@ -161,5 +163,18 @@ class TabletController extends Controller
             ->get();
 
         return view('tablets._tablet_list', compact('tablet'));
+    }
+
+    public function save_pdf($id){
+
+        // Obtener la fecha actual
+        $today = Carbon::now();
+
+        // Formatear la fecha como "día, mes y año"
+        $date = $today->format('d \d\e M \d\e\l Y');
+
+        $tablet = Tablet::findOrFail($id);
+        $pdf = FacadePdf::loadView('tablets.save-pdf', compact('tablet', 'date'));
+        return $pdf->stream();
     }
 }
