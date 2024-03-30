@@ -7,12 +7,15 @@ use App\Models\Empleado;
 use App\Models\Equipo;
 use App\Models\Historial;
 use App\Models\Hotel;
+use App\Models\Tipo;
 use Illuminate\Http\Request;
 use App\Exports\EmpleadoExport;
 use App\Imports\EmpleadoImport;
 use Spatie\Permission\Models\Role;
 use App\Models\User; // Asegúrate de importar tu modelo de usuario si es necesario
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Carbon\Carbon;
 
 class EmpleadoController extends Controller
 {
@@ -261,5 +264,19 @@ class EmpleadoController extends Controller
         $hotel = Hotel::find($empleado->hotel_id); // Obtiene el hotel asociado al empleado
         $departamento = Departamento::find($empleado->departamento_id);
         return view('empleados.detalles', compact('empleado', 'hotel', 'departamento'));
+    }
+
+    public function save_pdf($id){
+
+        // Obtener la fecha actual
+        $today = Carbon::now();
+
+        // Formatear la fecha como "día, mes y año"
+        $date = $today->format('d \d\e M \d\e\l Y');
+
+        $empleado = Empleado::findOrFail($id);
+
+        $pdf = FacadePdf::loadView('empleados.save-pdf', compact('empleado', 'date'));
+        return $pdf->stream();
     }
 }

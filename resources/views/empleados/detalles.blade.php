@@ -8,6 +8,13 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-header">Detalles de <strong>{{ $empleado->name }}</strong></h5>
+                    <div class="navbar-nav align-items-center">
+                        <div class="nav-item d-flex align-items-center">
+                            <a href="{{ route('empleado.save-pdf', $empleado->id) }}" target="_blank" class="btn-ico" data-placement="top" title="Hoja de resguardo">
+                                <i class='bx bxs-file-pdf icon-lg'></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="content-wrapper">

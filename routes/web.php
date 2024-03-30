@@ -144,6 +144,7 @@ Route::middleware('auth')->group(function () {
 
     //Generacion de hojas de resguardo
     Route::get('/save-pdf/{id}', [TabletController::class, 'save_pdf'])->name('save-pdf');
+    Route::get('/save-pdf/{id}', [EmpleadoController::class, 'save_pdf'])->name('empleado.save-pdf');
 
     //CHARTS
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
