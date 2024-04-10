@@ -127,7 +127,7 @@
                 <div data-i18n="Analytics">Graficas</div>
             </a>
         </li>
-
+        @can('tablets.index')
         <!-- TABLETAS -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">TABLETAS</span>
@@ -139,6 +139,7 @@
                 <div data-i18n="Analytics">Tabletas</div>
             </a>
         </li>
+        @endcan
 
         @can('users.index')
             <!-- Administrador -->

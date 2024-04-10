@@ -24,7 +24,7 @@
                     <h5 class="card-header">Detalles de Registro</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="{{ route('save-pdf', $tablet->id) }}" target="_blank" class="btn-ico" data-placement="top" title="Hoja de resguardo">
+                            <a href="{{ route('tablet.save-pdf', $tablet->id) }}" target="_blank" class="btn-ico" data-placement="top" title="Hoja de resguardo">
                                 <i class='bx bxs-file-pdf icon-lg'></i>
                             </a>
                         </div>

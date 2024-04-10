@@ -32,6 +32,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-header">Listado de Tabletas</h5>
+                @can ('tablets.create')
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalToggle"
@@ -40,8 +41,8 @@
                             </a>
                         </div>
                     </div>
+                @endcan
                 </div>
-
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
@@ -113,12 +114,21 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
+                                                                @can ('tablets.show')
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('tablets.show', $tablet->id) }}"><i
-                                                                        class="bx bx-show-alt me-1"></i>Ver</a>
+                                                                        class="bx bx-show-alt me-1"></i>Ver
+                                                                </a>
+                                                                @endcan
+
+                                                                @can ('tablets.edit')
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('tablets.edit', $tablet->id) }}"><i
-                                                                        class="bx bx-edit me-1"></i>Editar</a>
+                                                                        class="bx bx-edit me-1"></i>Editar
+                                                                </a>
+                                                                @endcan
+
+                                                                @can ('tablets.destroy')
                                                                 <form action="{{ route('tablets.destroy', $tablet->id) }}"
                                                                     method="POST">
                                                                     @csrf
@@ -128,6 +138,7 @@
                                                                         onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
                                                                             class="bx bx-trash me-1"></i>Eliminar</button>
                                                                 </form>
+                                                                @endcan
                                                             </div>
                                                         </div>
                                                     </td>

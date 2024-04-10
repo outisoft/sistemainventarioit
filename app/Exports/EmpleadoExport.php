@@ -13,15 +13,16 @@ class EmpleadoExport implements FromCollection
      */
     public function collection()
     {
+        return Empleado::get(['id', 'no_empleado', 'name', 'email', 'puesto', 'departamento_id', 'hotel_id', 'ad']);
         // Obtener los datos de la gráfica
-        $datos = DB::table('empleados')
+        /*$datos = DB::table('empleados')
             ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
             ->select('hotels.nombre as hotel', DB::raw('count(*) as cantidad_empleados'))
             ->groupBy('hotels.nombre')
             ->get();
 
         // Devolver los datos como una colección
-        return collect($datos);
+        return collect($datos);*/
     }
     /*public function collection()
     {

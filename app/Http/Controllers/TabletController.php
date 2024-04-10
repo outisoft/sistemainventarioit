@@ -10,9 +10,15 @@ use Carbon\Carbon;
 
 class TabletController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('can:tablets.index')->only('index');
+        $this->middleware('can:tablets.create')->only('create', 'store');
+        $this->middleware('can:tablets.edit')->only('edit', 'update');
+        $this->middleware('can:tablets.show')->only('show');
+        $this->middleware('can:tablets.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $tablets = Tablet::get();

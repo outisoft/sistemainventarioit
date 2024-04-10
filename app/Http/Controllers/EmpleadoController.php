@@ -239,12 +239,12 @@ class EmpleadoController extends Controller
 
     public function export()
     {
-        $equipos = Equipo::all();
+        $empleados = Empleado::all();
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Exportacion de datos correctamente.");
 
-        return Excel::download(new EmpleadoExport($equipos), 'empleados.xlsx');
+        return Excel::download(new EmpleadoExport($empleados), 'empleados.xlsx');
     }
 
     public function import()

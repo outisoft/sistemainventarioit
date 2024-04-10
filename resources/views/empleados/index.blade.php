@@ -56,11 +56,16 @@
                                     data-placement="top" title="Exportar registros">
                                     <i class='bx bxs-download icon-lg'></i>
                                 </a>
+
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalImportar"
+                                    data-placement="top" title="Importar datos">
+                                    <i class='bx bxs-cloud-upload icon-lg'></i>
+                                </a>
                             @endif
                         </div>
                     </div>
                 </div>
-
+                @include('empleados.modals.import')
                 @include('empleados.create')
 
                 <div class="content-wrapper">

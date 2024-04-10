@@ -143,17 +143,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/detalles/{id}', [EmpleadoController::class, 'detalles'])->name('empleados.detalles');
 
     //Generacion de hojas de resguardo
-    Route::get('/save-pdf/{id}', [TabletController::class, 'save_pdf'])->name('save-pdf');
-    Route::get('/save-pdf/{id}', [EmpleadoController::class, 'save_pdf'])->name('empleado.save-pdf');
+    Route::get('/tablet/save-pdf/{id}', [TabletController::class, 'save_pdf'])->name('tablet.save-pdf');
+    Route::get('/empleado/save-pdf/{id}', [EmpleadoController::class, 'save_pdf'])->name('empleado.save-pdf');
 
     //CHARTS
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
 });
 
 Route::get('/', function () {
-    return view('auth.login');
+    if (Auth::check()) {
+        // El usuario está autenticado
+        return redirect()->route('home');
+    } else {
+        // El usuario no está autenticado
+        return redirect()->route('login');
+    }  
 })->name('login');
-//Route::get('/home', function () {return view('home');})->middleware(['auth', 'verified'])->name('home');
 
 
 require __DIR__ . '/auth.php';
