@@ -28,26 +28,30 @@
                                 <form method="POST" action="{{ route('asignacion.asignar') }}">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label" for="empleado">Selecciona un Empleado:</label>
-                                        <div class="input-group input-group-merge">
-                                            <!--span id="basic-icon-default-fullname2" class="input-group-text">
-                                            <i class='bx bx-user'></i>
-                                        </span-->
-                                            <select id="empleado_id" name="empleado_id" class="form-control"
-                                                aria-label="Default select example">
-                                                @foreach ($empleados as $empleado)
-                                                    <option value="{{ $empleado->id }}">{{ $empleado->name }} -
-                                                        {{ $empleado->hotel->nombre }} -
-                                                        {{ $empleado->departamento->name }} - {{ $empleado->puesto }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                        @if ($empleados->isEmpty())
+                                            <label class="form-label" for="empleado">No se encontro empleados disponibles.</label> <a href="{{ route('empleados.index') }}">Agregar empleados -></a>
+                                        @else
+                                            <label class="form-label" for="empleado">Selecciona un Empleado:</label>
+                                            <div class="input-group input-group-merge">
+                                                <!--span id="basic-icon-default-fullname2" class="input-group-text">
+                                                <i class='bx bx-user'></i>
+                                            </span-->
+                                                <select id="empleado_id" name="empleado_id" class="form-control"
+                                                    aria-label="Default select example">
+                                                    @foreach ($empleados as $empleado)
+                                                        <option value="{{ $empleado->id }}">{{ $empleado->name }} -
+                                                            {{ $empleado->hotel->nombre }} -
+                                                            {{ $empleado->departamento->name }} - {{ $empleado->puesto }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <div class="form-group">
                                         @if ($equiposSinAsignar->isEmpty())
-                                            <h5 class="card-header">No se encontro equipos disponibles.</h5>
+                                            <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.create') }}">Agregar equipos -></a>
                                         @else
                                             <label class="form-label" for="equipo">Selecciona un Equipo:</label>
                                             <div class="input-group input-group-merge">
@@ -65,7 +69,10 @@
                                         @endif
                                     </div>
                                     <br>
-                                    <button type="submit" class="btn btn-primary">Asignar Equipo</button>
+                                    @if ($equiposSinAsignar->isEmpty())
+                                    @else
+                                        <button type="submit" class="btn btn-primary">Asignar Equipo</button>
+                                    @endif
                                 </form>
                                 <br>
                                 <hr class="my-0">
@@ -74,16 +81,8 @@
                     </div>
                 </div>
                 @if ($empleadosConEquipos->isEmpty())
-                    <h5 class="card-header">No se encontro asignaciones entre empleados y equipos.</h5>
+                    <label class="form-label card-header" for="empleado">No se encontro asignaciones entre empleados y equipos.</label>
                 @else
-                    <!--h5 class="card-header">Equipos asignados.</h5-->
-                    <!--form-- action="{{ route('empleados.buscar') }}" method="post">
-                        @csrf
-                        <div class="group-search">
-                            <svg class="icon-search" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
-                            <input placeholder="Search" id="searchInput" name="query" type="text" class="input-search">
-                        </div>
-                    </!--form-->
 
                     <div class="card-datatable table-responsive pt-0">
                         <div class="table-responsive text-nowrap" id="searchResults">
