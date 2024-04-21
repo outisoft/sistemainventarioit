@@ -22,16 +22,16 @@
         </div>
     </nav>
     <!-- Modal de creacion -->
-    @include('tablets.create')
+    @include('tpvs.create')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tablets /</span> Listado </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tpv's /</span> Listado </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de Tabletas</h5>
+                    <h5 class="card-header">Listado de Tpv's</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalToggle"

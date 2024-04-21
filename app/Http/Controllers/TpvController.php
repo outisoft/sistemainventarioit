@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tpv;
+use App\Models\Hotel;
+use App\Models\Historial;
 use Illuminate\Http\Request;
 
 class TpvController extends Controller
@@ -12,7 +14,8 @@ class TpvController extends Controller
      */
     public function index()
     {
-        //
+        $hotels = Hotel::all();
+        return view('tpvs.index', compact('hotels'));
     }
 
     /**
@@ -28,7 +31,34 @@ class TpvController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $data = $request->validate([
+            'area' => 'required',
+            'hotel_id' => 'required|exists:hotels,id',
+            'equipment' => 'required',
+            'brand' => 'required',
+            'model' => 'required',
+            'no_serial' => 'required',
+            'name' => 'required',
+            'ip' => 'required',
+            'link' => 'required',
+        ]);
+
+        $registro = Tpv::create($data);
+
+        //dd($request);
+
+        Historial::create([
+            'accion' => 'Creacion',
+            'descripcion' => "Se registro la Tpv correctamente",
+            'registro_id' => $registro->id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Registro creado exitosamente.");
+
+        return redirect()->route('tablets.index');
     }
 
     /**

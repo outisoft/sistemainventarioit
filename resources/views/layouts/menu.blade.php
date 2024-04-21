@@ -141,6 +141,18 @@
         </li>
         @endcan
 
+        <!-- TPV'S -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">TPV'S</span>
+        </li>
+        <!--TPVS-->
+        <li class="menu-item {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}">
+            <a href="{{ route('tpvs.index') }}" class="menu-link">
+                <i class='menu-icon bx bx-tv bx bx-tab'></i>
+                <div data-i18n="Analytics">Tpv's</div>
+            </a>
+        </li>
+
         @can('users.index')
             <!-- Administrador -->
             <li class="menu-header small text-uppercase">
