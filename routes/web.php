@@ -10,6 +10,7 @@ use App\Http\Controllers\EquipoController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TabletController;
+use App\Http\Controllers\TpvController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -112,6 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('charts', ChartController::class); // Rutas Graficas
     Route::resource('roles', RoleController::class); // Rutas roles
     Route::resource('tablets', TabletController::class); // Rutas Usuario
+    Route::resource('tpv', TpvController::class);  //Rutas TPVS
 
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial'); // Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index'); //muestra view historial
@@ -157,7 +159,7 @@ Route::get('/', function () {
     } else {
         // El usuario no está autenticado
         return redirect()->route('login');
-    }  
+    }
 })->name('login');
 
 

@@ -37,7 +37,7 @@
 <body>
     <div class="izquierda">
         <!-- Aquí coloca tu imagen o logo -->
-        <a href="https://www.preferente.com/wp-content/uploads/2019/12/Logo-Grupo-Pi%C3%B1ero.png"><img src="https://www.preferente.com/wp-content/uploads/2019/12/Logo-Grupo-Pi%C3%B1ero.png" alt="Descripción de la imagen" width="206.7" height="81.3"></a>
+        <a href="https://www.preferente.com/wp-content/uploads/2019/12/Logo-Grupo-Pi%C3%B1ero.png"><img src="https://www.preferente.com/wp-content/uploads/2019/12/Logo-Grupo-Pi%C3%B1ero.png" alt="Logo grupo piñero" width="206.7" height="81.3"></a>
 
     </div>
 
