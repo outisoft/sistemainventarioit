@@ -76,15 +76,43 @@ class TpvController extends Controller
      */
     public function edit(Tpv $tpv)
     {
-        //
+        $hoteles = Hotel::all();
+        return view('tpvs.edit', compact('tpv', 'hoteles'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tpv $tpv)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'area' => 'required',
+            'hotel_id' => 'required|exists:hotels,id',
+            'equipment' => 'required',
+            'brand' => 'required',
+            'model' => 'required',
+            'no_serial' => 'required',
+            'name' => 'required',
+            'ip' => 'required',
+            'link' => 'required',
+        ]);
+
+        //dd($data);
+
+        $registro = Tpv::findOrFail($id);
+        $registro->update($data);
+
+        Historial::create([
+            'accion' => 'Actualizacion',
+            'descripcion' => "Se actualizo la TPV correctamente",
+            'registro_id' => $registro->id,
+        ]);
+        // Mostrar notificación Toastr para éxito
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Tpv {$registro->name} actualizado.");
+        return redirect()->route('tpvs.index');
     }
 
     /**
