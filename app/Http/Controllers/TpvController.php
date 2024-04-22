@@ -51,7 +51,7 @@ class TpvController extends Controller
 
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se registro la Tpv correctamente",
+            'descripcion' => "Se registro la Tpv {$tpv->name} correctamente",
             'registro_id' => $registro->id,
         ]);
 
@@ -104,7 +104,7 @@ class TpvController extends Controller
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo la TPV correctamente",
+            'descripcion' => "Se actualizo la TPV {$tpv->name} correctamente",
             'registro_id' => $registro->id,
         ]);
         // Mostrar notificación Toastr para éxito
@@ -120,6 +120,17 @@ class TpvController extends Controller
      */
     public function destroy(Tpv $tpv)
     {
-        //
+        $tpv->delete();
+
+        Historial::create([
+            'accion' => 'Eliminacion',
+            'descripcion' => "Se elimino la Tpv {$tpv->name} correctamente",
+            'registro_id' => $tpv->id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("TPV {$tpv->name} eliminado.");
+        return redirect()->route('tpvs.index');
     }
 }
