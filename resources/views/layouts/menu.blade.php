@@ -141,6 +141,7 @@
         </li>
         @endcan
 
+        @can('tpvs.index')
         <!-- TPV'S -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">TPV'S</span>
@@ -152,6 +153,7 @@
                 <div data-i18n="Analytics">Tpv's</div>
             </a>
         </li>
+        @endcan
 
         @can('users.index')
             <!-- Administrador -->

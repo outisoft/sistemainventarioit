@@ -62,6 +62,12 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'tablets.edit', 'description' => 'Editar tablet'])->syncRoles($adminRole);
         Permission::create(['name' => 'tablets.destroy', 'description' => 'Eliminar tablet'])->syncRoles($adminRole);
 
+        Permission::create(['name' => 'tpvs.index', 'description' => 'Ver listado de tpvs'])->syncRoles($adminRole);
+        Permission::create(['name' => 'tpvs.show', 'description' => 'Ver detalles de tpvs'])->syncRoles($adminRole);
+        Permission::create(['name' => 'tpvs.create', 'description' => 'Registrar nueva tpvs'])->syncRoles($adminRole);
+        Permission::create(['name' => 'tpvs.edit', 'description' => 'Editar tpvs'])->syncRoles($adminRole);
+        Permission::create(['name' => 'tpvs.destroy', 'description' => 'Eliminar tpvs'])->syncRoles($adminRole);
+
         // Asignar permisos
         /*$crearPermiso = Permission::create(['name' => 'crear-publicación']);
         $editarPermiso = Permission::create(['name' => 'editar-publicación']);

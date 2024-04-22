@@ -9,9 +9,15 @@ use Illuminate\Http\Request;
 
 class TpvController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('can:tpvs.index')->only('index');
+        $this->middleware('can:tpvs.create')->only('create', 'store');
+        $this->middleware('can:tpvs.edit')->only('edit', 'update');
+        $this->middleware('can:tpvs.show')->only('show');
+        $this->middleware('can:tpvs.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $hotels = Hotel::all();
