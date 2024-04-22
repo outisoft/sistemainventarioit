@@ -15,7 +15,8 @@ class TpvController extends Controller
     public function index()
     {
         $hotels = Hotel::all();
-        return view('tpvs.index', compact('hotels'));
+        $tpvs = tpv::with('hotel')->orderBy('name', 'asc')->get();
+        return view('tpvs.index', compact('tpvs','hotels'));
     }
 
     /**
@@ -58,7 +59,7 @@ class TpvController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Registro creado exitosamente.");
 
-        return redirect()->route('tablets.index');
+        return redirect()->route('tpvs.index');
     }
 
     /**
@@ -66,7 +67,8 @@ class TpvController extends Controller
      */
     public function show(Tpv $tpv)
     {
-        //
+        $hotel = Hotel::find($tpv->hotel_id); 
+        return view('tpvs.show', compact('tpv', 'hotel'));
     }
 
     /**
