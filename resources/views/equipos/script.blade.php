@@ -3,7 +3,7 @@
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
 <script>
     //new DataTable('#usuarios');
-    $('#tablets').DataTable({
+    $('#equipos').DataTable({
         "lengthMenu": [
             [-1],
             ["Todos"]
@@ -20,7 +20,7 @@
             var query = $(this).val();
 
             $.ajax({
-                url: "{{ route('tablet.search') }}",
+                url: "{{ route('equipo.search') }}",
                 type: "POST",
                 data: {
                     query: query,
@@ -32,4 +32,13 @@
             });
         });
     });
+</script>
+<script>
+    function validateForm() {
+        var fileInput = document.getElementById('myFileInput');
+        if (fileInput.value == '') {
+            alert('Por favor seleccione un archivo.');
+            return false;
+        }
+    }
 </script>

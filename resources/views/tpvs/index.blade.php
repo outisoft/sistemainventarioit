@@ -10,7 +10,7 @@
         <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
             <!-- Search -->
             <div class="navbar-nav align-items-center">
-            <form action="{{ route('tablet.search') }}" method="post">
+            <form action="{{ route('tpvs.search') }}" method="post">
                     @csrf
                     <div class="search-box nav-item d-flex align-items-center">
                         <i class="bx bx-search fs-4 lh-0"></i>
@@ -48,7 +48,7 @@
                             @if ($tpvs->isEmpty())
                                     <h5 class="card-header">No se encontro registro de Tpvs.</h5>
                                 @else
-                                    <table id="usuarios" class="table">
+                                    <table id="tpvs" class="table">
                                         <thead class="bg-primary">
                                             <tr>
                                                 <th>Area</th>
@@ -75,7 +75,7 @@
                                                     <td>{{ $tpv->no_serial }}</td>
                                                     <td>{{ $tpv->name }}</td>
                                                     <td>{{ $tpv->ip }}</td>
-                                                    <td>{{ $tpv->link }}</td>
+                                                    <td>{{ Str::limit($tpv->link, 15, ' ...') }}</td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button"
@@ -122,4 +122,6 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
+@include('tpvs.script')
+
 

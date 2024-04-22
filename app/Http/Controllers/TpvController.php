@@ -51,7 +51,7 @@ class TpvController extends Controller
 
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se registro la Tpv {$tpv->name} correctamente",
+            'descripcion' => "Se registro la Tpv {$registro->name} correctamente",
             'registro_id' => $registro->id,
         ]);
 
@@ -104,7 +104,7 @@ class TpvController extends Controller
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo la TPV {$tpv->name} correctamente",
+            'descripcion' => "Se actualizo la TPV {$registro->name} correctamente",
             'registro_id' => $registro->id,
         ]);
         // Mostrar notificación Toastr para éxito
@@ -132,5 +132,17 @@ class TpvController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("TPV {$tpv->name} eliminado.");
         return redirect()->route('tpvs.index');
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        $tpvs = Tpv::where('name', 'like', '%' . $query . '%')
+            ->orWhere('no_serial', 'like', '%' . $query . '%')
+            ->orWhere('area', 'like', '%' . $query . '%')
+            ->orWhere('ip', 'like', '%' . $query . '%')
+            ->get();
+
+        return view('tpvs._tpvs_list', compact('tpvs'));
     }
 }

@@ -50,7 +50,7 @@
                                 @if ($tablets->isEmpty())
                                     <h5 class="card-header">No se encontro registro de tabletas.</h5>
                                 @else
-                                    <table id="usuarios" class="table">
+                                    <table id="tablets" class="table">
                                         <thead class="bg-primary">
                                             <tr>
                                                 <th>Responsable</th>

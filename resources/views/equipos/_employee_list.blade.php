@@ -60,3 +60,4 @@
         </table>
     @endif
 </div>
+@include('equipos.script')
