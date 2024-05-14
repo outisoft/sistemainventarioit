@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             RoleUserSeeder::class,
             DepartamentoSeeder::class,
             TipoSeeder::class,
+            PolicySeeder::class,
         ]);
 
         Tablet::factory()->count(10)->create();

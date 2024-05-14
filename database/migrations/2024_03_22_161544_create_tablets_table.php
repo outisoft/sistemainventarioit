@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('numero_telefono');
             $table->string('imei');
             $table->string('sim');
-            $table->string('politica');
+            $table->foreignId('policy_id')->references('id')->on('policies')->cascadeOnDelete();
             $table->boolean('configurada')->default(false);
             $table->boolean('carta_firmada')->default(false);
             $table->longText('observacion');

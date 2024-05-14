@@ -21,8 +21,7 @@
             </div>
         </div>
     </nav>
-    <!-- Modal de creacion -->
-    @include('tablets.create')
+    
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -43,6 +42,8 @@
                     </div>
                 @endcan
                 </div>
+                <!-- Modal de creacion -->
+                @include('tablets.create')
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
@@ -87,7 +88,7 @@
                                                     <td>{{ $tablet->numero_telefono }}</td>
                                                     <td>{{ $tablet->imei }}</td>
                                                     <td>{{ $tablet->sim }}</td>
-                                                    <td>{{ $tablet->politica }}</td>
+                                                    <td>{{ $tablet->policies->name }}</td>
                                                     <td>
                                                         @if ($tablet->configurada == '1')
                                                             <span class="badge bg-label-success">Si</span> 

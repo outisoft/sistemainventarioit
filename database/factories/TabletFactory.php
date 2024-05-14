@@ -27,7 +27,7 @@ class TabletFactory extends Factory
             'numero_telefono' => $this->faker->word,
             'imei' => $this->faker->word,
             'sim' => $this->faker->word,
-            'politica' => $this->faker->word,
+            'policy_id' => rand(1, 11),
             'configurada' => rand(1, 2),
             'carta_firmada' => rand(1, 2),
             'observacion' => $this->faker->word,

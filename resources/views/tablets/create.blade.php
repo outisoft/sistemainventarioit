@@ -177,9 +177,13 @@
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-download' ></i>
                                     </span>
-                                    <x-text-input id="politica" class="form-control" type="text"
-                                        name="politica" placeholder="MEX_EISI" :value="old('politica')" required
-                                        autocomplete="politica" />
+                                    <select name="policy_id" class="form-control" id="policy_id"
+                                        aria-label="Default select example">
+                                        @foreach ($politicas as $politica)
+                                            <option value="{{ $politica->id }}">{{ $politica->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <x-input-error :messages="$errors->get('politica')" class="mt-2" />
                             </div>

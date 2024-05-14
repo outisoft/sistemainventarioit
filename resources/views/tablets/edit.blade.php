@@ -105,10 +105,16 @@
 
                             <!-- Politica -->
                             <div class="form-group">
-                                <label for="politica">Politica aplicada</label>
-                                <x-text-input type="text" name="politica" class="form-control"
-                                    value="{{ $tablets->politica }}" required />
-                                <x-input-error :messages="$errors->get('politica')" class="mt-2" />
+                                <label for="policy_id">Politica aplicada</label>
+                                <select class="form-control" id="policy_id" name="policy_id"
+                                    aria-label="Default select example">
+                                    @foreach ($politicas as $politica)
+                                        <option value="{{ $politica->id }}"
+                                            {{ $tablets->policy_id == $politica->id ? 'selected' : '' }}>
+                                            {{ $politica->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('hotel_id')" class="mt-2" />
                             </div>
 
                             <!-- Configurada -->

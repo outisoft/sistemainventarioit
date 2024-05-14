@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Tablet;
 use App\Models\Historial;
+use App\Models\Policy;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TabletController extends Controller
 {
@@ -21,8 +23,9 @@ class TabletController extends Controller
 
     public function index()
     {
+        $politicas = Policy::orderBy('name')->get();
         $tablets = Tablet::get();
-        return view('tablets.index', compact('tablets'));
+        return view('tablets.index', compact('tablets', 'politicas'));
     }
 
     /**
@@ -51,7 +54,7 @@ class TabletController extends Controller
             'numero_telefono' => 'required',
             'imei' => 'required',
             'sim' => 'required',
-            'politica' => 'required',
+            'policy_id' => 'required',
             'configurada' => 'required',
             'carta_firmada' => 'required',
             'observacion' => 'required',
@@ -91,9 +94,9 @@ class TabletController extends Controller
     public function edit($id)
     {
         $tablets = Tablet::findOrFail($id);
-
+        $politicas = Policy::orderBy('name')->get();
         //dd($configurada);
-        return view('tablets.edit', compact('tablets'));
+        return view('tablets.edit', compact('tablets', 'politicas'));
     }
 
     /**
@@ -113,7 +116,7 @@ class TabletController extends Controller
             'numero_telefono' => 'required',
             'imei' => 'required',
             'sim' => 'required',
-            'politica' => 'required',
+            'policy_id' => 'required',
             'configurada' => 'required',
             'carta_firmada' => 'required',
             'observacion' => 'required',
@@ -171,7 +174,8 @@ class TabletController extends Controller
         return view('tablets._tablet_list', compact('tablet'));
     }
 
-    public function save_pdf($id){
+    public function save_pdf($id)
+    {
 
         // Obtener la fecha actual
         $today = Carbon::now();

@@ -38,11 +38,11 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'empleados.asignacion', 'description' => 'Asignar equipo a empleados'])->syncRoles($adminRole, $proRole);
         Permission::create(['name' => 'empleados.detalles', 'description' => 'Ver detalles de asignacion'])->syncRoles($adminRole, $proRole, $basicoRole);
 
-        Permission::create(['name' => 'equipos.index', 'description' => 'Ver listado de equipos'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'equipos.show', 'description' => 'Ver detalles de los equipos'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'equipos.create', 'description' => 'Registrar nuevos equipos'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'equipos.edit', 'description' => 'Editar equipos'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'equipos.destroy', 'description' => 'Eliminar equipos'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'equipo.index', 'description' => 'Ver listado de equipos'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'equipo.show', 'description' => 'Ver detalles de los equipos'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'equipo.create', 'description' => 'Registrar nuevos equipos'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'equipo.edit', 'description' => 'Editar equipos'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'equipo.destroy', 'description' => 'Eliminar equipos'])->syncRoles($adminRole, $proRole);
 
         Permission::create(['name' => 'users.index', 'description' => 'Ver listado de usuarios'])->syncRoles($adminRole, $proRole);
         Permission::create(['name' => 'users.show', 'description' => 'Ver detalles de usuarios'])->syncRoles($adminRole, $proRole);
