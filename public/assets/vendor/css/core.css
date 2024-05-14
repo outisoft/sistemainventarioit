@@ -830,7 +830,7 @@ progress {
 
 .row {
   --bs-gutter-x: 1.625rem;
-  --bs-gutter-y: 0;
+  --bs-gutter-y: 2%;
   display: flex;
   flex-wrap: wrap;
   margin-top: calc(-1 * var(--bs-gutter-y));
@@ -1760,6 +1760,7 @@ progress {
   .col-xl-4 {
     flex: 0 0 auto;
     width: 33.33333333%;
+    margin-top: 2%;
   }
 
   .col-xl-5 {

@@ -16,11 +16,11 @@ class EquipoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:equipos.index')->only('index');
-        $this->middleware('can:equipos.create')->only('create', 'store');
-        $this->middleware('can:equipos.edit')->only('edit', 'update');
-        $this->middleware('can:equipos.show')->only('show');
-        $this->middleware('can:equipos.destroy')->only('destroy');
+        $this->middleware('can:equipo.index')->only('index');
+        $this->middleware('can:equipo.create')->only('create', 'store');
+        $this->middleware('can:equipo.edit')->only('edit', 'update');
+        $this->middleware('can:equipo.show')->only('show');
+        $this->middleware('can:equipo.destroy')->only('destroy');
     }
     /**
      * Display a listing of the resource.

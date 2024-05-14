@@ -57,6 +57,7 @@
       </li-->
 
         <!-- Equipo -->
+        @can('equipo.index')
         <li
             class="menu-item {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -79,8 +80,10 @@
                 @endcan
             </ul>
         </li>
+        @endcan
 
         <!-- Empleados -->
+        @can('empleados.index')
         <li
             class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('asignacion.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -111,15 +114,19 @@
                 @endcan
             </ul>
         </li>
+        @endcan
 
         <!-- Historial -->
+        @can('historial.index')
         <li class="menu-item {{ Request::routeIs('historial.index') ? 'active' : '' }}">
             <a href="{{ route('historial.index') }}" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-history'></i>
                 <div data-i18n="Analytics">Historial</div>
             </a>
         </li>
+        @endcan
 
+        @can('charts.index')
         <!-- Graficas -->
         <li class="menu-item {{ Request::routeIs('charts.index') ? 'active' : '' }}">
             <a href="{{ route('charts.index') }}" class="menu-link">
@@ -127,6 +134,8 @@
                 <div data-i18n="Analytics">Graficas</div>
             </a>
         </li>
+        @endcan
+
         @can('tablets.index')
         <!-- TABLETAS -->
         <li class="menu-header small text-uppercase">

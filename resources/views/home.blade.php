@@ -14,6 +14,7 @@
             <p id="hora_actual">{{ $hora_actual }}</p>
         </h6>
         <div class="row">
+            @can('empleados.index')
             <div class="col-xl-4 col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -32,6 +33,9 @@
                     </div>            
                 </div>
             </div>
+            @endcan
+
+            @can('equipo.index')
             <div class="col-xl-4 col-md-6">
                 <div class="card">
                     <div class="card-body">
@@ -50,6 +54,9 @@
                     </div>
                 </div>
             </div>
+            @endcan
+
+            @can('users.index')
             <div class="col-xl-4 col-md-6">
                 <div class="card">
                     <div class="card-body">
@@ -68,22 +75,74 @@
                     </div>
                 </div>
             </div>
+            @endcan
+
+            @can('tablets.index')
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h3>{{ $totalTablets }}</h3>
+                                <h6 class="text-muted m-b-0">Tabletas<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                            </div>
+                            <div class="col-6">
+                                <div class="so_top_icon">
+                                    <i class='bx bx-tab bx-lg'></i>
+                                    <a href="{{ route('tablets.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endcan
+
+            @can('tpvs.index')
+            <div class="col-xl-4 col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-6">
+                                <h3>{{ $totalTpvs }}</h3>
+                                <h6 class="text-muted m-b-0">Tpvs<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                            </div>
+                            <div class="col-6">
+                                <div class="so_top_icon">
+                                    <i class='bx bx-tv bx-lg'></i>
+                                    <a href="{{ route('tpvs.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endcan
+
         </div>
         <br>
     </div>
 
+    
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="row">
-                <!-- Grafica Total de Equipos -->
-                @include('partials-home.total_equipos')
+                @can('equipo.index')
+                    <!-- Grafica Total de Equipos -->
+                    @include('partials-home.total_equipos')
 
-                <!-- Grafica Total de CPU Libres o en uso-->
-                @include('partials-home.total_cpu_libres_o_en_uso')
+                    <!-- Grafica Total de CPU Libres o en uso-->
+                    @include('partials-home.total_cpu_libres_o_en_uso')
 
-                <!-- Grafica Total de Laptops Libres o en uso-->
-                @include('partials-home.total_laptops_libres_o_en_uso')
+                    <!-- Grafica Total de Laptops Libres o en uso-->
+                    @include('partials-home.total_laptops_libres_o_en_uso')
+                @endcan
+
+                @can('tpvs.index')
+                    <!-- Grafica Total de TPV's-->
+                    @include('partials-home.total_tpvs')
+                @endcan
             </div>
         </div>
     </div>
@@ -111,6 +170,35 @@
     setInterval(actualizarHora, 1000);
 </script>
 
+
+<script>
+    var datos = @json($tpvsPorDepartamento);
+    var categorias = [];
+    var valores = [];
+    var customColors = [ '#b5a160','#604933', '#c5b87f', '#2f2119','#dad3ae','#8d7141'];
+
+    datos.forEach(function(item){
+        categorias.push(item.hotel);
+        valores.push(item.cantidad_tpvs);
+    });
+
+    var options = {
+        chart: {
+            type: 'bar'
+        },
+        colors: customColors,
+        series: [{
+            name: 'Total de Equipos',
+            data: valores
+        }],
+        xaxis: {
+            categories: categorias
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#tpvChart"), options);
+    chart.render();
+</script>
 
 <script>
     /*Script Total de Equipos*/

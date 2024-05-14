@@ -15,8 +15,10 @@ use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
 use App\Models\Equipo;
+use App\Models\Tablet;
 use App\Models\User;
 use App\Models\Tipo;
+use App\Models\Tpv;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
@@ -93,8 +95,21 @@ Route::middleware('auth')->group(function () {
         $totalEmpleados = Empleado::count();
         $totalEquipos = Equipo::count();
         $totalUsuarios = User::count();
+        $totalTpvs = Tpv::count();
+        $totalTablets = Tablet::count();
         $hora_actual = Carbon::now()->format('H:i:s A');
-        return view('home', compact('hora_actual', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
+
+        $tpvPorDepartamento = Tpv::select('hotel_id', DB::raw('COUNT(*) as total_tpvs'))
+            ->groupBy('hotel_id')
+            ->get();
+
+        $tpvsPorDepartamento = DB::table('tpvs')
+            ->join('hotels', 'tpvs.hotel_id', '=', 'hotels.id')
+            ->select('hotels.nombre as hotel', DB::raw('count(*) as cantidad_tpvs'))
+            ->groupBy('hotels.nombre')
+            ->get();
+
+        return view('home', compact('hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
     })->name('home');
 
     Route::get('/exportar-grafica', function () {
@@ -137,7 +152,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/equipo/search', [EquipoController::class, 'search'])->name('equipo.search'); //buscador de usuarios
     Route::post('/tablet/search', [TabletController::class, 'search'])->name('tablet.search'); //buscador de usuarios
     Route::get('/empleados/buscar', [EmpleadoController::class, 'buscar'])->name('empleados.buscar'); //buscador de usuarios
-    Route::post('/tpvs/search', [TpvController::class, 'search'])->name('tpvs.search'); 
+    Route::post('/tpvs/search', [TpvController::class, 'search'])->name('tpvs.search');
 
     //asignacion de equipo a empleado
     Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');

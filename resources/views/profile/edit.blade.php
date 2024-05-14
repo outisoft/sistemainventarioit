@@ -30,11 +30,11 @@
 
                 <br>
 
-                <div class="card">
+                <!--div class="card">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         @include('profile.partials.delete-user-form')
                     </div>
-                </div>
+                </div-->
             </div>
         </div>
         <!--/ Basic Bootstrap Table -->

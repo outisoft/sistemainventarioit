@@ -85,7 +85,7 @@
                                 </a>
                             </div>
                             <div>
-                                <a href="#" class="footer-link me-4" target="_blank">Outisoft.inc</a>
+                                <a href="#" class="footer-link me-4" target="_blank">Grupo Piñero</a>
                                 <!--a href="javascript:void(0)" class="footer-link me-4">Help</a>
                     <a href="javascript:void(0)" class="footer-link me-4">Contact</a>
                     <a href="javascript:void(0)" class="footer-link">Terms &amp; Conditions</a-->
