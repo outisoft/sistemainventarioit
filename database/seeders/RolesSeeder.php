@@ -14,38 +14,38 @@ class RolesSeeder extends Seeder
     public function run()
     {
         // Crear roles
-        $adminRole = Role::create(['name' => 'administrador']);
-        $proRole = Role::create(['name' => 'pro']);
-        $basicoRole = Role::create(['name' => 'basico']);
+        $adminRole = Role::create(['name' => 'Administrador']);
+        $soporteRole = Role::create(['name' => 'Soporte']);
+        $basicoRole = Role::create(['name' => 'Basico']);
 
-        Permission::create(['name' => 'home', 'description' => 'Ver dashboard/home'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'home', 'description' => 'Ver dashboard/home'])->syncRoles($adminRole, $soporteRole, $basicoRole);
 
-        Permission::create(['name' => 'charts.index', 'description' => 'Ver graficas'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'charts.index', 'description' => 'Ver graficas'])->syncRoles($adminRole, $soporteRole, $basicoRole);
 
-        Permission::create(['name' => 'historial.index', 'description' => 'Ver Historial'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'historial.index', 'description' => 'Ver Historial'])->syncRoles($adminRole, $soporteRole, $basicoRole);
 
-        Permission::create(['name' => 'inventario.index', 'description' => 'Ver listado de inventario'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'inventario.show', 'description' => 'Ver detalles de inventario'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'inventario.create', 'description' => 'Crear nuevo inventario'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'inventario.edit', 'description' => 'Editar inventario'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'inventario.destroy', 'description' => 'Eliminar inventario'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'inventario.index', 'description' => 'Ver listado de inventario'])->syncRoles($adminRole, $soporteRole, $basicoRole);
+        Permission::create(['name' => 'inventario.show', 'description' => 'Ver detalles de inventario'])->syncRoles($adminRole, $soporteRole, $basicoRole);
+        Permission::create(['name' => 'inventario.create', 'description' => 'Crear nuevo inventario'])->syncRoles($adminRole, $soporteRole, $basicoRole);
+        Permission::create(['name' => 'inventario.edit', 'description' => 'Editar inventario'])->syncRoles($adminRole, $soporteRole, $basicoRole);
+        Permission::create(['name' => 'inventario.destroy', 'description' => 'Eliminar inventario'])->syncRoles($adminRole, $soporteRole, $basicoRole);
 
-        Permission::create(['name' => 'empleados.index', 'description' => 'Ver listado de empleados'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'empleados.show', 'description' => 'Ver detalle de empleado'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'empleados.create', 'description' => 'Registrar nuevos empleados'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'empleados.edit', 'description' => 'Editar Empleados'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'empleados.destroy', 'description' => 'Eliminar Empleados'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'empleados.asignacion', 'description' => 'Asignar equipo a empleados'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'empleados.detalles', 'description' => 'Ver detalles de asignacion'])->syncRoles($adminRole, $proRole, $basicoRole);
+        Permission::create(['name' => 'empleados.index', 'description' => 'Ver listado de empleados'])->syncRoles($adminRole, $soporteRole, $basicoRole);
+        Permission::create(['name' => 'empleados.show', 'description' => 'Ver detalle de empleado'])->syncRoles($adminRole, $soporteRole, $basicoRole);
+        Permission::create(['name' => 'empleados.create', 'description' => 'Registrar nuevos empleados'])->syncRoles($adminRole, $soporteRole);
+        Permission::create(['name' => 'empleados.edit', 'description' => 'Editar Empleados'])->syncRoles($adminRole, $soporteRole);
+        Permission::create(['name' => 'empleados.destroy', 'description' => 'Eliminar Empleados'])->syncRoles($adminRole, $soporteRole);
+        Permission::create(['name' => 'empleados.asignacion', 'description' => 'Asignar equipo a empleados'])->syncRoles($adminRole, $soporteRole);
+        Permission::create(['name' => 'empleados.detalles', 'description' => 'Ver detalles de asignacion'])->syncRoles($adminRole, $soporteRole, $basicoRole);
 
-        Permission::create(['name' => 'equipo.index', 'description' => 'Ver listado de equipos'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'equipo.show', 'description' => 'Ver detalles de los equipos'])->syncRoles($adminRole, $proRole, $basicoRole);
-        Permission::create(['name' => 'equipo.create', 'description' => 'Registrar nuevos equipos'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'equipo.edit', 'description' => 'Editar equipos'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'equipo.destroy', 'description' => 'Eliminar equipos'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'equipo.index', 'description' => 'Ver listado de equipos'])->syncRoles($adminRole, $soporteRole, $basicoRole);
+        Permission::create(['name' => 'equipo.show', 'description' => 'Ver detalles de los equipos'])->syncRoles($adminRole, $soporteRole, $basicoRole);
+        Permission::create(['name' => 'equipo.create', 'description' => 'Registrar nuevos equipos'])->syncRoles($adminRole, $soporteRole);
+        Permission::create(['name' => 'equipo.edit', 'description' => 'Editar equipos'])->syncRoles($adminRole, $soporteRole);
+        Permission::create(['name' => 'equipo.destroy', 'description' => 'Eliminar equipos'])->syncRoles($adminRole, $soporteRole);
 
-        Permission::create(['name' => 'users.index', 'description' => 'Ver listado de usuarios'])->syncRoles($adminRole, $proRole);
-        Permission::create(['name' => 'users.show', 'description' => 'Ver detalles de usuarios'])->syncRoles($adminRole, $proRole);
+        Permission::create(['name' => 'users.index', 'description' => 'Ver listado de usuarios'])->syncRoles($adminRole, $soporteRole);
+        Permission::create(['name' => 'users.show', 'description' => 'Ver detalles de usuarios'])->syncRoles($adminRole, $soporteRole);
         Permission::create(['name' => 'users.create', 'description' => 'Registrar nuevos usuarios'])->syncRoles($adminRole);
         Permission::create(['name' => 'users.edit', 'description' => 'Editar usuarios'])->syncRoles($adminRole);
         Permission::create(['name' => 'users.destroy', 'description' => 'Eliminar usuarios'])->syncRoles($adminRole);
@@ -75,7 +75,7 @@ class RolesSeeder extends Seeder
         $eliminarPermiso = Permission::create(['name' => 'eliminar-publicación']);
         // Asigna permisos a roles
         $adminRole->givePermissionTo($crearPermiso, $editarPermiso, $verPermiso, $eliminarPermiso);
-        $proRole->givePermissionTo($crearPermiso, $editarPermiso, $verPermiso);
+        $soporteRole->givePermissionTo($crearPermiso, $editarPermiso, $verPermiso);
         $basicoRole->givePermissionTo($verPermiso);*/
 
         /*Role::create(['name' => 'básico']);

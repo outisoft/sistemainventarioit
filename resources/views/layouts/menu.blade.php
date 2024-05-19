@@ -84,35 +84,11 @@
 
         <!-- Empleados -->
         @can('empleados.index')
-        <li
-            class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('asignacion.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
+            <a href="{{ route('empleados.index') }}" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-user-pin'></i>
-                <div data-i18n="Layouts">Empleados</div>
+                <div data-i18n="Without menu">Empleados</div>
             </a>
-
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{ route('empleados.index') }}" class="menu-link">
-                        <div data-i18n="Without menu">Listado</div>
-                    </a>
-                </li>
-                @can('empleados.create')
-                    <!--li class="menu-item">
-                        <a href="{{ route('empleados.create') }}" class="menu-link">
-                            <div data-i18n="Without navbar">Nuevo</div>
-                        </a>
-                    </li-->
-                @endcan
-
-                @can('empleados.asignacion')
-                    <li class="menu-item">
-                        <a href="{{ url('asignacion') }}" class="menu-link">
-                            <div data-i18n="Without navbar">Asignar Equipo</div>
-                        </a>
-                    </li>
-                @endcan
-            </ul>
         </li>
         @endcan
 
@@ -126,14 +102,23 @@
         </li>
         @endcan
 
+        @can('empleados.asignacion')
+        <li class="menu-item {{ Request::routeIs('asignacion.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.detalles') ? 'active' : '' }}">
+            <a href="{{ url('asignacion') }}" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-link'></i>
+                <div data-i18n="Without navbar">Asignacion</div>
+            </a>
+        </li>
+        @endcan
+
         @can('charts.index')
         <!-- Graficas -->
-        <li class="menu-item {{ Request::routeIs('charts.index') ? 'active' : '' }}">
+        <!--li-- class="menu-item {{ Request::routeIs('charts.index') ? 'active' : '' }}">
             <a href="{{ route('charts.index') }}" class="menu-link">
                 <i class='menu-icon tf-icons bx bxs-bar-chart-alt-2'></i>
                 <div data-i18n="Analytics">Graficas</div>
             </a>
-        </li>
+        </!--li-->
         @endcan
 
         @can('tablets.index')

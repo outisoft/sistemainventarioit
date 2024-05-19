@@ -2,7 +2,7 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Empleados / Asignacion /</span> Detalles </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Asignacion /</span> Detalles </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">

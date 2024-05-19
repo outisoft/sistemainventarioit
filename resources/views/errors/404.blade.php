@@ -54,7 +54,7 @@
             <p class="mb-4 mx-2">Oops! 😖 No se encontró la dirección URL solicitada en este servidor.</p>
             <a href="{{ route('home') }}" class="btn btn-primary">Volver al inicio</a>
             <div class="mt-3">
-                <img src="../assets/img/illustrations/page-misc-error-light.png" alt="page-misc-error-light"
+                <img src="../assets/img/illustrations/404.png" alt="page-misc-error-light"
                     width="500" class="img-fluid" data-app-dark-img="illustrations/page-misc-error-dark.png"
                     data-app-light-img="illustrations/page-misc-error-light.png" />
             </div>
