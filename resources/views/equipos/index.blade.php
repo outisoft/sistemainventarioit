@@ -39,7 +39,7 @@
                     <h5 class="card-header">Listado de Equipos</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            @can('equipos.create')
+                            @can('equipo.create')
                                 <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip"
                                     data-placement="top" title="Agregar Nuevo Registro">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
@@ -119,17 +119,17 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <!-- Aquí se agregarán las opciones -->
-                                            @can('equipos.show')
+                                            @can('equipo.show')
                                                 <a class="dropdown-item" href="{{ route('equipo.show', $equipo->id) }}"><i
                                                         class="bx bx-show-alt me-1"></i>Ver</a>
                                             @endcan
 
-                                            @can('equipos.edit')
+                                            @can('equipo.edit')
                                                 <a class="dropdown-item" href="{{ route('equipo.edit', $equipo->id) }}"><i
                                                         class="bx bx-edit me-1"></i>Editar</a>
                                             @endcan
 
-                                            @can('equipos.destroy')
+                                            @can('equipo.destroy')
                                                 <form action="{{ route('equipo.destroy', $equipo->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')

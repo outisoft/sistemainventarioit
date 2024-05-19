@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('accion');
             $table->string('descripcion');
-            $table->unsignedBigInteger('registro_id');
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

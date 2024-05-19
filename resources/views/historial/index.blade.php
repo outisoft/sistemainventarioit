@@ -28,6 +28,7 @@
                                             <th></th>
                                             <th>Acción</th>
                                             <th>Descripción</th>
+                                            <th>Usuario</th>
                                             <th>Fecha</th>
                                         </tr>
                                     </thead>
@@ -37,6 +38,7 @@
                                                 <td></td>
                                                 <td>{{ $registro->accion }}</td>
                                                 <td>{{ $registro->descripcion }}</td>
+                                                <td>{{ $registro->user->name  }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($registro->created_at)->isoFormat('dddd D [de] MMMM [del] YYYY') }}
                                                 </td>
                                             </tr>

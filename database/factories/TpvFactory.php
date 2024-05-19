@@ -18,6 +18,7 @@ class TpvFactory extends Factory
     {
         return [
             'area' => $this->faker->word,
+            'departamento_id' => rand(1, 73),
             'hotel_id' => rand(1, 9),
             'equipment' => $this->faker->word,
             'brand' => $this->faker->word,

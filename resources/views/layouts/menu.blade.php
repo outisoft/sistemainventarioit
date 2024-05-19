@@ -71,7 +71,7 @@
                         <div data-i18n="Without menu">Listado</div>
                     </a>
                 </li>
-                @can('equipos.create')
+                @can('equipo.create')
                     <li class="menu-item">
                         <a href="{{ route('equipo.create') }}" class="menu-link">
                             <div data-i18n="Without navbar">Nuevo</div>

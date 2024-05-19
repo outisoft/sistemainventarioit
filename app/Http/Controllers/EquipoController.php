@@ -52,6 +52,8 @@ class EquipoController extends Controller
     {
         //dd($request);
         $tipo = $request->input('tipo_id');
+        
+        $user = auth()->id();
 
         // Guarda los datos en la tabla correspondiente según el tipo de equipo
         switch ($tipo) {
@@ -68,7 +70,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego la {$registro->tipo->name} - {$registro->nombre_app}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -92,7 +94,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego el {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -127,7 +129,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego un {$registro->tipo->name} de la Marca {$registro->marca} y Modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -152,7 +154,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego una {$registro->tipo->name} de la Marca {$registro->marca} y Modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -180,7 +182,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego una {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -205,7 +207,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -230,7 +232,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -252,7 +254,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -276,7 +278,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -305,7 +307,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego nueva licencia {$registro->tipo->name} - {$registro->office}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -328,7 +330,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -363,7 +365,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego nueva licencia de {$registro->tipo->name} - {$registro->so}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -386,7 +388,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Creacion',
                     'descripcion' => "Se agrego un {$registro->tipo->name} de la marca {$registro->marca}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -427,6 +429,8 @@ class EquipoController extends Controller
     {
         $tipo = $request->input('tipo_id');
 
+        $user = auth()->id();
+
         // Guarda los datos en la tabla correspondiente según el tipo de equipo
         switch ($tipo) {
             case 1:
@@ -444,7 +448,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo la {$registro->tipo->name} - {$registro->nombre_app}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -469,7 +473,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -498,7 +502,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -522,7 +526,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo la {$registro->tipo->name} con la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -550,7 +554,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo la {$registro->tipo->name} con la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -575,7 +579,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} con la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -601,7 +605,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->marca}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -625,7 +629,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->marca}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -649,7 +653,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->marca}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -673,7 +677,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->office}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -698,7 +702,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} de la marca {$registro->marca} y modelo {$registro->modelo}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -722,7 +726,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} - {$registro->so}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -746,7 +750,7 @@ class EquipoController extends Controller
                 Historial::create([
                     'accion' => 'Actualizacion',
                     'descripcion' => "Se actualizo el {$registro->tipo->name} de la marca {$registro->marca}",
-                    'registro_id' => $registro->id,
+                    'user_id' => $user,
                 ]);
                 toastr()
                     ->timeOut(3000) // 3 second
@@ -767,7 +771,7 @@ class EquipoController extends Controller
         Historial::create([
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo el registro {$registro->tipo->name} - {$registro->marca}",
-            'registro_id' => $registro->id,
+            'user_id' => $user,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -784,10 +788,12 @@ class EquipoController extends Controller
         $registro = Equipo::findOrFail($id);
         $registro->delete();
 
+        $user = auth()->id();
+
         Historial::create([
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->tipo->name} correctamente",
-            'registro_id' => $registro->id,
+            'user_id' => $user,
         ]);
 
         toastr()

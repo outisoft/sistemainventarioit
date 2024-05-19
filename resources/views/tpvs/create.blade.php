@@ -23,6 +23,20 @@
                                 <x-input-error :messages="$errors->get('area')" class="mt-2" />
                             </div>
 
+                            <!-- departamento -->
+                            <div class="mb-3">
+                                <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
+                                <div class="input-group input-group-merge">
+                                    <select name="departamento_id" class="form-control" id="departamento_id"
+                                        aria-label="Default select example">
+                                        @foreach ($departamentos as $departamento)
+                                            <option value="{{ $departamento->id }}">{{ $departamento->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
                             <!-- Hotel -->
                             <div class="mb-3">
                                 <label for="exampleFormControlSelect1" class="form-label">Hotel</label>

@@ -41,6 +41,19 @@
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="departamento_id">Departamento:</label>
+                                            <select class="form-control" id="departamento_id" name="departamento_id"
+                                                aria-label="Default select example">
+                                                @foreach ($departamentos as $departamento)
+                                                    <option value="{{ $departamento->id }}"
+                                                        {{ $tpv->departamento_id == $departamento->id ? 'selected' : '' }}>
+                                                        {{ $departamento->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <x-input-error :messages="$errors->get('hotel_id')" class="mt-2" />
+                                        </div>
+
+                                        <div class="form-group">
                                             <label for="hotel_id">Hoteles:</label>
                                             <select class="form-control" id="hotel_id" name="hotel_id"
                                                 aria-label="Default select example">

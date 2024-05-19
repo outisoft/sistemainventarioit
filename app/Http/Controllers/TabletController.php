@@ -66,11 +66,12 @@ class TabletController extends Controller
         $registro = Tablet::create($data);
 
         //dd($request);
+        $user = auth()->id();
 
         Historial::create([
             'accion' => 'Creacion',
             'descripcion' => "Se creó la tableta para {$registro->operario}",
-            'registro_id' => $registro->id,
+            'user_id' => $user,
         ]);
 
         toastr()
@@ -128,10 +129,12 @@ class TabletController extends Controller
         $registro = Tablet::findOrFail($id);
         $registro->update($data);
 
+        $user = auth()->id();
+
         Historial::create([
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo la tableta de {$registro->operario}",
-            'registro_id' => $registro->id,
+            'user_id' => $user,
         ]);
 
         toastr()
@@ -148,10 +151,12 @@ class TabletController extends Controller
     {
         $tablet->delete();
 
+        $user = auth()->id();
+
         Historial::create([
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la tableta de {$tablet->operario}",
-            'registro_id' => $tablet->id,
+            'user_id' => $user,
         ]);
 
         toastr()

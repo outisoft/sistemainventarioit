@@ -41,7 +41,7 @@ class InventarioController extends Controller
         Historial::create([
             'accion' => 'creacion',
             'descripcion' => "Se creó el registro {$registro->nombre}",
-            'registro_id' => $registro->id,
+            'user_id' => $registro->id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -79,7 +79,7 @@ class InventarioController extends Controller
         Historial::create([
             'accion' => 'actualizacion',
             'descripcion' => "Se actualizo el registro {$registro->nombre}",
-            'registro_id' => $registro->id,
+            'user_id' => $registro->id,
         ]);
 
         toastr()
@@ -98,7 +98,7 @@ class InventarioController extends Controller
         Historial::create([
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el registro {$registro->nombre}",
-            'registro_id' => $registro->id,
+            'user_id' => $registro->id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -120,7 +120,7 @@ class InventarioController extends Controller
     public function historial($id)
     {
         $registro = Inventario::findOrFail($id);
-        $historial = Historial::where('registro_id', $id)->orderBy('created_at', 'desc')->get();
+        $historial = Historial::where('user_id', $id)->orderBy('created_at', 'desc')->get();
 
         return view('inventario.historial', compact('registro', 'historial'));
     }

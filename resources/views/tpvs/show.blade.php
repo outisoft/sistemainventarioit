@@ -34,6 +34,10 @@
                                                 <td>{{ $tpv->area }}</td>
                                             </tr>
                                             <tr>
+                                                <th class="bg-secondary">epartamento</th>
+                                                <td>{{ $departamento->name }}</td>
+                                            </tr>
+                                            <tr>
                                                 <th class="bg-secondary">Hotel</th>
                                                 <td>{{ $hotel->nombre }}</td>
                                             </tr>

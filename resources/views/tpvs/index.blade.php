@@ -54,6 +54,7 @@
                                         <thead class="bg-primary">
                                             <tr>
                                                 <th>Area</th>
+                                                <th>Departamento</th>
                                                 <th>Hotel</th>
                                                 <th>Equipo</th>
                                                 <th>Marca</th>
@@ -70,6 +71,7 @@
                                             @foreach ($tpvs as $tpv)
                                                 <tr>
                                                     <td>{{ $tpv->area }}</td>
+                                                    <td>{{ $tpv->departamento->name }}</td>
                                                     <td>{{ $tpv->hotel->nombre }}</td>
                                                     <td>{{ $tpv->equipment }}</td>
                                                     <td>{{ $tpv->brand }}</td>

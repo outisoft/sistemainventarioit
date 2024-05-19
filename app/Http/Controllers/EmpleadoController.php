@@ -62,10 +62,12 @@ class EmpleadoController extends Controller
 
         $registro = Empleado::create($data);
 
+        $user = auth()->id();
+
         Historial::create([
             'accion' => 'Creacion',
             'descripcion' => "Se creó el empleado {$registro->name}, con numero de colaborador {$registro->no_empleado}",
-            'registro_id' => $registro->id,
+            'user_id' => $user,
         ]);
 
         toastr()
@@ -112,10 +114,12 @@ class EmpleadoController extends Controller
         $registro = Empleado::findOrFail($id);
         $registro->update($data);
 
+        $user = auth()->id();
+
         Historial::create([
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo el empleado: {$registro->name}",
-            'registro_id' => $registro->id,
+            'user_id' => $user,
         ]);
         // Mostrar notificación Toastr para éxito
 
@@ -131,10 +135,12 @@ class EmpleadoController extends Controller
         $registro = Empleado::findOrFail($id);
         $registro->delete();
 
+        $user = auth()->id();
+
         Historial::create([
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el empleado {$registro->name}",
-            'registro_id' => $registro->id,
+            'user_id' => $user,
         ]);
 
         toastr()
@@ -178,10 +184,12 @@ class EmpleadoController extends Controller
         $equipo = Equipo::where('id', $request->equipo_id)->with('tipo')->first();
         //dd($equipo->tipo->name);
 
+        $user = auth()->id();
+
         Historial::create([
             'accion' => 'Asignacion',
             'descripcion' => "Se asigno al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name}",
-            'registro_id' => $empleado->id,
+            'user_id' => $user,
         ]);
 
         toastr()
@@ -199,11 +207,11 @@ class EmpleadoController extends Controller
 
         $equipo = Equipo::where('id', $equipo_id)->with('tipo')->first();
         //dd($equipo->tipo->name);
-
+        $user = auth()->id();
         Historial::create([
             'accion' => 'Desvinculó',
             'descripcion' => "Se desvinculó al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name}",
-            'registro_id' => $empleado->id,
+            'user_id' => $user,
         ]);
 
         toastr()

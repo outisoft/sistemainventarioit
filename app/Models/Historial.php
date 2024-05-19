@@ -9,10 +9,10 @@ class Historial extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['accion', 'descripcion', 'registro_id'];
+    protected $fillable = ['accion', 'descripcion', 'user_id'];
 
-    public function registro()
+    public function user()
     {
-        return $this->belongsTo(Inventario::class, 'registro_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
