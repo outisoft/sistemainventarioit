@@ -37,7 +37,7 @@
                                                 <td></td>
                                                 <td>{{ $registro->accion }}</td>
                                                 <td>{{ $registro->descripcion }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($registro->created_at)->format('d/m/Y') }}
+                                                <td>{{ \Carbon\Carbon::parse($registro->created_at)->isoFormat('dddd D [de] MMMM [del] YYYY') }}
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -63,7 +63,7 @@
                                             </tr>
                                             <tr>
                                                 <th class="bg-secondary">Link</th>
-                                                <td>{{ $tpv->link }}</td>
+                                                <td><a href="{{ $tpv->link }}" target="_blank">{{ $tpv->link }}</a></td>
                                             </tr>
                                         </table>
                                         <br>
