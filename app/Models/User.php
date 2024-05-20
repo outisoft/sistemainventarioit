@@ -60,4 +60,14 @@ class User extends Authenticatable
             }
         });*/
     }
+
+    public function equipments()
+    {
+        return $this->hasMany(Equipo::class);
+    }
+
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
 }

@@ -102,11 +102,22 @@
         </li>
         @endcan
 
+        <!-- Asignacion -->
         @can('empleados.asignacion')
         <li class="menu-item {{ Request::routeIs('asignacion.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.detalles') ? 'active' : '' }}">
             <a href="{{ url('asignacion') }}" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-link'></i>
                 <div data-i18n="Without navbar">Asignacion</div>
+            </a>
+        </li>
+        @endcan
+
+        <!-- Mantenimiento -->
+        @can('empleados.asignacion')
+        <li class="menu-item {{ Request::routeIs('maintenances.index') ? 'active' : '' }} ">
+            <a href="{{ route('maintenances.index') }}" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-wrench'></i>
+                <div data-i18n="Without navbar">Mantenimiento</div>
             </a>
         </li>
         @endcan

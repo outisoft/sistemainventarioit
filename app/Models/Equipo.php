@@ -21,6 +21,16 @@ class Equipo extends Model
         return $this->belongsTo(Tipo::class, 'tipo_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
+
     protected static function boot() //guardar en mayusculas
     {
         parent::boot();
