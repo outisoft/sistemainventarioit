@@ -153,7 +153,7 @@
                                     <table id="usuarios" class="table">
                                         <thead class="bg-primary">
                                             <tr>
-                                                <th>Nombre</th>
+                                                <th>Usuario</th>
                                                 <th>Correo Electrónico</th>
                                                 <th>Rol</th>
                                                 <th>Acciones</th>
@@ -163,7 +163,12 @@
                                             <!-- Aquí se mostrarán los empleados -->
                                             @foreach ($users as $user)
                                                 <tr>
-                                                    <td>{{ $user->name }}</td>
+                                                    <td>
+                                                        <div style="display: flex; align-items: center;">
+                                                            <img src="{{ $user->image }}" alt="user-avatar" class="employee-image"/>
+                                                            <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($user->name, 20, '...'); }}</span>
+                                                        </div>
+                                                    </td>
                                                     <td>{{ $user->email }}</td>
                                                     <td>
                                                         @foreach ($user->roles as $rol)

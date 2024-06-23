@@ -38,7 +38,12 @@
                                                 <td></td>
                                                 <td>{{ $registro->accion }}</td>
                                                 <td>{{ $registro->descripcion }}</td>
-                                                <td>{{ $registro->user->name  }}</td>
+                                                <td>
+                                                    <div style="display: flex; align-items: center;">
+                                                        <img src="{{ $registro->user->image }}" alt="user-avatar" class="employee-image"/>
+                                                        <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($registro->user->name, 20, '...'); }}</span>
+                                                    </div>
+                                                </td>
                                                 <td>{{ \Carbon\Carbon::parse($registro->created_at)->isoFormat('dddd D [de] MMMM [del] YYYY') }}
                                                 </td>
                                             </tr>
