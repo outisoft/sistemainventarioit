@@ -114,12 +114,12 @@
 
         <!-- Mantenimiento -->
         @can('empleados.asignacion')
-        <li class="menu-item {{ Request::routeIs('maintenances.index') ? 'active' : '' }} ">
+        <!--li-- class="menu-item {{ Request::routeIs('maintenances.index') ? 'active' : '' }} ">
             <a href="{{ route('maintenances.index') }}" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-wrench'></i>
                 <div data-i18n="Without navbar">Mantenimiento</div>
             </a>
-        </li>
+        </!--li-->
         @endcan
 
         @can('charts.index')
@@ -190,7 +190,7 @@
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                        <img src="{{ asset('images/UserP.png') }}" alt
+                        <img src="{{ asset(Auth::user()->image) }}" alt
                             class="w-px-40 h-auto rounded-circle" />
                     </div>
                 </div>

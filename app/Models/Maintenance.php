@@ -25,7 +25,7 @@ class Maintenance extends Model
 
     public function equipment()
     {
-        return $this->belongsTo(Equipment::class);
+        return $this->belongsTo(Equipo::class);
     }
 
     public function user()

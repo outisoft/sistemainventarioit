@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use File;
 
 class ProfileController extends Controller
 {
@@ -26,7 +27,20 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        $user = Auth::user();
         $request->user()->fill($request->validated());
+
+        if ($request->hasFile('image')){
+
+            if(File::exists(public_path($user->image)) && $user->image != 'uploads/gp-Logo.png'){
+                File::delete(public_path($user->image));
+            }
+            $image = $request->image;
+            $imageName = rand().'_'.$image->getClientOriginalName();
+            $image->move(public_path('uploads'), $imageName);
+            $path = "/uploads/".$imageName;
+            $user->image = $path;
+        }
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;

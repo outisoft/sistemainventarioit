@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('equipment_id')->references('id')->on('equipos')->cascadeOnDelete(); // Relación con la tabla equipments
-            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete(); // Relación con la tabla users
+            $table->foreignId('user_id')->constrained()->onDelete('set null'); // Relación con la tabla users
             $table->enum('maintenance_type', ['preventivo', 'correctivo']);
             $table->date('date');
             $table->text('description');
             $table->json('parts_used')->nullable(); // Lista de partes usadas en formato JSON
-            $table->enum('status', ['completado', 'pendiente'])->default('pendiente');
+            $table->enum('status', ['Completado', 'Pendiente'])->default('Pendiente');
             $table->timestamps();
         });
     }
