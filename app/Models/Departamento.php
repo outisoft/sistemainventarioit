@@ -15,6 +15,13 @@ class Departamento extends Model
     {
         return $this->hasMany(Empleado::class);
     }
+
+    //new
+    public function hoteles()
+    {
+        return $this->belongsToMany(Hotel::class);
+    }
+
     protected static function boot() //guardar en mayusculas
     {
         parent::boot();

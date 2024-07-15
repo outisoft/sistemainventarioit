@@ -12,6 +12,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TabletController;
 use App\Http\Controllers\TpvController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\LicenseController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -131,6 +132,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('tablets', TabletController::class); // Rutas Usuario
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
+    Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
 
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial'); // Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index'); //muestra view historial

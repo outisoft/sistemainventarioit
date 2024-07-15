@@ -16,6 +16,12 @@ class Hotel extends Model
         return $this->hasMany(Empleado::class, 'hotel_id');
     }
 
+    //new
+    public function departamentos()
+    {
+        return $this->belongsToMany(Departamento::class);
+    }
+
     // Modelo Hotel
     public function equiposCpu()
     {

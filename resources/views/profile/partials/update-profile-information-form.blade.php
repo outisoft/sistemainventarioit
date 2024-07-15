@@ -32,7 +32,7 @@
                     <span class="d-none d-sm-block">Reset</span>
                     </button>
 
-                    <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+                    <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K 4x4</p>
                     <x-input-error class="mt-2" :messages="$errors->get('image')" />
                 </div>
             </div>

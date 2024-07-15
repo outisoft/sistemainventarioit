@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Agregar nuevo empleado</h4>
+                <h4 class="modal-title" id="myModalLabel">Nuevo empleado</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true"></span></button>
             </div>
@@ -71,23 +71,6 @@
                         <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                     </div>
 
-                    <!-- departamento -->
-                    <div class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text">
-                                <i class='bx bx-building'></i>
-                            </span>
-                            <select name="departamento_id" class="form-control" id="departamento_id"
-                                aria-label="Default select example">
-                                @foreach ($departamentos as $departamento)
-                                    <option value="{{ $departamento->id }}">{{ $departamento->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
                     <!-- Hotel -->
                     <div class="mb-3">
                         <label for="exampleFormControlSelect1" class="form-label">Hotel</label>
@@ -95,7 +78,7 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-building-house'></i>
                             </span>
-                            <select name="hotel_id" class="form-control" id="hotel_id"
+                            <select name="hotel_id" class="form-control" id="hotel-select"
                                 aria-label="Default select example">
                                 @foreach ($hoteles as $hotel)
                                     <option value="{{ $hotel->id }}">{{ $hotel->nombre }}
@@ -105,6 +88,22 @@
                             </select>
                         </div>
                     </div>
+
+                    <!--new-->
+                    <!-- departamento -->
+                    <div class="mb-3">
+                        <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
+                        <div class="input-group input-group-merge">
+                            <span id="basic-icon-default-fullname2" class="input-group-text">
+                                <i class='bx bx-building'></i>
+                            </span>
+                            <select name="departamento_id" class="form-control" id="departamento-select"
+                                aria-label="Default select example">
+                                
+                            </select>
+                        </div>
+                    </div>
+                    <!--new-->
 
                     <!-- AD -->
                     <div class="mb-3">

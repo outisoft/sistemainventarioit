@@ -74,6 +74,12 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'maintenances.edit', 'description' => 'Editar mantenimiento'])->syncRoles($adminRole);
         Permission::create(['name' => 'maintenances.destroy', 'description' => 'Eliminar mantenimiento'])->syncRoles($adminRole);
 
+        Permission::create(['name' => 'licenses.index', 'description' => 'Ver listado de licencias'])->syncRoles($adminRole);
+        Permission::create(['name' => 'licenses.show', 'description' => 'Ver detalles de licencias'])->syncRoles($adminRole);
+        Permission::create(['name' => 'licenses.create', 'description' => 'Registrar licencias'])->syncRoles($adminRole);
+        Permission::create(['name' => 'licenses.edit', 'description' => 'Editar licencias'])->syncRoles($adminRole);
+        Permission::create(['name' => 'licenses.destroy', 'description' => 'Eliminar licencias'])->syncRoles($adminRole);
+
         // Asignar permisos
         /*$crearPermiso = Permission::create(['name' => 'crear-publicación']);
         $editarPermiso = Permission::create(['name' => 'editar-publicación']);

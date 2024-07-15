@@ -3,13 +3,6 @@
         <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     @endsection
-    <div class="container-xxl navbar-expand-xl align-items-center">
-        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-            </a>
-        </div>
-    </div>
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -107,7 +100,7 @@
                                             </td>
 
                                             <td class="employee-position">
-                                                {{ $empleado->departamento->name }} - {{ $empleado->hotel->nombre }}
+                                                {{ $empleado->departamento->name }} / {{ $empleado->hotel->nombre }}
                                             </td>
                                             <td>
                                                 <div class="assigned-items">
@@ -144,26 +137,4 @@
         </div>
         <!-- / Content -->
     </div>
-
-    @section('js')
-        <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-        <script>
-            //new DataTable('#usuarios');
-            $('#asignacion').DataTable({
-                "lengthMenu": [
-                    [-1],
-                    ["Todos"]
-                ],
-                "searching": true,
-                "lengthChange": false,
-                "info": false,
-                "paging": false
-            });
-        </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    @endsection
-
-
 </x-app-layout>

@@ -59,7 +59,7 @@
         <!-- Equipo -->
         @can('equipo.index')
         <li
-            class="menu-item {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}">
+            class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-desktop'></i>
                 <div data-i18n="Layouts">Equipos</div>
@@ -78,6 +78,11 @@
                         </a>
                     </li>
                 @endcan
+                <li class="menu-item">
+                    <a href="{{ route('licenses.index') }}" class="menu-link">
+                        <div data-i18n="Without navbar">Office 365</div>
+                    </a>
+                </li>
             </ul>
         </li>
         @endcan
@@ -182,42 +187,5 @@
                 </a>
             </li>
         @endcan
-
-        <!-- Perfil -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Perfil</span></li>
-        <!--Usuarios-->
-        <li class="menu-item {{ Request::routeIs('profile.edit') ? 'active' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <div class="flex-shrink-0 me-3">
-                    <div class="avatar avatar-online">
-                        <img src="{{ asset(Auth::user()->image) }}" alt
-                            class="w-px-40 h-auto rounded-circle" />
-                    </div>
-                </div>
-                <div class="flex-grow-1">
-                    <div data-i18n="Account Settings">{{ Auth::user()->name }}</div>
-                    <small data-i18n="Account Settings">{{ $role->name }}</small>
-                </div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{ route('profile.edit') }}" class="menu-link">
-                        <div data-i18n="Account">Mi perfil</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="menu-header text-uppercase"></li>
-
-        <li class="menu-item">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"
-                    target="_blank" class="menu-link">
-                    <i class='menu-icon tf-icons bx bx-power-off'></i>
-                    <div data-i18n="Documentation">Log Out</div>
-                </a>
-            </form>
-        </li>
     </ul>
 </aside>
