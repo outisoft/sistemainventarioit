@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\License;
+use App\Models\Historial;
 use Illuminate\Http\Request;
 
 class LicenseController extends Controller
@@ -20,15 +21,52 @@ class LicenseController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'product_name' => 'required',
-            'password' => 'required',
-            'total_licenses' => 'required|integer|min:1',
-            'applied_licenses' => 'required|integer|min:0|lte:total_licenses',
+        try {
+            $request->validate([
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . License::class],
+                'password' => 'required',
+            ]);
+
+            License::create($request->all());
+
+            $user = auth()->id();
+
+            Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se registro la licencia {$request->email}",
+                'user_id' => $user,
+            ]);
+
+            toastr()
+                ->timeOut(3000)
+                ->addSuccess("Licencia registrada.");    
+
+            return redirect()->route('licenses.index');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if (isset($e->validator->failed()['email'])) {
+                toastr()
+                    ->timeOut(3000)
+                    ->addError("El correo electrónico ya está en uso.");
+            }
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        }
+    }
+
+    public function destroy(License $license)
+    {
+        $license->delete();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Eliminacion',
+            'descripcion' => "Se elimino licencia {$license->email} correctamente",
+            'user_id' => $user,
         ]);
 
-        License::create($request->all());
-
-        return redirect()->route('licenses.index')->with('success', 'Licencia creada exitosamente.');
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Licencia {$license->email} eliminado.");
+        return redirect()->route('licenses.index');
     }
 }

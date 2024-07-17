@@ -49,31 +49,49 @@ class EmpleadoController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'no_empleado' => 'numeric|required|unique:empleados|digits_between:5,8',
-            'name' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Empleado::class],
-            'puesto' => 'required',
-            'departamento_id' => 'required',
-            'hotel_id' => 'required|exists:hotels,id',
-            'ad' => 'required|unique:empleados',
-        ]);
-        //dd($data);
+        try {
+            $data = $request->validate([
+                'no_empleado' => 'numeric|required|unique:empleados|digits_between:5,8',
+                'name' => 'required',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Empleado::class],
+                'puesto' => 'required',
+                'departamento_id' => 'required',
+                'hotel_id' => 'required|exists:hotels,id',
+                'ad' => 'required|unique:empleados',
+            ]);
 
-        $registro = Empleado::create($data);
+            $registro = Empleado::create($data);
+            $user = auth()->id();
 
-        $user = auth()->id();
+            Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se creó el empleado {$registro->name}, con numero de colaborador {$registro->no_empleado}",
+                'user_id' => $user,
+            ]);
 
-        Historial::create([
-            'accion' => 'Creacion',
-            'descripcion' => "Se creó el empleado {$registro->name}, con numero de colaborador {$registro->no_empleado}",
-            'user_id' => $user,
-        ]);
+            toastr()
+                ->timeOut(3000)
+                ->addSuccess("Empleado {$registro->name} creado.");
 
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Empleado {$registro->name} creado.");
-        return redirect()->route('empleados.index');
+            return redirect()->route('empleados.index');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->validator->errors();
+
+            if ($errors->has('no_empleado')) {
+                toastr()->timeOut(6000)->addError("El número de empleado ya existe.");
+            }
+
+            if ($errors->has('email')) {
+                toastr()->timeOut(6000)->addError("El correo electrónico ya está en uso.");
+            }
+
+            if ($errors->has('ad')) {
+                toastr()->timeOut(6000)->addError("El AD ya está en uso.");
+            }
+
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        }
     }
 
     // Método para mostrar un registro específico
@@ -147,17 +165,6 @@ class EmpleadoController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Empleado {$registro->name} eliminado.");
         return redirect()->route('empleados.index');
-    }
-
-    public function search(Request $request)
-    {
-        $query = $request->get('query');
-        $empleados = Empleado::where('name', 'like', '%' . $query . '%')
-            ->orWhere('ad', 'like', '%' . $query . '%')
-            ->orWhere('email', 'like', '%' . $query . '%')
-            ->get();
-
-        return view('empleados._employee_list', compact('empleados'));
     }
 
     public function agregar()
@@ -243,27 +250,6 @@ class EmpleadoController extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Ocurrió un error al asignar el rol.');
         }
-    }
-
-    public function export()
-    {
-        $empleados = Empleado::all();
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Exportacion de datos correctamente.");
-
-        return Excel::download(new EmpleadoExport($empleados), 'empleados.xlsx');
-    }
-
-    public function import()
-    {
-        Excel::import(new EmpleadoImport, request()->file('file'));
-
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Importacion de datos correctamente.");
-
-        return redirect()->route('empleados.index');
     }
 
     public function detalles($id)

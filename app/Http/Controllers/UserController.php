@@ -36,29 +36,39 @@ class UserController extends Controller
     // Método para guardar un nuevo registro
     public function store(Request $request)
     {
-        //dd($request);
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-        // Crear el usuario
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
+        try {
+            //dd($request);
+            $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            ]);
+            // Crear el usuario
+            $user = User::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => bcrypt($request->input('password')),
+            ]);
 
-        // Obtener el tipo de usuario (por ejemplo, "admin", "editor", "usuario")
-        $tipoUsuario = $request->input('rol');
-        $user->assignRole([$tipoUsuario]);
+            // Obtener el tipo de usuario (por ejemplo, "admin", "editor", "usuario")
+            $tipoUsuario = $request->input('rol');
+            $user->assignRole([$tipoUsuario]);
 
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Usuario {$user->name} creado.");
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Usuario {$user->name} creado.");
 
-        // Redireccionar o mostrar un mensaje de éxito
-        return redirect()->route('users.index');
+            // Redireccionar o mostrar un mensaje de éxito
+            return redirect()->route('users.index');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if (isset($e->validator->failed()['email'])) {
+                toastr()
+                    ->timeOut(3000)
+                    ->addError("El correo electrónico ya está en uso.");
+            }
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        }
     }
 
     // Método para mostrar un usuario específico

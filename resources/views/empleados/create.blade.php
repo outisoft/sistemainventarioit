@@ -19,9 +19,9 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bxl-slack-old'></i>
                             </span>
-                            <x-text-input type="text" class="form-control" id="no_empleado"
-                                name="no_empleado" placeholder="0038628" aria-label="0038628"
-                                aria-describedby="basic-icon-default-fullname2" required autofocus
+
+                            <x-text-input id="no_empleado" class="form-control" type="number"
+                                name="no_empleado" placeholder="0038628" :value="old('no_empleado')" required
                                 autocomplete="no_empleado" />
                         </div>
                         <x-input-error :messages="$errors->get('no_empleado')" class="mt-2" />
@@ -50,7 +50,7 @@
                             </span>
                             <x-text-input id="email" class="form-control" type="email"
                                 name="email" placeholder="correo@ejemplo.com" :value="old('email')"
-                                required autocomplete="username" />
+                                required autocomplete="email" />
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
@@ -62,11 +62,9 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bxs-id-card'></i>
                             </span>
-                            <x-text-input type="text" class="form-control" id="puesto"
-                                name="puesto" placeholder="Chef de partida"
-                                aria-label="Chef de partida"
-                                aria-describedby="basic-icon-default-fullname2" required autofocus
-                                autocomplete="puesto" />
+                            <x-text-input id="puesto" class="form-control" type="text"
+                                name="puesto" placeholder="Ama de llaves" :value="old('puesto')"
+                                required autocomplete="puesto" />
                         </div>
                         <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                     </div>
@@ -99,7 +97,10 @@
                             </span>
                             <select name="departamento_id" class="form-control" id="departamento-select"
                                 aria-label="Default select example">
-                                
+                                @foreach ($departamentos as $departamento)
+                                    <option value="{{ $departamento->id }}">{{ $departamento->name }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -112,9 +113,9 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-at'></i>
                             </span>
-                            <x-text-input name="ad" class="form-control" id="ad"
-                                type="text" placeholder="jkatrina" aria-label="jkatrina"
-                                aria-describedby="basic-icon-default-fullname2" required />
+                            <x-text-input id="ad" class="form-control" type="text"
+                                name="ad" placeholder="jkatrina" :value="old('ad')"
+                                required autocomplete="ad" />
                         </div>
                         <x-input-error :messages="$errors->get('ad')" class="mt-2" />
                     </div>

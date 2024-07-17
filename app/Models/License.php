@@ -9,7 +9,7 @@ class License extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_name', 'password', 'total_licenses', 'applied_licenses'];
+    protected $fillable = ['email', 'password', 'total_licenses', 'applied_licenses'];
 
     public function getRemainingLicensesAttribute()
     {

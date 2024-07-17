@@ -40,36 +40,50 @@ class TpvController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request);
-        $data = $request->validate([
-            'area' => 'required',
-            'departamento_id' => 'required',
-            'hotel_id' => 'required|exists:hotels,id',
-            'equipment' => 'required',
-            'brand' => 'required',
-            'model' => 'required',
-            'no_serial' => 'required',
-            'name' => 'required',
-            'ip' => 'required',
-            'link' => 'required',
-        ]);
+        try {
+            //dd($request);
+            $data = $request->validate([
+                'area' => 'required',
+                'departamento_id' => 'required',
+                'hotel_id' => 'required|exists:hotels,id',
+                'equipment' => 'required',
+                'brand' => 'required',
+                'model' => 'required',
+                'no_serial' => 'required',
+                'name' => 'required|unique:tpvs',
+                'ip' => 'required|unique:tpvs',
+                'link' => 'required',
+            ]);
 
-        $registro = Tpv::create($data);
+            $registro = Tpv::create($data);
 
-        //dd($request);
-        $user = auth()->id();
+            //dd($request);
+            $user = auth()->id();
 
-        Historial::create([
-            'accion' => 'Creacion',
-            'descripcion' => "Se registro la Tpv {$registro->name} correctamente",
-            'user_id' => $user,
-        ]);
+            Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se registro la Tpv {$registro->name} correctamente",
+                'user_id' => $user,
+            ]);
 
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Registro creado exitosamente.");
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro creado exitosamente.");
 
-        return redirect()->route('tpvs.index');
+            return redirect()->route('tpvs.index');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errors = $e->validator->errors();
+
+            if ($errors->has('name')) {
+                toastr()->timeOut(6000)->addError("El nombre de TPV ya existe.");
+            }
+
+            if ($errors->has('ip')) {
+                toastr()->timeOut(6000)->addError("La Ip ya está en uso.");
+            }
+
+            return redirect()->back()->withErrors($e->validator)->withInput();
+        }
     }
 
     /**
@@ -147,17 +161,5 @@ class TpvController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("TPV {$tpv->name} eliminado.");
         return redirect()->route('tpvs.index');
-    }
-
-    public function search(Request $request)
-    {
-        $query = $request->get('query');
-        $tpvs = Tpv::where('name', 'like', '%' . $query . '%')
-            ->orWhere('no_serial', 'like', '%' . $query . '%')
-            ->orWhere('area', 'like', '%' . $query . '%')
-            ->orWhere('ip', 'like', '%' . $query . '%')
-            ->get();
-
-        return view('tpvs._tpvs_list', compact('tpvs'));
     }
 }

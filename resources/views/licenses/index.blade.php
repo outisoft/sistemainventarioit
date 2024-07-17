@@ -34,7 +34,7 @@
                                     <table id="tabla" class="table footer">
                                         <thead class="bg-primary">
                                             <tr>
-                                                <th>Producto</th>
+                                                <th>Correo</th>
                                                 <th>Password</th>
                                                 <th>Licencias Disponibles</th>
                                                 <th>Acciones</th>
@@ -44,7 +44,7 @@
                                             <!-- Aquí se mostrarán las licenias -->
                                             @foreach($licenses as $license)
                                             <tr>
-                                                <td>{{ $license->product_name }}</td>
+                                                <td>{{ $license->email }}</td>
                                                 <td>{{ $license->password }}</td>
                                                 <td>{{ $license->remaining_licenses }} de {{ $license->total_licenses }}</td>
                                                 <td>
