@@ -44,7 +44,7 @@
                                     <select name="hotel_id" class="form-control" id="hotel_id"
                                         aria-label="Default select example">
                                         @foreach ($hotels as $hotel)
-                                            <option value="{{ $hotel->id }}">{{ $hotel->nombre }}
+                                            <option value="{{ $hotel->id }}">{{ $hotel->name }}
                                                 ({{ $hotel->tipo }})
                                             </option>
                                         @endforeach

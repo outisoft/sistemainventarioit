@@ -17,7 +17,7 @@ class Departamento extends Model
     }
 
     //new
-    public function hoteles()
+    public function hotels()
     {
         return $this->belongsToMany(Hotel::class);
     }

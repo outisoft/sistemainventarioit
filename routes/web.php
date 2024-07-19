@@ -13,6 +13,9 @@ use App\Http\Controllers\TabletController;
 use App\Http\Controllers\TpvController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\LicenseController;
+use App\Http\Controllers\PcController;
+use App\Http\Controllers\HotelController;
+use App\Http\Controllers\DepartamentoController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -107,8 +110,8 @@ Route::middleware('auth')->group(function () {
 
         $tpvsPorDepartamento = DB::table('tpvs')
             ->join('hotels', 'tpvs.hotel_id', '=', 'hotels.id')
-            ->select('hotels.nombre as hotel', DB::raw('count(*) as cantidad_tpvs'))
-            ->groupBy('hotels.nombre')
+            ->select('hotels.name as hotel', DB::raw('count(*) as cantidad_tpvs'))
+            ->groupBy('hotels.name')
             ->get();
 
         return view('home', compact('hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
@@ -133,6 +136,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
+    Route::resource('pc', PcController::class); 
+    Route::resource('hotels', HotelController::class);
+    Route::resource('departments', DepartamentoController::class);
+
+    Route::get('empleados/{id}/equipos', [EmpleadoController::class, 'equipos'])->name('empleados.equipos');
+
+    Route::get('/hotel/{hotel}/departments', [HotelController::class, 'getDepartments']);
 
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial'); // Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index'); //muestra view historial

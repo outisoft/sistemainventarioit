@@ -33,7 +33,7 @@
                                                     aria-label="Default select example">
                                                     @foreach ($empleados as $empleado)
                                                         <option value="{{ $empleado->id }}">{{ $empleado->name }} -
-                                                            {{ $empleado->hotel->nombre }} -
+                                                            {{ $empleado->hotel->name }} -
                                                             {{ $empleado->departamento->name }} - {{ $empleado->puesto }}
                                                         </option>
                                                     @endforeach
@@ -84,7 +84,7 @@
                                     <tr>
                                         <th>Nombre</th>
                                         <th>Ubicacion</th>
-                                        <th>Equipo</th>
+                                        <th>Equipo(s)</th>
                                         <th>Detalles</th>
                                     </tr>
                                 </thead>
@@ -100,7 +100,7 @@
                                             </td>
 
                                             <td class="employee-position">
-                                                {{ $empleado->departamento->name }} / {{ $empleado->hotel->nombre }}
+                                                {{ $empleado->departamento->name }} / {{ $empleado->hotel->name }}
                                             </td>
                                             <td>
                                                 <div class="assigned-items">

@@ -3,13 +3,7 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-                <a href="{{ route('roles.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
-                    title="Regresar">
-                    <span>
-                        <i class='bx bx-arrow-back'></i>
-                    </span>
-                </a>
-                / Roles /</span> Editar 
+                / Hoteles /</span> Editar 
             </h4>
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -19,28 +13,28 @@
                 <div class="table-responsive text-nowrap">
                     <div class="card-body">
 
-                        <form method="post" action="{{ route('roles.update', $role->id) }}">
+                        <form method="post" action="{{ route('hotels.update', $hotel->id) }}">
                             @csrf
                             @method('patch')
 
                             <!-- Name -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="name" :value="__('Name')" />
+                                <x-input-label class="form-label" for="name" :value="__('Nombre')" />
                                 <div class="input-group input-group-merge">
                                     <x-text-input id="name" class="form-control" type="text" name="name"
-                                        value="{{ $role->name }}" required autofocus />
+                                        value="{{ $hotel->name }}" required autofocus />
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
                             </div>
 
                             <h2 class="h3">Lista de Permisos</h2>
 
-                            @foreach ($permissions as $permission)
-                                <div>
-                                    <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
-                                        {{ $role->permissions->contains($permission) ? 'checked' : '' }}>
-                                    <label>{{ $permission->description }}</label>
-                                </div>
+                            @foreach($departments as $department)
+                                <label>
+                                    <input type="checkbox" name="department_ids[]" value="{{ $department->id }}"
+                                        {{ in_array($department->id, $assignedDepartments) ? 'checked' : '' }}>
+                                    {{ $department->name }}
+                                </label><br>
                             @endforeach
 
                             <div class="flex items-center justify-end mt-4">

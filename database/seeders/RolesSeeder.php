@@ -80,6 +80,18 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'licenses.edit', 'description' => 'Editar licencias'])->syncRoles($adminRole);
         Permission::create(['name' => 'licenses.destroy', 'description' => 'Eliminar licencias'])->syncRoles($adminRole);
 
+        Permission::create(['name' => 'hotels.index', 'description' => 'Ver listado de hoteles'])->syncRoles($adminRole);
+        Permission::create(['name' => 'hotels.show', 'description' => 'Ver detalles de hoteles'])->syncRoles($adminRole);
+        Permission::create(['name' => 'hotels.create', 'description' => 'Registrar hoteles'])->syncRoles($adminRole);
+        Permission::create(['name' => 'hotels.edit', 'description' => 'Editar hoteles'])->syncRoles($adminRole);
+        Permission::create(['name' => 'hotels.destroy', 'description' => 'Eliminar hoteles'])->syncRoles($adminRole);
+
+        Permission::create(['name' => 'departments.index', 'description' => 'Ver listado de departamentos'])->syncRoles($adminRole);
+        Permission::create(['name' => 'departments.show', 'description' => 'Ver detalles de departamentos'])->syncRoles($adminRole);
+        Permission::create(['name' => 'departments.create', 'description' => 'Registrar departamentos'])->syncRoles($adminRole);
+        Permission::create(['name' => 'departments.edit', 'description' => 'Editar departamentos'])->syncRoles($adminRole);
+        Permission::create(['name' => 'departments.destroy', 'description' => 'Eliminar departamentos'])->syncRoles($adminRole);
+
         // Asignar permisos
         /*$crearPermiso = Permission::create(['name' => 'crear-publicación']);
         $editarPermiso = Permission::create(['name' => 'editar-publicación']);

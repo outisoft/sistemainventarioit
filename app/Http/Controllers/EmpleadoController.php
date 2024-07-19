@@ -273,4 +273,17 @@ class EmpleadoController extends Controller
         $pdf = FacadePdf::loadView('empleados.save-pdf', compact('empleado', 'date'));
         return $pdf->stream();
     }
+
+    public function equipos($id)
+    {
+        $empleado = Empleado::with('pcs')->findOrFail($id);
+        return view('pc.equipos', compact('empleado'));
+    }
+
+    public function getDepartments($hotel_id)
+    {
+        $hotel = Hotel::findOrFail($hotel_id);
+        $departments = $hotel->departments;
+        return response()->json($departments);
+    }
 }

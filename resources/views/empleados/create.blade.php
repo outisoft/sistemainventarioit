@@ -76,10 +76,11 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-building-house'></i>
                             </span>
-                            <select name="hotel_id" class="form-control" id="hotel-select"
+                            <select name="hotel_id" class="form-control" id="hotel_id"
                                 aria-label="Default select example">
+                                <option value="">Selecciona un hotel</option>
                                 @foreach ($hoteles as $hotel)
-                                    <option value="{{ $hotel->id }}">{{ $hotel->nombre }}
+                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}
                                         ({{ $hotel->tipo }})
                                     </option>
                                 @endforeach
@@ -95,12 +96,9 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-building'></i>
                             </span>
-                            <select name="departamento_id" class="form-control" id="departamento-select"
-                                aria-label="Default select example">
-                                @foreach ($departamentos as $departamento)
-                                    <option value="{{ $departamento->id }}">{{ $departamento->name }}
-                                    </option>
-                                @endforeach
+                            <select name="departamento_id" class="form-control" id="departamento_id"
+                                aria-label="Default select example" disabled>
+                                <option value="">Selecciona un departamento</option>
                             </select>
                         </div>
                     </div>
@@ -126,3 +124,26 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#hotel_id').change(function() {
+        var hotelId = $(this).val();
+        if (hotelId) {
+            $.get('/hotel/' + hotelId + '/departments', function(data) {
+                $('#departamento_id').prop('disabled', false);
+                $('#departamento_id').empty();
+                $('#departamento_id').append('<option value="">Selecciona un departamento</option>');
+                $.each(data, function(index, department) {
+                    $('#departamento_id').append('<option value="' + department.id + '">' + department.name + '</option>');
+                });
+            });
+        } else {
+            $('#departamento_id').prop('disabled', true);
+            $('#departamento_id').empty();
+            $('#departamento_id').append('<option value="">Selecciona un departamento</option>');
+        }
+    });
+});
+</script>

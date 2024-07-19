@@ -44,7 +44,7 @@
                                     </tr>
                                     <tr>
                                         <th class="bg-secondary">Hotel</th>
-                                        <td>{{ $hotel->nombre }}</td>
+                                        <td>{{ $hotel->name }}</td>
                                     </tr>
                                     <tr>
                                         <th class="bg-secondary">AD</th>

@@ -60,7 +60,7 @@
                                                 @foreach ($hoteles as $hotel)
                                                     <option value="{{ $hotel->id }}"
                                                         {{ $tpv->hotel_id == $hotel->id ? 'selected' : '' }}>
-                                                        {{ $hotel->nombre }}</option>
+                                                        {{ $hotel->name }}</option>
                                                 @endforeach
                                             </select>
                                             <x-input-error :messages="$errors->get('hotel_id')" class="mt-2" />

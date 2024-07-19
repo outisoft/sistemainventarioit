@@ -13,15 +13,15 @@ class HotelesSeeder extends Seeder
     public function run(): void
     {
         $datos = [
-            ['nombre' => 'AKUMAL', 'tipo' => 'Luxury'],
-            ['nombre' => 'COBA', 'tipo' => 'Grand'],
-            ['nombre' => 'COMING2', 'tipo' => 'Externo'],
-            ['nombre' => 'R&G', 'tipo' => 'Externo'],
-            ['nombre' => 'SCUBAQUATIC', 'tipo' => 'Externo'],
-            ['nombre' => 'SERVICIOS COMUNES', 'tipo' => 'Externo'],
-            ['nombre' => 'SIAN KA´AN', 'tipo' => 'Luxury'],
-            ['nombre' => 'TRAINCAR', 'tipo' => 'Externo'],
-            ['nombre' => 'TULUM', 'tipo' => 'Grand'],
+            ['name' => 'AKUMAL', 'tipo' => 'Luxury'],
+            ['name' => 'COBA', 'tipo' => 'Grand'],
+            ['name' => 'COMING2', 'tipo' => 'Externo'],
+            ['name' => 'SCUBAQUATIC', 'tipo' => 'Externo'],
+            ['name' => 'SERVICIOS COMUNES', 'tipo' => 'Externo'],
+            ['name' => 'SIAN KA´AN', 'tipo' => 'Luxury'],
+            ['name' => 'TRAINCAR', 'tipo' => 'Externo'],
+            ['name' => 'TULUM', 'tipo' => 'Grand'],
+            ['name' => 'TULUM COUNTRY CLUB', 'tipo' => 'Externo'],
         ];
 
         // Agregar los datos a la tabla "hoteles"

@@ -50,7 +50,7 @@
                                                 <tr>
                                                     <td>{{ $tpv->area }}</td>
                                                     <td>{{ $tpv->departamento->name }}</td>
-                                                    <td>{{ $tpv->hotel->nombre }}</td>
+                                                    <td>{{ $tpv->hotel->name }}</td>
                                                     <td>{{ $tpv->equipment }}</td>
                                                     <td>{{ $tpv->brand }}</td>
                                                     <td>{{ $tpv->model }}</td>

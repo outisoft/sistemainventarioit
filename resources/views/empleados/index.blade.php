@@ -52,7 +52,7 @@
                                                 <tr>
                                                     <td>{{ Str::limit($empleado->name, 20, ' ...') }}</td>
                                                     <td>{{ Str::limit($empleado->puesto, 20, ' ...') }}</td>
-                                                    <td>{{ $empleado->hotel->nombre }}</td>
+                                                    <td>{{ $empleado->hotel->name }}</td>
                                                     <td>{{ $empleado->departamento->name }}</td>
                                                     <!--td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td-->
                                                     <td>{{ $empleado->ad }}</td>
@@ -64,6 +64,8 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
+
+                                                                <a href="{{ route('empleados.equipos', $empleado->id) }}" class="dropdown-item">Ver Equipos</a>
                                                                 <!-- Aquí se agregarán las opciones -->
                                                                 @can('empleados.show')
                                                                     <a class="dropdown-item"
@@ -107,3 +109,4 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
+

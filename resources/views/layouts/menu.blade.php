@@ -180,12 +180,30 @@
         @endcan
         <!-- Roles -->
         @can('roles.index')
-            <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }}">
+            <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }} || {{ Request::routeIs('roles.create') ? 'active' : '' }} || {{ Request::routeIs('roles.show') ? 'active' : '' }} || {{ Request::routeIs('roles.edit') ? 'active' : '' }}">
                 <a href="{{ route('roles.index') }}" class="menu-link">
                     <i class='menu-icon tf-icons bx bxs-user-detail'></i>
                     <div data-i18n="Analytics">Roles</div>
                 </a>
             </li>
         @endcan
-    </ul>
+
+        @can('hotels.index')
+            <li class="menu-item {{ Request::routeIs('hotels.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.create') ? 'active' : '' }} || {{ Request::routeIs('hotels.show') ? 'active' : '' }} || {{ Request::routeIs('hotels.edit') ? 'active' : '' }}">
+                <a href="{{ route('hotels.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-building-house'></i>
+                    <div data-i18n="Analytics">Hoteles</div>
+                </a>
+            </li>
+        @endcan
+
+        @can('departments.index')
+            <li class="menu-item {{ Request::routeIs('departments.index') ? 'active' : '' }} || {{ Request::routeIs('departments.create') ? 'active' : '' }} || {{ Request::routeIs('departments.show') ? 'active' : '' }} || {{ Request::routeIs('departments.edit') ? 'active' : '' }}">
+                <a href="{{ route('departments.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-building'></i>
+                    <div data-i18n="Analytics">Departamentos</div>
+                </a>
+            </li>
+        @endcan
+    </ul>        
 </aside>

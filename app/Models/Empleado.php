@@ -20,6 +20,11 @@ class Empleado extends Model
         return $this->belongsTo(Departamento::class, 'departamento_id');
     }
 
+    public function pcs()
+    {
+        return $this->hasMany(Pc::class);
+    }
+
     public function equipos()
     {
         return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'empleado_id', 'equipo_id');

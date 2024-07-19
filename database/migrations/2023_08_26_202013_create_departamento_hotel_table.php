@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('departamento_hotel', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('hotel_id')->references('id')->on('hotels')->cascadeOnDelete();
             $table->foreignId('departamento_id')->references('id')->on('departamentos')->cascadeOnDelete();
+            $table->foreignId('hotel_id')->references('id')->on('hotels')->cascadeOnDelete();
             $table->timestamps();
         });
     }
