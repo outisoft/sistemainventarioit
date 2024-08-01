@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
-
 use Spatie\Permission\Models\Permission;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -17,13 +17,15 @@ class RoleController extends Controller
         $this->middleware('can:roles.show')->only('show');
         $this->middleware('can:roles.destroy')->only('destroy');
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        $roles = Role::all();
-        return view('roles.index', compact('roles'));
+
+        $roles = Role::withCount(['users', 'permissions'])->get();
+
+        $permissions = Permission::all();
+
+        return view('roles.index', compact('roles', 'permissions'));
     }
 
     /**
@@ -70,17 +72,15 @@ class RoleController extends Controller
         return view('roles.edit', compact('role', 'permissions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
+        $request->validate([
+            'name' => 'required|unique:roles,name,' . $role->id,
+            'permissions' => 'required|array'
+        ]);
 
-        // Sincronizar los permisos del rol
-        $role->syncPermissions($request->input('permissions', []));
+        $role->update(['name' => $request->name]);
+        $role->permissions()->sync($request->permissions);
 
         toastr()
             ->timeOut(3000) // 3 second

@@ -1,49 +1,35 @@
-<x-app-layout>
-    <div class="container-xxl navbar-expand-xl align-items-center">
-        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-            </a>
-        </div>
-    </div>
-    <div class="content-wrapper">
-        <!-- Content -->
-        <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-                    <a href="{{ route('roles.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
-                        title="Regresar">
-                        <span>
-                            <i class='bx bx-arrow-back'></i>
-                        </span>
-                    </a>
-                    / Roles /</span> Nuevo </h4>
-
-            <!-- Basic Bootstrap Table -->
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Nuevo Registro</h5>
-                </div>
-                <div class="table-responsive text-nowrap">
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('roles.store') }}">
-                            @csrf
-
-                            @include('roles.partials.form')
-
-                            <div class="flex items-center justify-end mt-4">
-                                <x-primary-button class="btn btn-primary">
-                                    {{ __('Guardar') }}
-                                </x-primary-button>
+<!-- Modal -->
+<div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRoleModal">Crear Rol</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="{{ route('roles.store') }}" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre del Rol</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Permisos</label>
+                        @foreach($permissions as $permission)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="permissions[]" value="{{ $permission->id }}" id="permission{{ $permission->id }}">
+                                <label class="form-check-label" for="permission{{ $permission->id }}">
+                                    {{ $permission->description }}
+                                </label>
                             </div>
-                        </form>
+                        @endforeach
                     </div>
                 </div>
-            </div>
-            <!--/ Basic Bootstrap Table -->
-
-            <hr class="my-5" />
-
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
         </div>
-        <!-- / Content -->
     </div>
-</x-app-layout>
+</div>

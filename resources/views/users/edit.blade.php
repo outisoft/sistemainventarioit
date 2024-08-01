@@ -66,6 +66,21 @@
                                                 </div>
                                             @else
                                                 <p>Este usuario aún no tiene roles asignados.</p>
+                                                <!-- Rol -->
+                                                <div class="mt-4">
+                                                    <label for="exampleFormControlSelect1" class="form-label">Rol</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <span id="basic-icon-default-fullname2" class="input-group-text">
+                                                            <i class='bx bxs-user-detail'></i>
+                                                        </span>
+                                                        <select name="rol" class="form-control" id="rol"
+                                                            aria-label="Default select example">
+                                                            @foreach ($rolesN as $rol)
+                                                                <option value="{{ $rol->name }}">{{ $rol->name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             @endif
                                         </div>
                                         <div class="form-group">

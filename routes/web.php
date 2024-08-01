@@ -136,9 +136,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
-    Route::resource('pc', PcController::class); 
-    Route::resource('hotels', HotelController::class);
-    Route::resource('departments', DepartamentoController::class);
+    Route::resource('pc', PcController::class); //Rutas PC
+    Route::resource('hotels', HotelController::class); //Rutas hoteles
+    Route::resource('departments', DepartamentoController::class); //Rutas departamentos
 
     Route::get('empleados/{id}/equipos', [EmpleadoController::class, 'equipos'])->name('empleados.equipos');
 

@@ -276,12 +276,12 @@
             data: datos_grafica.map(item => item.total)
         }],
         plotOptions: {
-          bar: {
-            borderRadius: 10,
-            dataLabels: {
-              position: 'top', // top, center, bottom
-            },
-          }
+            bar: {
+                borderRadius: 10,
+                dataLabels: {
+                position: 'top', // top, center, bottom
+                },
+            }
         },
         xaxis: {
             categories: datos_grafica.map(item => item.estado),
@@ -308,12 +308,12 @@
             data: total_laptops.map(item => item.total)
         }],
         plotOptions: {
-          bar: {
-            borderRadius: 10,
-            dataLabels: {
-              position: 'top', // top, center, bottom
-            },
-          }
+            bar: {
+                borderRadius: 10,
+                dataLabels: {
+                position: 'top', // top, center, bottom
+                },
+            }
         },
         xaxis: {
             categories: total_laptops.map(item => item.estado),

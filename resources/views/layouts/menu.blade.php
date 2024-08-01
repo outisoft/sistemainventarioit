@@ -33,33 +33,11 @@
             </a>
         </li>
 
-        <!-- Inventario -->
-        <!--li class="menu-item {{ Request::routeIs('inventario.index') ? 'active' : '' }} || {{ Request::routeIs('inventario.create') ? 'active' : '' }} || {{ Request::routeIs('inventario.show') ? 'active' : '' }} || {{ Request::routeIs('inventario.edit') ? 'active' : '' }}">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class='menu-icon tf-icons bx bx-file'></i>
-          <div data-i18n="Layouts">Inventario</div>
-        </a>
-
-        <ul class="menu-sub">
-          <li class="menu-item">
-            <a href="{{ route('inventario.index') }}" class="menu-link">
-              <div data-i18n="Without menu">Listado</div>
-            </a>
-          </li>
-          @can('inventario.create')
-    <li class="menu-item">
-                                                                <a href="{{ route('inventario.create') }}" class="menu-link">
-                                                                  <div data-i18n="Without navbar">Nuevo</div>
-                                                                </a>
-                                                              </li>
-@endcan
-        </ul>
-      </li-->
-
         <!-- Equipo -->
         @can('equipo.index')
-        <li
-            class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}
+        {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}
+        {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-desktop'></i>
                 <div data-i18n="Layouts">Equipos</div>
@@ -68,18 +46,40 @@
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="{{ route('equipo.index') }}" class="menu-link">
+                        <i class='menu-icon tf-icons bx bx-list-ol' ></i>
                         <div data-i18n="Without menu">Listado</div>
                     </a>
                 </li>
                 @can('equipo.create')
                     <li class="menu-item">
                         <a href="{{ route('equipo.create') }}" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-add-to-queue'></i>
                             <div data-i18n="Without navbar">Nuevo</div>
                         </a>
                     </li>
                 @endcan
-                <li class="menu-item">
+
+                @can('tablets.index')
+                    <li class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
+                        <a href="{{ route('tablets.index') }}" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-tab'></i>
+                            <div data-i18n="Analytics">Tabletas</div>
+                        </a>
+                    </li>
+                @endcan
+
+                @can('tpvs.index')
+                    <li class="menu-item {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}">
+                        <a href="{{ route('tpvs.index') }}" class="menu-link">
+                            <i class='menu-icon bx bx-tv bx bx-tab'></i>
+                            <div data-i18n="Analytics">Tpv's</div>
+                        </a>
+                    </li>
+                @endcan
+
+                <li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
                     <a href="{{ route('licenses.index') }}" class="menu-link">
+                        <i class='menu-icon tf-icons bx bxl-microsoft'></i>
                         <div data-i18n="Without navbar">Office 365</div>
                     </a>
                 </li>
@@ -89,82 +89,35 @@
 
         <!-- Empleados -->
         @can('empleados.index')
-        <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
-            <a href="{{ route('empleados.index') }}" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-user-pin'></i>
-                <div data-i18n="Without menu">Empleados</div>
-            </a>
-        </li>
+            <li class="menu-item {{ Request::routeIs('empleados.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.create') ? 'active' : '' }} || {{ Request::routeIs('empleados.show') ? 'active' : '' }} || {{ Request::routeIs('empleados.edit') ? 'active' : '' }}">
+                <a href="{{ route('empleados.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-user-pin'></i>
+                    <div data-i18n="Without menu">Empleados</div>
+                </a>
+            </li>
         @endcan
 
         <!-- Historial -->
         @can('historial.index')
-        <li class="menu-item {{ Request::routeIs('historial.index') ? 'active' : '' }}">
-            <a href="{{ route('historial.index') }}" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-history'></i>
-                <div data-i18n="Analytics">Historial</div>
-            </a>
-        </li>
+            <li class="menu-item {{ Request::routeIs('historial.index') ? 'active' : '' }}">
+                <a href="{{ route('historial.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-history'></i>
+                    <div data-i18n="Analytics">Historial</div>
+                </a>
+            </li>
         @endcan
 
         <!-- Asignacion -->
         @can('empleados.asignacion')
-        <li class="menu-item {{ Request::routeIs('asignacion.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.detalles') ? 'active' : '' }}">
-            <a href="{{ url('asignacion') }}" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-link'></i>
-                <div data-i18n="Without navbar">Asignacion</div>
-            </a>
-        </li>
+            <li class="menu-item {{ Request::routeIs('asignacion.index') ? 'active' : '' }} || {{ Request::routeIs('empleados.detalles') ? 'active' : '' }}">
+                <a href="{{ url('asignacion') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-link'></i>
+                    <div data-i18n="Without navbar">Asignacion</div>
+                </a>
+            </li>
         @endcan
 
-        <!-- Mantenimiento -->
-        @can('empleados.asignacion')
-        <!--li-- class="menu-item {{ Request::routeIs('maintenances.index') ? 'active' : '' }} ">
-            <a href="{{ route('maintenances.index') }}" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-wrench'></i>
-                <div data-i18n="Without navbar">Mantenimiento</div>
-            </a>
-        </!--li-->
-        @endcan
-
-        @can('charts.index')
-        <!-- Graficas -->
-        <!--li-- class="menu-item {{ Request::routeIs('charts.index') ? 'active' : '' }}">
-            <a href="{{ route('charts.index') }}" class="menu-link">
-                <i class='menu-icon tf-icons bx bxs-bar-chart-alt-2'></i>
-                <div data-i18n="Analytics">Graficas</div>
-            </a>
-        </!--li-->
-        @endcan
-
-        @can('tablets.index')
-        <!-- TABLETAS -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">TABLETAS</span>
-        </li>
-        <!--TABS-->
-        <li class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
-            <a href="{{ route('tablets.index') }}" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-tab'></i>
-                <div data-i18n="Analytics">Tabletas</div>
-            </a>
-        </li>
-        @endcan
-
-        @can('tpvs.index')
-        <!-- TPV'S -->
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">TPV'S</span>
-        </li>
-        <!--TPVS-->
-        <li class="menu-item {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}">
-            <a href="{{ route('tpvs.index') }}" class="menu-link">
-                <i class='menu-icon bx bx-tv bx bx-tab'></i>
-                <div data-i18n="Analytics">Tpv's</div>
-            </a>
-        </li>
-        @endcan
-
+        <!-- Users -->
         @can('users.index')
             <!-- Administrador -->
             <li class="menu-header small text-uppercase">
@@ -178,31 +131,55 @@
                 </a>
             </li>
         @endcan
-        <!-- Roles -->
+
+        <!-- Roles y permisos -->
         @can('roles.index')
-            <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }} || {{ Request::routeIs('roles.create') ? 'active' : '' }} || {{ Request::routeIs('roles.show') ? 'active' : '' }} || {{ Request::routeIs('roles.edit') ? 'active' : '' }}">
-                <a href="{{ route('roles.index') }}" class="menu-link">
-                    <i class='menu-icon tf-icons bx bxs-user-detail'></i>
-                    <div data-i18n="Analytics">Roles</div>
+            <li
+                class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-lock'></i>
+                    <div data-i18n="Layouts">Roles & Permissions</div>
                 </a>
+
+                <ul class="menu-sub">
+                    <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }} || {{ Request::routeIs('roles.create') ? 'active' : '' }} || {{ Request::routeIs('roles.show') ? 'active' : '' }} || {{ Request::routeIs('roles.edit') ? 'active' : '' }}">
+                        <a href="{{ route('roles.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Roles</div>
+                        </a>
+                    </li>
+                    
+                    <li class="menu-item">
+                        <a href="{{ route('licenses.index') }}" class="menu-link">
+                            <div data-i18n="Without navbar">Permissions</div>
+                        </a>
+                    </li>
+                </ul>
             </li>
         @endcan
 
+        <!-- Hoteles y departamentos -->
         @can('hotels.index')
-            <li class="menu-item {{ Request::routeIs('hotels.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.create') ? 'active' : '' }} || {{ Request::routeIs('hotels.show') ? 'active' : '' }} || {{ Request::routeIs('hotels.edit') ? 'active' : '' }}">
-                <a href="{{ route('hotels.index') }}" class="menu-link">
+            <li class="menu-item {{ Request::routeIs('hotels.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.create') ? 'active' : '' }} || {{ Request::routeIs('hotels.show') ? 'active' : '' }} || {{ Request::routeIs('hotels.edit') ? 'active' : '' }} || {{ Request::routeIs('departments.index') ? 'active' : '' }} || {{ Request::routeIs('departments.create') ? 'active' : '' }} || {{ Request::routeIs('departments.show') ? 'active' : '' }} || {{ Request::routeIs('departments.edit') ? 'active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class='menu-icon tf-icons bx bx-building-house'></i>
-                    <div data-i18n="Analytics">Hoteles</div>
+                    <div data-i18n="Layouts">Hoteles & Departamentos</div>
                 </a>
-            </li>
-        @endcan
 
-        @can('departments.index')
-            <li class="menu-item {{ Request::routeIs('departments.index') ? 'active' : '' }} || {{ Request::routeIs('departments.create') ? 'active' : '' }} || {{ Request::routeIs('departments.show') ? 'active' : '' }} || {{ Request::routeIs('departments.edit') ? 'active' : '' }}">
-                <a href="{{ route('departments.index') }}" class="menu-link">
-                    <i class='menu-icon tf-icons bx bx-building'></i>
-                    <div data-i18n="Analytics">Departamentos</div>
-                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item">
+                        <a href="{{ route('hotels.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Hoteles</div>
+                        </a>
+                    </li>
+                    
+                    @can('departments.index')
+                    <li class="menu-item">
+                        <a href="{{ route('departments.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Departamentos</div>
+                        </a>
+                    </li>
+                    @endcan
+                </ul>
             </li>
         @endcan
     </ul>        

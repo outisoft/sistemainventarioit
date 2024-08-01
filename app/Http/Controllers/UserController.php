@@ -8,6 +8,7 @@ use App\Models\Role;
 use App\Models\Historial;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Role as Rol;
 
 class UserController extends Controller
 {
@@ -38,21 +39,25 @@ class UserController extends Controller
     {
         try {
             //dd($request);
-            $request->validate([
+            $validatedData = $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                'rol' => 'required|exists:roles,name',
             ]);
             // Crear el usuario
             $user = User::create([
-                'name' => $request->input('name'),
-                'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
             ]);
 
             // Obtener el tipo de usuario (por ejemplo, "admin", "editor", "usuario")
-            $tipoUsuario = $request->input('rol');
-            $user->assignRole([$tipoUsuario]);
+            /*$tipoUsuario = $request->input('rol');
+            $user->assignRole([$tipoUsuario]);*/
+
+            $role = Rol::findByName($validatedData['rol']);
+            $user->assignRole($role);
 
             toastr()
                 ->timeOut(3000) // 3 second
@@ -83,9 +88,10 @@ class UserController extends Controller
     {
         $users = User::findOrFail($id);
         $roles = Role::pluck('name', 'name');
+        $rolesN = Role::all();
         // Verifica si el usuario tiene roles asignados
         $tieneRoles = $users->roles->isNotEmpty();
-        return view('users.edit', compact('users', 'roles', 'tieneRoles'));
+        return view('users.edit', compact('users', 'roles', 'tieneRoles', 'rolesN'));
     }
 
     // Método para actualizar un registro

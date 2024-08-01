@@ -45,23 +45,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function roles()
-    {
-        return $this->belongsToMany('Spatie\Permission\Models\Role');
-    }
-    protected static function boot() //guardar en mayusculas
-    {
-        parent::boot();
-
-        /*static::saving(function ($model) {
-            foreach ($model->getAttributes() as $key => $value) {
-                if (is_string($value)) {
-                    $model->{$key} = strtoupper($value);
-                }
-            }
-        });*/
-    }
-
     public function equipments()
     {
         return $this->hasMany(Equipo::class);

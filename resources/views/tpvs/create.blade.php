@@ -23,26 +23,13 @@
                                 <x-input-error :messages="$errors->get('area')" class="mt-2" />
                             </div>
 
-                            <!-- departamento -->
-                            <div class="mb-3">
-                                <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
-                                <div class="input-group input-group-merge">
-                                    <select name="departamento_id" class="form-control" id="departamento_id"
-                                        aria-label="Default select example">
-                                        @foreach ($departamentos as $departamento)
-                                            <option value="{{ $departamento->id }}">{{ $departamento->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
                             <!-- Hotel -->
                             <div class="mb-3">
                                 <label for="exampleFormControlSelect1" class="form-label">Hotel</label>
                                 <div class="input-group input-group-merge">
                                     <select name="hotel_id" class="form-control" id="hotel_id"
                                         aria-label="Default select example">
+                                        <option value="">Selecciona un hotel</option>
                                         @foreach ($hotels as $hotel)
                                             <option value="{{ $hotel->id }}">{{ $hotel->name }}
                                                 ({{ $hotel->tipo }})
@@ -51,6 +38,19 @@
                                     </select>
                                 </div>
                             </div>
+
+                            <!--new-->
+                            <!-- departamento -->
+                            <div class="mb-3">
+                                <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
+                                <div class="input-group input-group-merge">
+                                    <select name="departamento_id" class="form-control" id="departamento_id"
+                                        aria-label="Default select example" disabled>
+                                        <option value="">Selecciona un departamento</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--new-->
 
                             <!-- Equipo -->
                             <div class="mb-3">
@@ -138,3 +138,25 @@
         </div>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#hotel_id').change(function() {
+        var hotelId = $(this).val();
+        if (hotelId) {
+            $.get('/hotel/' + hotelId + '/departments', function(data) {
+                $('#departamento_id').prop('disabled', false);
+                $('#departamento_id').empty();
+                $('#departamento_id').append('<option value="">Selecciona un departamento</option>');
+                $.each(data, function(index, department) {
+                    $('#departamento_id').append('<option value="' + department.id + '">' + department.name + '</option>');
+                });
+            });
+        } else {
+            $('#departamento_id').prop('disabled', true);
+            $('#departamento_id').empty();
+            $('#departamento_id').append('<option value="">Selecciona un departamento</option>');
+        }
+    });
+});
+</script>
