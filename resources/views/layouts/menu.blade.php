@@ -34,22 +34,33 @@
         </li>
 
         <!-- Equipo -->
-        @can('equipo.index')
+        
         <li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}
         {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}
-        {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}">
+        {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}
+        {{ Request::routeIs('pc.index') ? 'active' : '' }} ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-desktop'></i>
                 <div data-i18n="Layouts">Equipos</div>
             </a>
 
             <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{ route('equipo.index') }}" class="menu-link">
-                        <i class='menu-icon tf-icons bx bx-list-ol' ></i>
-                        <div data-i18n="Without menu">Listado</div>
-                    </a>
-                </li>
+                    <li class="menu-item {{ Request::routeIs('pc.index') ? 'active' : '' }}">
+                        <a href="{{ route('pc.index') }}" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-laptop' ></i>
+                            <div data-i18n="Without menu">Laptops & PC's</div>
+                        </a>
+                    </li>
+
+                @can('equipo.index')
+                    <li class="menu-item">
+                        <a href="{{ route('equipo.index') }}" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-list-ol' ></i>
+                            <div data-i18n="Without menu">Listado</div>
+                        </a>
+                    </li>
+                @endcan
+
                 @can('equipo.create')
                     <li class="menu-item">
                         <a href="{{ route('equipo.create') }}" class="menu-link">
@@ -85,7 +96,6 @@
                 </li>
             </ul>
         </li>
-        @endcan
 
         <!-- Empleados -->
         @can('empleados.index')
@@ -134,8 +144,7 @@
 
         <!-- Roles y permisos -->
         @can('roles.index')
-            <li
-                class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}">
+            <li class="menu-item {{ Request::routeIs('roles.index') ? 'active' : '' }} || {{ Request::routeIs('roles.create') ? 'active' : '' }} || {{ Request::routeIs('roles.show') ? 'active' : '' }} || {{ Request::routeIs('roles.edit') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-lock'></i>
                     <div data-i18n="Layouts">Roles & Permissions</div>

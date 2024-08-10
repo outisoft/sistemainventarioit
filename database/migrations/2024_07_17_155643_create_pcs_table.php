@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('pcs', function (Blueprint $table) {
             $table->id();
-            $table->string('tipo'); // 'laptop' o 'pc'
+            $table->string('type'); // 'laptop' o 'pc'
             $table->string('marca');
-            $table->string('modelo');
-            $table->string('numero_serie')->unique();
+            $table->string('model');
+            $table->string('serial')->unique();
+            $table->string('name')->unique(); //name by pc TCCSISS002
+            $table->string('ip')->unique();
             $table->unsignedBigInteger('empleado_id')->nullable();
             $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('set null');
             $table->timestamps();

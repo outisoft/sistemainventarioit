@@ -9,7 +9,7 @@ class Pc extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipo', 'marca', 'modelo', 'numero_serie', 'empleado_id'];
+    protected $fillable = ['type', 'marca', 'model', 'serial', 'name', 'ip', 'empleado_id'];
 
     public function empleado()
     {

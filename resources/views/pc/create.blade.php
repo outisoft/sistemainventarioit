@@ -13,12 +13,9 @@
                     @csrf
                     <!-- Tipo -->
                     <div class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Tipo de equipo</label>
+                        <label for="type" class="form-label">Tipo de equipo</label>
                         <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text">
-                                <i class='bx bx-building-house'></i>
-                            </span>
-                            <select name="tipo" class="form-control" id="tipo"
+                            <select name="type" class="form-control" id="type"
                                 aria-label="Default select example">
                                     <option value="Pc">PC</option>
                                     <option value="Laptop">Laptop</option>
@@ -39,24 +36,46 @@
 
                     <!-- Model -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="modelo" :value="__('Modelo de equipo')" />
+                        <x-input-label class="form-label" for="model" :value="__('Modelo de equipo')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="modelo" class="form-control" type="text"
-                                name="modelo" placeholder="SmartBook" :value="old('modelo')" required
-                                autocomplete="modelo" />
+                            <x-text-input id="model" class="form-control" type="text"
+                                name="model" placeholder="SmartBook" :value="old('model')" required
+                                autocomplete="model" />
                         </div>
-                        <x-input-error :messages="$errors->get('modelo')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('model')" class="mt-2" />
                     </div>
 
                     <!-- Numero de serie -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="numero_serie" :value="__('Numero de serie')" />
+                        <x-input-label class="form-label" for="serial" :value="__('Numero de serie')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="numero_serie" class="form-control" type="text"
-                                name="numero_serie" placeholder="R5BDI87D80" :value="old('numero_serie')" required
-                                autocomplete="numero_serie" />
+                            <x-text-input id="serial" class="form-control" type="text"
+                                name="serial" placeholder="R5BDI87D80" :value="old('serial')" required
+                                autocomplete="serial" />
                         </div>
                         <x-input-error :messages="$errors->get('numero_serie')" class="mt-2" />
+                    </div>
+
+                    <!-- NOMBRE DE EQUIPO -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="name" :value="__('Nombre del equipo')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input id="name" class="form-control" type="text"
+                                name="name" placeholder="TULSIS001" :value="old('name')" required
+                                autocomplete="name" />
+                        </div>
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    </div>
+
+                    <!-- IP DE EQUIPO -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="ip" :value="__('IP del equipo')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input id="ip" class="form-control" type="text"
+                                name="ip" placeholder="10.1.35.48" :value="old('ip')" required
+                                autocomplete="ip" />
+                        </div>
+                        <x-input-error :messages="$errors->get('ip')" class="mt-2" />
                     </div>
                     
                     <!-- Empleado -->
@@ -70,7 +89,7 @@
                                 aria-label="Default select example">
                                 <option value="">Sin asignar</option>
                                 @foreach ($empleados as $empleado)
-                                    <option value="{{ $empleado->id }}">{{ $empleado->name }} - ({{ $empleado->hotel->nombre }})
+                                    <option value="{{ $empleado->id }}">{{ $empleado->name }} - ({{ $empleado->hotel->name }})
                                     </option>
                                 @endforeach
                             </select>

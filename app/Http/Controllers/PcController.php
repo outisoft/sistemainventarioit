@@ -24,10 +24,12 @@ class PcController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'tipo' => 'required',
+            'type' => 'required',
             'marca' => 'required',
-            'modelo' => 'required',
-            'numero_serie' => 'required|unique:pcs',
+            'model' => 'required',
+            'serial' => 'required|unique:pcs',
+            'name' => 'required|unique:pcs',
+            'ip' => 'required|unique:pcs',
             'empleado_id' => 'nullable|exists:empleados,id',
         ]);
 
