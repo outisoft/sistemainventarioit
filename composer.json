@@ -12,7 +12,9 @@
         "barryvdh/laravel-dompdf": "^2.1",
         "brian2694/laravel-toastr": "^5.57",
         "consoletvs/charts": "6.*",
+        "endroid/qr-code": "^5.0",
         "guzzlehttp/guzzle": "^7.2",
+        "intervention/image": "^3.7",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
@@ -24,6 +26,7 @@
         "php-flasher/flasher-noty-laravel": "^1.15",
         "php-flasher/flasher-toastr-laravel": "^1.15",
         "psr/simple-cache": "^2.0",
+        "simplesoftwareio/simple-qrcode": "^4.2",
         "spatie/laravel-permission": "^5.11",
         "yajra/laravel-datatables": "^10.0",
         "yajra/laravel-datatables-oracle": "*"

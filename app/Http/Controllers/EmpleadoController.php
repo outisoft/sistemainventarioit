@@ -16,6 +16,10 @@ use App\Models\User; // Asegúrate de importar tu modelo de usuario si es necesa
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
+//use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Support\Facades\Response;
 
 class EmpleadoController extends Controller
 {
@@ -285,5 +289,48 @@ class EmpleadoController extends Controller
         $hotel = Hotel::findOrFail($hotel_id);
         $departments = $hotel->departments;
         return response()->json($departments);
+    }
+
+    public function generateQRCode($employeeId)
+    {
+        $employee = Empleado::findOrFail($employeeId);
+        $url = route('employee.details', $employeeId);
+
+        // Genera el código QR
+        $qr = QrCode::create($url)
+            ->setSize(280);
+        $writer = new PngWriter();
+        $result = $writer->write($qr);
+
+        $qrcode = $result->getString();
+
+        return view('empleados.qrcode', compact('qrcode', 'employee'));
+    }
+
+    public function downloadQRCode($employeeId)
+    {
+        $employee = Empleado::findOrFail($employeeId);
+        $url = route('employee.details', $employeeId);
+
+        // Genera el código QR
+        $qr = QrCode::create($url)
+            ->setSize(300);
+        $writer = new PngWriter();
+        $result = $writer->write($qr);
+
+        $headers = [
+            'Content-Type' => $result->getMimeType(),
+            'Content-Disposition' => 'attachment; filename="qrcode_employee_' . $employeeId . '.png"',
+        ];
+
+        return Response::make($result->getString(), 200, $headers);
+    }
+
+    public function employeeDetails($employeeId)
+    {
+        $employee = Empleado::findOrFail($employeeId);
+        //$assignments = $employee->equipmentAssignments()->with('equipment')->get();
+
+        return view('empleados.employee_details', compact('employee'));
     }
 }

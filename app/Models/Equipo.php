@@ -16,6 +16,11 @@ class Equipo extends Model
         return $this->belongsToMany(Empleado::class, 'empleado_equipo', 'equipo_id', 'empleado_id');
     }
 
+    public function employees()
+    {
+        return $this->belongsToMany(Empleado::class, 'empleado_equipo');
+    }
+
     public function tipo()
     {
         return $this->belongsTo(Tipo::class, 'tipo_id');

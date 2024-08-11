@@ -140,6 +140,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('hotels', HotelController::class); //Rutas hoteles
     Route::resource('departments', DepartamentoController::class); //Rutas departamentos
 
+    Route::get('/employee/{id}/qrcode', [EmpleadoController::class, 'generateQRCode'])->name('employee.qrcode');
+    Route::get('/employee/{id}/qrcode/download', [EmpleadoController::class, 'downloadQRCode'])->name('employee.qrcode.download');
+    Route::get('/employee/{id}/details', [EmpleadoController::class, 'employeeDetails'])->name('employee.details');
+
     Route::get('empleados/{id}/equipos', [EmpleadoController::class, 'equipos'])->name('empleados.equipos');
 
     Route::get('/hotel/{hotel}/departments', [HotelController::class, 'getDepartments']);

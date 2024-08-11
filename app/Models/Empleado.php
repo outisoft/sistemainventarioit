@@ -30,6 +30,11 @@ class Empleado extends Model
         return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'empleado_id', 'equipo_id');
     }
 
+    public function equipment()
+    {
+        return $this->belongsToMany(Equipo::class, 'empleado_equipo');
+    }
+
     public function empleados_equipos()
     {
         return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'empleado_id', 'equipo_id');
