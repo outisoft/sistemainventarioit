@@ -36,7 +36,7 @@
                                 </div>
                             </div>
 
-                            <h2 class="h3">Lista de Permisos</h2>
+                            <h2 class="h3">Departamentos</h2>
 
                             @foreach($departments as $department)
                                 <label>

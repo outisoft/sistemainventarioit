@@ -55,8 +55,28 @@ class EquipoController extends Controller
         
         $user = auth()->id();
 
+        $data = $request->validate([
+            'tipo_id' => 'required',
+            'marca' => 'required',
+            'model' => 'required',
+            'serial' => 'required',
+            'name' => 'required',
+            'ip' => 'required',
+        ]);
+        $registro = Equipo::create($data);
+        $registro->save();
+        Historial::create([
+            'accion' => 'Creacion',
+            'descripcion' => "Se agrego la {$registro->tipo->name} - {$registro->name}",
+            'user_id' => $user,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se creo {$registro->name} correctamente.");
+        return redirect()->route('equipo.index');
+
         // Guarda los datos en la tabla correspondiente según el tipo de equipo
-        switch ($tipo) {
+        /*switch ($tipo) {
             case '1':
                 // Guarda en la tabla de Aplicacion
                 $data = $request->validate([
@@ -398,7 +418,7 @@ class EquipoController extends Controller
 
 
                 // Agrega más casos para otros tipos de equipo aquí
-        }
+        }*/
     }
 
     /**

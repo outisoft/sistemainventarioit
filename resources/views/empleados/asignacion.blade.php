@@ -53,8 +53,8 @@
                                             </span-->
                                                 <select name="equipo_id" class="form-control">
                                                     @foreach ($equiposSinAsignar as $equipo)
-                                                        <option value="{{ $equipo->id }}">{{ $equipo->tipo->name }} -
-                                                            {{ $equipo->marca }} - {{ $equipo->modelo }}</option>
+                                                        <option value="{{ $equipo->id }}">{{ $equipo->tipo->name }} - {{ $equipo->name }}
+                                                            {{ $equipo->marca }} - {{ $equipo->model }}</option>
                                                     @endforeach
                                                 </select>
 

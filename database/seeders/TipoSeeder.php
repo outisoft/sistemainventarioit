@@ -16,7 +16,7 @@ class TipoSeeder extends Seeder
         $datos = [
             ['name' => 'APLICACION'],
             ['name' => 'CARGADOR'],
-            ['name' => 'CPU'],
+            ['name' => 'DESKTOP'],
             ['name' => 'IMPRESORA'],
             ['name' => 'LAPTOP'],
             ['name' => 'LECTOR'],

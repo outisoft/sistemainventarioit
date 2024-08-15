@@ -3,24 +3,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">PC/Laptop</h4>
+                <h4 class="modal-title" id="myModalLabel">Desktop</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true"></span></button>
             </div>
 
             <div class="modal-body">
-                <form method="POST" action="{{ route('pc.store') }}">
+                <form method="POST" action="{{ route('equipo.store') }}">
                     @csrf
                     <!-- Tipo -->
-                    <div class="mb-3">
-                        <label for="type" class="form-label">Tipo de equipo</label>
+                    <div class="mb-3" style="display: none;">
+                        <x-input-label class="form-label" for="tipo_id" :value="__('Tipo de equipo')" />
                         <div class="input-group input-group-merge">
-                            <select name="type" class="form-control" id="type"
-                                aria-label="Default select example">
-                                    <option value="Pc">PC</option>
-                                    <option value="Laptop">Laptop</option>
-                            </select>
+                            <x-text-input readonly='readonly' id="tipo_id" class="form-control" type="text"
+                                name="tipo_id" placeholder="Desktop" :value="3" required
+                                autocomplete="tipo_id" />
                         </div>
+                        <x-input-error :messages="$errors->get('marca')" class="mt-2" />
                     </div>
 
                     <!-- Marca -->
@@ -53,7 +52,7 @@
                                 name="serial" placeholder="R5BDI87D80" :value="old('serial')" required
                                 autocomplete="serial" />
                         </div>
-                        <x-input-error :messages="$errors->get('numero_serie')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('serial')" class="mt-2" />
                     </div>
 
                     <!-- NOMBRE DE EQUIPO -->
@@ -77,25 +76,6 @@
                         </div>
                         <x-input-error :messages="$errors->get('ip')" class="mt-2" />
                     </div>
-                    
-                    <!-- Empleado -->
-                    <div class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Empleado</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text">
-                                <i class='bx bx-building-house'></i>
-                            </span>
-                            <select name="empleado_id" class="form-control" id="empleado_id"
-                                aria-label="Default select example">
-                                <option value="">Sin asignar</option>
-                                @foreach ($empleados as $empleado)
-                                    <option value="{{ $empleado->id }}">{{ $empleado->name }} - ({{ $empleado->hotel->name }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
                     <br>
                     <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>

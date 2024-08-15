@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pc;
-use App\Models\Empleado;
+use App\Models\Tipo;
+use App\Models\Equipo;
 use Illuminate\Http\Request;
 
 class PcController extends Controller
 {
     public function index()
     {
-        $empleados = Empleado::with('hotel')->orderBy('name', 'asc')->get();
-        $pcs = Pc::with('empleado')->get();
-        return view('pc.index', compact('pcs', 'empleados'));
+        $tipoLaptop = Tipo::where('name', 'DESKTOP')->first();
+
+        $equipos = Equipo::where('tipo_id', $tipoLaptop->id)->get();
+
+        // Iterar sobre los equipos y verificar si están asignados a un empleado
+        foreach ($equipos as $equipo) {
+            $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
+        }
+        return view('pc.index', compact('equipos'));
     }
 
     public function create()

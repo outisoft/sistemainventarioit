@@ -45,13 +45,6 @@
             </a>
 
             <ul class="menu-sub">
-                    <li class="menu-item {{ Request::routeIs('pc.index') ? 'active' : '' }}">
-                        <a href="{{ route('pc.index') }}" class="menu-link">
-                            <i class='menu-icon tf-icons bx bx-laptop' ></i>
-                            <div data-i18n="Without menu">Laptops & PC's</div>
-                        </a>
-                    </li>
-
                 @can('equipo.index')
                     <li class="menu-item">
                         <a href="{{ route('equipo.index') }}" class="menu-link">
@@ -60,6 +53,14 @@
                         </a>
                     </li>
                 @endcan
+
+                    <li class="menu-item {{ Request::routeIs('pc.index') ? 'active' : '' }}">
+                        <a href="{{ route('pc.index') }}" class="menu-link">
+                            <!--i class='menu-icon tf-icons bx bx-laptop' ></i-->
+                            <i class='menu-icon tf-icons bx bx-desktop'></i>
+                            <div data-i18n="Without menu">Desktops</div>
+                        </a>
+                    </li>
 
                 @can('equipo.create')
                     <li class="menu-item">
@@ -74,7 +75,7 @@
                     <li class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
                         <a href="{{ route('tablets.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-tab'></i>
-                            <div data-i18n="Analytics">Tabletas</div>
+                            <div data-i18n="Analytics">Tabletas Co2</div>
                         </a>
                     </li>
                 @endcan

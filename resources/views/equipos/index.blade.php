@@ -45,8 +45,8 @@
                                     <tr>
                                         <td>{{ $equipo->tipo->name }}</td>
                                         <td>{{ $equipo->marca }}</td>
-                                        <td>{{ $equipo->modelo }}</td>
-                                        <td>{{ $equipo->nombre_equipo }}</td>
+                                        <td>{{ $equipo->model }}</td>
+                                        <td>{{ $equipo->name }}</td>
                                         <td>
                                             @if ($equipo->estado === 'Libre')
                                                 <span class="badge bg-label-success">{{ $equipo->estado }}</span>

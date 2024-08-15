@@ -17,18 +17,18 @@ return new class extends Migration
             //equipo
             //$table->string('no_equipo')->nullable();
             //$table->string('estado')->nullable();
-            $table->string('orden')->nullable();
             $table->string('marca')->nullable();
-            $table->string('modelo')->nullable();
-            $table->string('serie')->nullable();
-            $table->string('nombre_equipo')->nullable();
+            $table->string('model')->nullable();
+            $table->string('serial')->nullable();
+            $table->string('name')->nullable();
             $table->string('ip')->nullable();
             $table->string('no_contrato')->nullable();
+            $table->string('orden')->nullable();
             //app
-            $table->string('nombre_app')->nullable();
+            /*$table->string('nombre_app')->nullable();
             $table->string('so')->nullable();
             $table->string('office')->nullable();
-            $table->string('clave')->nullable();
+            $table->string('clave')->nullable();*/
             $table->timestamps();
         });
     }
