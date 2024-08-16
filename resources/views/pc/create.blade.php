@@ -9,7 +9,7 @@
             </div>
 
             <div class="modal-body">
-                <form method="POST" action="{{ route('equipo.store') }}">
+                <form method="POST" action="{{ route('pc.store') }}">
                     @csrf
                     <!-- Tipo -->
                     <div class="mb-3" style="display: none;">

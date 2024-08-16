@@ -24,6 +24,7 @@
                 </div>
 
                 @include('pc.create')
+                @include('pc.edit')
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
@@ -31,10 +32,11 @@
                                 <table id="tabla" class="table">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th>Tipo</th>
                                             <th>Marca</th>
                                             <th>Modelo</th>
+                                            <th>Serie</th>
                                             <th>Nombre de equipo</th>
+                                            <th>Ip</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
                                             <!-- Otros encabezados de columnas según sea necesario -->
@@ -43,10 +45,11 @@
                                     <tbody id="employeeList">
                                         @foreach ($equipos as $equipo)
                                             <tr>
-                                                <td>{{ $equipo->tipo->name }}</td>
                                                 <td>{{ $equipo->marca }}</td>
                                                 <td>{{ $equipo->model }}</td>
+                                                <td>{{ $equipo->serial }}</td>
                                                 <td>{{ $equipo->name }}</td>
+                                                <td>{{ $equipo->ip }}</td>
                                                 <td>
                                                     @if ($equipo->estado === 'Libre')
                                                         <span class="badge bg-label-success">{{ $equipo->estado }}</span>
@@ -65,18 +68,12 @@
                                                 </button>
                                                 <div class="dropdown-menu">
                                                     <!-- Aquí se agregarán las opciones -->
-                                                    @can('equipo.show')
-                                                        <a class="dropdown-item" href="{{ route('equipo.show', $equipo->id) }}"><i
-                                                                class="bx bx-show-alt me-1"></i>Ver</a>
-                                                    @endcan
-
                                                     @can('equipo.edit')
-                                                        <a class="dropdown-item" href="{{ route('equipo.edit', $equipo->id) }}"><i
-                                                                class="bx bx-edit me-1"></i>Editar</a>
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
                                                     @endcan
 
                                                     @can('equipo.destroy')
-                                                        <form action="{{ route('equipo.destroy', $equipo->id) }}" method="POST">
+                                                        <form action="{{ route('pc.destroy', $equipo->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="dropdown-item btn-danger"

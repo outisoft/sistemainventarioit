@@ -62,6 +62,13 @@
                         </a>
                     </li>
 
+                    <li class="menu-item">
+                        <a href="{{ route('printers.index') }}" class="menu-link">
+                            <i class='menu-icon tf-icons bx bx-printer' ></i>
+                            <div data-i18n="Without navbar">Impresoras</div>
+                        </a>
+                    </li>
+
                 @can('equipo.create')
                     <li class="menu-item">
                         <a href="{{ route('equipo.create') }}" class="menu-link">

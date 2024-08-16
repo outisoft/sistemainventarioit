@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tipo;
 use App\Models\Equipo;
+use App\Models\Historial;
 use Illuminate\Http\Request;
 
 class PcController extends Controller
@@ -29,17 +30,78 @@ class PcController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'type' => 'required',
+        //dd($request);
+        $tipo = $request->input('tipo_id');
+        
+        $user = auth()->id();
+
+        $data = $request->validate([
+            'tipo_id' => 'required',
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required|unique:pcs',
-            'name' => 'required|unique:pcs',
-            'ip' => 'required|unique:pcs',
-            'empleado_id' => 'nullable|exists:empleados,id',
+            'serial' => 'required',
+            'name' => 'required',
+            'ip' => 'required',
+        ]);
+        $registro = Equipo::create($data);
+        $registro->save();
+        Historial::create([
+            'accion' => 'Creacion',
+            'descripcion' => "Se agrego la {$registro->tipo->name} - {$registro->name}",
+            'user_id' => $user,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se creo {$registro->name} correctamente.");
+        return redirect()->route('pc.index');
+    }
+
+    public function update(Request $request, $id)
+    {
+        //$tipo = $request->input('tipo_id');
+        $user = auth()->id();
+
+        $data = $request->validate([
+            'marca' => 'required',
+            'model' => 'required',
+            'serial' => 'required',
+            'name' => 'required',
+            'ip' => 'required',
         ]);
 
-        Pc::create($request->all());
+        $registro = Equipo::findOrFail($id);
+        //dd($data);
+        $registro->update($data);
+
+        Historial::create([
+            'accion' => 'Actualizacion',
+            'descripcion' => "Se actualizo el {$registro->tipo->name} del equipo {$registro->name}",
+            'user_id' => $user,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se actualizo el {$registro->name} correctamente.");
+
+        return redirect()->route('pc.index');
+
+    }
+
+    public function destroy(string $id)
+    {
+        $registro = Equipo::findOrFail($id);
+        $registro->delete();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Eliminacion',
+            'descripcion' => "Se elimino el {$registro->tipo->name} - {$registro->name} correctamente",
+            'user_id' => $user,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se elimino el {$registro->tipo->name}.");
 
         return redirect()->route('pc.index');
     }

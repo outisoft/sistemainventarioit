@@ -16,6 +16,7 @@ use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\PcController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\PrinterController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -39,7 +40,7 @@ Route::middleware('auth')->group(function () {
         // Obtener todos los equipos disponibles u ocupado de tupo CPU
         $equiposCPU = Equipo::with('tipo')
             ->whereHas('tipo', function ($query) {
-                $query->where('name', 'CPU');
+                $query->where('name', 'DESKTOP');
             })
             ->get();
 
@@ -139,6 +140,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('pc', PcController::class); //Rutas PC
     Route::resource('hotels', HotelController::class); //Rutas hoteles
     Route::resource('departments', DepartamentoController::class); //Rutas departamentos
+    Route::resource('printers', PrinterController::class);
 
     Route::get('/employee/{id}/qrcode', [EmpleadoController::class, 'generateQRCode'])->name('employee.qrcode');
     Route::get('/employee/{id}/qrcode/download', [EmpleadoController::class, 'downloadQRCode'])->name('employee.qrcode.download');
