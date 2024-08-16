@@ -60,34 +60,34 @@
                                                         <!--span class="badge rounded-pill bg-danger">En uso</span-->
                                                     @endif
                                                 </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <!-- Aquí se agregarán las opciones -->
-                                                    @can('equipo.edit')
-                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
-                                                    @endcan
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <!-- Aquí se agregarán las opciones -->
+                                                            @can('equipo.edit')
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                            @endcan
 
-                                                    @can('equipo.destroy')
-                                                        <form action="{{ route('pc.destroy', $equipo->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item btn-danger"
-                                                                onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                    class="bx bx-trash me-1"></i>Eliminar</button>
-                                                        </form>
-                                                    @endcan
+                                                            @can('equipo.destroy')
+                                                                <form action="{{ route('pc.destroy', $equipo->id) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="dropdown-item btn-danger"
+                                                                        onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
+                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                </form>
+                                                            @endcan
 
-                                                </div>
-                                            </div>
-                                        </td>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                         <!-- Otros campos de la tabla -->
-                                        </tr>
-                                    @endforeach
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -35,7 +35,7 @@
 
         <!-- Equipo -->
         
-        <li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}
+        <li class="menu-item {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}
         {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}
         {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}
         {{ Request::routeIs('pc.index') ? 'active' : '' }} ">
@@ -62,7 +62,7 @@
                         </a>
                     </li>
 
-                    <li class="menu-item">
+                    <li class="menu-item {{ Request::routeIs('printers.index') ? 'active' : '' }}">
                         <a href="{{ route('printers.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-printer' ></i>
                             <div data-i18n="Without navbar">Impresoras</div>

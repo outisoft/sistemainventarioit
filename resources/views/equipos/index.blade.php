@@ -26,9 +26,7 @@
                 </div>
 
                 <div class="table-responsive text-nowrap" id="searchResults">
-
-                    
-                        <table id="tabla" class="table">
+                    <table id="tabla" class="table">
                             <thead class="bg-primary">
                                 <tr>
                                     <th>Tipo</th>
