@@ -14,19 +14,15 @@ class TipoSeeder extends Seeder
     public function run(): void
     {
         $datos = [
-            ['name' => 'APLICACION'],
-            ['name' => 'CARGADOR'],
+            ['name' => 'SCANNER'],
             ['name' => 'DESKTOP'],
             ['name' => 'IMPRESORA'],
             ['name' => 'LAPTOP'],
-            ['name' => 'LECTOR'],
             ['name' => 'MONITOR'],
             ['name' => 'MOUSE'],
             ['name' => 'NO BREACK'],
-            ['name' => 'OFFICE'],
-            ['name' => 'SCANNER'],
-            ['name' => 'SO'],
             ['name' => 'TECLADO'],
+            ['name' => 'WACOM'],
         ];
 
         // Agregar los datos a la tabla "hoteles"

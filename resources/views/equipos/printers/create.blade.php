@@ -16,7 +16,7 @@
                         <x-input-label class="form-label" for="tipo_id" :value="__('Tipo de equipo')" />
                         <div class="input-group input-group-merge">
                             <x-text-input readonly='readonly' id="tipo_id" class="form-control" type="text"
-                                name="tipo_id" placeholder="Impresora" :value="4" required
+                                name="tipo_id" placeholder="Impresora" :value="3" required
                                 autocomplete="tipo_id" />
                         </div>
                         <x-input-error :messages="$errors->get('tipo_id')" class="mt-2" />

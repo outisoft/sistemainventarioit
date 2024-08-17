@@ -3,12 +3,12 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipos /</span> Impresoras </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipos /</span> Complementos </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de Impresoras</h5>
+                    <h5 class="card-header">Listado de Complementos</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
@@ -18,18 +18,16 @@
                         </div>
                     </div>
                 </div>
-
-                @include('equipos.printers.create')
-                @include('equipos.printers.edit')
-
+                @include('equipos.complements.create')
+                @include('equipos.complements.edit')
                 <div class="table-responsive text-nowrap" id="searchResults">
                     <table id="tabla" class="table">
                         <thead class="bg-primary">
                             <tr>
+                                <th>TIPO</th>
                                 <th>Marca</th>
                                 <th>Modelo</th>
                                 <th>SERIE</th>
-                                <th>IP</th>
                                 <th>Estado</th>
                                 <th>Acciones</th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
@@ -38,10 +36,10 @@
                         <tbody id="employeeList">
                             @foreach ($equipos as $equipo)
                                 <tr>
+                                    <td>{{ $equipo->tipo->name }}</td>
                                     <td>{{ $equipo->marca }}</td>
                                     <td>{{ $equipo->model }}</td>
                                     <td>{{ $equipo->serial }}</td>
-                                    <td>{{ $equipo->ip }}</td>
                                     <td>
                                         @if ($equipo->estado === 'Libre')
                                             <span class="badge bg-label-success">{{ $equipo->estado }}</span>
@@ -65,7 +63,7 @@
                                                 @endcan
 
                                                 @can('equipo.destroy')
-                                                    <form action="{{ route('printers.destroy', $equipo->id) }}" method="POST">
+                                                    <form action="{{ route('complements.destroy', $equipo->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"

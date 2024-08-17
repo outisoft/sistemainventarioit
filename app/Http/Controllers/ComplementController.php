@@ -6,23 +6,24 @@ use App\Models\Equipo;
 use App\Models\Historial;
 use Illuminate\Http\Request;
 
-class PrinterController extends Controller
+class ComplementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $tipoLaptop = Tipo::where('name', 'IMPRESORA')->first();
+        $tipos = Tipo::whereIn('name', ['SCANNER', 'MONITOR', 'MOUSE', 'NO BREACK', 'TECLADO', 'WACOM'])->pluck('id');
 
-        $equipos = Equipo::where('tipo_id', $tipoLaptop->id)->get();
+        // Obtener los equipos que pertenecen a esos tipos
+        $equipos = Equipo::whereIn('tipo_id', $tipos)->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
 
-        return view('equipos.printers.index', compact('equipos'));
+        return view('equipos.complements.index', compact('equipos'));
     }
 
     /**
@@ -39,25 +40,24 @@ class PrinterController extends Controller
             'marca' => 'required',
             'model' => 'required',
             'serial' => 'required',
-            'ip' => 'required',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se agrego la {$registro->tipo->name} con S/N: {$registro->serial}",
+            'descripcion' => "Se agrego  {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Se creo {$registro->tipo->name} ({$registro->serial}) correctamente.");
-        return redirect()->route('printers.index');
+        return redirect()->route('complements.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
         $user = auth()->id();
 
@@ -65,7 +65,6 @@ class PrinterController extends Controller
             'marca' => 'required',
             'model' => 'required',
             'serial' => 'required',
-            'ip' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);
@@ -74,14 +73,14 @@ class PrinterController extends Controller
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo la {$registro->tipo->name} con N/S: {$registro->serial}",
+            'descripcion' => "Se actualizo el {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Se actualizo el {$registro->serial} correctamente.");
 
-        return redirect()->route('printers.index');
+        return redirect()->route('complements.index');
     }
 
     /**
@@ -96,7 +95,7 @@ class PrinterController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino la {$registro->tipo->name} con N/S {$registro->serial} correctamente",
+            'descripcion' => "Se elimino el {$registro->tipo->name} con N/S {$registro->serial} correctamente",
             'user_id' => $user,
         ]);
 
@@ -104,6 +103,6 @@ class PrinterController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se elimino la {$registro->tipo->name}.");
 
-        return redirect()->route('printers.index');
+        return redirect()->route('complements.index');
     }
 }

@@ -49,10 +49,17 @@
                     <li class="menu-item">
                         <a href="{{ route('equipo.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-list-ol' ></i>
-                            <div data-i18n="Without menu">Listado</div>
+                            <div data-i18n="Without menu">Todos</div>
                         </a>
                     </li>
                 @endcan
+
+                    <li class="menu-item {{ Request::routeIs('complements.index') ? 'active' : '' }}">
+                        <a href="{{ route('complements.index') }}" class="menu-link">
+                            <i class='menu-icon tf-icons bx bxs-keyboard' ></i>
+                            <div data-i18n="Without menu">Complementos</div>
+                        </a>
+                    </li>
 
                     <li class="menu-item {{ Request::routeIs('pc.index') ? 'active' : '' }}">
                         <a href="{{ route('pc.index') }}" class="menu-link">
@@ -82,7 +89,7 @@
                     <li class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
                         <a href="{{ route('tablets.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-tab'></i>
-                            <div data-i18n="Analytics">Tabletas Co2</div>
+                            <div data-i18n="Analytics">Tablets Co2</div>
                         </a>
                     </li>
                 @endcan
