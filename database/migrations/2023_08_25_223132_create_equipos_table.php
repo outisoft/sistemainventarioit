@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('serial')->nullable();
             $table->string('name')->nullable();
             $table->string('ip')->nullable();
+            $table->string('so')->nullable();
             $table->string('no_contrato')->nullable();
             $table->string('orden')->nullable();
             //app
