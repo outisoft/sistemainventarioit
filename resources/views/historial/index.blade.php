@@ -12,38 +12,34 @@
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
-                            @if ($historial->isEmpty())
-                                <h5 class="card-header">No se encontro registro.</h5>
-                            @else
-                                <table id="equipos" class="table table-striped">
-                                    <thead class="bg-primary">
+                            <table id="equipos" class="table table-striped">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th></th>
+                                        <th>Acción</th>
+                                        <th>Descripción</th>
+                                        <th>Usuario</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($historial as $registro)
                                         <tr>
-                                            <th></th>
-                                            <th>Acción</th>
-                                            <th>Descripción</th>
-                                            <th>Usuario</th>
-                                            <th>Fecha</th>
+                                            <td></td>
+                                            <td>{{ $registro->accion }}</td>
+                                            <td>{{ $registro->descripcion }}</td>
+                                            <td>
+                                                <div style="display: flex; align-items: center;">
+                                                    <img src="{{ $registro->user->image }}" alt="user-avatar" class="employee-image"/>
+                                                    <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($registro->user->name, 20, '...'); }}</span>
+                                                </div>
+                                            </td>
+                                            <td>{{ \Carbon\Carbon::parse($registro->created_at)->isoFormat('dddd D [de] MMMM [del] YYYY') }}
+                                            </td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($historial as $registro)
-                                            <tr>
-                                                <td></td>
-                                                <td>{{ $registro->accion }}</td>
-                                                <td>{{ $registro->descripcion }}</td>
-                                                <td>
-                                                    <div style="display: flex; align-items: center;">
-                                                        <img src="{{ $registro->user->image }}" alt="user-avatar" class="employee-image"/>
-                                                        <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($registro->user->name, 20, '...'); }}</span>
-                                                    </div>
-                                                </td>
-                                                <td>{{ \Carbon\Carbon::parse($registro->created_at)->isoFormat('dddd D [de] MMMM [del] YYYY') }}
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

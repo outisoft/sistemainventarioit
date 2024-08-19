@@ -15,7 +15,7 @@
                     <div class="mb-3">
                         <x-input-label class="form-label" for="tipo_id" :value="__('Tipo de equipo')" />
                         <select id="tipo_id" name="tipo_id" class="form-control" aria-label="Default select example">
-                            <option value="1">DELTA</option>
+                            <option value="1">SCANNER</option>
                             <option value="5">MONITOR</option>
                             <option value="6">MOUSE</option>
                             <option value="7">NO-BREACK</option>

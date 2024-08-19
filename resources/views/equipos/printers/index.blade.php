@@ -23,7 +23,7 @@
                 @include('equipos.printers.edit')
 
                 <div class="table-responsive text-nowrap" id="searchResults">
-                    <table id="tabla" class="table">
+                    <table id="printers" class="table">
                         <thead class="bg-primary">
                             <tr>
                                 <th>Marca</th>

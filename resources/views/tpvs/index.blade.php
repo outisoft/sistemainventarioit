@@ -25,80 +25,76 @@
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap" id="searchResults">
-                            @if ($tpvs->isEmpty())
-                                    <h5 class="card-header">No se encontro registro de Tpvs.</h5>
-                                @else
-                                    <table id="tpvs" class="table">
-                                        <thead class="bg-primary">
+                                <table id="tpvs" class="table">
+                                    <thead class="bg-primary">
+                                        <tr>
+                                            <th>Area</th>
+                                            <th>Departamento</th>
+                                            <th>Hotel</th>
+                                            <th>Equipo</th>
+                                            <th>Marca</th>
+                                            <th>Modelo</th>
+                                            <th>Numero de serie</th>
+                                            <th>Nombre</th>
+                                            <th>IP</th>
+                                            <th>Link</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="employeeList">
+                                        <!-- Aquí se mostrarán los empleados -->
+                                        @foreach ($tpvs as $tpv)
                                             <tr>
-                                                <th>Area</th>
-                                                <th>Departamento</th>
-                                                <th>Hotel</th>
-                                                <th>Equipo</th>
-                                                <th>Marca</th>
-                                                <th>Modelo</th>
-                                                <th>Numero de serie</th>
-                                                <th>Nombre</th>
-                                                <th>IP</th>
-                                                <th>Link</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="employeeList">
-                                            <!-- Aquí se mostrarán los empleados -->
-                                            @foreach ($tpvs as $tpv)
-                                                <tr>
-                                                    <td>{{ $tpv->area }}</td>
-                                                    <td>{{ $tpv->departamento->name }}</td>
-                                                    <td>{{ $tpv->hotel->name }}</td>
-                                                    <td>{{ $tpv->equipment }}</td>
-                                                    <td>{{ $tpv->brand }}</td>
-                                                    <td>{{ $tpv->model }}</td>
-                                                    <td>{{ $tpv->no_serial }}</td>
-                                                    <td>{{ $tpv->name }}</td>
-                                                    <td>{{ $tpv->ip }}</td>
-                                                    <td>{{ Str::limit($tpv->link, 15, ' ...') }}</td>
-                                                    <td>
-                                                        <div class="dropdown">
-                                                            <button type="button"
-                                                                class="btn p-0 dropdown-toggle hide-arrow"
-                                                                data-bs-toggle="dropdown">
-                                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                                            </button>
-                                                            <div class="dropdown-menu">
-                                                                @can('tpvs.show')
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('tpvs.show', $tpv->id) }}"><i
-                                                                            class="bx bx-show-alt me-1"></i>Ver
-                                                                    </a>
-                                                                @endcan
+                                                <td>{{ $tpv->area }}</td>
+                                                <td>{{ $tpv->departamento->name }}</td>
+                                                <td>{{ $tpv->hotel->name }}</td>
+                                                <td>{{ $tpv->equipment }}</td>
+                                                <td>{{ $tpv->brand }}</td>
+                                                <td>{{ $tpv->model }}</td>
+                                                <td>{{ $tpv->no_serial }}</td>
+                                                <td>{{ $tpv->name }}</td>
+                                                <td>{{ $tpv->ip }}</td>
+                                                <td>{{ Str::limit($tpv->link, 15, ' ...') }}</td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                        <button type="button"
+                                                            class="btn p-0 dropdown-toggle hide-arrow"
+                                                            data-bs-toggle="dropdown">
+                                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            @can('tpvs.show')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('tpvs.show', $tpv->id) }}"><i
+                                                                        class="bx bx-show-alt me-1"></i>Ver
+                                                                </a>
+                                                            @endcan
 
-                                                                @can('tpvs.edit')
-                                                                    <a class="dropdown-item"
-                                                                        href="{{ route('tpvs.edit', $tpv->id) }}"><i
-                                                                            class="bx bx-edit me-1"></i>Editar
-                                                                    </a>
-                                                                @endcan
+                                                            @can('tpvs.edit')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('tpvs.edit', $tpv->id) }}"><i
+                                                                        class="bx bx-edit me-1"></i>Editar
+                                                                </a>
+                                                            @endcan
 
-                                                                @can('tpvs.destroy')
-                                                                <form action="{{ route('tpvs.destroy', $tpv->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
-                                                                </form>
-                                                                @endcan
-                                                            </div>
+                                                            @can('tpvs.destroy')
+                                                            <form action="{{ route('tpvs.destroy', $tpv->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="dropdown-item btn-danger"
+                                                                    onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
+                                                                        class="bx bx-trash me-1"></i>Eliminar</button>
+                                                            </form>
+                                                            @endcan
                                                         </div>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

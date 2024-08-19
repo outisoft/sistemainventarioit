@@ -32,7 +32,7 @@
                                     <th>Tipo</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
-                                    <th>Nombre de equipo</th>
+                                    <th>Serie</th>
                                     <th>Estado</th>
                                     <th>Acciones</th>
                                     <!-- Otros encabezados de columnas según sea necesario -->
@@ -44,7 +44,7 @@
                                         <td>{{ $equipo->tipo->name }}</td>
                                         <td>{{ $equipo->marca }}</td>
                                         <td>{{ $equipo->model }}</td>
-                                        <td>{{ $equipo->name }}</td>
+                                        <td>{{ $equipo->serial }}</td>
                                         <td>
                                             @if ($equipo->estado === 'Libre')
                                                 <span class="badge bg-label-success">{{ $equipo->estado }}</span>

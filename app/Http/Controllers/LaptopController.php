@@ -41,6 +41,7 @@ class LaptopController extends Controller
             'name' => 'required',
             'ip' => 'required',
             'so' => 'required',
+            'orden' => 'required',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
@@ -69,6 +70,7 @@ class LaptopController extends Controller
             'name' => 'required',
             'ip' => 'required',
             'so' => 'required',
+            'orden' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);

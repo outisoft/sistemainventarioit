@@ -8,7 +8,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('pc.update', $equipo) }}" method="POST">
+                    <form action="{{ route('desktops.update', $equipo) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <!-- Marca -->
@@ -64,6 +64,28 @@
                                     autocomplete="ip" />
                             </div>
                             <x-input-error :messages="$errors->get('ip')" class="mt-2" />
+                        </div>
+                        
+                        <!-- SO -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="so{{ $equipo->so }}" :value="__('Sistema operativo')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="so{{ $equipo->so }}" class="form-control" type="text"
+                                    name="so" placeholder="Windows 11" value="{{ $equipo->so }}" required
+                                    autocomplete="so" />
+                            </div>
+                            <x-input-error :messages="$errors->get('so')" class="mt-2" />
+                        </div>
+
+                        <!-- ORDEN DE COMPRA -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="orden{{ $equipo->orden }}" :value="__('Orden de compra')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="orden{{ $equipo->orden }}" class="form-control" type="text"
+                                    name="orden" placeholder="HP" value="{{ $equipo->orden }}" required
+                                    autocomplete="orden" />
+                            </div>
+                            <x-input-error :messages="$errors->get('orden')" class="mt-2" />
                         </div>
 
                         <div class="modal-footer">

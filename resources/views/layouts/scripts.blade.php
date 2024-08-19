@@ -49,6 +49,176 @@
     });
 </script>
 
+<!--new DataTable('#complements');-->
+<script>
+    $('#complements').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-placement="top" title="Descargar en EXCEL"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-placement="top" title="Descargar en PDF"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+            
+        ]
+
+    });
+</script>
+
+<!--new DataTable('#desktops');-->
+<script>
+    $('#desktops').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-placement="top" title="Descargar en EXCEL"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-placement="top" title="Descargar en PDF"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+            
+        ]
+
+    });
+</script>
+
+<!--new DataTable('#printers');-->
+<script>
+    $('#printers').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-placement="top" title="Descargar en EXCEL"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-placement="top" title="Descargar en PDF"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+            
+        ]
+
+    });
+</script>
+
+<!--new DataTable('#laptops');-->
+<script>
+    $('#laptops').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-placement="top" title="Descargar en EXCEL"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-placement="top" title="Descargar en PDF"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+            
+        ]
+
+    });
+</script>
+
+<!--new DataTable('#tabs');-->
+<script>
+    $('#tabs').DataTable({
+        "pageLength": 10,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-placement="top" title="Descargar en EXCEL"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-placement="top" title="Descargar en PDF"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+            
+        ]
+
+    });
+</script>
+
 <script>
     //new DataTable('#asignacion');
     $('#asignacion').DataTable({

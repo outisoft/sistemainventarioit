@@ -35,10 +35,10 @@
 
         <!-- Equipo -->
         
-        <li class="menu-item {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.create') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('equipo.edit') ? 'active' : '' }}
+        <li class="menu-item {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || 
         {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}
         {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}
-        {{ Request::routeIs('pc.index') ? 'active' : '' }} ">
+        {{ Request::routeIs('desktops.index') ? 'active' : '' }} ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-desktop'></i>
                 <div data-i18n="Layouts">Equipos</div>
@@ -46,7 +46,7 @@
 
             <ul class="menu-sub">
                 @can('equipo.index')
-                    <li class="menu-item">
+                    <li class="menu-item {{ Request::routeIs('equipo.index') ? 'active' : '' }} ">
                         <a href="{{ route('equipo.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-list-ol' ></i>
                             <div data-i18n="Without menu">Todos</div>
@@ -61,8 +61,8 @@
                         </a>
                     </li>
 
-                    <li class="menu-item {{ Request::routeIs('pc.index') ? 'active' : '' }}">
-                        <a href="{{ route('pc.index') }}" class="menu-link">
+                    <li class="menu-item {{ Request::routeIs('desktops.index') ? 'active' : '' }}">
+                        <a href="{{ route('desktops.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-hdd'></i>
                             <div data-i18n="Without menu">Desktops</div>
                         </a>

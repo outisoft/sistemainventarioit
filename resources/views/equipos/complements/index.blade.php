@@ -21,7 +21,7 @@
                 @include('equipos.complements.create')
                 @include('equipos.complements.edit')
                 <div class="table-responsive text-nowrap" id="searchResults">
-                    <table id="tabla" class="table">
+                    <table id="complements" class="table">
                         <thead class="bg-primary">
                             <tr>
                                 <th>TIPO</th>

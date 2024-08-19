@@ -23,7 +23,7 @@
                 @include('equipos.laptops.edit')
 
                 <div class="table-responsive text-nowrap" id="searchResults">
-                    <table id="tabla" class="table">
+                    <table id="laptops" class="table">
                         <thead class="bg-primary">
                             <tr>
                                 <th>MARCA</th>
@@ -32,8 +32,9 @@
                                 <th>NOMBRE</th>
                                 <th>IP</th>
                                 <th>SO</th>
+                                <th>OC</th>
                                 <th>Estado</th>
-                                <th>Acciones</th>
+                                <th></th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
                             </tr>
                         </thead>
@@ -46,6 +47,7 @@
                                     <td>{{ $equipo->name }}</td>
                                     <td>{{ $equipo->ip }}</td>
                                     <td>{{ $equipo->so }}</td>
+                                    <td>{{ $equipo->orden }}</td>
                                     <td>
                                         @if ($equipo->estado === 'Libre')
                                             <span class="badge bg-label-success">{{ $equipo->estado }}</span>

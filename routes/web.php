@@ -13,7 +13,7 @@ use App\Http\Controllers\TabletController;
 use App\Http\Controllers\TpvController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\LicenseController;
-use App\Http\Controllers\PcController;
+use App\Http\Controllers\DesktopController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\PrinterController;
@@ -140,7 +140,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
-    Route::resource('pc', PcController::class); //Rutas PC
+    Route::resource('desktops', DesktopController::class); //Rutas PC
     Route::resource('hotels', HotelController::class); //Rutas hoteles
     Route::resource('departments', DepartamentoController::class); //Rutas departamentos
     Route::resource('printers', PrinterController::class);

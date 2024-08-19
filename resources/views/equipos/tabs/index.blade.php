@@ -22,7 +22,7 @@
                 @include('equipos.tabs.edit')
 
                 <div class="table-responsive text-nowrap" id="searchResults">
-                    <table id="tabla" class="table">
+                    <table id="tabs" class="table">
                         <thead class="bg-primary">
                             <tr>
                                 <th>MARCA</th>

@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
 use Illuminate\Http\Request;
 
-class PcController extends Controller
+class DesktopController extends Controller
 {
     public function index()
     {
@@ -19,13 +18,7 @@ class PcController extends Controller
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
-        return view('pc.index', compact('equipos'));
-    }
-
-    public function create()
-    {
-        $empleados = Empleado::all();
-        return view('pc.create', compact('empleados'));
+        return view('equipos.desktops.index', compact('equipos'));
     }
 
     public function store(Request $request)
@@ -42,6 +35,8 @@ class PcController extends Controller
             'serial' => 'required',
             'name' => 'required',
             'ip' => 'required',
+            'so' => 'required',
+            'orden' => 'required',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
@@ -53,7 +48,7 @@ class PcController extends Controller
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Se creo {$registro->name} correctamente.");
-        return redirect()->route('pc.index');
+        return redirect()->route('desktops.index');
     }
 
     public function update(Request $request, $id)
@@ -67,6 +62,8 @@ class PcController extends Controller
             'serial' => 'required',
             'name' => 'required',
             'ip' => 'required',
+            'so' => 'required',
+            'orden' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);
@@ -82,7 +79,7 @@ class PcController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se actualizo el {$registro->name} correctamente.");
 
-        return redirect()->route('pc.index');
+        return redirect()->route('desktops.index');
 
     }
 
@@ -103,8 +100,6 @@ class PcController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se elimino el {$registro->tipo->name}.");
 
-        return redirect()->route('pc.index');
+        return redirect()->route('desktops.index');
     }
-
-    // Implementa los demás métodos (show, edit, update, destroy) según sea necesario
 }
