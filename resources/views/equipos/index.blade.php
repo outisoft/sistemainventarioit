@@ -13,7 +13,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-header">Listado de Equipos</h5>
-                    <div class="navbar-nav align-items-center">
+                    <!--div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('equipo.create')
                                 <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip"
@@ -22,7 +22,7 @@
                                 </a>
                             @endcan
                         </div>
-                    </div>
+                    </div-->
                 </div>
 
                 <div class="table-responsive text-nowrap" id="searchResults">
@@ -34,7 +34,7 @@
                                     <th>Modelo</th>
                                     <th>Serie</th>
                                     <th>Estado</th>
-                                    <th>Acciones</th>
+                                    <!--th>Acciones</th-->
                                     <!-- Otros encabezados de columnas según sea necesario -->
                                 </tr>
                             </thead>
@@ -55,38 +55,37 @@
                                                 <!--span class="badge rounded-pill bg-danger">En uso</span-->
                                             @endif
                                         </td>
-                                <td>
-                                    <div class="dropdown">
-                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                            data-bs-toggle="dropdown">
-                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                        </button>
-                                        <div class="dropdown-menu">
-                                            <!-- Aquí se agregarán las opciones -->
-                                            @can('equipo.show')
-                                                <a class="dropdown-item" href="{{ route('equipo.show', $equipo->id) }}"><i
-                                                        class="bx bx-show-alt me-1"></i>Ver</a>
-                                            @endcan
+                                        <!--td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    @can('equipo.show')
+                                                        <a class="dropdown-item" href="{{ route('equipo.show', $equipo->id) }}"><i
+                                                                class="bx bx-show-alt me-1"></i>Ver</a>
+                                                    @endcan
 
-                                            @can('equipo.edit')
-                                                <a class="dropdown-item" href="{{ route('equipo.edit', $equipo->id) }}"><i
-                                                        class="bx bx-edit me-1"></i>Editar</a>
-                                            @endcan
+                                                    @can('equipo.edit')
+                                                        <a class="dropdown-item" href="{{ route('equipo.edit', $equipo->id) }}"><i
+                                                                class="bx bx-edit me-1"></i>Editar</a>
+                                                    @endcan
 
-                                            @can('equipo.destroy')
-                                                <form action="{{ route('equipo.destroy', $equipo->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item btn-danger"
-                                                        onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                            class="bx bx-trash me-1"></i>Eliminar</button>
-                                                </form>
-                                            @endcan
+                                                    @can('equipo.destroy')
+                                                        <form action="{{ route('equipo.destroy', $equipo->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item btn-danger"
+                                                                onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
+                                                                    class="bx bx-trash me-1"></i>Eliminar</button>
+                                                        </form>
+                                                    @endcan
 
-                                        </div>
-                                    </div>
-                                </td>
-                                <!-- Otros campos de la tabla -->
+                                                </div>
+                                            </div>
+                                        </td-->
+                                    <!-- Otros campos de la tabla -->
                                 </tr>
                             @endforeach
                         </tbody>
