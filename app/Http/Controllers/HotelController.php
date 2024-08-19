@@ -19,9 +19,9 @@ class HotelController extends Controller
 
     public function index()
     {
-        $hotels = Hotel::orderBy('name', 'asc')->get();
-        $departamentos = Departamento::orderBy('name', 'asc')->get();
-        return view('hotels.index', compact('hotels', 'departamentos'));
+        $hotels = Hotel::withCount(['departments'])->get();
+        $departments = Departamento::orderBy('name', 'asc')->get();
+        return view('hotels.index', compact('hotels', 'departments'));
     }
 
     public function getDepartments($hotel_id)
@@ -29,12 +29,6 @@ class HotelController extends Controller
         $hotel = Hotel::findOrFail($hotel_id);
         $departments = $hotel->departments;
         return response()->json($departments);
-    }
-
-    public function create()
-    {
-        $hotels = Hotel::all();
-        return view('hotels.create', compact('hotels'));
     }
 
     public function store(Request $request)
@@ -48,14 +42,6 @@ class HotelController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Hotel {$hotel->name} creado.");
         return redirect()->route('hotels.index');
-    }
-
-    public function edit($hotel_id)
-    {
-        $hotel = Hotel::findOrFail($hotel_id);
-        $departments = Departamento::all();
-        $assignedDepartments = $hotel->departments->pluck('id')->toArray();
-        return view('hotels.edit', compact('hotel', 'departments', 'assignedDepartments'));
     }
 
     public function update(Request $request, $hotel_id)

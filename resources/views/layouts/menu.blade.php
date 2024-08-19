@@ -63,8 +63,7 @@
 
                     <li class="menu-item {{ Request::routeIs('pc.index') ? 'active' : '' }}">
                         <a href="{{ route('pc.index') }}" class="menu-link">
-                            <!--i class='menu-icon tf-icons bx bx-laptop' ></i-->
-                            <i class='menu-icon tf-icons bx bx-desktop'></i>
+                            <i class='menu-icon tf-icons bx bx-hdd'></i>
                             <div data-i18n="Without menu">Desktops</div>
                         </a>
                     </li>

@@ -18,6 +18,7 @@
                     </div>
                 </div>
                 @include('hotels.create')
+                @include('hotels.edit')
 
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
@@ -47,10 +48,8 @@
                                                         <div class="dropdown-menu">
 
                                                             @can('hotels.edit')
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('hotels.edit', $hotel->id) }}"><i
-                                                                        class="bx bx-edit me-1"></i>Editar
-                                                                </a>
+                                                                <!--a class="dropdown-item" href="{{ route('hotels.edit', $hotel->id) }}"><i class="bx bx-edit me-1"></i>Editar</a-->
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $hotel->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
                                                             @endcan
 
                                                             @can('hotels.destroy')
