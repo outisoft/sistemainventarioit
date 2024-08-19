@@ -1,36 +1,41 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
+use App\Models\Policy;
 use Illuminate\Http\Request;
 
-class PcController extends Controller
+class TabController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $tipoLaptop = Tipo::where('name', 'DESKTOP')->first();
+        //$tipoLaptop = Tipo::where('name', 'TABLET')->first();
+        $policies = Policy::orderBy('name')->get();
 
-        $equipos = Equipo::where('tipo_id', $tipoLaptop->id)->get();
+        //$equipos = Equipo::where('tipo_id', $tipoLaptop->id)->get();
+
+        $equipos = Equipo::whereHas('tipo', function ($query) {
+            $query->where('name', 'TABLET');
+        })->with('policy')->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
-        return view('pc.index', compact('equipos'));
+
+        return view('equipos.tabs.index', compact('equipos', 'policies'));
     }
 
-    public function create()
-    {
-        $empleados = Empleado::all();
-        return view('pc.create', compact('empleados'));
-    }
-
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        //dd($request);
         $tipo = $request->input('tipo_id');
         
         $user = auth()->id();
@@ -40,33 +45,33 @@ class PcController extends Controller
             'marca' => 'required',
             'model' => 'required',
             'serial' => 'required',
-            'name' => 'required',
-            'ip' => 'required',
+            'policy_id' => 'required',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se agrego la {$registro->tipo->name} - {$registro->name}",
+            'descripcion' => "Se agrego la {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se creo {$registro->name} correctamente.");
-        return redirect()->route('pc.index');
+            ->addSuccess("Se creo {$registro->tipo->name} ({$registro->serial}) correctamente.");
+        return redirect()->route('tabs.index');
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
-        //$tipo = $request->input('tipo_id');
         $user = auth()->id();
 
         $data = $request->validate([
             'marca' => 'required',
             'model' => 'required',
             'serial' => 'required',
-            'name' => 'required',
-            'ip' => 'required',
+            'policy_id' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);
@@ -75,17 +80,19 @@ class PcController extends Controller
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el {$registro->tipo->name} del equipo {$registro->name}",
+            'descripcion' => "Se actualizo la {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se actualizo el {$registro->name} correctamente.");
+            ->addSuccess("Se actualizo el {$registro->serial} correctamente.");
 
-        return redirect()->route('pc.index');
-
+        return redirect()->route('tabs.index');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id)
     {
         $registro = Equipo::findOrFail($id);
@@ -95,16 +102,14 @@ class PcController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el {$registro->tipo->name} - {$registro->name}.",
+            'descripcion' => "Se elimino la {$registro->tipo->name} con N/S {$registro->serial}",
             'user_id' => $user,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se elimino el {$registro->tipo->name}.");
+            ->addSuccess("Se elimino la {$registro->tipo->name}.");
 
-        return redirect()->route('pc.index');
+        return redirect()->route('tabs.index');
     }
-
-    // Implementa los demás métodos (show, edit, update, destroy) según sea necesario
 }

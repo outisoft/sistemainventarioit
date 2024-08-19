@@ -25,6 +25,7 @@ class PolicySeeder extends Seeder
             ['name' => 'MEX_ALMACEN'],
             ['name' => 'MEX_COMANDEROS'],
             ['name' => 'MEX_CO2'],
+            ['name' => 'SIN POLITICA APLICADA'],
         ];
 
         // Agregar los datos a la tabla "hoteles"

@@ -19,6 +19,7 @@ use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ComplementController;
 use App\Http\Controllers\LaptopController;
+use App\Http\Controllers\TabController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -145,6 +146,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('printers', PrinterController::class);
     Route::resource('complements', ComplementController::class);
     Route::resource('laptops', LaptopController::class);
+    Route::resource('tabs', TabController::class);
 
     Route::get('/employee/{id}/qrcode', [EmpleadoController::class, 'generateQRCode'])->name('employee.qrcode');
     Route::get('/employee/{id}/qrcode/download', [EmpleadoController::class, 'downloadQRCode'])->name('employee.qrcode.download');

@@ -95,7 +95,7 @@ class ComplementController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el {$registro->tipo->name} con N/S {$registro->serial} correctamente",
+            'descripcion' => "Se elimino el {$registro->tipo->name} con N/S {$registro->serial}.",
             'user_id' => $user,
         ]);
 

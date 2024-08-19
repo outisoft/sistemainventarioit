@@ -14,15 +14,13 @@ return new class extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tipo_id')->references('id')->on('tipos')->cascadeOnDelete();
-            //equipo
-            //$table->string('no_equipo')->nullable();
-            //$table->string('estado')->nullable();
             $table->string('marca')->nullable();
             $table->string('model')->nullable();
             $table->string('serial')->nullable();
             $table->string('name')->nullable();
             $table->string('ip')->nullable();
             $table->string('so')->nullable();
+            $table->foreignId('policy_id')->nullable()->references('id')->on('policies')->cascadeOnDelete();
             $table->string('no_contrato')->nullable();
             $table->string('orden')->nullable();
             //app

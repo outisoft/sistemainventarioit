@@ -9,7 +9,7 @@ class Equipo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipo_id', 'marca', 'model', 'serial', 'name', 'ip', 'so', 'no_contrato','orden'];
+    protected $fillable = ['tipo_id', 'marca', 'model', 'serial', 'name', 'ip', 'so', 'policy_id','no_contrato','orden'];
 
     public function empleados()
     {
@@ -34,6 +34,11 @@ class Equipo extends Model
     public function maintenances()
     {
         return $this->hasMany(Maintenance::class);
+    }
+
+    public function policy()
+    {
+        return $this->belongsTo(Policy::class);
     }
 
     protected static function boot() //guardar en mayusculas

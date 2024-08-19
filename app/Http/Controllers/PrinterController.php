@@ -45,7 +45,7 @@ class PrinterController extends Controller
         $registro->save();
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se agrego la {$registro->tipo->name} con S/N: {$registro->serial}",
+            'descripcion' => "Se agrego la {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
@@ -96,7 +96,7 @@ class PrinterController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino la {$registro->tipo->name} con N/S {$registro->serial} correctamente",
+            'descripcion' => "Se elimino la {$registro->tipo->name} con N/S {$registro->serial}",
             'user_id' => $user,
         ]);
 
