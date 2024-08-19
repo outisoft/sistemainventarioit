@@ -38,8 +38,8 @@ class PrinterController extends Controller
             'tipo_id' => 'required',
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required',
-            'ip' => 'required',
+            'serial' => 'required|unique:equipos,serial',
+            'ip' => 'required|unique:equipos,ip',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
@@ -64,8 +64,9 @@ class PrinterController extends Controller
         $data = $request->validate([
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required',
-            'ip' => 'required',
+            'serial' => 'required|unique:equipos,serial,' . $id,
+            'ip' => 'required|unique:equipos,ip,' . $id,
+
         ]);
 
         $registro = Equipo::findOrFail($id);

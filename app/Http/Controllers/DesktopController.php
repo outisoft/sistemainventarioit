@@ -32,9 +32,9 @@ class DesktopController extends Controller
             'tipo_id' => 'required',
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required',
-            'name' => 'required',
-            'ip' => 'required',
+            'serial' => 'required|unique:equipos,serial',
+            'name' => 'required|unique:equipos,name',
+            'ip' => 'required|unique:equipos,ip',
             'so' => 'required',
             'orden' => 'required',
         ]);
@@ -59,9 +59,9 @@ class DesktopController extends Controller
         $data = $request->validate([
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required',
-            'name' => 'required',
-            'ip' => 'required',
+            'serial' => 'required|unique:equipos,serial,' . $id,
+            'name' => 'required|unique:equipos,name,' . $id,
+            'ip' => 'required|unique:equipos,ip,' . $id,
             'so' => 'required',
             'orden' => 'required',
         ]);

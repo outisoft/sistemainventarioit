@@ -39,7 +39,7 @@ class ComplementController extends Controller
             'tipo_id' => 'required',
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required',
+            'serial' => 'required|unique:equipos,serial',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
@@ -64,7 +64,7 @@ class ComplementController extends Controller
         $data = $request->validate([
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required',
+            'serial' => 'required|unique:equipos,serial,' . $id,
         ]);
 
         $registro = Equipo::findOrFail($id);

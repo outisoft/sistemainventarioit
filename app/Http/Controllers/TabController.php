@@ -44,7 +44,7 @@ class TabController extends Controller
             'tipo_id' => 'required',
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required',
+            'serial' => 'required|unique:equipos,serial',
             'policy_id' => 'required',
         ]);
         $registro = Equipo::create($data);
@@ -70,7 +70,7 @@ class TabController extends Controller
         $data = $request->validate([
             'marca' => 'required',
             'model' => 'required',
-            'serial' => 'required',
+            'serial' => 'required|unique:equipos,serial,' . $id,
             'policy_id' => 'required',
         ]);
 
