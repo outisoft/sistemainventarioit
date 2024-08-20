@@ -12,10 +12,9 @@
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
-                            <table id="equipos" class="table table-striped">
+                            <table id="historial" class="table table-striped">
                                 <thead class="bg-primary">
                                     <tr>
-                                        <th></th>
                                         <th>Acción</th>
                                         <th>Descripción</th>
                                         <th>Usuario</th>
@@ -25,7 +24,6 @@
                                 <tbody>
                                     @foreach ($historial as $registro)
                                         <tr>
-                                            <td></td>
                                             <td>{{ $registro->accion }}</td>
                                             <td>{{ $registro->descripcion }}</td>
                                             <td>
