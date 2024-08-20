@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class ComplementController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:complements.index')->only('index');
+        $this->middleware('can:complements.create')->only('create', 'store');
+        $this->middleware('can:complements.edit')->only('edit', 'update');
+        $this->middleware('can:complements.show')->only('show');
+        $this->middleware('can:complements.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

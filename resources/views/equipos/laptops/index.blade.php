@@ -11,10 +11,12 @@
                     <h5 class="card-header">Listado de laptops</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                data-placement="top" title="Agregar Nuevo Registro">
-                                <i class='bx bx-add-to-queue icon-lg'></i>
-                            </a>
+                            @can('laptops.create')
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-placement="top" title="Agregar Nuevo Registro">
+                                    <i class='bx bx-add-to-queue icon-lg'></i>
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -66,11 +68,11 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <!-- Aquí se agregarán las opciones -->
-                                                @can('equipo.edit')
+                                                @can('laptops.edit')
                                                     <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
                                                 @endcan
 
-                                                @can('equipo.destroy')
+                                                @can('laptops.destroy')
                                                     <form action="{{ route('laptops.destroy', $equipo->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')

@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class LaptopController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:laptops.index')->only('index');
+        $this->middleware('can:laptops.create')->only('create', 'store');
+        $this->middleware('can:laptops.edit')->only('edit', 'update');
+        $this->middleware('can:laptops.show')->only('show');
+        $this->middleware('can:laptops.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

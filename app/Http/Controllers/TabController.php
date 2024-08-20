@@ -9,15 +9,20 @@ use Illuminate\Http\Request;
 
 class TabController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:tabs.index')->only('index');
+        $this->middleware('can:tabs.create')->only('create', 'store');
+        $this->middleware('can:tabs.edit')->only('edit', 'update');
+        $this->middleware('can:tabs.show')->only('show');
+        $this->middleware('can:tabs.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //$tipoLaptop = Tipo::where('name', 'TABLET')->first();
         $policies = Policy::orderBy('name')->get();
-
-        //$equipos = Equipo::where('tipo_id', $tipoLaptop->id)->get();
 
         $equipos = Equipo::whereHas('tipo', function ($query) {
             $query->where('name', 'TABLET');

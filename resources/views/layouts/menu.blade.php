@@ -54,44 +54,55 @@
                     </li>
                 @endcan
 
+                @can('complements.index')
                     <li class="menu-item {{ Request::routeIs('complements.index') ? 'active' : '' }}">
                         <a href="{{ route('complements.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bxs-keyboard' ></i>
                             <div data-i18n="Without menu">Complementos</div>
                         </a>
                     </li>
+                @endcan
 
+                @can('desktops.index')
                     <li class="menu-item {{ Request::routeIs('desktops.index') ? 'active' : '' }}">
                         <a href="{{ route('desktops.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-hdd'></i>
                             <div data-i18n="Without menu">Desktops</div>
                         </a>
                     </li>
+                @endcan
 
+                @can('printers.index')
                     <li class="menu-item {{ Request::routeIs('printers.index') ? 'active' : '' }}">
                         <a href="{{ route('printers.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-printer' ></i>
                             <div data-i18n="Without navbar">Impresoras</div>
                         </a>
                     </li>
+                @endcan
 
+                @can('laptops.index')
                     <li class="menu-item {{ Request::routeIs('laptops.index') ? 'active' : '' }}">
                         <a href="{{ route('laptops.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-laptop'></i>
                             <div data-i18n="Without navbar">Laptops</div>
                         </a>
                     </li>
+                @endcan
 
+                @can('tabs.index')
                     <li class="menu-item {{ Request::routeIs('tabs.index') ? 'active' : '' }}">
                         <a href="{{ route('tabs.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-tab'></i>
                             <div data-i18n="Analytics">Tablets</div>
                         </a>
                     </li>
+                @endcan
 
                 @can('tablets.index')
-                    <li class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
-                        <a href="{{ route('tablets.index') }}" class="menu-link">
+                    <li disabled class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
+                        <!--a href="{{ route('tablets.index') }}" class="menu-link"-->
+                        <a href="#" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-tab'></i>
                             <div data-i18n="Analytics">Tablets Co2</div>
                         </a>
@@ -108,7 +119,8 @@
                 @endcan
 
                 <li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
-                    <a href="{{ route('licenses.index') }}" class="menu-link">
+                    <a href="#" class="menu-link">
+                        <!--a href="{{ route('licenses.index') }}" class="menu-link"-->
                         <i class='menu-icon tf-icons bx bxl-microsoft'></i>
                         <div data-i18n="Without navbar">Office 365</div>
                     </a>
@@ -177,7 +189,7 @@
                     </li>
                     
                     <li class="menu-item">
-                        <a href="{{ route('licenses.index') }}" class="menu-link">
+                        <a href="#" class="menu-link">
                             <div data-i18n="Without navbar">Permissions</div>
                         </a>
                     </li>

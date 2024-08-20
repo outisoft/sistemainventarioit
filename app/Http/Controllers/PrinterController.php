@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class PrinterController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:printers.index')->only('index');
+        $this->middleware('can:printers.create')->only('create', 'store');
+        $this->middleware('can:printers.edit')->only('edit', 'update');
+        $this->middleware('can:printers.show')->only('show');
+        $this->middleware('can:printers.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */

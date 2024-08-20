@@ -44,7 +44,7 @@
 
                                     <div class="form-group">
                                         @if ($equiposSinAsignar->isEmpty())
-                                            <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.create') }}">Agregar equipos -></a>
+                                            <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.index') }}">Agregar equipos -></a>
                                         @else
                                             <label class="form-label" for="equipo">Selecciona un Equipo:</label>
                                             <div class="input-group input-group-merge">

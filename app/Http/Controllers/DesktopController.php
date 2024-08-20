@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class DesktopController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:desktops.index')->only('index');
+        $this->middleware('can:desktops.create')->only('create', 'store');
+        $this->middleware('can:desktops.edit')->only('edit', 'update');
+        $this->middleware('can:desktops.show')->only('show');
+        $this->middleware('can:desktops.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $tipoLaptop = Tipo::where('name', 'DESKTOP')->first();
