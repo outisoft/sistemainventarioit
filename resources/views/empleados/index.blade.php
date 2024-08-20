@@ -27,6 +27,7 @@
                     </div>
                 </div>
                 @include('empleados.create')
+                @include('empleados.edit')
 
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
@@ -62,18 +63,8 @@
                                                         </button>
                                                         <div class="dropdown-menu">
 
-                                                            <a href="{{ route('empleados.equipos', $empleado->id) }}" class="dropdown-item">Ver Equipos</a>
-                                                            <!-- Aquí se agregarán las opciones -->
-                                                            @can('empleados.show')
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('empleados.show', $empleado->id) }}"><i
-                                                                        class="bx bx-show-alt me-1"></i>Ver</a>
-                                                            @endcan
-
                                                             @can('empleados.edit')
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('empleados.edit', $empleado->id) }}"><i
-                                                                        class="bx bx-edit me-1"></i>Editar</a>
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $empleado->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
                                                             @endcan
 
                                                             @can('empleados.destroy')

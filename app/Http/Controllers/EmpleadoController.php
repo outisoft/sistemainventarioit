@@ -110,11 +110,17 @@ class EmpleadoController extends Controller
     // Método para mostrar el formulario de edición
     public function edit($id)
     {
-        //$empleados = Empleado::with('hotel','departamento')->orderBy('name', 'asc')->get();
-        $empleados = Empleado::findOrFail($id);
-        $hoteles = Hotel::all(); // Obtén la lista de hoteles
-        $departamentos = Departamento::all();
-        return view('empleados.edit', compact('empleados', 'hoteles', 'departamentos'));
+        $employee = Empleado::findOrFail($id);
+        $hotels = Hotel::all();
+        $departments = Departamento::where('hotel_id', $employee->hotel_id)->get();
+
+        return view('employees.edit', compact('employee', 'hotels', 'departments'));
+    }
+
+    public function getDepartments($hotelId)
+    {
+        $departments = Departmento::where('hotel_id', $hotelId)->pluck('name', 'id');
+        return response()->json($departments);
     }
 
     // Método para actualizar un registro
@@ -282,13 +288,6 @@ class EmpleadoController extends Controller
     {
         $empleado = Empleado::with('pcs')->findOrFail($id);
         return view('pc.equipos', compact('empleado'));
-    }
-
-    public function getDepartments($hotel_id)
-    {
-        $hotel = Hotel::findOrFail($hotel_id);
-        $departments = $hotel->departments;
-        return response()->json($departments);
     }
 
     public function generateQRCode($employeeId)

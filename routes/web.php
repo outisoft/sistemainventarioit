@@ -155,6 +155,7 @@ Route::middleware('auth')->group(function () {
     Route::get('empleados/{id}/equipos', [EmpleadoController::class, 'equipos'])->name('empleados.equipos');
 
     Route::get('/hotel/{hotel}/departments', [HotelController::class, 'getDepartments']);
+    Route::get('/get-departments/{hotel}', [EmpleadoController::class, 'getDepartments']);
 
     Route::get('/inventario/{id}/historial', [InventarioController::class, 'historial'])->name('inventario.historial'); // Nueva ruta para mostrar el historial
     Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index'); //muestra view historial

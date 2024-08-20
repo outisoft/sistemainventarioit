@@ -88,7 +88,6 @@
                         </div>
                     </div>
 
-                    <!--new-->
                     <!-- departamento -->
                     <div class="mb-3">
                         <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
@@ -102,7 +101,6 @@
                             </select>
                         </div>
                     </div>
-                    <!--new-->
 
                     <!-- AD -->
                     <div class="mb-3">
