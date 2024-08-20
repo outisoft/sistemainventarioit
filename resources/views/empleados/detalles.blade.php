@@ -7,7 +7,7 @@
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Detalles de <strong>{{ $empleado->name }}</strong></h5>
+                    <h5 class="card-header">Detalles de <strong>{{ $empleado->name }} </strong></h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <a href="{{ route('employee.qrcode', $empleado->id) }}" target="_blank" class="btn-ico" data-placement="top" title="Codigo QR">
@@ -76,107 +76,46 @@
                                     <th>Serie</th>
                                     <th>Nombre de equipo</th>
                                     <th>IP</th>
-                                    <th>Contrato</th>
-                                    <th>Nombre de App</th>
                                     <th>Sistema Operativo</th>
-                                    <th>Office</th>
-                                    <th>Clave de activaciion</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="employeeList">
                                 <!-- Aquí se mostrarán los empleados -->
                                 @foreach ($empleado->equipos as $equipo)
-                                    <tr>
-                                        <td>
-                                            @if (!empty($equipo->tipo->name))
+                                    @if ($equipo->tipo->name == 'DESKTOP')
+                                        <tr>
+                                            <td>
                                                 {{ $equipo->tipo->name }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->orden))
+                                            </td>
+                                            <td>
                                                 {{ $equipo->orden }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->marca))
+                                            </td>
+                                            <td>
                                                 {{ $equipo->marca }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->modelo))
-                                                {{ $equipo->modelo }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->serie))
-                                                {{ $equipo->serie }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->nombre_equipo))
-                                                {{ $equipo->nombre_equipo }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->ip))
+                                            </td>
+                                            <td>
+                                                {{ $equipo->model }}
+                                            </td>
+                                            <td>
+                                                {{ $equipo->serial }}
+                                            </td>
+                                            <td>
+                                                {{ $equipo->name }}
+                                            </td>
+                                            <td>
                                                 {{ $equipo->ip }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->no_contrato))
-                                                {{ $equipo->no_contrato }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->nombre_app))
-                                                {{ $equipo->nombre_app }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->so))
+                                            </td>
+                                            <td>
                                                 {{ $equipo->so }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->office))
-                                                {{ $equipo->office }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if (!empty($equipo->clave))
-                                                {{ $equipo->clave }}
-                                            @else
-                                                Null
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
-                                                class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
+                                                    class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
+                                            </td>
+                                        </tr>
+                                    @else
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>

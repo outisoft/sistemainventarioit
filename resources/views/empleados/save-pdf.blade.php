@@ -35,32 +35,38 @@
     </style>
 </head>
 <body>
-    <div class="izquierda">
-        <!-- Aquí coloca tu imagen o logo -->
-        <a href="https://www.preferente.com/wp-content/uploads/2019/12/Logo-Grupo-Pi%C3%B1ero.png"><img src="https://www.preferente.com/wp-content/uploads/2019/12/Logo-Grupo-Pi%C3%B1ero.png" alt="Descripción de la imagen" width="206.7" height="81.3"></a>
+@foreach ($empleado->equipos as $equipo)
 
-    </div>
+    @if ( $empleado->hotel->name == 'TULUM COUNTRY CLUB')
+        <div class="izquierda">
+            <!-- Aquí coloca tu imagen o logo -->
+            <img src="../public/images/Logo_TCC.png" alt="Logo GP" width="206.7" height="87.3" />
+        </div>
+    @else
+        <div class="izquierda">
+            <!-- Aquí coloca tu imagen o logo -->
+            <img src="../public/images/logo_gp.png" alt="Logo GP" width="206.7" height="81.3" />
+        </div>
+    @endif
 
     <div class="derecha">
         <!-- Aquí coloca tu texto en negritas -->
-        <h2><strong>ENTREGA DE ORDENADOR PORTATIL</strong></h2>
+        <h2><strong>ENTREGA DE {{ $equipo->tipo->name }}</strong></h2>
+        <h2>{{ $empleado->departamento->name }}-{{ $empleado->hotel->name}} </h2>
     </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <p>Tulum, {{ $date }}</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <p>Tulum, {{ $date }}</p>
 
-    <br>
-    
-    <p>Con esta fecha se le hace entrega a <strong>{{ $empleado->name }}</strong> (en adelante, EL TRABAJADOR), de un ordenador portatil @foreach ($empleado->equipos as $equipo)<strong>{{ $equipo->marca }} {{ $equipo->modelo }}</strong>,@endforeach con número de serie 
-        @foreach ($empleado->equipos as $equipo)
-        <strong>{{ $equipo->serie }}</strong>,
-        @endforeach 
-        sistema operativo Windows 11 pro.
-    </p>
+        <br>
+        
+        <p>Con esta fecha se le hace entrega a <strong>{{ $empleado->name }}</strong> (en adelante, EL TRABAJADOR), de un ordenador portatil marca <strong>{{ $equipo->marca }} - {{ $equipo->model }}</strong>, con número de serie 
+            <strong>{{ $equipo->serial}}</strong>@if ($equipo->so == '').@else, sistema operativo {{ $equipo->so }}.@endif
+        </p>
     
     <p>El material relacionado es propiedad de la organización Grupo Piñero y se le hace entrega del mismo para el desarrollo de su trabajo, debiendo utilizarlo única y exclusivamente para tal fin, comprometiéndose a custodiarlo y cuidarlo adecuadamente.</p>
     <p>Si causara Vd. baja en la organización se compromete a reintegrar el citado material a la empresa propietaria con carácter previo a la finalización de la relación laboral y al percibo de la liquidación que pudiera corresponderle.</p>
@@ -72,6 +78,9 @@
     <p>Declaro el entendimiento del presente Documento, manifiesto mi conformidad con su contenido.</p>
     <br>
     <p><strong> Fdo.: __________________________________________</strong></p>
+    <br>
+    <br>
+    @endforeach
 </body>
 
 </html>

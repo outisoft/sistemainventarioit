@@ -15,7 +15,7 @@
         <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
                 <!--img src="{{ asset('images/gp-lg.png') }}" alt="Logo grupo piñero" width="200" height="35" /-->
-                <img src="{{ asset('images/gp-Logo.png') }}" alt="Imagen de ejemplo" width="36" height="36" />
+                <img src="{{ asset('images/gp-Logo.png') }}" alt="Logo GP" width="36" height="36" />
             </div>
         </div>
         <!-- /Search -->
