@@ -11,6 +11,17 @@
             <div class="modal-body">
                 <form method="POST" action="{{ route('licenses.store') }}">
                     @csrf
+                    <!-- Tipo -->
+                    <div class="mb-3" style="display: none;">
+                        <x-input-label class="form-label" for="tipo_id" :value="__('Tipo de equipo')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input readonly='readonly' id="tipo_id" class="form-control" type="text"
+                                name="tipo_id" placeholder="Office" :value="11" required
+                                autocomplete="tipo_id" />
+                        </div>
+                        <x-input-error :messages="$errors->get('tipo_id')" class="mt-2" />
+                    </div>
+
                     <!-- Correo Office -->
                     <div class="mb-3">
                     <x-input-label class="form-label" for="email" :value="__('Correo office 365')" />

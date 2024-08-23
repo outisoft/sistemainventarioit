@@ -24,6 +24,7 @@ class TipoSeeder extends Seeder
             ['name' => 'TECLADO'],
             ['name' => 'WACOM'],
             ['name' => 'TABLET'],
+            ['name' => 'OFFICE'],
         ];
 
         // Agregar los datos a la tabla "hoteles"

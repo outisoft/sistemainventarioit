@@ -2,16 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\License;
+use App\Models\Tipo;
+use App\Models\Equipo;
 use App\Models\Historial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LicenseController extends Controller
 {
     public function index()
     {
-        $licenses = License::all();
-        return view('licenses.index', compact('licenses'));
+        $tipo = Tipo::where('name', 'OFFICE')->first();
+
+        $equipos = Equipo::where('tipo_id', $tipo->id)->get();
+
+        // Iterar sobre los equipos y verificar si están asignados a un empleado
+        foreach ($equipos as $equipo) {
+            $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
+        }
+
+        return view('licenses.index', compact('equipos'));
     }
 
     public function create()
@@ -23,11 +33,12 @@ class LicenseController extends Controller
     {
         try {
             $request->validate([
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . License::class],
+                'tipo_id' => 'required',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Equipo::class],
                 'password' => 'required',
             ]);
 
-            License::create($request->all());
+            Equipo::create($request->all());
 
             $user = auth()->id();
 
@@ -50,6 +61,32 @@ class LicenseController extends Controller
             }
             return redirect()->back()->withErrors($e->validator)->withInput();
         }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = auth()->id();
+
+        $data = $request->validate([
+            'email' => 'required|unique:equipos,email,' . $id,
+            'password' => 'required',
+
+        ]);
+
+        $registro = Equipo::findOrFail($id);
+        //dd($data);
+        $registro->update($data);
+
+        Historial::create([
+            'accion' => 'Actualizacion',
+            'descripcion' => "Se actualizo la {$registro->tipo->name} del correo: {$registro->email}",
+            'user_id' => $user,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se actualizo el {$registro->email} correctamente.");
+
+        return redirect()->route('licenses.index');
     }
 
     public function destroy(License $license)

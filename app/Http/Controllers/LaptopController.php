@@ -21,9 +21,9 @@ class LaptopController extends Controller
      */
     public function index()
     {
-        $tipoLaptop = Tipo::where('name', 'LAPTOP')->first();
+        $tipo = Tipo::where('name', 'LAPTOP')->first();
 
-        $equipos = Equipo::where('tipo_id', $tipoLaptop->id)->get();
+        $equipos = Equipo::where('tipo_id', $tipo->id)->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {

@@ -100,13 +100,12 @@
                 @endcan
 
                 @can('tablets.index')
-                    <li disabled class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
-                        <!--a href="{{ route('tablets.index') }}" class="menu-link"-->
+                    <!--li disabled class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
                         <a href="#" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-tab'></i>
                             <div data-i18n="Analytics">Tablets Co2</div>
                         </a>
-                    </li>
+                    </li-->
                 @endcan
 
                 @can('tpvs.index')
@@ -119,8 +118,7 @@
                 @endcan
 
                 <li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
-                    <a href="#" class="menu-link">
-                        <!--a href="{{ route('licenses.index') }}" class="menu-link"-->
+                    <a href="{{ route('licenses.index') }}" class="menu-link">
                         <i class='menu-icon tf-icons bx bxl-microsoft'></i>
                         <div data-i18n="Without navbar">Office 365</div>
                     </a>

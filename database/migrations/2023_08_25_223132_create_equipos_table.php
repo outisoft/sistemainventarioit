@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('ip')->nullable();
             $table->string('so')->nullable();
             $table->foreignId('policy_id')->nullable()->references('id')->on('policies')->cascadeOnDelete();
+            $table->string('email')->nullable()->unique();
+            $table->string('password')->nullable();
             $table->string('no_contrato')->nullable();
             $table->string('orden')->nullable();
             //app
