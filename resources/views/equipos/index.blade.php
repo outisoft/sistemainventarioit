@@ -27,65 +27,34 @@
 
                 <div class="table-responsive text-nowrap" id="searchResults">
                     <table id="tabla" class="table">
-                            <thead class="bg-primary">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Marca</th>
+                                <th>Modelo</th>
+                                <th>Serie</th>
+                                <th>Estado</th>
+                                <!--th>Acciones</th-->
+                                <!-- Otros encabezados de columnas según sea necesario -->
+                            </tr>
+                        </thead>
+                        <tbody id="employeeList">
+                            @foreach ($equipos as $equipo)
                                 <tr>
-                                    <th>Tipo</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Serie</th>
-                                    <th>Estado</th>
-                                    <!--th>Acciones</th-->
-                                    <!-- Otros encabezados de columnas según sea necesario -->
-                                </tr>
-                            </thead>
-                            <tbody id="employeeList">
-                                @foreach ($equipos as $equipo)
-                                    <tr>
-                                        <td>{{ $equipo->tipo->name }}</td>
-                                        <td>{{ $equipo->marca }}</td>
-                                        <td>{{ $equipo->model }}</td>
-                                        <td>{{ $equipo->serial }}</td>
-                                        <td>
-                                            @if ($equipo->estado === 'Libre')
-                                                <span class="badge bg-label-success">{{ $equipo->estado }}</span>
-                                                </td>
-                                                <!--span class="badge rounded-pill bg-success">Libre</span-->
-                                            @elseif ($equipo->estado === 'En Uso')
-                                                <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
-                                                <!--span class="badge rounded-pill bg-danger">En uso</span-->
-                                            @endif
-                                        </td>
-                                        <!--td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                    data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    @can('equipo.show')
-                                                        <a class="dropdown-item" href="{{ route('equipo.show', $equipo->id) }}"><i
-                                                                class="bx bx-show-alt me-1"></i>Ver</a>
-                                                    @endcan
-
-                                                    @can('equipo.edit')
-                                                        <a class="dropdown-item" href="{{ route('equipo.edit', $equipo->id) }}"><i
-                                                                class="bx bx-edit me-1"></i>Editar</a>
-                                                    @endcan
-
-                                                    @can('equipo.destroy')
-                                                        <form action="{{ route('equipo.destroy', $equipo->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item btn-danger"
-                                                                onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                    class="bx bx-trash me-1"></i>Eliminar</button>
-                                                        </form>
-                                                    @endcan
-
-                                                </div>
-                                            </div>
-                                        </td-->
-                                    <!-- Otros campos de la tabla -->
+                                    <td>{{ $equipo->tipo->name }}</td>
+                                    <td>{{ $equipo->marca }}</td>
+                                    <td>{{ $equipo->model }}</td>
+                                    <td>{{ $equipo->serial }}</td>
+                                    <td>
+                                        @if ($equipo->estado === 'Libre')
+                                            <span class="badge bg-label-success">{{ $equipo->estado }}</span>
+                                            </td>
+                                            <!--span class="badge rounded-pill bg-success">Libre</span-->
+                                        @elseif ($equipo->estado === 'En Uso')
+                                            <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
+                                            <!--span class="badge rounded-pill bg-danger">En uso</span-->
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
