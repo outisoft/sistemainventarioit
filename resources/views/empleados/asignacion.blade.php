@@ -26,9 +26,6 @@
                                         @else
                                             <label class="form-label" for="empleado">Selecciona un Empleado:</label>
                                             <div class="input-group input-group-merge">
-                                                <!--span id="basic-icon-default-fullname2" class="input-group-text">
-                                                <i class='bx bx-user'></i>
-                                            </span-->
                                                 <select id="empleado_id" name="empleado_id" class="form-control"
                                                     aria-label="Default select example">
                                                     @foreach ($empleados as $empleado)
@@ -46,19 +43,27 @@
                                         @if ($equiposSinAsignar->isEmpty())
                                             <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.index') }}">Agregar equipos -></a>
                                         @else
-                                            <label class="form-label" for="equipo">Selecciona un Equipo:</label>
-                                            <div class="input-group input-group-merge">
-                                                <!--span id="basic-icon-default-fullname2" class="input-group-text">
-                                                <i class='bx bx-desktop'></i>
-                                            </span-->
-                                                <select name="equipo_id" class="form-control">
-                                                    @foreach ($equiposSinAsignar as $equipo)
-                                                        <option value="{{ $equipo->id }}">{{ $equipo->tipo->name }} - {{ $equipo->name }}
-                                                            {{ $equipo->marca }} - {{ $equipo->model }}</option>
-                                                    @endforeach
-                                                </select>
-
-                                            </div>
+                                                    <label class="form-label" for="equipo">Selecciona un Equipo:</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <select name="equipo_id" class="form-control">
+                                                        @foreach ($equiposSinAsignar as $equipo)
+                                                            @if ($equipo->tipo->name == 'OFFICE')
+                                                            <option value="{{ $equipo->id }}"> {{ $equipo->email }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <label class="form-label" for="equipo">Selecciona un Equipo:</label>
+                                                    <div class="input-group input-group-merge">
+                                                        <select name="equipo_id" class="form-control">
+                                                        @foreach ($equiposSinAsignar as $equipo)
+                                                            @if ($equipo->tipo->name == 'OFFICE')
+                                                            <option value="{{ $equipo->id }}"> {{ $equipo->email }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                        </select>
+                                                    </div>
+                                               
                                         @endif
                                     </div>
                                     <br>

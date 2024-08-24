@@ -83,39 +83,36 @@
                             <tbody id="employeeList">
                                 <!-- Aquí se mostrarán los empleados -->
                                 @foreach ($empleado->equipos as $equipo)
-                                    @if ($equipo->tipo->name == 'DESKTOP')
-                                        <tr>
-                                            <td>
-                                                {{ $equipo->tipo->name }}
-                                            </td>
-                                            <td>
-                                                {{ $equipo->orden }}
-                                            </td>
-                                            <td>
-                                                {{ $equipo->marca }}
-                                            </td>
-                                            <td>
-                                                {{ $equipo->model }}
-                                            </td>
-                                            <td>
-                                                {{ $equipo->serial }}
-                                            </td>
-                                            <td>
-                                                {{ $equipo->name }}
-                                            </td>
-                                            <td>
-                                                {{ $equipo->ip }}
-                                            </td>
-                                            <td>
-                                                {{ $equipo->so }}
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
-                                                    class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
-                                            </td>
-                                        </tr>
-                                    @else
-                                    @endif
+                                    <tr>
+                                        <td>
+                                            {{ $equipo->tipo->name }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->orden }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->marca }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->model }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->serial }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->name }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->ip }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->so }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
+                                                class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
