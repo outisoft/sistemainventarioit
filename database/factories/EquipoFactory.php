@@ -19,18 +19,18 @@ class EquipoFactory extends Factory
     public function definition(): array
     {
         return [
-            'tipo_id' => rand(1, 13),
-            'orden' => $this->faker->word,
+            'tipo_id' => rand(1, 11),
             'marca' => $this->faker->word,
-            'modelo' => $this->faker->word,
-            'serie' => $this->faker->word,
-            'nombre_equipo' => $this->faker->word,
+            'model' => $this->faker->word,
+            'serial' => $this->faker->word,
+            'name' => $this->faker->word,
             'ip' => $this->faker->ipv4,
-            'no_contrato' => $this->faker->word,
-            'nombre_app' => $this->faker->word,
             'so' => $this->faker->word,
-            'office' => $this->faker->word,
-            'clave' => $this->faker->word,
+            'policy_id' => rand(1, 12),
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => $this->faker->word,
+            'no_contrato' => $this->faker->word,
+            'orden' => $this->faker->word,
             // Otros campos si los tienes
         ];
     }

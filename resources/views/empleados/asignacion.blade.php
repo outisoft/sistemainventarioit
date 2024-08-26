@@ -43,27 +43,39 @@
                                         @if ($equiposSinAsignar->isEmpty())
                                             <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.index') }}">Agregar equipos -></a>
                                         @else
-                                                    <label class="form-label" for="equipo">Selecciona un Equipo:</label>
-                                                    <div class="input-group input-group-merge">
-                                                        <select name="equipo_id" class="form-control">
-                                                        @foreach ($equiposSinAsignar as $equipo)
-                                                            @if ($equipo->tipo->name == 'OFFICE')
-                                                            <option value="{{ $equipo->id }}"> {{ $equipo->email }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <label class="form-label" for="equipo">Selecciona un Equipo:</label>
-                                                    <div class="input-group input-group-merge">
-                                                        <select name="equipo_id" class="form-control">
-                                                        @foreach ($equiposSinAsignar as $equipo)
-                                                            @if ($equipo->tipo->name == 'OFFICE')
-                                                            <option value="{{ $equipo->id }}"> {{ $equipo->email }}</option>
-                                                            @endif
-                                                        @endforeach
-                                                        </select>
-                                                    </div>
-                                               
+                                            <label class="form-label" for="equipo">Selecciona un Equipo:</label>
+                                            <div class="input-group input-group-merge">
+                                                <select name="equipo_id" class="form-control">
+                                                <option> Sin seleccionar </option>
+                                                @foreach ($equiposSinAsignar as $equipo)
+                                                    @if ($equipo->tipo->name == 'LAPTOP' || $equipo->tipo->name == 'DESKTOP')
+                                                    <option value="{{ $equipo->id }}"> {{ $equipo->name }} - {{ $equipo->serial }} - {{ $equipo->ip }} </option>
+                                                    @endif
+                                                @endforeach
+                                                </select>
+                                            </div>
+                                            <label class="form-label" for="equipo">Añadir complemento:</label>
+                                            <div class="input-group input-group-merge">
+                                                <select name="equipo_id" class="form-control">
+                                                <option> Sin seleccionar </option>
+                                                @foreach ($equiposSinAsignar as $equipo)
+                                                    @if ($equipo->tipo->name == 'SCANNER' || $equipo->tipo->name == 'MONITOR' || $equipo->tipo->name == 'MOUSE' || $equipo->tipo->name == 'NO BREACK' || $equipo->tipo->name == 'WACOM' || $equipo->tipo->name == 'TECLADO')
+                                                    <option value="{{ $equipo->id }}"> {{ $equipo->tipo->name }} - {{ $equipo->marca }} - {{ $equipo->serial }} </option>
+                                                    @endif
+                                                @endforeach
+                                                </select>
+                                            </div>
+                                            <label class="form-label" for="equipo">Asigna OFFICE:</label>
+                                            <div class="input-group input-group-merge">
+                                                <select name="equipo_id" class="form-control">
+                                                    <option> Sin seleccionar </option>
+                                                @foreach ($equiposSinAsignar as $equipo)
+                                                    @if ($equipo->tipo->name == 'OFFICE')
+                                                    <option value="{{ $equipo->id }}"> {{ $equipo->email }}</option>
+                                                    @endif
+                                                @endforeach
+                                                </select>
+                                            </div>
                                         @endif
                                     </div>
                                     <br>
