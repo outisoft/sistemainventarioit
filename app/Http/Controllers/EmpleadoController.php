@@ -99,12 +99,11 @@ class EmpleadoController extends Controller
     }
 
     // Método para mostrar un registro específico
-    public function show($id)
+    public function getEmpleado($no_empleado)
     {
-        $registro = Empleado::findOrFail($id);
-        $hotel = Hotel::find($registro->hotel_id); // Obtiene el hotel asociado al empleado
-        $departamento = Departamento::find($registro->departamento_id);
-        return view('empleados.show', compact('registro', 'hotel', 'departamento'));
+        $empleado = Empleado::where('no_empleado', $no_empleado)->first();
+
+        return response()->json($empleado);
     }
 
     // Método para mostrar el formulario de edición

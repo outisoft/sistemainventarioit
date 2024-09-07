@@ -34,5 +34,12 @@ class EquipoController extends Controller
         }
 
         return view('equipos.index', compact('equipos'));
+    }    
+
+    public function getEquipo($serial)
+    {
+        $equipo = Equipo::where('serial', $serial)->first();
+        
+        return response()->json($equipo);
     }
 }

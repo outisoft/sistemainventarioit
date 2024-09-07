@@ -148,6 +148,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('laptops', LaptopController::class);
     Route::resource('tabs', TabController::class);
 
+    Route::get('/empleado/{no_empleado}', [EmpleadoController::class, 'getEmpleado']);
+    Route::get('/equipos/{serial}', [EquipoController::class, 'getEquipo']);
+
+
     Route::get('/employee/{id}/qrcode', [EmpleadoController::class, 'generateQRCode'])->name('employee.qrcode');
     Route::get('/employee/{id}/qrcode/download', [EmpleadoController::class, 'downloadQRCode'])->name('employee.qrcode.download');
     Route::get('/employee/{id}/details', [EmpleadoController::class, 'employeeDetails'])->name('employee.details');

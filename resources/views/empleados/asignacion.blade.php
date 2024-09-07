@@ -18,24 +18,77 @@
                         <div class="card-datatable table-responsive pt-0">
                             <div class="container">
 
-                                <form method="POST" action="{{ route('asignacion.asignar') }}">
+                                <form method="POST" action="{{ route('asignacion.asignar') }}" id="colaboradorForm">
                                     @csrf
                                     <div class="mb-3">
                                         @if ($empleados->isEmpty())
                                             <label class="form-label" for="empleado">No se encontro empleados disponibles.</label> <a href="{{ route('empleados.index') }}">Agregar empleados -></a>
                                         @else
-                                            <label class="form-label" for="empleado">Selecciona un Empleado:</label>
+                                            <!--label class="form-label" for="empleado">Selecciona un Empleado:</label>
                                             <div class="input-group input-group-merge">
                                                 <select id="empleado_id" name="empleado_id" class="form-control"
                                                     aria-label="Default select example">
                                                     @foreach ($empleados as $empleado)
-                                                        <option value="{{ $empleado->id }}">{{ $empleado->name }} -
+                                                        <option value="{{ $empleado->id }}">{{ $empleado->no_empleado }} - {{ $empleado->name }} -
                                                             {{ $empleado->hotel->name }} -
                                                             {{ $empleado->departamento->name }} - {{ $empleado->puesto }}
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                            </div>
+                                            </div-->
+                                            <style>
+                                                .form-row {
+                                                    display: flex;
+                                                    gap: 10px; /* Espacio entre los inputs */
+                                                }
+                                                .form-group {
+                                                    flex: 1; /* Ajusta el tamaño de los inputs */
+                                                }
+                                            </style>
+                                                <div class="form-row">
+                                                    <div class="form-group" style="display: none;">
+                                                        <label for="no_empleado">id</label>
+                                                        <input type="text" id="empleado_id" class="form-control" name="empleado_id">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="no_empleado">No. Empleado</label>
+                                                        <input type="text" id="no_empleado" class="form-control" name="no_empleado">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="input2">Name</label>
+                                                        <input type="text" id="name" name="name" class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="input1">Email</label>
+                                                        <input type="text" id="email" name="email" class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="puesto">Puesto</label>
+                                                        <input type="text" id="puesto" name="puesto" class="form-control" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group" style="display: none;">
+                                                        <label for="equipo_id">id</label>
+                                                        <input type="text" id="equipo_id" class="form-control" name="equipo_id">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="serial">No. Serie</label>
+                                                        <input type="text" id="serial" class="form-control" name="serial" >
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="nameE">Name</label>
+                                                        <input type="text" id="nameE" name="nameE" class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="marca">Marca</label>
+                                                        <input type="text" id="marca" name="marca" class="form-control" disabled>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="model">Modelo</label>
+                                                        <input type="text" id="model" name="model" class="form-control" disabled>
+                                                    </div>
+                                                </div>
                                         @endif
                                     </div>
 
@@ -43,39 +96,16 @@
                                         @if ($equiposSinAsignar->isEmpty())
                                             <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.index') }}">Agregar equipos -></a>
                                         @else
-                                            <label class="form-label" for="equipo">Selecciona un Equipo:</label>
+                                            <!--label class="form-label" for="equipo">Selecciona un Equipo:</label>
                                             <div class="input-group input-group-merge">
                                                 <select name="equipo_id" class="form-control">
                                                 <option> Sin seleccionar </option>
                                                 @foreach ($equiposSinAsignar as $equipo)
-                                                    @if ($equipo->tipo->name == 'LAPTOP' || $equipo->tipo->name == 'DESKTOP')
-                                                    <option value="{{ $equipo->id }}"> {{ $equipo->name }} - {{ $equipo->serial }} - {{ $equipo->ip }} </option>
-                                                    @endif
+                                                    <option value="{{ $equipo->id }}">{{ $equipo->tipo->name }} - {{ $equipo->name }} - {{ $equipo->serial }} - {{ $equipo->ip }} </option>
+                                                   
                                                 @endforeach
                                                 </select>
-                                            </div>
-                                            <label class="form-label" for="equipo">Añadir complemento:</label>
-                                            <div class="input-group input-group-merge">
-                                                <select name="equipo_id" class="form-control">
-                                                <option> Sin seleccionar </option>
-                                                @foreach ($equiposSinAsignar as $equipo)
-                                                    @if ($equipo->tipo->name == 'SCANNER' || $equipo->tipo->name == 'MONITOR' || $equipo->tipo->name == 'MOUSE' || $equipo->tipo->name == 'NO BREACK' || $equipo->tipo->name == 'WACOM' || $equipo->tipo->name == 'TECLADO')
-                                                    <option value="{{ $equipo->id }}"> {{ $equipo->tipo->name }} - {{ $equipo->marca }} - {{ $equipo->serial }} </option>
-                                                    @endif
-                                                @endforeach
-                                                </select>
-                                            </div>
-                                            <label class="form-label" for="equipo">Asigna OFFICE:</label>
-                                            <div class="input-group input-group-merge">
-                                                <select name="equipo_id" class="form-control">
-                                                    <option> Sin seleccionar </option>
-                                                @foreach ($equiposSinAsignar as $equipo)
-                                                    @if ($equipo->tipo->name == 'OFFICE')
-                                                    <option value="{{ $equipo->id }}"> {{ $equipo->email }}</option>
-                                                    @endif
-                                                @endforeach
-                                                </select>
-                                            </div>
+                                            </div-->
                                         @endif
                                     </div>
                                     <br>
@@ -155,3 +185,50 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
+
+<script>
+    document.getElementById('serial').addEventListener('input', function() {
+        let numeroSerie = this.value;
+
+        if (numeroSerie.length > 0) {
+            fetch(`/equipos/${numeroSerie}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        document.getElementById('equipo_id').value = data.id;
+                        document.getElementById('nameE').value = data.name;
+                        document.getElementById('marca').value = data.marca;
+                        document.getElementById('model').value = data.model;
+                        // Rellena otros campos según los datos obtenidos
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    });
+</script>
+
+<script>
+    document.getElementById('no_empleado').addEventListener('input', function() {
+        let numeroColaborador = this.value;
+
+        if (numeroColaborador.length > 0) {
+            fetch(`/empleado/${numeroColaborador}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        alert(data.error);
+                    } else {
+                        document.getElementById('empleado_id').value = data.id;
+                        document.getElementById('name').value = data.name;
+                        document.getElementById('email').value = data.email;
+                        document.getElementById('puesto').value = data.puesto;
+                        // Rellena otros campos según los datos obtenidos
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    });
+</script>
+

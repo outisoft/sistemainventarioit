@@ -41,7 +41,7 @@
         <div class="mb-3">
             <x-input-label class="form-label" for="name" :value="__('Nombre')" />
             <div class="input-group input-group-merge">
-                <x-text-input type="text" name="name" class="form-control" value="{{ $user->name }}" required autofocus autocomplete="name" />
+                <x-text-input type="text" name="name" class="form-control" value="{{ $user->name }}" required autofocus autocomplete="name" disabled/>
                 <x-input-error class="mt-2" :messages="$errors->get('name')" />
             </div>
         </div>
@@ -49,7 +49,7 @@
         <div class="form-group">
             <x-input-label class="form-label" for="email" :value="__('Email')" />
             <div class="input-group input-group-merge">
-                <x-text-input type="email" name="email" class="form-control" value="{{ $user->email }}" required autocomplete="username" />
+                <x-text-input type="email" name="email" class="form-control" value="{{ $user->email }}" required autocomplete="username" disabled/>
                 <x-input-error class="mt-2" :messages="$errors->get('email')" />
             </div>
 
