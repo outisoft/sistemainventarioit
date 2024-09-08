@@ -29,7 +29,7 @@
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap" id="searchResults">
-                                <table id="tabla" class="table footer">
+                                <table id="office" class="table footer">
                                     <thead class="bg-primary">
                                         <tr>
                                             <th>Correo</th>
