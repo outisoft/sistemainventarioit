@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('equipment'); //equipos
             $table->string('brand'); //marca
             $table->string('model');
-            $table->string('no_serial');
-            $table->string('name');
-            $table->string('ip');
+            $table->string('no_serial')->unique();
+            $table->string('name')->unique();
+            $table->string('ip')->unique();
             $table->string('link');
             $table->timestamps();
         });

@@ -44,7 +44,7 @@ class LicenseController extends Controller
 
             Historial::create([
                 'accion' => 'Creacion',
-                'descripcion' => "Se registro la licencia {$request->email}",
+                'descripcion' => "Se registro el {$request->tipo->name} con el correo {$request->email}",
                 'user_id' => $user,
             ]);
 
@@ -79,7 +79,7 @@ class LicenseController extends Controller
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo la {$registro->tipo->name} del correo: {$registro->email}",
+            'descripcion' => "Se actualizo el {$registro->tipo->name} con el correo {$request->email}",
             'user_id' => $user,
         ]);
         toastr()
@@ -89,21 +89,23 @@ class LicenseController extends Controller
         return redirect()->route('licenses.index');
     }
 
-    public function destroy(License $license)
+    public function destroy(string $id)
     {
-        $license->delete();
+        $registro = Equipo::findOrFail($id);
+        $registro->delete();
 
         $user = auth()->id();
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino licencia {$license->email} correctamente",
+            'descripcion' => "Se elimino el {$registro->tipo->name} con el correo {$registro->email}",
             'user_id' => $user,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Licencia {$license->email} eliminado.");
+            ->addSuccess("Se elimino el {$registro->name}.");
+
         return redirect()->route('licenses.index');
     }
 }

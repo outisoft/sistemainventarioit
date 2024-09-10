@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('usuario');
             $table->string('password');
-            $table->string('numero_tableta');
-            $table->string('serial');
-            $table->string('numero_telefono');
-            $table->string('imei');
-            $table->string('sim');
+            $table->string('numero_tableta')->unique();
+            $table->string('serial')->unique();
+            $table->string('numero_telefono')->unique();
+            $table->string('imei')->unique();
+            $table->string('sim')->unique();
             $table->foreignId('policy_id')->references('id')->on('policies')->cascadeOnDelete();
             $table->boolean('configurada')->default(false);
             $table->boolean('carta_firmada')->default(false);

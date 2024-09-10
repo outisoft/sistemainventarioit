@@ -4,6 +4,8 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     @endsection
 
+    @include('equipos.desktops.create')
+    @include('equipos.desktops.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -25,8 +27,6 @@
                     </div>
                 </div>
 
-                @include('equipos.desktops.create')
-                @include('equipos.desktops.edit')
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">

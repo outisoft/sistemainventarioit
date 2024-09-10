@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('tipo_id')->references('id')->on('tipos')->cascadeOnDelete();
             $table->string('marca')->nullable();
             $table->string('model')->nullable();
-            $table->string('serial')->nullable();
-            $table->string('name')->nullable();
-            $table->string('ip')->nullable();
+            $table->string('serial')->nullable()->unique();
+            $table->string('name')->nullable()->unique();
+            $table->string('ip')->nullable()->unique();
             $table->string('so')->nullable();
             $table->foreignId('policy_id')->nullable()->references('id')->on('policies')->cascadeOnDelete();
             $table->string('email')->nullable()->unique();

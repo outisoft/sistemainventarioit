@@ -55,7 +55,7 @@ class LaptopController extends Controller
         $registro->save();
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se agrego la {$registro->tipo->name} con N/S: {$registro->serial}",
+            'descripcion' => "Se agrego la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
@@ -86,7 +86,7 @@ class LaptopController extends Controller
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el {$registro->tipo->name} de N/S: {$registro->serial}",
+            'descripcion' => "Se actualizo la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
@@ -108,7 +108,7 @@ class LaptopController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el {$registro->tipo->name} con N/S: {$registro->serial}.",
+            'descripcion' => "Se elimino la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
 

@@ -51,7 +51,7 @@ class DesktopController extends Controller
         $registro->save();
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se agrego la {$registro->tipo->name} - {$registro->name}",
+            'descripcion' => "Se agrego el {$registro->tipo->name} ({$registro->name}) con S/N: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
@@ -81,7 +81,7 @@ class DesktopController extends Controller
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el {$registro->tipo->name} del equipo {$registro->name}",
+            'descripcion' => "Se actualizo el {$registro->tipo->name} ({$registro->name}) con S/N: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
@@ -101,7 +101,7 @@ class DesktopController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el {$registro->tipo->name} - {$registro->name}.",
+            'descripcion' => "Se elimino el {$registro->tipo->name} ({$registro->name}) con S/N: {$registro->serial}",
             'user_id' => $user,
         ]);
 

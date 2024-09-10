@@ -53,7 +53,7 @@ class ComplementController extends Controller
         $registro->save();
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se agrego  {$registro->tipo->name} con N/S: {$registro->serial}",
+            'descripcion' => "Se agrego {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
