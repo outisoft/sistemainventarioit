@@ -164,6 +164,8 @@
 </script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 <script>
     var datos = @json($tpvsPorDepartamento);
     var categorias = [];
@@ -184,6 +186,14 @@
             name: 'Total de Equipos',
             data: valores
         }],
+        plotOptions: {
+            bar: {
+                borderRadius: 5,
+                dataLabels: {
+                position: 'top', // top, center, bottom
+                },
+            }
+        },
         xaxis: {
             categories: categorias
         }
@@ -262,7 +272,7 @@
     var chart = new ApexCharts(document.querySelector("#chart"), options);
     chart.render();
 
-/* Script Total de equipos libre / ocupados*/
+    /* Script Total de equipos libre / ocupados*/
     var datos_grafica = @json($datos_grafica);
 
     var options = {
@@ -277,7 +287,7 @@
         }],
         plotOptions: {
             bar: {
-                borderRadius: 10,
+                borderRadius: 5,
                 dataLabels: {
                 position: 'top', // top, center, bottom
                 },
@@ -295,7 +305,7 @@
     var chart = new ApexCharts(document.querySelector("#cpuChart"), options);
     chart.render();
 
-/* Script Total de equipos libre / ocupados*/
+    /* Script Total de equipos libre / ocupados*/
     var total_laptops = @json($total_laptops);
 
     var options = {
@@ -309,7 +319,7 @@
         }],
         plotOptions: {
             bar: {
-                borderRadius: 10,
+                borderRadius: 5,
                 dataLabels: {
                 position: 'top', // top, center, bottom
                 },
@@ -325,5 +335,78 @@
     };
 
     var chart = new ApexCharts(document.querySelector("#laptopChart"), options);
+    chart.render();
+    
+
+    //total de laptops por hotel
+    var datos = @json($datosCPU);
+    var categorias = [];
+    var valores = [];
+    var customColors = [ '#b5a160','#604933', '#c5b87f', '#2f2119','#dad3ae','#8d7141'];
+
+    datos.forEach(function(item){
+        categorias.push(item.hotel);
+        valores.push(item.cantidad_equipos);
+    });
+
+    var options = {
+        chart: {
+            type: 'bar'
+        },
+        colors: customColors,
+        series: [{
+            name: 'Total de Equipos',
+            data: valores
+        }],
+        plotOptions: {
+            bar: {
+                borderRadius: 5,
+                dataLabels: {
+                position: 'top', // top, center, bottom
+                },
+            }
+        },
+        xaxis: {
+            categories: categorias
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#desktopsChart"), options);
+    chart.render();
+
+    // grafica de total de desktops por hotel
+    var datos = @json($datosLap);
+    var categorias = [];
+    var valores = [];
+    var customColors = [ '#b5a160','#604933', '#c5b87f', '#2f2119','#dad3ae','#8d7141'];
+
+    datos.forEach(function(item){
+        categorias.push(item.hotel);
+        valores.push(item.cantidad_equipos);
+    });
+
+    var options = {
+        chart: {
+            type: 'bar'
+        },
+        colors: customColors,
+        series: [{
+            name: 'Total de Equipos',
+            data: valores
+        }],
+        plotOptions: {
+            bar: {
+                borderRadius: 5,
+                dataLabels: {
+                position: 'top', // top, center, bottom
+                },
+            }
+        },
+        xaxis: {
+            categories: categorias
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#laptopsChart"), options);
     chart.render();
 </script>

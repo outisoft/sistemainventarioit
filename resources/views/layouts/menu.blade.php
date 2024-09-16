@@ -9,11 +9,11 @@
         <span class="app-brand-logo demo">
             <div class="shrink-0 flex items-center">
                 <a href="{{ route('home') }}">
-                    <img src="{{ asset('images/gp-Logo.png') }}" alt="Imagen de ejemplo" width="36" height="36" />
+                    <img src="{{ asset('images/gp-lg.png') }}" alt="Logo Grupo Piñero" height="36" />
                 </a>
             </div>
         </span>
-        <span class="app-brand-text demo menu-text fw-bolder ms-2">Inventario</span>
+        <!--span class="app-brand-text demo menu-text fw-bolder ms-2">Inventario</span-->
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
             <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -117,12 +117,12 @@
                     </li>
                 @endcan
 
-                <li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
+                <!--li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
                     <a href="{{ route('licenses.index') }}" class="menu-link">
                         <i class='menu-icon tf-icons bx bxl-microsoft'></i>
                         <div data-i18n="Without navbar">Office 365</div>
                     </a>
-                </li>
+                </li-->
             </ul>
         </li>
 

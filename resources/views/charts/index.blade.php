@@ -83,151 +83,66 @@
     </div>
 
     <script>
-        //<!--empleados por hotel-->
-        var empleadosPorHotel = @json($empleadosPorHotel);
-
-        var labelsEPH = empleadosPorHotel.map(function(data) {
-            return data.hotel;
-        });
-
-        var dataEPH = empleadosPorHotel.map(function(data) {
-            return data.cantidad_empleados;
-        });
-
-        //empleados por departamento
-        var empleadosPorDepartamento = @json($empleadosPorDepartamento);
-
-        var labelsEPD = empleadosPorDepartamento.map(function(data) {
-            return data.departamento;
-        });
-
-        var dataEPD = empleadosPorDepartamento.map(function(data) {
-            return data.cantidad_empleados;
-        });
-
-        //equipos por tipo
-        var equiposPorTipo = @json($equiposPorTipo);
-
-        var labelsEPT = equiposPorTipo.map(function(data) {
-            return data.tipo;
-        });
-
-        var dataEPT = equiposPorTipo.map(function(data) {
-            return data.cantidad_equipos;
-        });
-
-        //TOTAL DE LAPTOPS POR HOTEL
-        var datosLap = @json($datosLap);
-
-        var hoteles = datosLap.map(item => item.hotel);
-
-        var equiposLaptop = datosLap.filter(item => item.tipo_equipo === 'LAPTOP').map(item => item.cantidad_equipos);
-
-        //TOTAL DE CPU POR HOTEL
-        var datosCPU = @json($datosCPU);
-        var datosLap = @json($datosLap);
-
-        var hoteles2 = datosCPU.map(item => item.hotel);
-        var hotelesLap = datosLap.map(item => item.hotel);
-
-        var cantidadCPU = datosCPU.filter(item => item.tipo_equipo === 'CPU').map(function(cantidadCPU) {
-            return cantidadCPU.cantidad_equipos;
-        });
-
-        var cantidadLap = datosLap.filter(item => item.tipo_equipo === 'LAPTOP').map(function(cantidadLap) {
-            return cantidadLap.cantidad_equipos;
-        });
-
-        // Define un array de colores personalizados para las barras
-        var customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f',
-            '#dad3ae', '#ece9d5'
-        ];
-
-        // Datos y etiquetas para cada gráfico
-        const datosYEtiquetas = [{
-                datos: dataEPH,
-                etiquetas: labelsEPH,
-            },
-            {
-                datos: dataEPD,
-                etiquetas: labelsEPD,
-            },
-            {
-                datos: dataEPT,
-                etiquetas: labelsEPT,
-            },
-            {
-                datos: equiposLaptop,
-                etiquetas: hoteles,
-            },
-            {
-                datos: cantidadCPU,
-                etiquetas: hoteles2,
-            }
-        ];
-
-        // Configuración común para los gráficos
-        const configuracionComun = {
-            type: 'bar',
-            data: {
-                labels: [],
-                datasets: [{
-                    label: [],
-                    backgroundColor: customColors,
-                    borderColor: customColors,
-                    borderWidth: 1,
-                    data: []
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
+        // Función común para crear gráficos
+function crearGrafico(canvasId, datos, etiquetas, titulo) {
+    const ctx = document.getElementById(canvasId).getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: etiquetas,
+            datasets: [{
+                label: titulo,
+                backgroundColor: customColors,
+                borderColor: customColors,
+                borderWidth: 1,
+                data: datos
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
                 }
             }
-        };
-
-        // Crear los gráficos y ocultarlos
-        datosYEtiquetas.forEach((item, index) => {
-            const canvas = document.getElementById(`grafico${index + 1}`);
-            canvas.style.display = 'none';
-
-            const encabezado = document.getElementById(`encabezadoGrafico${index + 1}`);
-            encabezado.style.display = 'none';
-
-            const configuracionGrafico = {
-                ...configuracionComun,
-                data: {
-                    ...configuracionComun.data,
-                    labels: item.etiquetas,
-                    datasets: [{
-                        ...configuracionComun.data.datasets[0],
-                        data: item.datos
-                    }]
-                }
-            };
-            new Chart(canvas.getContext('2d'), configuracionGrafico);
-        });
-
-        // Función para mostrar la gráfica seleccionada
-        function mostrarGrafica() {
-            // Oculta todas las gráficas
-            datosYEtiquetas.forEach((_, index) => {
-                const canvas = document.getElementById(`grafico${index + 1}`);
-                canvas.style.display = 'none';
-
-                const encabezado = document.getElementById(`encabezadoGrafico${index + 1}`);
-                encabezado.style.display = 'none';
-            });
-
-            // Muestra la gráfica seleccionada
-            const seleccion = document.getElementById('seleccionGrafica').value;
-            const seleccionCanvas = document.getElementById(seleccion);
-            seleccionCanvas.style.display = 'block';
-
-            const seleccionEncabezado = document.getElementById(`encabezado${seleccion.charAt(seleccion.length - 1)}`);
-            seleccionEncabezado.style.display = 'block';
         }
+    });
+}
+
+// Colores personalizados
+const customColors = ['#2f2119', '#54402f', '#604933', '#715737', '#8d7141', '#a48c4e', '#b5a160', '#c5b87f', '#dad3ae', '#ece9d5'];
+
+// Crear todas las gráficas
+document.addEventListener('DOMContentLoaded', function() {
+    // Gráfico 1: Empleados por Hotel
+    const empleadosPorHotel = @json($empleadosPorHotel);
+    const labelsEPH = empleadosPorHotel.map(data => data.hotel);
+    const dataEPH = empleadosPorHotel.map(data => data.cantidad_empleados);
+    crearGrafico('grafico1', dataEPH, labelsEPH, 'Empleados por Hotel');
+
+    // Gráfico 2: Empleados por Departamento
+    const empleadosPorDepartamento = @json($empleadosPorDepartamento);
+    const labelsEPD = empleadosPorDepartamento.map(data => data.departamento);
+    const dataEPD = empleadosPorDepartamento.map(data => data.cantidad_empleados);
+    crearGrafico('grafico2', dataEPD, labelsEPD, 'Empleados por Departamento');
+
+    // Gráfico 3: Equipos por Tipo
+    const equiposPorTipo = @json($equiposPorTipo);
+    const labelsEPT = equiposPorTipo.map(data => data.tipo);
+    const dataEPT = equiposPorTipo.map(data => data.cantidad_equipos);
+    crearGrafico('grafico3', dataEPT, labelsEPT, 'Equipos por Tipo');
+
+    // Gráfico 4: Total de Laptops por Hotel
+    const datosLap = @json($datosLap);
+    const hotelesLap = datosLap.map(item => item.hotel);
+    const equiposLaptop = datosLap.filter(item => item.tipo_equipo === 'LAPTOP').map(item => item.cantidad_equipos);
+    crearGrafico('grafico4', equiposLaptop, hotelesLap, 'Total de Laptops por Hotel');
+
+    // Gráfico 5: Total de CPUs por Hotel
+    const datosCPU = @json($datosCPU);
+    const hotelesCPU = datosCPU.map(item => item.hotel);
+    const cantidadCPU = datosCPU.filter(item => item.tipo_equipo === 'CPU').map(item => item.cantidad_equipos);
+    crearGrafico('grafico5', cantidadCPU, hotelesCPU, 'Total de CPUs por Hotel');
+});
     </script>
 </x-app-layout>

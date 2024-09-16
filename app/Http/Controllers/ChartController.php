@@ -11,8 +11,8 @@ class ChartController extends Controller
     {
         $empleadosPorHotel = DB::table('empleados')
             ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
-            ->select('hotels.nombre as hotel', DB::raw('count(*) as cantidad_empleados'))
-            ->groupBy('hotels.nombre')
+            ->select('hotels.name as hotel', DB::raw('count(*) as cantidad_empleados'))
+            ->groupBy('hotels.name')
             ->get();
 
         $empleadosPorDepartamento = DB::table('empleados')
@@ -28,23 +28,23 @@ class ChartController extends Controller
             ->get();
 
         $datosLap = DB::table('hotels')
-            ->select('hotels.nombre as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
+            ->select('hotels.name as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
             ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
             ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
             ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
             ->whereIn('tipos.name', ['laptop'])
-            ->groupBy('hotels.nombre', 'hotels.id', 'tipo_equipo')
+            ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
             ->get();
 
         $datosCPU = DB::table('hotels')
-            ->select('hotels.nombre as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
+            ->select('hotels.name as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
             ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
             ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
             ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
             ->whereIn('tipos.name', ['CPU'])
-            ->groupBy('hotels.nombre', 'hotels.id', 'tipo_equipo')
+            ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
             ->get();
 
         return view('charts.index', compact('datosLap', 'datosCPU', 'empleadosPorHotel', 'empleadosPorDepartamento', 'equiposPorTipo'));

@@ -118,7 +118,27 @@ Route::middleware('auth')->group(function () {
             ->groupBy('hotels.name')
             ->get();
 
-        return view('home', compact('hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
+        $datosLap = DB::table('hotels')
+            ->select('hotels.name as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
+            ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
+            ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
+            ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
+            ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
+            ->whereIn('tipos.name', ['laptop'])
+            ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
+            ->get();
+
+        $datosCPU = DB::table('hotels')
+            ->select('hotels.name as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
+            ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
+            ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
+            ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
+            ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
+            ->whereIn('tipos.name', ['DESKTOP'])
+            ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
+            ->get();
+
+        return view('home', compact('datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
     })->name('home');
 
     Route::get('/exportar-grafica', function () {
