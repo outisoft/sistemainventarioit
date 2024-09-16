@@ -27,7 +27,7 @@ class HotelController extends Controller
     public function getDepartments($hotel_id)
     {
         $hotel = Hotel::findOrFail($hotel_id);
-        $departments = $hotel->departments;
+        $departments = $hotel->departments->sortBy('name')->values();
         return response()->json($departments);
     }
 
