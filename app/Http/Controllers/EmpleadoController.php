@@ -204,7 +204,7 @@ class EmpleadoController extends Controller
 
         Historial::create([
             'accion' => 'Asignacion',
-            'descripcion' => "Se asigno al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name} N/S: {$equipo->tipo->serial}",
+            'descripcion' => "Se asigno al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name} N/S: {$equipo->serial}",
             'user_id' => $user,
         ]);
 
