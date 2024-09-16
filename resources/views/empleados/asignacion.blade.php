@@ -20,6 +20,16 @@
 
                                 <form method="POST" action="{{ route('asignacion.asignar') }}" id="colaboradorForm">
                                     @csrf
+                                    
+                                    <style>
+                                        .form-row {
+                                            display: flex;
+                                            gap: 10px; /* Espacio entre los inputs */
+                                        }
+                                        .form-group {
+                                            flex: 1; /* Ajusta el tamaño de los inputs */
+                                        }
+                                    </style>
                                     <div class="mb-3">
                                         @if ($empleados->isEmpty())
                                             <label class="form-label" for="empleado">No se encontro empleados disponibles.</label> <a href="{{ route('empleados.index') }}">Agregar empleados -></a>
@@ -36,15 +46,6 @@
                                                     @endforeach
                                                 </select>
                                             </div-->
-                                            <style>
-                                                .form-row {
-                                                    display: flex;
-                                                    gap: 10px; /* Espacio entre los inputs */
-                                                }
-                                                .form-group {
-                                                    flex: 1; /* Ajusta el tamaño de los inputs */
-                                                }
-                                            </style>
                                                 <div class="form-row">
                                                     <div class="form-group" style="display: none;">
                                                         <label for="no_empleado">id</label>
@@ -67,7 +68,25 @@
                                                         <input type="text" id="puesto" name="puesto" class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                                <div class="form-row">
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
+                                        @if ($equiposSinAsignar->isEmpty())
+                                            <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.index') }}">Agregar equipos -></a>
+                                        @else
+                                            <!--label class="form-label" for="equipo">Selecciona un Equipo:</label>
+                                            <div class="input-group input-group-merge">
+                                                <select name="equipo_id" class="form-control">
+                                                <option> Sin seleccionar </option>
+                                                @foreach ($equiposSinAsignar as $equipo)
+                                                    <option value="{{ $equipo->id }}">{{ $equipo->tipo->name }} - {{ $equipo->name }} - {{ $equipo->serial }} - {{ $equipo->ip }} </option>
+                                                   
+                                                @endforeach
+                                                </select>
+                                            </div-->
+                                            
+                                            <div class="form-row">
                                                     <div class="form-group" style="display: none;">
                                                         <label for="equipo_id">id</label>
                                                         <input type="text" id="equipo_id" class="form-control" name="equipo_id">
@@ -89,23 +108,6 @@
                                                         <input type="text" id="model" name="model" class="form-control" disabled>
                                                     </div>
                                                 </div>
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group">
-                                        @if ($equiposSinAsignar->isEmpty())
-                                            <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.index') }}">Agregar equipos -></a>
-                                        @else
-                                            <!--label class="form-label" for="equipo">Selecciona un Equipo:</label>
-                                            <div class="input-group input-group-merge">
-                                                <select name="equipo_id" class="form-control">
-                                                <option> Sin seleccionar </option>
-                                                @foreach ($equiposSinAsignar as $equipo)
-                                                    <option value="{{ $equipo->id }}">{{ $equipo->tipo->name }} - {{ $equipo->name }} - {{ $equipo->serial }} - {{ $equipo->ip }} </option>
-                                                   
-                                                @endforeach
-                                                </select>
-                                            </div-->
                                         @endif
                                     </div>
                                     <br>

@@ -21,7 +21,7 @@
                             </span>
 
                             <x-text-input id="no_empleado" class="form-control" type="number"
-                                name="no_empleado" placeholder="0038628" :value="old('no_empleado')" required
+                                name="no_empleado" placeholder="03001234" :value="old('no_empleado')" required
                                 autocomplete="no_empleado" />
                         </div>
                         <x-input-error :messages="$errors->get('no_empleado')" class="mt-2" />
