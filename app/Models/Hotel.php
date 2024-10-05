@@ -15,8 +15,12 @@ class Hotel extends Model
     {
         return $this->hasMany(Empleado::class, 'hotel_id');
     }
+    
+    public function switches()
+    {
+        return $this->hasMany(Swittch::class);
+    }
 
-    //new
     public function departments()
     {
         return $this->belongsToMany(Departamento::class);

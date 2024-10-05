@@ -1,7 +1,7 @@
 <x-app-layout>              
     <!-- seo end -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"> Hola, {{ Auth::user()->name }} - {{ now()->format('d/m/Y') }}
+        <h4 class="fw-bold py-3 mb-4"> HOLA, {{ Auth::user()->name }} - {{ now()->format('d/m/Y') }}
         </h4>
         <h6>
             <p id="hora_actual">{{ $hora_actual }}</p>

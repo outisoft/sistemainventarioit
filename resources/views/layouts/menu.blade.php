@@ -156,6 +156,28 @@
             </li>
         @endcan
 
+        <!-- Switchs y AP's -->
+        <li class="menu-item {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('access-points.index') ? 'active' : '' }} ">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-broadcast'></i>
+                <div data-i18n="Layouts">Switchs & AP's</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::routeIs('switches.index') ? 'active' : '' }}">
+                    <a href="{{ route('switches.index') }}" class="menu-link">
+                        <div data-i18n="Analytics">Switchs</div>
+                    </a>
+                </li>
+
+                <li class="menu-item {{ Request::routeIs('access-points.index') ? 'active' : '' }}">
+                    <a href="{{ route('access-points.index') }}" class="menu-link">
+                        <div data-i18n="Analytics">AP's</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <!-- Users -->
         @can('users.index')
             <!-- Administrador -->

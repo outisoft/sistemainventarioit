@@ -20,6 +20,8 @@ use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ComplementController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\TabController;
+use App\Http\Controllers\SwitchController;
+use App\Http\Controllers\AccessPointController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -105,7 +107,11 @@ Route::middleware('auth')->group(function () {
         $totalEquipos = Equipo::count();
         $totalUsuarios = User::count();
         $totalTpvs = Tpv::count();
-        $totalTablets = Tablet::count();
+
+        $totalTablets = Equipo::whereHas('tipo', function ($query) {
+            $query->where('name', 'TABLET');
+        })->with('policy')->count();
+
         $hora_actual = Carbon::now()->format('H:i:s A');
 
         $tpvPorDepartamento = Tpv::select('hotel_id', DB::raw('COUNT(*) as total_tpvs'))
@@ -163,10 +169,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('desktops', DesktopController::class); //Rutas PC
     Route::resource('hotels', HotelController::class); //Rutas hoteles
     Route::resource('departments', DepartamentoController::class); //Rutas departamentos
-    Route::resource('printers', PrinterController::class);
-    Route::resource('complements', ComplementController::class);
-    Route::resource('laptops', LaptopController::class);
-    Route::resource('tabs', TabController::class);
+    Route::resource('printers', PrinterController::class);//Rutas printers
+    Route::resource('complements', ComplementController::class);//Rutas complements
+    Route::resource('laptops', LaptopController::class);//Rutas laptops
+    Route::resource('tabs', TabController::class);//Rutas tabs
+    Route::resource('access-points', AccessPointController::class);//Rutas access points
+    Route::resource('switches', SwitchController::class);//Rutas switches
+    Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
 
     Route::get('/empleado/{no_empleado}', [EmpleadoController::class, 'getEmpleado']);
     Route::get('/equipos/{serial}', [EquipoController::class, 'getEquipo']);
