@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="container">
         <h2>
-            <img src="{{ asset('images/gp-Logo.png')}}" alt="Iniciar Sesión" width="90"> Inventario
+            <img src="{{ asset('images/logo_gp.png')}}" alt="Iniciar Sesión" width="200">
         </h2>
         <form method="POST" action="{{ route('login') }}">
             @csrf
