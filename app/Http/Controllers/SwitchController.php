@@ -10,6 +10,14 @@ use Illuminate\Validation\Rule;
 
 class SwitchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:switches.index')->only('index');
+        $this->middleware('can:switches.create')->only('create', 'store');
+        $this->middleware('can:switches.edit')->only('edit', 'update');
+        $this->middleware('can:switches.show')->only('show');
+        $this->middleware('can:switches.destroy')->only('destroy');
+    }
     public function index()
     {
         $switches = Swittch::with('hotel', 'accessPoints')->get();

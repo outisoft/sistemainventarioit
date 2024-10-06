@@ -10,6 +10,15 @@ use Illuminate\Validation\Rule;
 
 class AccessPointController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:access_points.index')->only('index');
+        $this->middleware('can:access_points.create')->only('create', 'store');
+        $this->middleware('can:access_points.edit')->only('edit', 'update');
+        $this->middleware('can:access_points.show')->only('show');
+        $this->middleware('can:access_points.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $accessPoints = AccessPoint::with('swittch')->orderBy('name', 'asc')->get();

@@ -20,6 +20,7 @@ use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ComplementController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\TabController;
+use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SwitchController;
 use App\Http\Controllers\AccessPointController;
 use Carbon\Carbon;
@@ -173,6 +174,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('complements', ComplementController::class);//Rutas complements
     Route::resource('laptops', LaptopController::class);//Rutas laptops
     Route::resource('tabs', TabController::class);//Rutas tabs
+    Route::resource('phones', PhoneController::class);//Rutas phones
     Route::resource('access-points', AccessPointController::class);//Rutas access points
     Route::resource('switches', SwitchController::class);//Rutas switches
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap

@@ -12,7 +12,7 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
 
-                            @can('tabs.create')
+                            @can('access_points.create')
                                 <a href="#" class="btn-ico" data-toggle="modal" data-target="#createModal"
                                     data-placement="top" title="Agregar Nuevo Registro">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
@@ -50,15 +50,19 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $ap->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
-                                            
-                                                <form action="{{ route('access-points.destroy', $ap->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="dropdown-item btn-danger"
-                                                        onclick="return confirm('¿Estás seguro de eliminar este AP?')"><i
-                                                            class="bx bx-trash me-1"></i>Eliminar</button>
-                                                </form>
+                                                @can('access_points.edit')
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $ap->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                @endcan
+
+                                                @can('access_points.destroy')
+                                                    <form action="{{ route('access-points.destroy', $ap->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item btn-danger"
+                                                            onclick="return confirm('¿Estás seguro de eliminar este AP?')"><i
+                                                                class="bx bx-trash me-1"></i>Eliminar</button>
+                                                    </form>
+                                                @endcan
                                             </div>
                                         </div>
                                     </td>

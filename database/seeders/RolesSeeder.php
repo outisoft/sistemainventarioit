@@ -100,5 +100,20 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'departments.edit', 'description' => 'Editar departamentos'])->syncRoles($adminRole);
         Permission::create(['name' => 'departments.destroy', 'description' => 'Eliminar departamentos'])->syncRoles($adminRole);
 
+        Permission::create(['name' => 'switches.index', 'description' => 'Ver listado de switches'])->syncRoles($adminRole);
+        Permission::create(['name' => 'switches.create', 'description' => 'Registrar switches'])->syncRoles($adminRole);
+        Permission::create(['name' => 'switches.edit', 'description' => 'Editar switches'])->syncRoles($adminRole);
+        Permission::create(['name' => 'switches.destroy', 'description' => 'Eliminar switches'])->syncRoles($adminRole);
+
+        Permission::create(['name' => 'access_points.index', 'description' => 'Ver listado de Access Points'])->syncRoles($adminRole);
+        Permission::create(['name' => 'access_points.create', 'description' => 'Registrar Access Points'])->syncRoles($adminRole);
+        Permission::create(['name' => 'access_points.edit', 'description' => 'Editar Access Points'])->syncRoles($adminRole);
+        Permission::create(['name' => 'access_points.destroy', 'description' => 'Eliminar Access Points'])->syncRoles($adminRole);
+
+        Permission::create(['name' => 'phones.index', 'description' => 'Ver listado de Telefonos'])->syncRoles($adminRole);
+        Permission::create(['name' => 'phones.create', 'description' => 'Registrar Telefonos'])->syncRoles($adminRole);
+        Permission::create(['name' => 'phones.edit', 'description' => 'Editar Telefonos'])->syncRoles($adminRole);
+        Permission::create(['name' => 'phones.destroy', 'description' => 'Eliminar Telefonos'])->syncRoles($adminRole);
+
     }
 }
