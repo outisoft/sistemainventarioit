@@ -15,11 +15,11 @@
     }
 </style>
 
+<!--new DataTable('#equios');-->
 <script>
-    //new DataTable('#empleados, equios');
     $('#tabla').DataTable({
-        "pageLength": 10,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 50,
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
@@ -52,7 +52,7 @@
 <!--new DataTable('#complements');-->
 <script>
     $('#complements').DataTable({
-        "pageLength": 10,
+        "pageLength": 50,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
         language: {
             search: '_INPUT_',
@@ -355,8 +355,8 @@
     });
 </script>
 
+<!--new DataTable('#asignacion');-->
 <script>
-    //new DataTable('#asignacion');
     $('#asignacion').DataTable({
         "pageLength": 50,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
@@ -389,8 +389,8 @@
     });
 </script>
 
+<!--new DataTable('#tabletas');-->
 <script>
-    //new DataTable('#tabletas');
     $('#tabletas').DataTable({
         "pageLength": 50,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
@@ -423,8 +423,8 @@
     });
 </script>
 
+<!--new DataTable('#tpvs');-->
 <script>
-    //new DataTable('#tpvs');
     $('#tpvs').DataTable({
         "pageLength": 50,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
