@@ -27,6 +27,7 @@
         "php-flasher/flasher-toastr-laravel": "^1.15",
         "psr/simple-cache": "^2.0",
         "simplesoftwareio/simple-qrcode": "^4.2",
+        "spatie/laravel-backup": "^9.1",
         "spatie/laravel-permission": "^5.11",
         "yajra/laravel-datatables": "^10.0",
         "yajra/laravel-datatables-oracle": "*"
