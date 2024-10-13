@@ -18,7 +18,7 @@
                         <div class="card-datatable table-responsive pt-0">
                             <div class="container">
 
-                                <form method="POST" action="{{ route('asignacion.asignar') }}" id="colaboradorForm">
+                                <form method="POST" action="{{ route('asignar') }}" id="colaboradorForm">
                                     @csrf
                                     
                                     <style>
@@ -156,7 +156,7 @@
                                                 <div class="assigned-items">
                                                     @foreach ($empleado->equipos as $equipo)
                                                         <span class="assigned-item">{{ $equipo->tipo->name }}
-                                                        <a data-placement="top" title="Desvincular equipo" href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}">X</a>
+                                                        <a data-placement="top" title="Desvincular equipo" href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}">X</a>
                                                         </span>
                                                     @endforeach
                                                 </div>
@@ -167,12 +167,14 @@
                                             <!--td>                                           
                                                 @foreach ($empleado->equipos as $equipo)
                                                     {{ $equipo->tipo->name }}
-                                                    <a href="{{ route('asignacion.desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
+                                                    <a href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
                                                         class="btn btn-danger btn-sm">X</a>
                                                 @endforeach
+
+                                                action="{{ route('empleados.destroy', $empleado->id) }}"
                                             </td-->
                                             <td>
-                                                <a href="{{ route('empleados.detalles', ['id' => $empleado->id]) }}"
+                                                <a href="{{ route('assignment.show', $empleado->id) }}"
                                                     class="btn-ico" data-placement="top" title="Mostrar detalles">
                                                     <i class='bx bx-detail me-1'></i>Ver
                                                 </a>

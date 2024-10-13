@@ -23,6 +23,7 @@ use App\Http\Controllers\TabController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SwitchController;
 use App\Http\Controllers\AccessPointController;
+use App\Http\Controllers\AssignmentController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -177,15 +178,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('phones', PhoneController::class);//Rutas phones
     Route::resource('access-points', AccessPointController::class);//Rutas access points
     Route::resource('switches', SwitchController::class);//Rutas switches
+    Route::resource('assignment', AssignmentController::class);//Rutas asignacion
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
 
     Route::get('/empleado/{no_empleado}', [EmpleadoController::class, 'getEmpleado']);
     Route::get('/equipos/{serial}', [EquipoController::class, 'getEquipo']);
 
 
-    Route::get('/employee/{id}/qrcode', [EmpleadoController::class, 'generateQRCode'])->name('employee.qrcode');
-    Route::get('/employee/{id}/qrcode/download', [EmpleadoController::class, 'downloadQRCode'])->name('employee.qrcode.download');
-    Route::get('/employee/{id}/details', [EmpleadoController::class, 'employeeDetails'])->name('employee.details');
+    Route::get('/qrcode/{id}', [AssignmentController::class, 'generateQRCode'])->name('generateQRCode');
+    Route::get('/qrcode/{id}/download', [AssignmentController::class, 'downloadQRCode'])->name('downloadQRCode');
+    Route::get('/qrcode/{id}/details', [AssignmentController::class, 'employeeDetails'])->name('employeeDetails');
 
     Route::get('empleados/{id}/equipos', [EmpleadoController::class, 'equipos'])->name('empleados.equipos');
 
@@ -216,15 +218,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/empleados/buscar', [EmpleadoController::class, 'buscar'])->name('empleados.buscar'); //buscador de usuarios
     Route::post('/tpvs/search', [TpvController::class, 'search'])->name('tpvs.search');
 
-    //asignacion de equipo a empleado
-    Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
-    Route::post('/asignacion/asignar', [EmpleadoController::class, 'asignar'])->name('asignacion.asignar');
-    Route::get('/asignacion/desvincular/{empleado_id}/{equipo_id}', [EmpleadoController::class, 'desvincular'])->name('asignacion.desvincular');
-    Route::get('/detalles/{id}', [EmpleadoController::class, 'detalles'])->name('empleados.detalles');
+    //Rutas asignacion   Route::resource('assignment', AssignmentController::class);
+    //asignacion de equipo a empleado 
+    //Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
+    Route::post('/asignar', [AssignmentController::class, 'asignar'])->name('asignar');
+    Route::get('/desvincular/{empleado_id}/{equipo_id}', [AssignmentController::class, 'desvincular'])->name('desvincular');
+    Route::get('/save-pdf/{id}', [AssignmentController::class, 'save_pdf'])->name('save-pdf');
+    //Route::get('/detalles/{id}', [AssignmentController::class, 'detalles'])->name('detalles');
 
     //Generacion de hojas de resguardo
     Route::get('/tablet/save-pdf/{id}', [TabletController::class, 'save_pdf'])->name('tablet.save-pdf');
-    Route::get('/empleado/save-pdf/{id}', [EmpleadoController::class, 'save_pdf'])->name('empleado.save-pdf');
+    //Route::get('/empleado/save-pdf/{id}', [EmpleadoController::class, 'save_pdf'])->name('empleado.save-pdf');
 
     //CHARTS
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');

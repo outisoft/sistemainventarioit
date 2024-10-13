@@ -176,7 +176,7 @@ class EmpleadoController extends Controller
         return redirect()->route('empleados.index');
     }
 
-    public function agregar()
+    /*public function agregar()
     {
         $empleados = Empleado::with('hotel', 'departamento')->orderBy('name', 'asc')->get();
         $equipos = Equipo::with('tipo')->get();
@@ -185,9 +185,9 @@ class EmpleadoController extends Controller
         $equiposSinAsignar = Equipo::whereDoesntHave('empleados')->get();
 
         return view('empleados.asignacion', compact('empleados', 'equipos', 'empleadosConEquipos', 'equiposSinAsignar'));
-    }
+    }*/
 
-    public function asignar(Request $request)
+    /*public function asignar(Request $request)
     {
         $request->validate([
             'empleado_id' => 'required|exists:empleados,id',
@@ -214,9 +214,9 @@ class EmpleadoController extends Controller
 
 
         return redirect()->route('asignacion.index');
-    }
+    }*/
 
-    public function desvincular($empleado_id, $equipo_id)
+    /*public function desvincular($empleado_id, $equipo_id)
     {
         $empleado = Empleado::find($empleado_id);
         $empleado->equipos()->detach($equipo_id);
@@ -236,7 +236,7 @@ class EmpleadoController extends Controller
 
 
         return redirect()->route('asignacion.index');
-    }
+    }*/
 
     public function asignarRol($usuarioId, $rol)
     {
@@ -261,15 +261,15 @@ class EmpleadoController extends Controller
         }
     }
 
-    public function detalles($id)
+    /*public function detalles($id)
     {
         $empleado = Empleado::find($id); // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
         $hotel = Hotel::find($empleado->hotel_id); // Obtiene el hotel asociado al empleado
         $departamento = Departamento::find($empleado->departamento_id);
         return view('empleados.detalles', compact('empleado', 'hotel', 'departamento'));
-    }
+    }*/
 
-    public function save_pdf($id){
+    /*public function save_pdf($id){
 
         // Obtener la fecha actual
         $today = Carbon::now();
@@ -281,7 +281,7 @@ class EmpleadoController extends Controller
 
         $pdf = FacadePdf::loadView('empleados.save-pdf', compact('empleado', 'date'));
         return $pdf->stream();
-    }
+    }*/
 
     public function equipos($id)
     {
