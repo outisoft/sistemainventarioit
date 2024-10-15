@@ -34,78 +34,120 @@
                                         @if ($empleados->isEmpty())
                                             <label class="form-label" for="empleado">No se encontro empleados disponibles.</label> <a href="{{ route('empleados.index') }}">Agregar empleados -></a>
                                         @else
-                                            <!--label class="form-label" for="empleado">Selecciona un Empleado:</label>
-                                            <div class="input-group input-group-merge">
-                                                <select id="empleado_id" name="empleado_id" class="form-control"
-                                                    aria-label="Default select example">
-                                                    @foreach ($empleados as $empleado)
-                                                        <option value="{{ $empleado->id }}">{{ $empleado->no_empleado }} - {{ $empleado->name }} -
-                                                            {{ $empleado->hotel->name }} -
-                                                            {{ $empleado->departamento->name }} - {{ $empleado->puesto }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div-->
-                                                <div class="form-row">
-                                                    <div class="form-group" style="display: none;">
-                                                        <label for="no_empleado">id</label>
-                                                        <input type="text" id="empleado_id" class="form-control" name="empleado_id">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="no_empleado">No. Empleado</label>
-                                                        <input type="text" id="no_empleado" class="form-control" name="no_empleado">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="input2">Name</label>
-                                                        <input type="text" id="name" name="name" class="form-control" disabled>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="input1">Email</label>
-                                                        <input type="text" id="email" name="email" class="form-control" disabled>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="puesto">Puesto</label>
-                                                        <input type="text" id="puesto" name="puesto" class="form-control" disabled>
+                                            <!-- Buscador de Colaborador -->
+                                            <div class="form-group">
+                                                <label class="form-label" for="search_employee">Buscar Empleado</label>
+                                                <div class="input-group input-group-merge">
+
+                                                    <x-text-input id="search_employee" class="form-control" type="text" placeholder="Buscar por No. Colaborador, AD o email"
+                                                        name="search_employee" />
+                                                </div>
+                                            </div>
+                                            <div class="form-row">
+                                                <div class="form-group" style="display: none;">
+                                                    <label for="id_empleado">id</label>
+                                                    <input type="text" id="empleado_id" class="form-control" name="empleado_id">
+                                                </div>
+                                                
+                                                <!-- Numero de Colaborador -->
+                                                <div class="form-group">
+                                                    <label class="form-label" for="basic-icon-default-fullname">Numero de Colaborador</label>
+                                                    <div class="input-group input-group-merge">
+
+                                                        <x-text-input id="no_empleado" class="form-control" type="number"
+                                                            name="no_empleado" disabled />
                                                     </div>
                                                 </div>
+
+                                                <!-- Nombre de Colaborador -->
+                                                <div class="form-group">
+                                                    <label class="form-label" for="basic-icon-default-fullname">Nombre de Colaborador</label>
+                                                    <div class="input-group input-group-merge">
+
+                                                        <x-text-input id="name" class="form-control" type="text"
+                                                            name="name" disabled />
+                                                    </div>
+                                                </div>
+                                                <!-- Email de Colaborador -->
+                                                <div class="form-group">
+                                                    <label class="form-label" for="basic-icon-default-fullname">Email</label>
+                                                    <div class="input-group input-group-merge">
+
+                                                        <x-text-input id="email" class="form-control" type="email"
+                                                            name="email" disabled />
+                                                    </div>
+                                                </div>
+                                                <!-- AD de Colaborador -->
+                                                <div class="form-group">
+                                                    <label class="form-label" for="basic-icon-default-fullname">AD</label>
+                                                    <div class="input-group input-group-merge">
+
+                                                        <x-text-input id="ad" class="form-control" type="text"
+                                                            name="ad" disabled />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         @endif
                                     </div>
-
+                                    <hr class="my-0">
                                     <div class="form-group">
                                         @if ($equiposSinAsignar->isEmpty())
                                             <label class="form-label" for="empleado">No se encontro equipos disponibles.</label> <a href="{{ route('equipo.index') }}">Agregar equipos -></a>
-                                        @else
-                                            <!--label class="form-label" for="equipo">Selecciona un Equipo:</label>
-                                            <div class="input-group input-group-merge">
-                                                <select name="equipo_id" class="form-control">
-                                                <option> Sin seleccionar </option>
-                                                @foreach ($equiposSinAsignar as $equipo)
-                                                    <option value="{{ $equipo->id }}">{{ $equipo->tipo->name }} - {{ $equipo->name }} - {{ $equipo->serial }} - {{ $equipo->ip }} </option>
-                                                   
-                                                @endforeach
-                                                </select>
-                                            </div-->
+                                        @else        
+                                            <!-- Buscador de equipo -->
+                                            <div class="form-group">
+                                                <label class="form-label" for="search_equipment">Buscar equipo</label>
+                                                <div class="input-group input-group-merge">
+
+                                                    <x-text-input id="search_equipment" class="form-control" type="text" placeholder="Buscar por Numero de serie o nombre de equipo" 
+                                                        name="search_equipment" />
+                                                </div>
+                                            </div>
                                             
                                             <div class="form-row">
                                                     <div class="form-group" style="display: none;">
                                                         <label for="equipo_id">id</label>
                                                         <input type="text" id="equipo_id" class="form-control" name="equipo_id">
                                                     </div>
+
+                                                    <!-- Numero de serie de equipo -->
                                                     <div class="form-group">
-                                                        <label for="serial">No. Serie</label>
-                                                        <input type="text" id="serial" class="form-control" name="serial" >
+                                                        <label class="form-label" for="serial">Numero de serie</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="serial" class="form-control" type="text" disabled
+                                                                name="serial" />
+                                                        </div>
                                                     </div>
+
+                                                    <!-- Nombre del equipo -->
                                                     <div class="form-group">
-                                                        <label for="nameE">Name</label>
-                                                        <input type="text" id="nameE" name="nameE" class="form-control" disabled>
+                                                        <label class="form-label" for="nameE">Nombre del equipo</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="nameE" class="form-control" type="text" disabled
+                                                                name="nameE" />
+                                                        </div>
                                                     </div>
+
+                                                    <!-- Marca del equipo -->
                                                     <div class="form-group">
-                                                        <label for="marca">Marca</label>
-                                                        <input type="text" id="marca" name="marca" class="form-control" disabled>
+                                                        <label class="form-label" for="marca">Marca</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="marca" class="form-control" type="text" disabled
+                                                                name="marca" />
+                                                        </div>
                                                     </div>
+
+                                                    <!-- Modelo del equipo -->
                                                     <div class="form-group">
-                                                        <label for="model">Modelo</label>
-                                                        <input type="text" id="model" name="model" class="form-control" disabled>
+                                                        <label class="form-label" for="model">Modelo</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="model" class="form-control" type="text" disabled
+                                                                name="model" />
+                                                        </div>
                                                     </div>
                                                 </div>
                                         @endif
@@ -131,7 +173,7 @@
                             <table id="asignacion" class="table table-striped footer">
                                 <thead class="bg-primary">
                                     <tr>
-                                        <th>Nombre</th>
+                                        <th>Empleado</th>
                                         <th>Ubicacion</th>
                                         <th>Equipo(s)</th>
                                         <th>Detalles</th>
@@ -145,7 +187,7 @@
                                             <td>
                                                 <div style="display: flex; align-items: center;">
                                                     <img src="{{ asset('uploads/gp-Logo.png') }}" alt="user-avatar" class="employee-image"/>
-                                                    <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($empleado->name, 20, '...'); }}</span>
+                                                    <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($empleado->name, 20, '...'); }} ({{$empleado->no_empleado}})</span>
                                                 </div>
                                             </td>
 
@@ -197,7 +239,7 @@
 </x-app-layout>
 
 <script>
-    document.getElementById('serial').addEventListener('input', function() {
+    document.getElementById('search_equipment').addEventListener('input', function() {
         let numeroSerie = this.value;
 
         if (numeroSerie.length > 0) {
@@ -208,6 +250,7 @@
                         alert(data.error);
                     } else {
                         document.getElementById('equipo_id').value = data.id;
+                        document.getElementById('serial').value = data.serial;
                         document.getElementById('nameE').value = data.name;
                         document.getElementById('marca').value = data.marca;
                         document.getElementById('model').value = data.model;
@@ -220,7 +263,7 @@
 </script>
 
 <script>
-    document.getElementById('no_empleado').addEventListener('input', function() {
+    document.getElementById('search_employee').addEventListener('input', function() {
         let numeroColaborador = this.value;
 
         if (numeroColaborador.length > 0) {
@@ -231,9 +274,10 @@
                         alert(data.error);
                     } else {
                         document.getElementById('empleado_id').value = data.id;
+                        document.getElementById('no_empleado').value = data.no_empleado;
                         document.getElementById('name').value = data.name;
                         document.getElementById('email').value = data.email;
-                        document.getElementById('puesto').value = data.puesto;
+                        document.getElementById('ad').value = data.ad;
                         // Rellena otros campos según los datos obtenidos
                     }
                 })
