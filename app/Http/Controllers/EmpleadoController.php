@@ -101,7 +101,10 @@ class EmpleadoController extends Controller
     // Método para mostrar un registro específico
     public function getEmpleado($no_empleado)
     {
-        $empleado = Empleado::where('no_empleado', $no_empleado)->first();
+        $empleado = Empleado::where('no_empleado', $no_empleado)
+            ->orWhere('ad', $no_empleado)
+            ->orWhere('email', $no_empleado)
+            ->first();
 
         return response()->json($empleado);
     }
@@ -176,68 +179,6 @@ class EmpleadoController extends Controller
         return redirect()->route('empleados.index');
     }
 
-    /*public function agregar()
-    {
-        $empleados = Empleado::with('hotel', 'departamento')->orderBy('name', 'asc')->get();
-        $equipos = Equipo::with('tipo')->get();
-        //$equipos = DB::table('equipos')->get();
-        $empleadosConEquipos = Empleado::whereHas('empleados_equipos')->get();
-        $equiposSinAsignar = Equipo::whereDoesntHave('empleados')->get();
-
-        return view('empleados.asignacion', compact('empleados', 'equipos', 'empleadosConEquipos', 'equiposSinAsignar'));
-    }*/
-
-    /*public function asignar(Request $request)
-    {
-        $request->validate([
-            'empleado_id' => 'required|exists:empleados,id',
-            'equipo_id' => 'required|exists:equipos,id',
-        ]);
-
-        $empleado = Empleado::find($request->input('empleado_id'));
-        $empleado->equipos()->attach($request->input('equipo_id'));
-
-        $equipo = Equipo::where('id', $request->equipo_id)->with('tipo')->first();
-        //dd($equipo->tipo->name);
-
-        $user = auth()->id();
-
-        Historial::create([
-            'accion' => 'Asignacion',
-            'descripcion' => "Se asigno al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name} N/S: {$equipo->serial}",
-            'user_id' => $user,
-        ]);
-
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Empleado {$empleado->name} asignado.");
-
-
-        return redirect()->route('asignacion.index');
-    }*/
-
-    /*public function desvincular($empleado_id, $equipo_id)
-    {
-        $empleado = Empleado::find($empleado_id);
-        $empleado->equipos()->detach($equipo_id);
-
-        $equipo = Equipo::where('id', $equipo_id)->with('tipo')->first();
-        //dd($equipo->tipo->name);
-        $user = auth()->id();
-        Historial::create([
-            'accion' => 'Desvinculó',
-            'descripcion' => "Se desvinculó al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name}",
-            'user_id' => $user,
-        ]);
-
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Empleado {$empleado->name} desvinculado.");
-
-
-        return redirect()->route('asignacion.index');
-    }*/
-
     public function asignarRol($usuarioId, $rol)
     {
         try {
@@ -260,28 +201,6 @@ class EmpleadoController extends Controller
             return redirect()->back()->with('error', 'Ocurrió un error al asignar el rol.');
         }
     }
-
-    /*public function detalles($id)
-    {
-        $empleado = Empleado::find($id); // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
-        $hotel = Hotel::find($empleado->hotel_id); // Obtiene el hotel asociado al empleado
-        $departamento = Departamento::find($empleado->departamento_id);
-        return view('empleados.detalles', compact('empleado', 'hotel', 'departamento'));
-    }*/
-
-    /*public function save_pdf($id){
-
-        // Obtener la fecha actual
-        $today = Carbon::now();
-
-        // Formatear la fecha como "día, mes y año"
-        $date = $today->format('d \d\e M \d\e\l Y');
-
-        $empleado = Empleado::findOrFail($id);
-
-        $pdf = FacadePdf::loadView('empleados.save-pdf', compact('empleado', 'date'));
-        return $pdf->stream();
-    }*/
 
     public function equipos($id)
     {
