@@ -38,7 +38,9 @@ class EquipoController extends Controller
 
     public function getEquipo($serial)
     {
-        $equipo = Equipo::where('serial', $serial)->first();
+        $equipo = Equipo::where('serial', $serial)
+            ->orWhere('name', $serial)
+            ->first();
         
         return response()->json($equipo);
     }
