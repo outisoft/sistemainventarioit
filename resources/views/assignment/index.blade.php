@@ -197,8 +197,8 @@
                                             <td>
                                                 <div class="assigned-items">
                                                     @foreach ($empleado->equipos as $equipo)
-                                                        <span class="assigned-item">{{ $equipo->tipo->name }}
-                                                        <a data-placement="top" title="Desvincular equipo" href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}">X</a>
+                                                        <span data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="{{ $equipo->name }}/{{ $equipo->serial }}" data-bs-original-title="{{ $equipo->name }}/{{ $equipo->serial }}" >{{ $equipo->tipo->name }}
+                                                            <a data-placement="top" title="Desvincular equipo" href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}">X</a>
                                                         </span>
                                                     @endforeach
                                                 </div>
@@ -207,8 +207,7 @@
                                                 {{ $equipo->name }}
                                             </td>
                                             <td>
-                                                <a href="{{ route('assignment.show', $empleado->id) }}"
-                                                    class="btn-ico" data-placement="top" title="Mostrar detalles">
+                                                <a href="{{ route('assignment.show', $empleado->id) }}" class="btn-ico" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Mostrar detalles" data-bs-original-title="Mostrar detalles">
                                                     <i class='bx bx-detail me-1'></i>Ver
                                                 </a>
                                             </td>
