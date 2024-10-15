@@ -187,7 +187,7 @@
                                             <td>
                                                 <div style="display: flex; align-items: center;">
                                                     <img src="{{ asset('uploads/gp-Logo.png') }}" alt="user-avatar" class="employee-image"/>
-                                                    <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($empleado->name, 20, '...'); }} ({{$empleado->no_empleado}})</span>
+                                                    <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($empleado->name, 20, '...'); }} (#{{$empleado->no_empleado}})</span>
                                                 </div>
                                             </td>
 
@@ -206,15 +206,6 @@
                                             <td>
                                                 {{ $equipo->name }}
                                             </td>
-                                            <!--td>                                           
-                                                @foreach ($empleado->equipos as $equipo)
-                                                    {{ $equipo->tipo->name }}
-                                                    <a href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
-                                                        class="btn btn-danger btn-sm">X</a>
-                                                @endforeach
-
-                                                action="{{ route('empleados.destroy', $empleado->id) }}"
-                                            </td-->
                                             <td>
                                                 <a href="{{ route('assignment.show', $empleado->id) }}"
                                                     class="btn-ico" data-placement="top" title="Mostrar detalles">
