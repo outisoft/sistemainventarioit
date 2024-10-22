@@ -82,7 +82,7 @@
                             <div class="col-6">
                                 <div class="so_top_icon">
                                     <i class='bx bx-tab bx-lg'></i>
-                                    <a href="{{ route('tablets.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                    <a href="{{ route('tabs.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
                                 </div>
                             </div>
                         </div>
