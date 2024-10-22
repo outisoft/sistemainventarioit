@@ -165,7 +165,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class); // Rutas Usuario
     Route::resource('charts', ChartController::class); // Rutas Graficas
     Route::resource('roles', RoleController::class); // Rutas roles
-    Route::resource('tablets', TabletController::class); // Rutas Usuario
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
