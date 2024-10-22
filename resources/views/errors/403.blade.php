@@ -50,11 +50,11 @@
     <!-- Error -->
     <div class="container-xxl container-p-y">
         <div class="misc-wrapper">
-            <h2 class="mb-2 mx-2">Pagina no encontrada :(</h2>
-            <p class="mb-4 mx-2">Oops! 😖 No se encontró la dirección URL solicitada en este servidor.</p>
+            <h2 class="mb-2 mx-2">Acceso denegado :(</h2>
+            <p class="mb-4 mx-2">Oops! 😖 Usted no tiene acceso a la pagina solicitada.</p>
             <a href="{{ route('home') }}" class="btn btn-primary">Volver al inicio</a>
             <div class="mt-3">
-                <img src="{{ asset('images/404.png')}}" width="500" class="img-fluid" alt="Error 404!">
+                <img src="{{ asset('images/403.png')}}" width="500" class="img-fluid" alt="Error 404!">
             </div>
         </div>
     </div>

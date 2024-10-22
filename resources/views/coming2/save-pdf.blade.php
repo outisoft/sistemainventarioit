@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoja de resguardo</title>
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="https://bsuite.grupo-pinero.com/bsuite/favicon.ico">
     <style>
         body {
@@ -52,25 +53,22 @@
     </style>
 </head>
 <body>
-@foreach ($empleado->equipos as $equipo)
     <div class="header">
-        @if ( $empleado->hotel->name == 'TULUM COUNTRY CLUB')
-            <img src="../public/images/Logo_TCC.png" alt="Tulum Country Club Logo" class="logo" />
-        @else
-            <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
-        @endif
-        <div class="title">ENTREGA DE {{ $equipo->tipo->name }}<br>{{ $empleado->departamento->name }}/{{ $empleado->hotel->name}}</div>
+        <!-- Aquí coloca tu imagen o logo -->
+        <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
+        <div class="title">ENTREGA DE TABLET<br>COMING2</div>
+
     </div>
-    <br><br>
-        <br>
-        <br>
-        <br>
-    
-    <p class="date">Tulum, {{ $date }}</p>
-    
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p>Tulum, {{ $date }}</p>
+
+    <br>
     <div class="content">
-        <p>Con esta fecha se le hace entrega a <strong>{{ $empleado->name }}</strong> (en adelante, EL TRABAJADOR), de un equipo marca <strong>{{ $equipo->marca }} ({{ $equipo->model }})</strong>, con número de serie <strong>{{ $equipo->serial}}</strong>@if ($equipo->so == '').@else, y sistema operativo {{ $equipo->so }}.@endif</p>
-        
+        <p>Con esta fecha se le hace entrega a <strong>{{ $tablet->operario }}</strong> (en adelante, EL TRABAJADOR), de una tablet, con número de serie <strong>{{ $tablet->serial}}</strong>, sistema operativo Android.</p>
         <p>El material relacionado es propiedad de la organización Grupo Piñero y se le hace entrega del mismo para el desarrollo de su trabajo, debiendo utilizarlo única y exclusivamente para tal fin, comprometiéndose a custodiarlo y cuidarlo adecuadamente.</p>
         <p>Si causara Vd. baja en la organización se compromete a reintegrar el citado material a la empresa propietaria con carácter previo a la finalización de la relación laboral y al percibo de la liquidación que pudiera corresponderle.</p>
         <p>De acuerdo con la Ley Federal de Protección de Datos Personales en posesión de los Particulares, la empresa con la cual Vd. mantiene relación laboral o contractual (en adelante, LA EMPRESA) informa a EL TRABAJADOR de que los datos de carácter personal contenidos en este documento así como los generados en virtud del objeto del mismo serán tratados con la finalidad de llevar a cabo la asignación y control de los recursos y herramientas laborales que LA EMPRESA pone a su disposición, creación y gestión de identificadores, acceso a aplicaciones, gestión de costes, control de cumplimiento de las normativas de seguridad confidencialidad y uso vinculadas a la herramienta laboral objeto de entrega, control y auditorías de seguridad de carácter preventivo y detectivo, recogida y custodia de evidencias para hacer frente a incidentes y en su caso, adopción de las medidas disciplinarias que procedan en caso de vulneración de las normas de seguridad y uso de la herramienta por EL TRABAJADOR.</p>
@@ -80,10 +78,10 @@
         <p>EL TRABAJADOR puede ejercitar los derechos de acceso, rectificación, cancelación y oposición dirigiendo una comunicación al Delegado de Protección de Datos: dpd.privacy@grupo-pinero.com</p>
         <p>Declaro el entendimiento del presente Documento, manifiesto mi conformidad con su contenido.</p>
     </div>
-    
     <div class="signature">
         <p>Fdo: ______________________________</p>
     </div>
-@endforeach
 </body>
+
 </html>
+

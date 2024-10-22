@@ -1,3 +1,9 @@
+:root {
+  --bs-primary: #b5a160;
+  --bs-secondary: #8d7141;
+  --bs-background: #f7f6ef;
+}
+
 .search-input-container {
   position: relative;
   display: flex;
@@ -90,7 +96,7 @@
 .input-search:focus,
 input:hover {
   outline: none;
-  border-color: #b5a160;
+  border-color: var(--bs-primary);
   background-color: #fff;
   box-shadow: 0 0 0 4px #ece9d5;
 }
@@ -179,15 +185,15 @@ button.dt-button:focus:not(.disabled),
 div.dt-button:focus:not(.disabled),
 a.dt-button:focus:not(.disabled),
 input.dt-button:focus:not(.disabled) {
-  border: 1px solid #8d7141;
-  text-shadow: 0 1px 0 #b5a160;
+  border: 1px solid var(--bs-secondary);
+  text-shadow: 0 1px 0 var(--bs-primary);
   outline: none;
-  background-color: #8d7141;
-  background: -webkit-linear-gradient(top, #b5a160 0%, #8d7141 100%);
-  background: -moz-linear-gradient(top, #b5a160 0%, #8d7141 100%);
-  background: -ms-linear-gradient(top, #b5a160 0%, #8d7141 100%);
-  background: -o-linear-gradient(top, #b5a160 0%, #8d7141 100%);
-  background: linear-gradient(to bottom, #b5a160 0%, #8d7141 100%);
+  background-color: var(--bs-secondary);
+  background: -webkit-linear-gradient(top, var(--bs-primary) 0%, var(--bs-secondary) 100%);
+  background: -moz-linear-gradient(top, var(--bs-primary) 0%, var(--bs-secondary) 100%);
+  background: -ms-linear-gradient(top, var(--bs-primary) 0%, var(--bs-secondary) 100%);
+  background: -o-linear-gradient(top, var(--bs-primary) 0%, var(--bs-secondary) 100%);
+  background: linear-gradient(to bottom, var(--bs-primary) 0%, var(--bs-secondary) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr="#d1e2f7", EndColorStr="#79ace9")
 }
 

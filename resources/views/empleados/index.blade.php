@@ -36,6 +36,7 @@
                                 <table id="employees" class="table footer">
                                     <thead class="bg-primary">
                                         <tr>
+                                            <th># Colaborador</th>
                                             <th>Nombre</th>
                                             <th>Puesto</th>
                                             <th>Hotel</th>
@@ -48,6 +49,7 @@
                                         <!-- Aquí se mostrarán los empleados -->
                                         @foreach ($empleados as $empleado)
                                             <tr>
+                                                <td>{{ $empleado->no_empleado}}</td>
                                                 <td>{{ Str::limit($empleado->name, 20, ' ...') }}</td>
                                                 <td>{{ Str::limit($empleado->puesto, 20, ' ...') }}</td>
                                                 <td>{{ $empleado->hotel->name }}</td>

@@ -11,8 +11,8 @@ class Policy extends Model
 
     protected $fillable = ['name'];
 
-    public function tablets()
+    public function coming2()
     {
-        return $this->hasMany(Tablet::class, 'policy_id');
+        return $this->hasMany(Coming2::class, 'policy_id');
     }
 }

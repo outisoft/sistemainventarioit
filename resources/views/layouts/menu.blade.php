@@ -183,6 +183,20 @@
             </li>
         @endcan
 
+        <!-- coming2 -->
+         @can('coming2.index')
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">CO2</span>
+        </li>
+
+        <li class="menu-item {{ Request::routeIs('coming2.edit') ? 'active' : '' }} || {{ Request::routeIs('coming2.index') ? 'active' : '' }} || {{ Request::routeIs('coming2.show') ? 'active' : '' }}">
+            <a href="{{ url('coming2') }}" class="menu-link">
+                <i class='menu-icon bx bx-bus'></i>
+                <div data-i18n="Without navbar">Coming2</div>
+            </a>
+        </li>
+        @endcan
+
         <!-- Users -->
         @can('users.index')
             <!-- Administrador -->

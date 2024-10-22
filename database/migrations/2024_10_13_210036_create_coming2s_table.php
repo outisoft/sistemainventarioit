@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tablets', function (Blueprint $table) {
+        Schema::create('coming2s', function (Blueprint $table) {
             $table->id();
             $table->string('operario');
             $table->string('puesto');
@@ -27,8 +27,6 @@ return new class extends Migration
             $table->boolean('configurada')->default(false);
             $table->boolean('carta_firmada')->default(false);
             $table->longText('observacion');
-            $table->string('giacode');
-            $table->string('personalsdscode');
             $table->string('folio_baja')->unique()->nullable();
             $table->timestamps();
         });
@@ -39,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tablets');
+        Schema::dropIfExists('coming2s');
     }
 };

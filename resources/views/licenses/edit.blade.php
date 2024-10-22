@@ -11,6 +11,18 @@
                     <form action="{{ route('licenses.update', $equipo) }}" method="POST">
                         @csrf
                         @method('PUT')
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="name{{ $equipo->name }}" :value="__('Nombre')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="name{{ $equipo->name }}" class="form-control" type="text"
+                                    name="name" placeholder="HP" value="{{ $equipo->name }}" required
+                                    autocomplete="name" />
+                            </div>
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+
                         <!-- email -->
                         <div class="mb-3">
                             <x-input-label class="form-label" for="email{{ $equipo->email }}" :value="__('Correo Ofice')" />

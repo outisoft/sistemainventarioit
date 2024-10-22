@@ -1,41 +1,40 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Tablet;
 use App\Models\Historial;
 use App\Models\Policy;
-use Illuminate\Http\Request;
+use App\Models\Coming2;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class TabletController extends Controller
+use Illuminate\Http\Request;
+
+class Coming2Controller extends Controller
 {
     public function __construct()
     {
-        $this->middleware('can:tablets.index')->only('index');
-        $this->middleware('can:tablets.create')->only('create', 'store');
-        $this->middleware('can:tablets.edit')->only('edit', 'update');
-        $this->middleware('can:tablets.show')->only('show');
-        $this->middleware('can:tablets.destroy')->only('destroy');
+        $this->middleware('can:coming2.index')->only('index');
+        $this->middleware('can:coming2.create')->only('create', 'store');
+        $this->middleware('can:coming2.edit')->only('edit', 'update');
+        $this->middleware('can:coming2.show')->only('show');
+        $this->middleware('can:coming2.destroy')->only('destroy');
     }
 
     public function index()
     {
         $politicas = Policy::orderBy('name')->get();
-        $tablets = Tablet::get();
-        return view('tablets.index', compact('tablets', 'politicas'));
+        $tablets = Coming2::get();
+        return view('coming2.index', compact('tablets', 'politicas'));
     }
 
     public function store(Request $request)
     {
-        //dd($request);
-
         $data = $request->validate([
             'operario' => 'required',
             'puesto' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Tablet::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Coming2::class],
             'usuario' => 'required',
             'password' => 'required',
             'numero_tableta' => 'required',
@@ -47,19 +46,17 @@ class TabletController extends Controller
             'configurada' => 'required',
             'carta_firmada' => 'required',
             'observacion' => 'required',
-            'giacode' => 'required',
-            'personalsdscode' => 'required',
             'folio_baja' => 'required',
         ]);
 
-        $registro = Tablet::create($data);
+        $registro = Coming2::create($data);
 
         //dd($request);
         $user = auth()->id();
 
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se creó la tableta para {$registro->operario}",
+            'descripcion' => "Se creó la tableta para {$registro->operario} con numero de serie {$registro->serial}",
             'user_id' => $user,
         ]);
 
@@ -67,26 +64,27 @@ class TabletController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Registro creado exitosamente.");
 
-        return redirect()->route('tablets.index');
+        return redirect()->route('coming2.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Tablet $tablet)
+    public function show(Coming2 $coming2)
     {
-        return view('tablets.show', compact('tablet'));
+        $policies = Policy::orderBy('name')->get();
+        return view('coming2.show', compact('coming2', 'policies'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(string $id)
     {
-        $tablets = Tablet::findOrFail($id);
+        $tablets = Coming2::findOrFail($id);
         $politicas = Policy::orderBy('name')->get();
         //dd($configurada);
-        return view('tablets.edit', compact('tablets', 'politicas'));
+        return view('coming2.edit', compact('tablets', 'politicas'));
     }
 
     /**
@@ -110,19 +108,17 @@ class TabletController extends Controller
             'configurada' => 'required',
             'carta_firmada' => 'required',
             'observacion' => 'required',
-            'giacode' => 'required',
-            'personalsdscode' => 'required',
             'folio_baja' => 'required',
         ]);
 
-        $registro = Tablet::findOrFail($id);
+        $registro = Coming2::findOrFail($id);
         $registro->update($data);
 
         $user = auth()->id();
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo la tableta de {$registro->operario}",
+            'descripcion' => "Se actualizo la tableta de {$registro->operario} con numero de serie {$registro->serial}",
             'user_id' => $user,
         ]);
 
@@ -130,13 +126,13 @@ class TabletController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Registro {$registro->operario} actualizado.");
 
-        return redirect()->route('tablets.index');
+        return redirect()->route('coming2.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tablet $tablet)
+    public function destroy(Coming2 $tablet)
     {
         $tablet->delete();
 
@@ -144,28 +140,14 @@ class TabletController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino la tableta de {$tablet->operario}",
+            'descripcion' => "Se elimino la tableta de {$tablet->operario} con numero de serie {$tablet->serial}",
             'user_id' => $user,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Tablet de {$tablet->operario} eliminado.");
-        return redirect()->route('tablets.index');
-    }
-
-    public function search(Request $request)
-    {
-        $query = $request->get('query');
-        $tablet = Tablet::where('operario', 'like', '%' . $query . '%')
-            ->orWhere('usuario', 'like', '%' . $query . '%')
-            ->orWhere('email', 'like', '%' . $query . '%')
-            ->orWhere('serial', 'like', '%' . $query . '%')
-            ->orWhere('numero_tableta', 'like', '%' . $query . '%')
-            ->orWhere('imei', 'like', '%' . $query . '%')
-            ->get();
-
-        return view('tablets._tablet_list', compact('tablet'));
+        return redirect()->route('coming2.index');
     }
 
     public function save_pdf($id)
@@ -177,8 +159,8 @@ class TabletController extends Controller
         // Formatear la fecha como "día, mes y año"
         $date = $today->format('d \d\e M \d\e\l Y');
 
-        $tablet = Tablet::findOrFail($id);
-        $pdf = FacadePdf::loadView('tablets.save-pdf', compact('tablet', 'date'));
+        $tablet = Coming2::findOrFail($id);
+        $pdf = FacadePdf::loadView('coming2.save-pdf', compact('tablet', 'date'));
         return $pdf->stream();
     }
 }

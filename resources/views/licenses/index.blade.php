@@ -32,6 +32,7 @@
                                 <table id="office" class="table footer">
                                     <thead class="bg-primary">
                                         <tr>
+                                            <th>Nombre</th>
                                             <th>Correo</th>
                                             <th>Password</th>
                                             <th>Acciones</th>
@@ -41,6 +42,7 @@
                                         <!-- Aquí se mostrarán las licenias -->
                                         @foreach($equipos as $license)
                                         <tr>
+                                            <td>{{ $license->name }}</td>
                                             <td>{{ $license->email }}</td>
                                             <td>{{ $license->password }}</td>
                                             <td>

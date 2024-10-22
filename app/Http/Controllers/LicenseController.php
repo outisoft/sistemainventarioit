@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Tipo;
+use App\Models\License;
 use App\Models\Equipo;
 use App\Models\Historial;
 use Illuminate\Http\Request;
@@ -12,14 +12,12 @@ class LicenseController extends Controller
 {
     public function index()
     {
-        $tipo = Tipo::where('name', 'OFFICE')->first();
+        //$tipo = Tipo::where('name', 'OFFICE')->first();
 
-        $equipos = Equipo::where('tipo_id', $tipo->id)->get();
+        //$equipos = Equipo::where('tipo_id', $tipo->id)->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
-        foreach ($equipos as $equipo) {
-            $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
-        }
+        $equipos = License::get();
 
         return view('licenses.index', compact('equipos'));
     }
@@ -33,18 +31,18 @@ class LicenseController extends Controller
     {
         try {
             $request->validate([
-                'tipo_id' => 'required',
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Equipo::class],
+                'name' => 'required',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . License::class],
                 'password' => 'required',
             ]);
 
-            Equipo::create($request->all());
+            License::create($request->all());
 
             $user = auth()->id();
 
             Historial::create([
                 'accion' => 'Creacion',
-                'descripcion' => "Se registro el {$request->tipo->name} con el correo {$request->email}",
+                'descripcion' => "Se registro la licencia de {$request->name} con el correo {$request->email}",
                 'user_id' => $user,
             ]);
 
@@ -68,18 +66,19 @@ class LicenseController extends Controller
         $user = auth()->id();
 
         $data = $request->validate([
+            'name' => 'required',
             'email' => 'required|unique:equipos,email,' . $id,
             'password' => 'required',
 
         ]);
 
-        $registro = Equipo::findOrFail($id);
+        $registro = License::findOrFail($id);
         //dd($data);
         $registro->update($data);
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el {$registro->tipo->name} con el correo {$request->email}",
+            'descripcion' => "Se actualizo la licencia de {$registro->name} con el correo {$request->email}",
             'user_id' => $user,
         ]);
         toastr()
@@ -91,14 +90,14 @@ class LicenseController extends Controller
 
     public function destroy(string $id)
     {
-        $registro = Equipo::findOrFail($id);
+        $registro = License::findOrFail($id);
         $registro->delete();
 
         $user = auth()->id();
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el {$registro->tipo->name} con el correo {$registro->email}",
+            'descripcion' => "Se elimino la licencia de {$registro->name} con el correo {$registro->email}",
             'user_id' => $user,
         ]);
 

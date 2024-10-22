@@ -24,6 +24,7 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SwitchController;
 use App\Http\Controllers\AccessPointController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\Coming2Controller;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -179,6 +180,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('access-points', AccessPointController::class);//Rutas access points
     Route::resource('switches', SwitchController::class);//Rutas switches
     Route::resource('assignment', AssignmentController::class);//Rutas asignacion
+    Route::resource('coming2', Coming2Controller::class);//Rutas coming2
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
 
     Route::get('/empleado/{no_empleado}', [EmpleadoController::class, 'getEmpleado']);
@@ -227,7 +229,7 @@ Route::middleware('auth')->group(function () {
     //Route::get('/detalles/{id}', [AssignmentController::class, 'detalles'])->name('detalles');
 
     //Generacion de hojas de resguardo
-    Route::get('/tablet/save-pdf/{id}', [TabletController::class, 'save_pdf'])->name('tablet.save-pdf');
+    Route::get('/coming2/{id}/save-pdf', [Coming2Controller::class, 'save_pdf'])->name('coming2.save-pdf');
     //Route::get('/empleado/save-pdf/{id}', [EmpleadoController::class, 'save_pdf'])->name('empleado.save-pdf');
 
     //CHARTS

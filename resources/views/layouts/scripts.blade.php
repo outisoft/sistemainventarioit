@@ -369,7 +369,7 @@
         buttons: [
             {
                 extend: 'excelHtml5',
-                text: '<i class="bx bxs-downvote" data-placement="top" title="Descargar en EXCEL"></i>',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Descargar en Excel" data-bs-original-title="Descargar en Excel"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
                     columns: [0, 1, 2] // Exporta solo las columnas 0, 1 y 2
@@ -377,7 +377,7 @@
             },
             {
                 extend: 'pdfHtml5',
-                text: '<i class="bx bxs-file-pdf" data-placement="top" title="Descargar en PDF"></i>',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Descargar en PDF" data-bs-original-title="Descargar en PDF"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
                     columns: [0, 1, 2] // Exporta solo las columnas 0, 1 y 2

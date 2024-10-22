@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('total_licenses')->default(5);
-            $table->integer('applied_licenses')->default(0);
             $table->timestamps();
         });
     }
