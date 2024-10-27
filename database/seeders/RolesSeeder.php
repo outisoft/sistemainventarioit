@@ -120,5 +120,11 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'coming2.create', 'description' => 'Crear registros de coming2'])->syncRoles($adminRole);
         Permission::create(['name' => 'coming2.edit', 'description' => 'Editar registros de coming2'])->syncRoles($adminRole);
         Permission::create(['name' => 'coming2.destroy', 'description' => 'Eliminar registros de coming2'])->syncRoles($adminRole);
+
+        Permission::create(['name' => 'other.index', 'description' => 'Ver listado de registros de otros'])->syncRoles($adminRole);
+        Permission::create(['name' => 'other.show', 'description' => 'Ver detalles de regitros otros'])->syncRoles($adminRole);
+        Permission::create(['name' => 'other.create', 'description' => 'Crear registros de otros'])->syncRoles($adminRole);
+        Permission::create(['name' => 'other.edit', 'description' => 'Editar registros de otros'])->syncRoles($adminRole);
+        Permission::create(['name' => 'other.destroy', 'description' => 'Eliminar registros de otros'])->syncRoles($adminRole);
     }
 }

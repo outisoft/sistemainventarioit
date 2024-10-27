@@ -144,6 +144,15 @@
                     </li>
                 @endcan
 
+                @can('access_points.index')
+                    <li class="menu-item {{ Request::routeIs('other.index') ? 'active' : '' }}">
+                        <a href="{{ route('other.index') }}" class="menu-link">
+                            <i class='menu-icon bx bx-dots-horizontal-rounded'></i>
+                            <div data-i18n="Analytics">Otros</div>
+                        </a>
+                    </li>
+                @endcan
+
                 <!--li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
                     <a href="{{ route('licenses.index') }}" class="menu-link">
                         <i class='menu-icon tf-icons bx bxl-microsoft'></i>
@@ -185,16 +194,16 @@
 
         <!-- coming2 -->
          @can('coming2.index')
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">CO2</span>
-        </li>
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">CO2</span>
+            </li>
 
-        <li class="menu-item {{ Request::routeIs('coming2.edit') ? 'active' : '' }} || {{ Request::routeIs('coming2.index') ? 'active' : '' }} || {{ Request::routeIs('coming2.show') ? 'active' : '' }}">
-            <a href="{{ url('coming2') }}" class="menu-link">
-                <i class='menu-icon bx bx-bus'></i>
-                <div data-i18n="Without navbar">Coming2</div>
-            </a>
-        </li>
+            <li class="menu-item {{ Request::routeIs('coming2.edit') ? 'active' : '' }} || {{ Request::routeIs('coming2.index') ? 'active' : '' }} || {{ Request::routeIs('coming2.show') ? 'active' : '' }}">
+                <a href="{{ url('coming2') }}" class="menu-link">
+                    <i class='menu-icon bx bx-bus'></i>
+                    <div data-i18n="Without navbar">Coming2</div>
+                </a>
+            </li>
         @endcan
 
         <!-- Users -->

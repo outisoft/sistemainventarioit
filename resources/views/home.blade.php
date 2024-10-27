@@ -71,7 +71,7 @@
             @endcan
 
             @can('tablets.index')
-            <div class="col-xl-4 col-md-6">
+            <!--div class="col-xl-4 col-md-6">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div-->
             @endcan
 
             @can('tpvs.index')
@@ -110,6 +110,69 @@
                     </div>
                 </div>
             </div>
+            @endcan
+
+            @can('coming2.index')
+                <div class="col-xl-4 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <h3>{{ $totalComing2 }}</h3>
+                                    <h6 class="text-muted m-b-0">Coming2<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                                </div>
+                                <div class="col-6">
+                                    <div class="so_top_icon">
+                                        <i class='bx bx-tab bx-lg'></i>
+                                        <a href="{{ route('coming2.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endcan
+
+            @can('switches.index')
+                <div class="col-xl-4 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <h3>{{ $totalSw }}</h3>
+                                    <h6 class="text-muted m-b-0">Switches<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                                </div>
+                                <div class="col-6">
+                                    <div class="so_top_icon">
+                                        <i class='bx-lg bx bx-server' ></i>
+                                        <a href="{{ route('switches.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endcan
+
+            @can('access_points.index')
+                <div class="col-xl-4 col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-6">
+                                    <h3>{{ $totalAps }}</h3>
+                                    <h6 class="text-muted m-b-0">Access Points<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                                </div>
+                                <div class="col-6">
+                                    <div class="so_top_icon">
+                                        <i class='bx-lg tf-icons bx bx-broadcast'></i>
+                                        <a href="{{ route('access-points.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endcan
 
         </div>

@@ -25,14 +25,17 @@ use App\Http\Controllers\SwitchController;
 use App\Http\Controllers\AccessPointController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Coming2Controller;
+use App\Http\Controllers\OtherController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
 use App\Models\Equipo;
-use App\Models\Tablet;
+use App\Models\Coming2;
 use App\Models\User;
 use App\Models\Tipo;
 use App\Models\Tpv;
+use App\Models\Swittch;
+use App\Models\AccessPoint;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
@@ -106,10 +109,13 @@ Route::middleware('auth')->group(function () {
         ];
 
         // Obtén el total de elementos
+        $totalComing2 = Coming2::count();
         $totalEmpleados = Empleado::count();
         $totalEquipos = Equipo::count();
         $totalUsuarios = User::count();
         $totalTpvs = Tpv::count();
+        $totalSw = Swittch::count();
+        $totalAps = AccessPoint::count();
 
         $totalTablets = Equipo::whereHas('tipo', function ($query) {
             $query->where('name', 'TABLET');
@@ -147,7 +153,7 @@ Route::middleware('auth')->group(function () {
             ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
             ->get();
 
-        return view('home', compact('datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
+        return view('home', compact('totalAps','totalSw','totalComing2','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
     })->name('home');
 
     Route::get('/exportar-grafica', function () {
@@ -180,6 +186,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('switches', SwitchController::class);//Rutas switches
     Route::resource('assignment', AssignmentController::class);//Rutas asignacion
     Route::resource('coming2', Coming2Controller::class);//Rutas coming2
+    Route::resource('other', OtherController::class);//Rutas Otros
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
 
     Route::get('/empleado/{no_empleado}', [EmpleadoController::class, 'getEmpleado']);

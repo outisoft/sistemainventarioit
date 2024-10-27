@@ -27,7 +27,7 @@
                             <x-input-label class="form-label" for="marca{{ $equipo->marca }}" :value="__('Marca de equipo')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="marca{{ $equipo->marca }}" class="form-control" type="text"
-                                    name="marca" placeholder="SISCO" value="{{ $equipo->marca }}" required
+                                    name="marca" placeholder="CISCO" value="{{ $equipo->marca }}" required
                                     autocomplete="marca" />
                             </div>
                             <x-input-error :messages="$errors->get('marca')" class="mt-2" />
