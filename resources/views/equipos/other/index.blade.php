@@ -65,7 +65,7 @@
                                                 @endcan
 
                                                 @can('complements.destroy')
-                                                    <form action="{{ route('complements.destroy', $equipo->id) }}" method="POST">
+                                                    <form action="{{ route('other.destroy', $equipo->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"

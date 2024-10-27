@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\ValidationException;
 
 class OtherController extends Controller
 {
@@ -87,12 +87,11 @@ class OtherController extends Controller
         }
     }
 
-    public function update(Request $request, Equipo $equipo)
+    public function update(Request $request, $id)
     {
         $user = auth()->id();
-        
         try {
-            $validated = $request->validate([
+            $data = $request->validate([
                 'no_contrato' => [
                     'required',
                     'string',
@@ -100,25 +99,23 @@ class OtherController extends Controller
                 ],
                 'marca' => 'required',
                 'model' => 'required',
-                'serial' => [
-                    'required',
-                    Rule::unique('equipos')->ignore($equipo->id),
-                ],
+                'serial' => 'required|unique:equipos,serial,' . $id,
             ], [
                 'serial.unique' => 'Este número de serie ya está registrado.',
             ]);
 
-            $equipo->update($validated);
+            $registro = Equipo::findOrFail($id);
+            $registro->update($data);
 
             Historial::create([
                 'accion' => 'Actualización',
-                'descripcion' => "Se actualizó SW con el nombre: {$equipo->no_contrato} y con N/S: {$equipo->serial}",
+                'descripcion' => "Se actualizó SW con el nombre: {$registro->no_contrato} y con N/S: {$registro->serial}",
                 'user_id' => $user,
             ]);
 
             toastr()
                 ->timeOut(3000)
-                ->addSuccess("Se actualizó {$equipo->no_contrato} ({$equipo->serial}) correctamente.");
+                ->addSuccess("Se actualizó {$registro->no_contrato} ({$registro->serial}) correctamente.");
 
             return redirect()->route('other.index');
 
@@ -142,5 +139,25 @@ class OtherController extends Controller
             }
             return back()->withErrors($e->errors())->withInput();
         }
+    }
+
+    public function destroy(String $id)
+    {
+        $registro = Equipo::findOrFail($id);
+        $registro->delete();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Eliminacion',
+            'descripcion' => "Se elimino el {$registro->no_contrato} con N/S {$registro->serial}",
+            'user_id' => $user,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se elimino el {$registro->no_contrato} correctamente.");
+
+        return redirect()->route('other.index');
     }
 }
