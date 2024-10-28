@@ -4,7 +4,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModal{{ $equipo->id }}">Editar equipo: {{ $equipo->tipo->name }}</h5>
+                    <h5 class="modal-title" id="editModal{{ $equipo->id }}">Editar equipo: {{ $equipo->type->name }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -13,13 +13,13 @@
                         @method('PUT')
                         <!-- Marca -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="marca{{ $equipo->marca }}" :value="__('Marca de equipo')" />
+                            <x-input-label class="form-label" for="brand{{ $equipo->brand }}" :value="__('Marca de equipo')" />
                             <div class="input-group input-group-merge">
-                                <x-text-input id="marca{{ $equipo->marca }}" class="form-control" type="text"
-                                    name="marca" placeholder="HP" value="{{ $equipo->marca }}" required
-                                    autocomplete="marca" />
+                                <x-text-input id="brand{{ $equipo->brand }}" class="form-control" type="text"
+                                    name="brand" placeholder="HP" value="{{ $equipo->brand }}" required
+                                    autocomplete="brand" />
                             </div>
-                            <x-input-error :messages="$errors->get('marca')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('brand')" class="mt-2" />
                         </div>
 
                         <!-- Modelo -->

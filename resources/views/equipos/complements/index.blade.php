@@ -38,8 +38,8 @@
                         <tbody id="employeeList">
                             @foreach ($equipos as $equipo)
                                 <tr>
-                                    <td>{{ $equipo->tipo->name }}</td>
-                                    <td>{{ $equipo->marca }}</td>
+                                    <td>{{ $equipo->type->name }}</td>
+                                    <td>{{ $equipo->brand }}</td>
                                     <td>{{ $equipo->model }}</td>
                                     <td>{{ $equipo->serial }}</td>
                                     <td>

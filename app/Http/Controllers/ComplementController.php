@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Tipo;
-use App\Models\Equipo;
+use App\Models\Complement;
 use App\Models\Historial;
 use Illuminate\Http\Request;
 
@@ -21,15 +21,7 @@ class ComplementController extends Controller
      */
     public function index()
     {
-        $tipos = Tipo::whereIn('name', ['SCANNER', 'MONITOR', 'MOUSE', 'NO BREACK', 'TECLADO', 'WACOM'])->pluck('id');
-
-        // Obtener los equipos que pertenecen a esos tipos
-        $equipos = Equipo::whereIn('tipo_id', $tipos)->get();
-
-        // Iterar sobre los equipos y verificar si están asignados a un empleado
-        foreach ($equipos as $equipo) {
-            $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
-        }
+        $equipos = Complement::with('type')->get();
 
         return view('equipos.complements.index', compact('equipos'));
     }
@@ -39,26 +31,26 @@ class ComplementController extends Controller
      */
     public function store(Request $request)
     {
-        $tipo = $request->input('tipo_id');
+        $tipo = $request->input('type_id');
         
         $user = auth()->id();
 
         $data = $request->validate([
-            'tipo_id' => 'required',
-            'marca' => 'required',
+            'type_id' => 'required',
+            'brand' => 'required',
             'model' => 'required',
-            'serial' => 'required|unique:equipos,serial',
+            'serial' => 'required|unique:complements,serial',
         ]);
-        $registro = Equipo::create($data);
+        $registro = Complement::create($data);
         $registro->save();
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se agrego {$registro->tipo->name} con N/S: {$registro->serial}",
+            'descripcion' => "Se agrego {$registro->type->name} con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se creo {$registro->tipo->name} ({$registro->serial}) correctamente.");
+            ->addSuccess("Se creo {$registro->type->name} ({$registro->serial}) correctamente.");
         return redirect()->route('complements.index');
     }
 
@@ -70,18 +62,17 @@ class ComplementController extends Controller
         $user = auth()->id();
 
         $data = $request->validate([
-            'marca' => 'required',
+            'brand' => 'required',
             'model' => 'required',
-            'serial' => 'required|unique:equipos,serial,' . $id,
+            'serial' => 'required|unique:complements,serial,' . $id,
         ]);
 
-        $registro = Equipo::findOrFail($id);
-        //dd($data);
+        $registro = Complement::findOrFail($id);
         $registro->update($data);
 
         Historial::create([
             'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el {$registro->tipo->name} con N/S: {$registro->serial}",
+            'descripcion' => "Se actualizo el {$registro->type->name} con N/S: {$registro->serial}",
             'user_id' => $user,
         ]);
         toastr()
@@ -96,20 +87,20 @@ class ComplementController extends Controller
      */
     public function destroy(string $id)
     {
-        $registro = Equipo::findOrFail($id);
+        $registro = Complement::findOrFail($id);
         $registro->delete();
 
         $user = auth()->id();
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el {$registro->tipo->name} con N/S {$registro->serial}.",
+            'descripcion' => "Se elimino el {$registro->type->name} con N/S {$registro->serial}.",
             'user_id' => $user,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se elimino la {$registro->tipo->name}.");
+            ->addSuccess("Se elimino la {$registro->type->name}.");
 
         return redirect()->route('complements.index');
     }

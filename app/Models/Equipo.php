@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Equipo extends Model
 {
@@ -31,9 +32,9 @@ class Equipo extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function maintenances()
+    public function complements(): BelongsToMany
     {
-        return $this->hasMany(Maintenance::class);
+        return $this->belongsToMany(Complement::class)->withTimestamps();
     }
 
     public function policy()

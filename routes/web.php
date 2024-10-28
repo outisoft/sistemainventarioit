@@ -26,6 +26,7 @@ use App\Http\Controllers\AccessPointController;
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Coming2Controller;
 use App\Http\Controllers\OtherController;
+use App\Http\Controllers\EquipmentComplementController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -188,6 +189,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('coming2', Coming2Controller::class);//Rutas coming2
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
+
+    Route::get('/equipment-complements/create', [EquipmentComplementController::class, 'create'])->name('equipment-complements.create');
+    Route::post('/equipment-complements', [EquipmentComplementController::class, 'store'])->name('equipment-complements.store');
 
     Route::get('/empleado/{no_empleado}', [EmpleadoController::class, 'getEmpleado']);
     Route::get('/equipos/{serial}', [EquipoController::class, 'getEquipo']);

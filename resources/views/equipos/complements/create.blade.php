@@ -13,8 +13,8 @@
                     @csrf
                     <!-- Tipo -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="tipo_id" :value="__('Tipo de equipo')" />
-                        <select id="tipo_id" name="tipo_id" class="form-control" aria-label="Default select example">
+                        <x-input-label class="form-label" for="type_id" :value="__('Tipo de equipo')" />
+                        <select id="type_id" name="type_id" class="form-control" aria-label="Default select example">
                             <option value="1">SCANNER</option>
                             <option value="5">MONITOR</option>
                             <option value="6">MOUSE</option>
@@ -26,13 +26,13 @@
 
                     <!-- Marca -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="marca" :value="__('Marca de equipo')" />
+                        <x-input-label class="form-label" for="brand" :value="__('Marca de equipo')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="marca" class="form-control" type="text"
-                                name="marca" placeholder="HP" :value="old('marca')" required
-                                autocomplete="marca" />
+                            <x-text-input id="brand" class="form-control" type="text"
+                                name="brand" placeholder="HP" :value="old('brand')" required
+                                autocomplete="brand" />
                         </div>
-                        <x-input-error :messages="$errors->get('marca')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('brand')" class="mt-2" />
                     </div>
 
                     <!-- Model -->

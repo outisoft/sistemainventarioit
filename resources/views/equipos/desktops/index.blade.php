@@ -73,6 +73,8 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
+                                                            <a href="{{ route('equipment-complements.create') }}" class="dropdown-item"><i class='bx bx-extension me-1'></i>Complementos</a>
+
                                                             <!-- Aquí se agregarán las opciones -->
                                                             @can('desktops.edit')
                                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
