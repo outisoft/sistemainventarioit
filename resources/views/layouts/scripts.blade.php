@@ -324,7 +324,7 @@
 <!--new DataTable('#historial');-->
 <script>
     $('#historial').DataTable({
-        order: [[1, 'desc']],
+        order: [[0, 'desc']],
         "pageLength": 100,
         "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
         language: {
