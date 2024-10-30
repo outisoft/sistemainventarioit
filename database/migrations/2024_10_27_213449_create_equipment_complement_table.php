@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('complement_equipo', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('equipment_id')->references('id')->on('equipos')->cascadeOnDelete();
+            $table->foreignId('equipo_id')->references('id')->on('equipos')->cascadeOnDelete();
             $table->foreignId('complement_id')->references('id')->on('complements')->cascadeOnDelete();
             $table->timestamps();
         });
