@@ -15,6 +15,7 @@
                             <table id="historial" class="table table-striped">
                                 <thead class="bg-primary">
                                     <tr>
+                                        <th>CLAVE</th>
                                         <th>Acción</th>
                                         <th>Descripción</th>
                                         <th>Usuario</th>
@@ -24,6 +25,7 @@
                                 <tbody>
                                     @foreach ($historial as $registro)
                                         <tr>
+                                            <td>{{ $registro->clave }}</td>
                                             <td>{{ $registro->accion }}</td>
                                             <td>{{ $registro->descripcion }}</td>
                                             <td>

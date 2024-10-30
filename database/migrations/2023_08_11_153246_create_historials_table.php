@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('historials', function (Blueprint $table) {
             $table->id();
+            $table->string('clave');
             $table->string('accion');
             $table->string('descripcion');
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
