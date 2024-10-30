@@ -34,7 +34,8 @@ class Equipo extends Model
 
     public function complements(): BelongsToMany
     {
-        return $this->belongsToMany(Complement::class)->withTimestamps();
+        return $this->belongsToMany(Complement::class, 'complement_equipo');
+        //return $this->belongsToMany(Complement::class)->withTimestamps();
     }
 
     public function policy()

@@ -35,7 +35,7 @@
 
         <!-- Equipo -->
         
-        <li class="menu-item {{ Request::routeIs('other.index') ? 'active' : '' }} || {{ Request::routeIs('access-points.index') ? 'active' : '' }} || {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('phones.index') ? 'active' : '' }} || {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || 
+        <li class="menu-item {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('other.index') ? 'active' : '' }} || {{ Request::routeIs('access-points.index') ? 'active' : '' }} || {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('phones.index') ? 'active' : '' }} || {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || 
         {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}
         {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}
         {{ Request::routeIs('desktops.index') ? 'active' : '' }} ">
@@ -64,7 +64,7 @@
                 @endcan
 
                 @can('desktops.index')
-                    <li class="menu-item {{ Request::routeIs('desktops.index') ? 'active' : '' }}">
+                    <li class="menu-item {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('desktops.index') ? 'active' : '' }}">
                         <a href="{{ route('desktops.index') }}" class="menu-link">
                             <i class='menu-icon tf-icons bx bx-hdd'></i>
                             <div data-i18n="Without menu">Desktops</div>

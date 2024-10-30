@@ -19,7 +19,8 @@ class Complement extends Model
 
     public function equipments(): BelongsToMany
     {
-        return $this->belongsToMany(Equipo::class)->withTimestamps();
+        return $this->belongsToMany(Equipo::class, 'complement_equipo');
+        //return $this->belongsToMany(Equipo::class)->withTimestamps();
     }
 
     protected static function boot() //guardar en mayusculas

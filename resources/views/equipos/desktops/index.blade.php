@@ -73,7 +73,7 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a href="{{ route('equipment-complements.create') }}" class="dropdown-item"><i class='bx bx-extension me-1'></i>Complementos</a>
+                                                            <a href="{{ route('equipo.show', $equipo->id) }}" class="dropdown-item"><i class='bx bx-extension me-1'></i>Complementos</a>
 
                                                             <!-- Aquí se agregarán las opciones -->
                                                             @can('desktops.edit')
