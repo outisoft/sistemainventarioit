@@ -80,11 +80,17 @@ class AssignmentController extends Controller
     public function show($id)
     {
         $empleado = Empleado::find($id); // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
+        $equiposAsignados = $empleado->equipos;
+        $complementosAsignados = collect();
+
+        foreach ($equiposAsignados as $equipo) {
+            $complementosAsignados = $complementosAsignados->merge($equipo->complements);
+        } // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
+
         $hotel = Hotel::find($empleado->hotel_id); // Obtiene el hotel asociado al empleado
         $departamento = Departamento::find($empleado->departamento_id);
-        return view('assignment.show', compact('empleado', 'hotel', 'departamento'));
+        return view('assignment.show', compact('empleado', 'hotel', 'departamento','equiposAsignados', 'complementosAsignados'));
     }
-
     public function save_pdf($id){
 
         // Obtener la fecha actual

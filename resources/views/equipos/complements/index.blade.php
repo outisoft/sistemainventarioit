@@ -30,7 +30,7 @@
                                 <th>Marca</th>
                                 <th>Modelo</th>
                                 <th>SERIE</th>
-                                <th>Estado</th>
+                                <th>ASIGNADO A...</th>
                                 <th>Acciones</th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
                             </tr>
@@ -43,13 +43,12 @@
                                     <td>{{ $equipo->model }}</td>
                                     <td>{{ $equipo->serial }}</td>
                                     <td>
-                                        @if ($equipo->estado === 'Libre')
-                                            <span class="badge bg-label-success">{{ $equipo->estado }}</span>
-                                            </td>
-                                            <!--span class="badge rounded-pill bg-success">Libre</span-->
-                                        @elseif ($equipo->estado === 'En Uso')
-                                            <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
-                                            <!--span class="badge rounded-pill bg-danger">En uso</span-->
+                                        @if ($equipo->equipments->count() > 0)
+                                            @foreach ($equipo->equipments as $equipo)
+                                                    {{ $equipo->name }}
+                                            @endforeach
+                                        @else
+                                            A ningún equipo asignado
                                         @endif
                                     </td>
                                     <td>

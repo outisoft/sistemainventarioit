@@ -82,7 +82,7 @@
                             </thead>
                             <tbody id="employeeList">
                                 <!-- Aquí se mostrarán los empleados -->
-                                @foreach ($empleado->equipos as $equipo)
+                                @foreach ($equiposAsignados as $equipo)
                                     <tr>
                                         <td>
                                             {{ $equipo->tipo->name }}
@@ -116,6 +116,43 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <br>
+                        <div class="card-header">
+                            <h5 class="card-header">Complementos Asignados</strong></h5>
+                        </div>
+                        @if ($complementosAsignados->count() > 0)
+                            <table id="empleados" class="table table-striped footer">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>Tipo de quipo</th>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Serie</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeList">
+                                    <!-- Aquí se mostrarán los empleados -->
+                                    @foreach ($complementosAsignados as $complemento)
+                                        <tr>
+                                            <td>
+                                                {{ $complemento->type->name }}
+                                            </td>
+                                            <td>
+                                                {{ $complemento->brand }}
+                                            </td>
+                                            <td>
+                                                {{ $complemento->model }}
+                                            </td>
+                                            <td>
+                                                {{ $complemento->serial }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @else
+                            <p>No hay complementos asignados.</p>
+                        @endif
                         <br>
                         <a href="{{ route('assignment.index') }}" class="btn btn-secondary"><i
                                 class='bx bx-arrow-back'></i>Volver</a>

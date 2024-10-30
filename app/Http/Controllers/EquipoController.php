@@ -42,7 +42,11 @@ class EquipoController extends Controller
         $complementosAsignados = $equipo->complements;
     
         if ($complementosAsignados->isEmpty()) {
-            $complementosDisponibles = Complement::all();
+
+            $complementosDisponibles = Complement::whereDoesntHave('equipments', function ($query) use ($equipo) {
+                $query->where('complements.id', '!=', $equipo->id);
+            })->get();
+            
         } else {
             $complementosDisponibles = Complement::whereNotIn('id', $complementosAsignados->pluck('id'))->get();
         }
@@ -54,7 +58,7 @@ class EquipoController extends Controller
     {
         $request->validate([
             'complements_id' => 'required|array',
-            'complements_id.*' => 'exists:complements,id'
+            'complementos.*' => 'exists:complements,id|unique:complement_equipo,complement_id',
         ]);
 
         $equipo->complements()->attach($request->complements_id);

@@ -21,7 +21,7 @@ class ComplementController extends Controller
      */
     public function index()
     {
-        $equipos = Complement::with('type')->get();
+        $equipos = Complement::with('type', 'equipments')->get();
 
         return view('equipos.complements.index', compact('equipos'));
     }
