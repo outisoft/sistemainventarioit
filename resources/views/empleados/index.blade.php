@@ -100,6 +100,7 @@
 </x-app-layout>
 <script>
     new DataTable('#employees', {
+        order: [[1, 'asc']],
         pageLength: 50,
         lengthMenu: [10, 25, 50, 75, 100],
         language: {
