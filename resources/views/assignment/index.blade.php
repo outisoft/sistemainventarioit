@@ -192,7 +192,7 @@
                                             </td>
 
                                             <td class="employee-position">
-                                                {{ $empleado->departamento->name }} / {{ $empleado->hotel->name }}
+                                                {{ $empleado->hotel->name }} / {{ $empleado->departamento->name }}
                                             </td>
                                             <td>
                                                 <div class="assigned-items">
