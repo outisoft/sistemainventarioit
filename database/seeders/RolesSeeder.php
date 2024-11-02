@@ -35,6 +35,7 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'complements.destroy', 'description' => 'Eliminar complementos'])->syncRoles($adminRole);
 
         Permission::create(['name' => 'desktops.index', 'description' => 'Ver listado de desktops'])->syncRoles($adminRole);
+        Permission::create(['name' => 'desktops.show', 'description' => 'Ver detalles de desktop'])->syncRoles($adminRole);
         Permission::create(['name' => 'desktops.create', 'description' => 'Registrar desktops'])->syncRoles($adminRole);
         Permission::create(['name' => 'desktops.edit', 'description' => 'Editar desktops'])->syncRoles($adminRole);
         Permission::create(['name' => 'desktops.destroy', 'description' => 'Eliminar desktops'])->syncRoles($adminRole);

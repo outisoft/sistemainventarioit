@@ -35,7 +35,7 @@
 
         <!-- Equipo -->
         
-        <li class="menu-item {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('other.index') ? 'active' : '' }} || {{ Request::routeIs('access-points.index') ? 'active' : '' }} || {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('phones.index') ? 'active' : '' }} || {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || 
+        <li class="menu-item {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('other.index') ? 'active' : '' }} || {{ Request::routeIs('phones.index') ? 'active' : '' }} || {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || 
         {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}
         {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}
         {{ Request::routeIs('desktops.index') ? 'active' : '' }} ">
@@ -126,24 +126,6 @@
                     </li>
                 @endcan
 
-                @can('switches.index')
-                    <li class="menu-item {{ Request::routeIs('switches.index') ? 'active' : '' }}">
-                        <a href="{{ route('switches.index') }}" class="menu-link">
-                            <i class='menu-icon bx bx-server' ></i>
-                            <div data-i18n="Analytics">Switchs</div>
-                        </a>
-                    </li>
-                @endcan
-                
-                @can('access_points.index')
-                    <li class="menu-item {{ Request::routeIs('access-points.index') ? 'active' : '' }}">
-                        <a href="{{ route('access-points.index') }}" class="menu-link">
-                            <i class='menu-icon tf-icons bx bx-broadcast'></i>
-                            <div data-i18n="Analytics">AP's</div>
-                        </a>
-                    </li>
-                @endcan
-
                 @can('access_points.index')
                     <li class="menu-item {{ Request::routeIs('other.index') ? 'active' : '' }}">
                         <a href="{{ route('other.index') }}" class="menu-link">
@@ -190,6 +172,33 @@
                     <div data-i18n="Without navbar">Asignacion</div>
                 </a>
             </li>
+        @endcan
+
+        <!-- REDES -->
+        @can('switches.index')
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">REDES</span>
+            </li>
+
+        <!-- SWITCHES -->
+            @can('switches.index')
+                <li class="menu-item {{ Request::routeIs('switches.index') ? 'active' : '' }}">
+                    <a href="{{ route('switches.index') }}" class="menu-link">
+                        <i class='menu-icon bx bx-server' ></i>
+                        <div data-i18n="Analytics">Switchs</div>
+                    </a>
+                </li>
+            @endcan
+            
+        <!-- ACCESS POINTS -->
+            @can('access_points.index')
+                <li class="menu-item {{ Request::routeIs('access-points.index') ? 'active' : '' }}">
+                    <a href="{{ route('access-points.index') }}" class="menu-link">
+                        <i class='menu-icon tf-icons bx bx-broadcast'></i>
+                        <div data-i18n="Analytics">AP's</div>
+                    </a>
+                </li>
+            @endcan
         @endcan
 
         <!-- coming2 -->
