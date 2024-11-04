@@ -3,7 +3,6 @@
     <form method="POST" action="{{ route('tpvs.store') }}">
         @csrf
         <div class="mt-3">
-            <!-- Modal 1-->
             <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -15,11 +14,12 @@
                             <!-- Area -->
                             <div class="mb-3">
                                 <x-input-label class="form-label" for="area" :value="__('Area')" />
-                                <div class="input-group input-group-merge">
-                                    <x-text-input id="area" class="form-control" type="text"
-                                        name="area" placeholder="Cocina caliente" :value="old('area')" required
-                                        autocomplete="area" />
-                                </div>
+                                <select class="form-control" name="area" id="area">
+                                    <option value="BAR">BAR</option>
+                                    <option value="COCINA CALIENTE">COCINA CALIENTE</option>
+                                    <option value="COCINA FRIA">COCINA FRIA</option>
+                                    <option value="PASTELERIA">PASTELERIA</option>
+                                </select>
                                 <x-input-error :messages="$errors->get('area')" class="mt-2" />
                             </div>
 
@@ -27,7 +27,7 @@
                                 <label for="hotels_id" class="form-label">Hotel</label>
                                 <select class="form-control" id="hotels_id" name="hotel_id">
                                     <option value="">Seleccione un hotel</option>
-                                    @foreach($hotels as $hotel)
+                                    @foreach($hoteles as $hotel)
                                         <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
                                     @endforeach
                                 </select>
@@ -118,6 +118,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                             <button type="submit" class="btn btn-primary">Guardar</button>
                         </div>
                     </div>

@@ -1,6 +1,7 @@
 <x-app-layout>
     <!-- Modal de creacion -->
     @include('tpvs.create')
+    @include('tpvs.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -46,7 +47,7 @@
                                         @foreach ($tpvs as $tpv)
                                             <tr>
                                                 <td>{{ $tpv->area }}</td>
-                                                <td>{{ $tpv->departamento->name }}</td>
+                                                <td>{{ $tpv->departments->name }}</td>
                                                 <td>{{ $tpv->hotel->name }}</td>
                                                 <td>{{ $tpv->equipment }}</td>
                                                 <td>{{ $tpv->brand }}</td>
@@ -71,10 +72,7 @@
                                                             @endcan
 
                                                             @can('tpvs.edit')
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('tpvs.edit', $tpv->id) }}"><i
-                                                                        class="bx bx-edit me-1"></i>Editar
-                                                                </a>
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-tpv-id="{{ $tpv->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Editar</a>
                                                             @endcan
 
                                                             @can('tpvs.destroy')

@@ -1,14 +1,13 @@
 <!-- Modales de Edición -->
-@foreach($empleados as $empleado)
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModal{{ $empleado->id }}">Editar empleado: {{ $empleado->name }}</h5>
+                    <h5 class="modal-title" id="editModal">Editar empleado</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editForm" action="{{ route('empleados.update', $empleado) }}" method="POST">
+                    <form id="editForm" method="POST">
                         @csrf
                         @method('PUT')
                         <!-- No. Empleado -->
@@ -63,6 +62,8 @@
                                 @endforeach
                             </select>
                         </div>
+                        
+                        <!-- department -->
                         <div class="mb-3">
                             <label for="departamento_id" class="form-label">Departamento</label>
                             <select class="form-control" id="departamento_id" name="departamento_id">
@@ -75,7 +76,7 @@
                             <x-input-label class="form-label" for="adi" :value="__('AD')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="adi" class="form-control" type="text"
-                                    name="ad" placeholder="Soporte IT" value="{{ $empleado->ad }}" required
+                                    name="ad" placeholder="Soporte IT" required
                                     autocomplete="ad" />
                             </div>
                             <x-input-error :messages="$errors->get('ad')" class="mt-2" />
@@ -90,7 +91,6 @@
             </div>
         </div>
     </div>
-@endforeach
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -175,4 +175,4 @@
             });
         });
     });
-    </script>
+</script>

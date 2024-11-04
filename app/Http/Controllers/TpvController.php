@@ -21,10 +21,10 @@ class TpvController extends Controller
 
     public function index()
     {
-        $hotels = Hotel::all();
+        $hoteles = Hotel::all();
         $departamentos = Departamento::all();
-        $tpvs = tpv::with('hotel', 'departamento')->orderBy('name', 'asc')->get();
-        return view('tpvs.index', compact('tpvs','hotels', 'departamentos'));
+        $tpvs = tpv::with('hotel', 'departments')->orderBy('name', 'asc')->get();
+        return view('tpvs.index', compact('tpvs','hoteles', 'departamentos'));
     }
 
     /**
@@ -99,11 +99,18 @@ class TpvController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tpv $tpv)
+    /*public function edit(Tpv $tpv)
     {
         $hoteles = Hotel::all();
         $departamentos = Departamento::all();
         return view('tpvs.edit', compact('tpv', 'hoteles', 'departamentos'));
+    }*/
+
+    public function edit(Tpv $tpv)
+    {
+        return response()->json([
+            'tpv' => $tpv,
+        ]);
     }
 
     /**

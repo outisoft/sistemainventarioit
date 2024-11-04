@@ -16,7 +16,7 @@ class Tpv extends Model
         return $this->belongsTo(Hotel::class, 'hotel_id');
     }
 
-    public function departamento()
+    public function departments()
     {
         return $this->belongsTo(Departamento::class, 'departamento_id');
     }
