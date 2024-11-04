@@ -69,39 +69,6 @@
                         <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                     </div>
 
-                    <!-- Hotel -->
-                    <!--div class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Hotel</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text">
-                                <i class='bx bx-building-house'></i>
-                            </span>
-                            <select name="hotel_id" class="form-control" id="hotel_id"
-                                aria-label="Default select example">
-                                <option value="">Selecciona un hotel</option>
-                                @foreach ($hoteles as $hotel)
-                                    <option value="{{ $hotel->id }}">{{ $hotel->name }}
-                                        ({{ $hotel->tipo }})
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </!--div-->
-
-                    <!-- departamento -->
-                    <!--div-- class="mb-3">
-                        <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
-                        <div class="input-group input-group-merge">
-                            <span id="basic-icon-default-fullname2" class="input-group-text">
-                                <i class='bx bx-building'></i>
-                            </span>
-                            <select name="departamento_id" class="form-control" id="departamento_id"
-                                aria-label="Default select example" disabled>
-                                <option value="">Selecciona un departamento</option>
-                            </select>
-                        </div>
-                    </!--div-->
-
                     <div class="mb-3">
                         <label for="hotels_id" class="form-label">Hotel</label>
                         <select class="form-control" id="hotels_id" name="hotel_id">
@@ -142,35 +109,35 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#hotels_id').change(function() {
-        var hotelId = $(this).val();
-        var departamentoSelect = $('#departamentos_id');
-        
-        if (hotelId) {
-            // Habilitar el select de departamentos
-            departamentoSelect.prop('disabled', false);
+    $(document).ready(function() {
+        $('#hotels_id').change(function() {
+            var hotelId = $(this).val();
+            var departamentoSelect = $('#departamentos_id');
             
-            // Realizar la petición AJAX
-            $.ajax({
-                url: '/get-departamentos',
-                type: 'GET',
-                data: { hotel_id: hotelId },
-                success: function(data) {
-                    departamentoSelect.empty();
-                    departamentoSelect.append('<option value="">Seleccione un departamento</option>');
-                    
-                    $.each(data, function(index, departamento) {
-                        departamentoSelect.append('<option value="' + departamento.id + '">' + departamento.name + '</option>');
-                    });
-                }
-            });
-        } else {
-            // Si no hay hotel seleccionado, deshabilitar y limpiar el select de departamentos
-            departamentoSelect.prop('disabled', true);
-            departamentoSelect.empty();
-            departamentoSelect.append('<option value="">Primero seleccione un hotel</option>');
-        }
+            if (hotelId) {
+                // Habilitar el select de departamentos
+                departamentoSelect.prop('disabled', false);
+                
+                // Realizar la petición AJAX
+                $.ajax({
+                    url: '/get-departamentos',
+                    type: 'GET',
+                    data: { hotel_id: hotelId },
+                    success: function(data) {
+                        departamentoSelect.empty();
+                        departamentoSelect.append('<option value="">Seleccione un departamento</option>');
+                        
+                        $.each(data, function(index, departamento) {
+                            departamentoSelect.append('<option value="' + departamento.id + '">' + departamento.name + '</option>');
+                        });
+                    }
+                });
+            } else {
+                // Si no hay hotel seleccionado, deshabilitar y limpiar el select de departamentos
+                departamentoSelect.prop('disabled', true);
+                departamentoSelect.empty();
+                departamentoSelect.append('<option value="">Primero seleccione un hotel</option>');
+            }
+        });
     });
-});
 </script>

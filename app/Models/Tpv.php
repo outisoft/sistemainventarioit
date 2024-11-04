@@ -20,4 +20,17 @@ class Tpv extends Model
     {
         return $this->belongsTo(Departamento::class, 'departamento_id');
     }
+
+    protected static function boot() //guardar en mayusculas
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            foreach ($model->getAttributes() as $key => $value) {
+                if (is_string($value)) {
+                    $model->{$key} = strtoupper($value);
+                }
+            }
+        });
+    }
 }

@@ -202,7 +202,7 @@
         @endcan
 
         <!-- coming2 -->
-         @can('coming2.index')
+        @can('coming2.index')
             <li class="menu-header small text-uppercase">
                 <span class="menu-header-text">CO2</span>
             </li>
@@ -224,7 +224,7 @@
             <!--Usuarios-->
             <li class="menu-item {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.create') ? 'active' : '' }} || {{ Request::routeIs('users.show') ? 'active' : '' }} || {{ Request::routeIs('users.index') ? 'active' : '' }} || {{ Request::routeIs('users.edit') ? 'active' : '' }}">
                 <a href="{{ route('users.index') }}" class="menu-link">
-                    <i class='menu-icon tf-icons bx bxs-user-circle'></i>
+                    <i class='menu-icon tf-icons bx bx-user-circle'></i>
                     <div data-i18n="Analytics">Usuarios</div>
                 </a>
             </li>

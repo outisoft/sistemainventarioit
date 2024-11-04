@@ -98,36 +98,4 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
-<script>
-    new DataTable('#employees', {
-        order: [[1, 'asc']],
-        pageLength: 50,
-        lengthMenu: [10, 25, 50, 75, 100],
-        language: {
-            search: '_INPUT_',
-            searchPlaceholder: 'Search...'
-        },
-        info: false,
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'excelHtml5',
-                text: '<i class="bx bxs-downvote" data-placement="top" title="Descargar en EXCEL"></i>',
-                className: 'btn btn-ico',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                text: '<i class="bx bxs-file-pdf" data-placement="top" title="Descargar en PDF"></i>',
-                className: 'btn btn-ico',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
-                }
-            }
-            
-        ]
 
-    });
-</script>
