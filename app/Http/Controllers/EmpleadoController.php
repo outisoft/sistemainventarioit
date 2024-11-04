@@ -38,10 +38,10 @@ class EmpleadoController extends Controller
 
     public function index()
     {
-        $empleados = Empleado::with('hotel', 'departamento')->orderBy('name', 'asc')->get();
+        $empleados = Empleado::with('hotel', 'departments')->orderBy('name', 'asc')->get();
         $hoteles = Hotel::all();
-        $departamentos = Departamento::all();
-        return view('empleados.index', compact('empleados', 'hoteles', 'departamentos'));
+        //$departamentos = Departamento::all();
+        return view('empleados.index', compact('empleados', 'hoteles'));
     }
 
     public function create()
@@ -98,6 +98,13 @@ class EmpleadoController extends Controller
         }
     }
 
+    public function edit(Empleado $empleado)
+    {
+        return response()->json([
+            'empleado' => $empleado,
+        ]);
+    }
+
     // Método para mostrar un registro específico
     public function getEmpleado($no_empleado)
     {
@@ -109,20 +116,14 @@ class EmpleadoController extends Controller
         return response()->json($empleado);
     }
 
-    // Método para mostrar el formulario de edición
-    public function edit($id)
-    {
-        $employee = Empleado::findOrFail($id);
-        $hotels = Hotel::all();
-        $departments = Departamento::where('hotel_id', $employee->hotel_id)->get();
 
-        return view('employees.edit', compact('employee', 'hotels', 'departments'));
-    }
-
-    public function getDepartments($hotelId)
+    public function getDepartamentos(Request $request)
     {
-        $departments = Departmento::where('hotel_id', $hotelId)->pluck('name', 'id');
-        return response()->json($departments);
+        $hotel = Hotel::find($request->hotel_id);
+        $departamentos = $hotel->departments()
+            ->orderBy('name', 'asc')
+            ->get();
+        return response()->json($departamentos);
     }
 
     // Método para actualizar un registro

@@ -53,7 +53,7 @@
                                                 <td>{{ Str::limit($empleado->name, 20, ' ...') }}</td>
                                                 <td>{{ Str::limit($empleado->puesto, 20, ' ...') }}</td>
                                                 <td>{{ $empleado->hotel->name }}</td>
-                                                <td>{{ $empleado->departamento->name }}</td>
+                                                <td>{{ $empleado->departments->name }}</td>
                                                 <!--td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td-->
                                                 <td>{{ $empleado->ad }}</td>
                                                 <td>
@@ -66,7 +66,7 @@
                                                         <div class="dropdown-menu">
 
                                                             @can('empleados.edit')
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $empleado->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Editar</a>
                                                             @endcan
 
                                                             @can('empleados.destroy')

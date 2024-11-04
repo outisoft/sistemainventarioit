@@ -23,7 +23,7 @@ class Hotel extends Model
 
     public function departments()
     {
-        return $this->belongsToMany(Departamento::class);
+        return $this->belongsToMany(Departamento::class, 'departamento_hotel');
     }
 
     // Modelo Hotel

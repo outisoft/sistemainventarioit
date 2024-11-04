@@ -19,7 +19,7 @@ class Departamento extends Model
     //new
     public function hotels()
     {
-        return $this->belongsToMany(Hotel::class);
+        return $this->belongsToMany(Hotel::class, 'departamento_hotel');
     }
 
     protected static function boot() //guardar en mayusculas

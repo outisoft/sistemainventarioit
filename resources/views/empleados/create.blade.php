@@ -70,7 +70,7 @@
                     </div>
 
                     <!-- Hotel -->
-                    <div class="mb-3">
+                    <!--div class="mb-3">
                         <label for="exampleFormControlSelect1" class="form-label">Hotel</label>
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-fullname2" class="input-group-text">
@@ -86,10 +86,10 @@
                                 @endforeach
                             </select>
                         </div>
-                    </div>
+                    </!--div-->
 
                     <!-- departamento -->
-                    <div class="mb-3">
+                    <!--div-- class="mb-3">
                         <label for="exampleFormControlSelect1" class="form-label">Departamento</label>
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-fullname2" class="input-group-text">
@@ -100,6 +100,23 @@
                                 <option value="">Selecciona un departamento</option>
                             </select>
                         </div>
+                    </!--div-->
+
+                    <div class="mb-3">
+                        <label for="hotels_id" class="form-label">Hotel</label>
+                        <select class="form-control" id="hotels_id" name="hotel_id">
+                            <option value="">Seleccione un hotel</option>
+                            @foreach($hoteles as $hotel)
+                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="departamentos_id" class="form-label">Departamento</label>
+                        <select class="form-control" id="departamentos_id" name="departamento_id" disabled>
+                            <option value="">Primero seleccione un hotel</option>
+                        </select>
                     </div>
 
                     <!-- AD -->
@@ -126,21 +143,33 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    $('#hotel_id').change(function() {
+    $('#hotels_id').change(function() {
         var hotelId = $(this).val();
+        var departamentoSelect = $('#departamentos_id');
+        
         if (hotelId) {
-            $.get('/hotel/' + hotelId + '/departments', function(data) {
-                $('#departamento_id').prop('disabled', false);
-                $('#departamento_id').empty();
-                $('#departamento_id').append('<option value="">Selecciona un departamento</option>');
-                $.each(data, function(index, department) {
-                    $('#departamento_id').append('<option value="' + department.id + '">' + department.name + '</option>');
-                });
+            // Habilitar el select de departamentos
+            departamentoSelect.prop('disabled', false);
+            
+            // Realizar la petición AJAX
+            $.ajax({
+                url: '/get-departamentos',
+                type: 'GET',
+                data: { hotel_id: hotelId },
+                success: function(data) {
+                    departamentoSelect.empty();
+                    departamentoSelect.append('<option value="">Seleccione un departamento</option>');
+                    
+                    $.each(data, function(index, departamento) {
+                        departamentoSelect.append('<option value="' + departamento.id + '">' + departamento.name + '</option>');
+                    });
+                }
             });
         } else {
-            $('#departamento_id').prop('disabled', true);
-            $('#departamento_id').empty();
-            $('#departamento_id').append('<option value="">Selecciona un departamento</option>');
+            // Si no hay hotel seleccionado, deshabilitar y limpiar el select de departamentos
+            departamentoSelect.prop('disabled', true);
+            departamentoSelect.empty();
+            departamentoSelect.append('<option value="">Primero seleccione un hotel</option>');
         }
     });
 });
