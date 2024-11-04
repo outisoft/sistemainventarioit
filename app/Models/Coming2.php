@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Coming2 extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['operario', 'puesto', 'email', 'usuario', 'password', 'numero_tableta', 'serial', 'numero_telefono', 'imei', 'sim', 'policy_id', 'configurada', 'carta_firmada', 'observacion', 'folio_baja'];
+    protected $fillable = ['operario', 'puesto', 'email', 'usuario', 'password', 'numero_tableta', 'serial', 'numero_telefono', 'imei', 'sim', 'policy_id', 'configurada', 'carta_firmada', 'observacion', 'folio_baja', 'deleted_at'];
 
     public function policies()
     {

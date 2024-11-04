@@ -207,7 +207,7 @@
                 <span class="menu-header-text">CO2</span>
             </li>
 
-            <li class="menu-item {{ Request::routeIs('coming2.edit') ? 'active' : '' }} || {{ Request::routeIs('coming2.index') ? 'active' : '' }} || {{ Request::routeIs('coming2.show') ? 'active' : '' }}">
+            <li class="menu-item {{ Request::routeIs('co2.trashed') ? 'active' : '' }} || {{ Request::routeIs('coming2.edit') ? 'active' : '' }} || {{ Request::routeIs('coming2.index') ? 'active' : '' }} || {{ Request::routeIs('coming2.show') ? 'active' : '' }}">
                 <a href="{{ url('coming2') }}" class="menu-link">
                     <i class='menu-icon bx bx-bus'></i>
                     <div data-i18n="Without navbar">Coming2</div>

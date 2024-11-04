@@ -129,6 +129,38 @@ class Coming2Controller extends Controller
         return redirect()->route('coming2.index');
     }
 
+    public function delete($id)
+    {
+        $tablet = Coming2::findOrFail($id);
+        $tablet->delete();
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Tablet eliminado.");
+        return redirect()->route('coming2.index');
+    }
+
+    // Método para restaurar empleado
+    public function restore($id)
+    {
+        $empleado = Coming2::withTrashed()->findOrFail($id);
+        $empleado->restore();
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Equipo restaurado correctamente.");
+        return redirect()->route('co2.trashed');
+    }
+
+    // Método para listar empleados eliminados
+    public function trashedEmpleados()
+    {
+        $politicas = Policy::orderBy('name')->get();
+        $tablets = Coming2::onlyTrashed()->get();
+        return view('coming2.trashed', compact('tablets', 'politicas'));
+        //return response()->json($empleados);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -147,7 +179,7 @@ class Coming2Controller extends Controller
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Tablet de {$tablet->operario} eliminado.");
-        return redirect()->route('coming2.index');
+        return redirect()->route('co2.trashed');
     }
 
     public function save_pdf($id)

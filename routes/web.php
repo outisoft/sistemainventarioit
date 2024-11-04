@@ -190,9 +190,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
 
-    // En web.php
+    //coming2
+    Route::get('/co2/trashed', [Coming2Controller::class, 'trashedEmpleados'])->name('co2.trashed');
+    Route::delete('/co2/{id}', [Coming2Controller::class, 'delete'])->name('co2.delete');
+    Route::post('/co2/{id}/restore', [Coming2Controller::class, 'restore'])->name('co2.restore');
+
+    // Asignar complementos a un equipo
     Route::post('/equipos/{equipo}/asignar-complementos', [EquipoController::class, 'asignarComplementos'])->name('equipos.asignar-complementos');
-    // En web.php
     Route::delete('/equipos/{equipo}/complementos/{complemento}', [EquipoController::class, 'eliminarComplemento'])->name('equipos.complementos.destroy');
 
     Route::get('/empleado/{no_empleado}', [EmpleadoController::class, 'getEmpleado']);

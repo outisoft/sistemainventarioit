@@ -2,24 +2,12 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Coming2 /</span> Tablets </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Coming2 / Tablets /</span> Papelera </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de Tabletas</h5>
-                    @can ('coming2.create')
-                        <div class="navbar-nav align-items-center">
-                            <div class="nav-item d-flex align-items-center">
-                                <a href="{{ route('co2.trashed') }}" class="btn-ico">
-                                    <i class="bx bx-trash icon-lg" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Papelera" data-bs-original-title="Papelera"></i>
-                                </a>
-                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalToggle">
-                                    <i class="bx bx-add-to-queue icon-lg" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Nuevo registro" data-bs-original-title="Nuevo registro"></i>
-                                </a>
-                            </div>
-                        </div>
-                    @endcan
+                    <h5 class="card-header">Papelera de Tabletas</h5>
                 </div>
                 <!-- Modal de creacion -->
                 @include('coming2.create')
@@ -87,22 +75,14 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            @can ('coming2.show')
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('coming2.show', $tablet->id) }}"><i
-                                                                    class="bx bx-show-alt me-1"></i>Ver
-                                                            </a>
-                                                            @endcan
 
-                                                            @can ('coming2.edit')
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('coming2.edit', $tablet->id) }}"><i
-                                                                    class="bx bx-edit me-1"></i>Editar
-                                                            </a>
-                                                            @endcan
+                                                            <form action="{{ route('co2.restore', $tablet->id) }}" method="POST">
+                                                                @csrf
+                                                                <button type="submit" class="dropdown-item"><i class='bx bx-reset me-1'></i>Restaurar</button>
+                                                            </form>
 
                                                             @can ('coming2.destroy')
-                                                            <form action="{{ route('co2.delete', $tablet->id) }}"
+                                                            <form action="{{ route('coming2.destroy', $tablet->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
