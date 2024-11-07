@@ -1,23 +1,3 @@
-<!--html>
-<head>
-    <title>Código QR para {{ $employee->name }}</title>
-    <script>
-        function printQR() {
-            window.print();
-        }
-    </script>
-</head>
-<body>
-    <h1>Código QR para {{ $employee->name }}</h1>
-    <div>
-        <img src="data:image/png;base64,{{ base64_encode($qrcode) }}" alt="QR Code">
-    </div>
-    <p>Escanea este código para ver los detalles de los equipos asignados.</p>
-    <button onclick="printQR()">Imprimir QR</button>
-    <a href="{{ route('downloadQRCode', $employee->id) }}" download="qrcode_employee_{{ $employee->id }}.png">Descargar QR</a>
-</body>
-</html-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>

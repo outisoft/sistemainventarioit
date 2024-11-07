@@ -101,7 +101,6 @@
                                                             </a>
                                                             @endcan
 
-                                                            @can ('coming2.destroy')
                                                             <form action="{{ route('co2.delete', $tablet->id) }}"
                                                                 method="POST">
                                                                 @csrf
@@ -111,7 +110,6 @@
                                                                     onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
                                                                         class="bx bx-trash me-1"></i>Eliminar</button>
                                                             </form>
-                                                            @endcan
                                                         </div>
                                                     </div>
                                                 </td>

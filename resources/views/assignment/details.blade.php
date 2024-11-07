@@ -381,7 +381,7 @@
                 #{{ $employee->no_empleado}}
 			</div>
 			<h6> {{ $employee->ad}} </h6>
-			<h2>{{ $employee->departamento->name }} / {{ $employee->hotel->name}} </h2>
+			<h2>{{ $employee->departments->name }} / {{ $employee->hotel->name}} </h2>
 
             <a class="btn" href="#">
                 <img src="{{ asset('images/gp-Logo.png') }}" alt="Imagen de ejemplo" width="36"

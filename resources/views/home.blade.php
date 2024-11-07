@@ -226,9 +226,6 @@
     setInterval(actualizarHora, 1000);
 </script>
 
-
-<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
 <script>
     var datos = @json($tpvsPorDepartamento);
     var categorias = [];

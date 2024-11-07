@@ -17,7 +17,7 @@ class AssignmentController extends Controller
 {
     public function index()
     {
-        $empleados = Empleado::with('hotel', 'departamento')->orderBy('name', 'asc')->get();
+        $empleados = Empleado::with('hotel', 'departments')->orderBy('name', 'asc')->get();
         $equipos = Equipo::with('tipo')->get();
         //$equipos = DB::table('equipos')->get();
         $empleadosConEquipos = Empleado::whereHas('empleados_equipos')->get();

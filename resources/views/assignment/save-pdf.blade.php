@@ -61,7 +61,7 @@
         @else
             <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
         @endif
-        <div class="title">ENTREGA DE {{ $equipo->tipo->name }}<br>{{ $empleado->departamento->name }}/{{ $empleado->hotel->name}}</div>
+        <div class="title">ENTREGA DE {{ $equipo->tipo->name }}<br>{{ $empleado->departments->name }}/{{ $empleado->hotel->name}}</div>
     </div>
     <br><br>
         <br>
