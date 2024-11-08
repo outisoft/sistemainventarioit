@@ -46,7 +46,8 @@ Route::middleware('auth')->group(function () {
         // Obtener la cantidad de equipos de cada tipo
         $tipos = Tipo::withCount('equipos')->get();
 
-        $labels = $tipos->pluck('name')->toArray();
+        //$labels = $tipos->pluck('name')->toArray();
+        $labels = $tipos->whereIn('name', ['DESKTOP', 'IMPRESORA', 'LAPTOP', 'OTHER', 'PHONE', 'TABLET'])->pluck('name')->toArray();
         $data = $tipos->pluck('equipos_count')->toArray();
 
         // Obtener todos los equipos disponibles u ocupado de tupo CPU

@@ -174,7 +174,6 @@
                     </div>
                 </div>
             @endcan
-
         </div>
         <br>
     </div>

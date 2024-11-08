@@ -36,7 +36,7 @@
                                 <table id="employees" class="table footer">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th># Colaborador</th>
+                                            <th>#</th>
                                             <th>Nombre</th>
                                             <th>Puesto</th>
                                             <th>Hotel</th>
@@ -64,6 +64,10 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
+
+                                                            @can('empleados.show')
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class='bx bx-show-alt me-1'></i>Ver</a>
+                                                            @endcan
 
                                                             @can('empleados.edit')
                                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Editar</a>
