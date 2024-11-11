@@ -32,6 +32,7 @@
                                 <th>IP</th>
                                 <th>MAC</th>
                                 <th>Ubicación</th>
+                                <th>Observaciones</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -43,6 +44,7 @@
                                     <td>{{ $switch->ip }}</td>
                                     <td>{{ $switch->mac }}</td>
                                     <td>{{ $switch->hotel->name }}</td>
+                                    <td>{{ $switch->observacion }}</td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"

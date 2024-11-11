@@ -51,6 +51,7 @@ class SwitchController extends Controller
                 ],
                 'total_ports' => 'required|integer|min:1|max:128',
                 'hotel_id' => 'required|exists:hotels,id',
+                'observacion' => 'required',
             ], [
                 'name.unique' => 'Este nombre ya está en uso por otro switch.',
                 'ip.unique' => 'Esta dirección IP ya está en uso por otro switch.',
@@ -132,6 +133,7 @@ class SwitchController extends Controller
                 ],
                 'total_ports' => 'required|integer|min:1|max:128',
                 'hotel_id' => 'required|exists:hotels,id',
+                'observacion' => 'required',
             ], [
                 'name.unique' => 'Este nombre ya está en uso por otro switch.',
                 'ip.unique' => 'Esta dirección IP ya está en uso por otro switch.',

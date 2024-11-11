@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('ip')->unique();
             $table->integer('total_ports');
             $table->foreignId('hotel_id')->constrained();
+            $table->longText('observacion');
             $table->timestamps();
         });
     }

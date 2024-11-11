@@ -2,15 +2,15 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">SWITCH</h4>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
-                </button>
-            </div>
+            <form action="{{ route('switches.store') }}" method="POST">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">SWITCH</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
 
-            <div class="modal-body">
-                <form action="{{ route('switches.store') }}" method="POST">
+                <div class="modal-body">
                     @csrf
                     <!-- NOMBRE -->
                     <div class="mb-3">
@@ -89,7 +89,7 @@
                         <x-input-error :messages="$errors->get('total_ports')" class="mt-2" />
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <label for="hotel_id">Ubicación:</label>
                         <select class="form-control" id="hotel_id" name="hotel_id" required>
                             @foreach($hotels as $hotel)
@@ -97,10 +97,23 @@
                             @endforeach
                         </select>
                     </div>
-                    <br>
+
+                    <!-- Observacion -->
+                    <div class="form-group">
+                        <x-input-label class="form-label" for="observacion" :value="__('Observaciones')" />
+                        <div class="input-group input-group-merge">
+                            <textarea id="observacion" class="form-control" type="textarea"
+                                name="observacion" placeholder="Escribe tus observaciones..." :value="old('observacion')" required
+                                autocomplete="observacion" rows="4"></textarea>
+                        </div>
+                        <x-input-error :messages="$errors->get('observacion')" class="mt-2" />
+                    </div>                    
+                </div>
+
+                <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
