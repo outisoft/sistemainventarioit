@@ -28,16 +28,30 @@
 
                     <!-- Tipo -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="tipo" :value="__('Tipo de hotel o empresa')" />
+                        <x-input-label class="form-label" for="type" :value="__('Tipo de hotel o empresa')" />
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-building-house'></i>
                             </span>
-                            <x-text-input id="tipo" class="form-control" type="text"
-                                name="tipo" placeholder="Luxury, Grand, externo..." :value="old('tipo')" required
-                                autocomplete="tipo" />
+                            <x-text-input id="type" class="form-control" type="text"
+                                name="type" placeholder="Luxury, Grand, sister company..." :value="old('type')" required
+                                autocomplete="type" />
                         </div>
-                        <x-input-error :messages="$errors->get('tipo')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('type')" class="mt-2" />
+                    </div>
+
+                    <!-- Pais -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="country" :value="__('Tipo de hotel o empresa')" />
+                        <div class="input-group input-group-merge">
+                            <span id="basic-icon-default-fullname2" class="input-group-text">
+                                <i class='bx bxs-flag-alt'></i>
+                            </span>
+                            <x-text-input id="country" class="form-control" type="text"
+                                name="country" placeholder="México, Jamaica, España..." :value="old('country')" required
+                                autocomplete="country" />
+                        </div>
+                        <x-input-error :messages="$errors->get('country')" class="mt-2" />
                     </div>
 
                     <br>

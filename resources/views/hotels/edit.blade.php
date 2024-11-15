@@ -21,12 +21,23 @@
                             </div>
                         </div>
 
+                        <!-- tipo -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="tipo" :value="__('Tipo')" />
+                            <x-input-label class="form-label" for="type" :value="__('Tipo')" />
                             <div class="input-group input-group-merge">
-                                <x-text-input id="tipo" class="form-control" type="text" name="tipo"
-                                    value="{{ $hotel->tipo }}" required autofocus />
-                                <x-input-error :messages="$errors->get('tipo')" class="mt-2" />
+                                <x-text-input id="type" class="form-control" type="text" name="type"
+                                    value="{{ $hotel->type }}" required autofocus />
+                                <x-input-error :messages="$errors->get('type')" class="mt-2" />
+                            </div>
+                        </div>
+
+                        <!-- Pais -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="country" :value="__('Pais')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="country" class="form-control" type="text" name="country"
+                                    value="{{ $hotel->country }}" required autofocus />
+                                <x-input-error :messages="$errors->get('country')" class="mt-2" />
                             </div>
                         </div>
 

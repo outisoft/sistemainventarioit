@@ -19,7 +19,7 @@ class HotelController extends Controller
 
     public function index()
     {
-        $hotels = Hotel::withCount(['departments'])->get();
+        $hotels = Hotel::orderBy('name', 'asc')->withCount(['departments'])->get();
         $departments = Departamento::orderBy('name', 'asc')->get();
         return view('hotels.index', compact('hotels', 'departments'));
     }
@@ -35,7 +35,8 @@ class HotelController extends Controller
     {
         $hotel = Hotel::create([
             'name' => $request->input('name'),
-            'tipo' => $request->input('tipo'),
+            'type' => $request->input('type'),
+            'country' => $request->input('country'),
         ]);
 
         toastr()
@@ -47,6 +48,9 @@ class HotelController extends Controller
     public function update(Request $request, $hotel_id)
     {
         $request->validate([
+            'name' => 'required',
+            'type' => 'required',
+            'country' => 'required',
             'department_ids' => 'array',
             'department_ids.*' => 'exists:departamentos,id',
         ]);

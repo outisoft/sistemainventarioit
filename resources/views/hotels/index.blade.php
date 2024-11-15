@@ -29,6 +29,7 @@
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Tipo</th>
+                                            <th>Pais</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -37,7 +38,8 @@
                                         @foreach ($hotels as $hotel)
                                             <tr>
                                                 <td>{{ $hotel->name }}</td>
-                                                <td>{{ $hotel->tipo }}</td>
+                                                <td>{{ $hotel->type }}</td>
+                                                <td>{{ $hotel->country }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
