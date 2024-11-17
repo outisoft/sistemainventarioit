@@ -2,12 +2,12 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Hoteles /</span> Hoteles & empresas </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Hotels /</span> Hotels & companies </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Hoteles</h5>
+                    <h5 class="card-header">Hotels</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
@@ -27,9 +27,9 @@
                                 <table id="hotels" class="table">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Tipo</th>
-                                            <th>Pais</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Country</th>
                                             <th></th>
                                         </tr>
                                     </thead>

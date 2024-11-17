@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\Departamento;
+use App\Http\Requests\HotelStoreRequest;
+use App\Http\Requests\HotelUpdateRequest;
 
 class HotelController extends Controller
 {
@@ -31,13 +33,9 @@ class HotelController extends Controller
         return response()->json($departments);
     }
 
-    public function store(Request $request)
+    public function store(HotelStoreRequest $request)
     {
-        $hotel = Hotel::create([
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'country' => $request->input('country'),
-        ]);
+        $hotel = Hotel::create($request->all());
 
         toastr()
             ->timeOut(3000) // 3 second
@@ -45,17 +43,9 @@ class HotelController extends Controller
         return redirect()->route('hotels.index');
     }
 
-    public function update(Request $request, $hotel_id)
+    public function update(HotelUpdateRequest $request, Hotel $hotel)
     {
-        $request->validate([
-            'name' => 'required',
-            'type' => 'required',
-            'country' => 'required',
-            'department_ids' => 'array',
-            'department_ids.*' => 'exists:departamentos,id',
-        ]);
-
-        $hotel = Hotel::findOrFail($hotel_id);
+        $hotel->update($request->all());
         $hotel->departments()->sync($request->department_ids ?? []);
 
         toastr()
