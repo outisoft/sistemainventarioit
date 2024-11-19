@@ -3,18 +3,17 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipos /</span> Access Point </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> </span> Access Point </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de AP's</h5>
+                    <h5 class="card-header">AP's list</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
 
                             @can('access_points.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#createModal"
-                                    data-placement="top" title="Agregar Nuevo Registro">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#createModal" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Add new equipment</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -28,11 +27,11 @@
                     <table id="aps" class="table">
                         <thead class="bg-primary">
                             <tr>
-                                <th>Nombre</th>
+                                <th>Name</th>
                                 <th>IP</th>
                                 <th>MAC</th>
-                                <th>SW Conectado</th>
-                                <th>Acciones</th>
+                                <th>SW</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -51,7 +50,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 @can('access_points.edit')
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $ap->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $ap->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
                                                 @endcan
 
                                                 @can('access_points.destroy')
@@ -59,8 +58,8 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"
-                                                            onclick="return confirm('¿Estás seguro de eliminar este AP?')"><i
-                                                                class="bx bx-trash me-1"></i>Eliminar</button>
+                                                            onclick="return confirm('Are you sure to delete this equipment?')"><i
+                                                                class="bx bx-trash me-1"></i>Delete</button>
                                                     </form>
                                                 @endcan
                                             </div>

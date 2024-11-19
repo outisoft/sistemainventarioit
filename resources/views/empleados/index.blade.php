@@ -7,18 +7,17 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Empleado /</span> Listado </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Employees /</span> List </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de Empleados</h5>
+                    <h5 class="card-header">Employees list</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
 
                             @can('empleados.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                    data-placement="top" title="Agregar Nuevo Registro">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Add new employee</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -37,12 +36,12 @@
                                     <thead class="bg-primary">
                                         <tr>
                                             <th>#</th>
-                                            <th>Nombre</th>
-                                            <th>Puesto</th>
+                                            <th>Name</th>
+                                            <th>Job</th>
                                             <th>Hotel</th>
-                                            <th>Departamento</th>
+                                            <th>Department</th>
                                             <th>AD</th>
-                                            <th>Acciones</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody id="employeeList">
@@ -66,11 +65,11 @@
                                                         <div class="dropdown-menu">
 
                                                             @can('empleados.show')
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class='bx bx-show-alt me-1'></i>Ver</a>
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class='bx bx-show-alt me-1'></i>Show</a>
                                                             @endcan
 
                                                             @can('empleados.edit')
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 
                                                             @can('empleados.destroy')
@@ -81,8 +80,8 @@
                                                                     @method('DELETE')
                                                                     <button type="submit"
                                                                         class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                        onclick="return confirm('Are you sure to delete this employee?')"><i
+                                                                            class="bx bx-trash me-1"></i>Delete</button>
                                                                 </form>
                                                             @endcan
                                                         </div>

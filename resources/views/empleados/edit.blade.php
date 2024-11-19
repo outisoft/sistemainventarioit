@@ -3,7 +3,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModal">Editar empleado</h5>
+                    <h5 class="modal-title" id="editModal">Edit employee</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -12,7 +12,7 @@
                         @method('PUT')
                         <!-- No. Empleado -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="no_empleado-input" :value="__('Numero de empleado')" />
+                            <x-input-label class="form-label" for="no_empleado" :value="__('Employee number')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="empleado" class="form-control" type="text"
                                     name="no_empleado" placeholder="3004568" required/>
@@ -22,7 +22,7 @@
 
                         <!-- Nombre -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="name" :value="__('Nombre de empleado')" />
+                            <x-input-label class="form-label" for="name" :value="__('Name')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="nombre" class="form-control" type="text"
                                     name="name" placeholder="Auixchik Mutula" required/>
@@ -32,7 +32,7 @@
 
                         <!-- Email -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="email" :value="__('Correo electronico')" />
+                            <x-input-label class="form-label" for="email" :value="__('Email')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="correo" class="form-control" type="email"
                                     name="email" placeholder="ejemplo@correo.com" required
@@ -43,7 +43,7 @@
 
                         <!-- Puesto -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="puesto" :value="__('Puesto')" />
+                            <x-input-label class="form-label" for="puesto" :value="__('JOB POSITION')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="job" class="form-control" type="text"
                                     name="puesto" placeholder="Soporte IT" required
@@ -54,7 +54,7 @@
 
                         <!-- hotel -->
                         <div class="mb-3">
-                            <label for="hotel_id" class="form-label">Hotel</label>
+                            <x-input-label class="form-label" for="hotel_id" :value="__('HOTEL')" />
                             <select class="form-control" id="hotel_id" name="hotel_id">
                                 <option value="">Seleccione un hotel</option>
                                 @foreach($hoteles as $hotel)
@@ -65,7 +65,7 @@
                         
                         <!-- department -->
                         <div class="mb-3">
-                            <label for="departamento_id" class="form-label">Departamento</label>
+                            <x-input-label class="form-label" for="departamento_id" :value="__('DEPARTMENTS')" />
                             <select class="form-control" id="departamento_id" name="departamento_id">
                                 <option value="">Seleccione un departamento</option>
                             </select>
@@ -73,7 +73,7 @@
 
                         <!-- AD -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="adi" :value="__('AD')" />
+                            <x-input-label class="form-label" for="ad" :value="__('AD')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="adi" class="form-control" type="text"
                                     name="ad" placeholder="Soporte IT" required

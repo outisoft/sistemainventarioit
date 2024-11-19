@@ -21,7 +21,7 @@ class SwitchController extends Controller
     public function index()
     {
         $switches = Swittch::with('hotel', 'accessPoints')->get();
-        $hotels = Hotel::all();
+        $hotels = Hotel::orderBy('name', 'asc')->get();
 
         return view('equipos.switches.index', compact('switches', 'hotels'));
     }

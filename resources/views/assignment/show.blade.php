@@ -2,18 +2,18 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Asignacion /</span> Detalles </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Assign /</span> Details </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Detalles de <strong>{{ $empleado->name }} </strong></h5>
+                    <h5 class="card-header">DETAILS BY <strong>{{ $empleado->name }} </strong></h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="{{ route('generateQRCode', $empleado->id) }}" target="_blank" class="btn-ico" data-placement="top" title="Codigo QR">
+                            <a href="{{ route('generateQRCode', $empleado->id) }}" target="_blank" class="btn-ico" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>QR Code</span>">
                                 <i class='bx bx-qr-scan icon-lg'></i>
                             </a>
-                            <a href="{{ route('save-pdf', $empleado->id) }}" target="_blank" class="btn-ico" data-placement="top" title="Hoja de resguardo">
+                            <a href="{{ route('save-pdf', $empleado->id) }}" target="_blank" class="btn-ico" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Responsive sheet</span>">
                                 <i class='bx bxs-file-pdf icon-lg'></i>
                             </a>
                         </div>
@@ -26,27 +26,27 @@
                             <div class="card-body">
                                 <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
                                     <tr>
-                                        <th class="bg-secondary">No. Colaborador</th>
+                                        <th class="bg-secondary">No. EMPLOYEE</th>
                                         <td>{{ $empleado->no_empleado }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Nombre</th>
+                                        <th class="bg-secondary">NAME</th>
                                         <td>{{ $empleado->name }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Correo</th>
+                                        <th class="bg-secondary">EMAIL</th>
                                         <td>{{ $empleado->email }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Puesto</th>
+                                        <th class="bg-secondary">JOB</th>
                                         <td>{{ $empleado->puesto }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Departamento</th>
+                                        <th class="bg-secondary">DEPARTMENT</th>
                                         <td>{{ $departamento->name }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Hotel</th>
+                                        <th class="bg-secondary">HOTEL</th>
                                         <td>{{ $hotel->name }}</td>
                                     </tr>
                                     <tr>
@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Equipos asignados</strong></h5>
+                    <h5 class="card-header">ASSIGNED EQUIPMENT</strong></h5>
                 </div>
 
                 <div class="card-datatable table-responsive pt-0">
@@ -69,15 +69,14 @@
                         <table id="empleados" class="table table-striped footer">
                             <thead class="bg-primary">
                                 <tr>
-                                    <th>Tipo de quipo</th>
-                                    <th>Orden de compra</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>Serie</th>
-                                    <th>Nombre de equipo</th>
+                                    <th>EQUIPMENT TYPE</th>
+                                    <th>BRAND</th>
+                                    <th>MODEL</th>
+                                    <th>SERIAL</th>
+                                    <th>EQUIPMENT NAME</th>
                                     <th>IP</th>
-                                    <th>Sistema Operativo</th>
-                                    <th>Acciones</th>
+                                    <th>OPERATING SYSTEM</th>
+                                    <th>ACTIONS</th>
                                 </tr>
                             </thead>
                             <tbody id="employeeList">
@@ -86,9 +85,6 @@
                                     <tr>
                                         <td>
                                             {{ $equipo->tipo->name }}
-                                        </td>
-                                        <td>
-                                            {{ $equipo->orden }}
                                         </td>
                                         <td>
                                             {{ $equipo->marca }}
@@ -110,6 +106,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Unlink employee equipment</span>"
                                                 class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
                                         </td>
                                     </tr>
@@ -118,16 +115,16 @@
                         </table>
                         <br>
                         <div class="card-header">
-                            <h5 class="card-header">Complementos Asignados</strong></h5>
+                            <h5 class="card-header">ASSIGNED COMPLEMENT</strong></h5>
                         </div>
                         @if ($complementosAsignados->count() > 0)
                             <table id="empleados" class="table table-striped footer">
                                 <thead class="bg-primary">
                                     <tr>
-                                        <th>Tipo de quipo</th>
-                                        <th>Marca</th>
-                                        <th>Modelo</th>
-                                        <th>Serie</th>
+                                        <th>EQUIPMENT TYPE</th>
+                                        <th>BRAND</th>
+                                        <th>MODEL</th>
+                                        <th>SERIAL</th>
                                     </tr>
                                 </thead>
                                 <tbody id="employeeList">
@@ -151,11 +148,11 @@
                                 </tbody>
                             </table>
                         @else
-                            <p>No hay complementos asignados.</p>
+                            <p>No plugins assigned.</p>
                         @endif
                         <br>
                         <a href="{{ route('assignment.index') }}" class="btn btn-secondary"><i
-                                class='bx bx-arrow-back'></i>Volver</a>
+                                class='bx bx-arrow-back'></i>RETURN</a>
                         <br>
                     </div>
                 </div>

@@ -7,15 +7,14 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel">Nuevo empleado</h4>
+                            <h4 class="modal-title" id="myModalLabel">New employee</h4>
                             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
                         </div>
 
                         <div class="modal-body">
                             <!-- Numero de Colaborador -->
                             <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname">Numero de
-                                    Colaborador</label>
+                                <x-input-label class="form-label" for="no_empleado" :value="__('Employee number')" />
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bxl-slack-old'></i>
@@ -30,7 +29,7 @@
 
                             <!-- Nombre -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="name" :value="__('Nombre completo')" />
+                                <x-input-label class="form-label" for="name" :value="__('Name')" />
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-user'></i>
@@ -58,7 +57,7 @@
 
                             <!-- Puesto -->
                             <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname">Puesto</label>
+                                <x-input-label class="form-label" for="puesto" :value="__('JOB POSITION')" />
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bxs-id-card'></i>
@@ -70,26 +69,28 @@
                                 <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                             </div>
 
+                            <!-- Hotel -->
                             <div class="mb-3">
-                                <label for="hotels_id" class="form-label">Hotel</label>
+                                <x-input-label class="form-label" for="hotel_id" :value="__('HOTEL')" />
                                 <select class="form-control" id="hotels_id" name="hotel_id">
-                                    <option value="">Seleccione un hotel</option>
+                                    <option value="">Choose a hotel</option>
                                     @foreach($hoteles as $hotel)
                                         <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
 
+                            <!-- department -->
                             <div class="mb-3">
-                                <label for="departamentos_id" class="form-label">Departamento</label>
+                                <x-input-label class="form-label" for="departamentos_id" :value="__('DEPARTMENTS')" />
                                 <select class="form-control" id="departamentos_id" name="departamento_id" disabled>
-                                    <option value="">Primero seleccione un hotel</option>
+                                    <option value="">First select a hotel</option>
                                 </select>
                             </div>
 
                             <!-- AD -->
                             <div class="mb-3">
-                                <label class="form-label" for="basic-icon-default-fullname">AD</label>
+                                <x-input-label class="form-label" for="ad" :value="__('AD')" />
                                 <div class="input-group input-group-merge">
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-at'></i>
@@ -103,7 +104,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>
@@ -130,7 +131,7 @@
                     data: { hotel_id: hotelId },
                     success: function(data) {
                         departamentoSelect.empty();
-                        departamentoSelect.append('<option value="">Seleccione un departamento</option>');
+                        departamentoSelect.append('<option value="">Choose a department</option>');
                         
                         $.each(data, function(index, departamento) {
                             departamentoSelect.append('<option value="' + departamento.id + '">' + departamento.name + '</option>');
@@ -141,7 +142,7 @@
                 // Si no hay hotel seleccionado, deshabilitar y limpiar el select de departamentos
                 departamentoSelect.prop('disabled', true);
                 departamentoSelect.empty();
-                departamentoSelect.append('<option value="">Primero seleccione un hotel</option>');
+                departamentoSelect.append('<option value="">First select a hotel</option>');
             }
         });
     });

@@ -2,7 +2,7 @@
 <div class="col-xl-6 col-12 mb-4">
     <div class="card">
         <div class="card-header header-elements">
-            <h5 class="card-title mb-0">Total de equipos {{ now()->format('Y') }}</h5>
+            <h5 class="card-title mb-0">Total equipments {{ now()->format('Y') }}</h5>
         </div>
         <div class="card-body">
             <div id="chart"></div>
@@ -14,7 +14,7 @@
 <div class="col-xl-6 col-12 mb-4">
     <div class="card">
         <div class="card-header header-elements">
-            <h5 class="card-title mb-0">Total de Laptops por hotel {{ now()->format('Y') }}</h5>
+            <h5 class="card-title mb-0">Total laptops in hotels {{ now()->format('Y') }}</h5>
         </div>
         <div class="card-body">
             <div id="laptopsChart"></div>
@@ -26,7 +26,7 @@
 <div class="col-xl-6 col-12 mb-4">
     <div class="card">
         <div class="card-header header-elements">
-            <h5 class="card-title mb-0">Total de desktops por hotel {{ now()->format('Y') }}</h5>
+            <h5 class="card-title mb-0">Total desktops in hotels {{ now()->format('Y') }}</h5>
         </div>
         <div class="card-body">
             <div id="desktopsChart"></div>

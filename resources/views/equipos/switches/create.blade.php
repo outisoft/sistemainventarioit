@@ -14,7 +14,7 @@
                     @csrf
                     <!-- NOMBRE -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="name" :value="__('Nombre de equipo')" />
+                        <x-input-label class="form-label" for="name" :value="__('Equipment name')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="name" class="form-control" type="text"
                                 name="name" placeholder="SW-123" :value="old('name')" required
@@ -25,7 +25,7 @@
 
                     <!-- MARCa -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="marca" :value="__('Marca de equipo')" />
+                        <x-input-label class="form-label" for="marca" :value="__('Brand')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="marca" class="form-control" type="text"
                                 name="marca" placeholder="CISCO" :value="old('marca')" required
@@ -36,7 +36,7 @@
 
                     <!-- Modelo -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="model" :value="__('Modelo del SW')" />
+                        <x-input-label class="form-label" for="model" :value="__('Model')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="model" class="form-control" type="text"
                                 name="model" placeholder="SWPOUYI7" :value="old('model')" required
@@ -47,7 +47,7 @@
 
                     <!-- Serial -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="serial" :value="__('Numero de serie')" />
+                        <x-input-label class="form-label" for="serial" :value="__('Serial number')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="serial" class="form-control" type="text"
                                 name="serial" placeholder="52RF97FNP0A87FJ" :value="old('serial')" required
@@ -58,7 +58,7 @@
 
                     <!-- MAC -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="mac" :value="__('Dirección MAC')" />
+                        <x-input-label class="form-label" for="mac" :value="__('MAC address')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="mac" class="form-control" type="text"
                                 name="mac" maxlength="17" placeholder="00:00:00:00:00:00" :value="old('mac')" required
@@ -69,7 +69,7 @@
 
                     <!-- IP DE EQUIPO -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="ip" :value="__('IP del equipo')" />
+                        <x-input-label class="form-label" for="ip" :value="__('IP')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="ip" class="form-control" type="text"
                                 name="ip" placeholder="10.1.32.48" :value="old('ip')" required
@@ -80,7 +80,7 @@
 
                     <!-- Puertos -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="total_ports" :value="__('Total de Puertos')" />
+                        <x-input-label class="form-label" for="total_ports" :value="__('Total ports')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="total_ports" class="form-control" type="number"
                                 name="total_ports" placeholder="24" :value="old('total_ports')" required
@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="hotel_id">Ubicación:</label>
+                        <x-input-label class="form-label" for="hotel_id" :value="__('Locations')" />
                         <select class="form-control" id="hotel_id" name="hotel_id" required>
                             @foreach($hotels as $hotel)
                                 <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
@@ -100,7 +100,7 @@
 
                     <!-- Observacion -->
                     <div class="form-group">
-                        <x-input-label class="form-label" for="observacion" :value="__('Observaciones')" />
+                        <x-input-label class="form-label" for="observacion" :value="__('Observations')" />
                         <div class="input-group input-group-merge">
                             <textarea id="observacion" class="form-control" type="textarea"
                                 name="observacion" placeholder="Escribe tus observaciones..." :value="old('observacion')" required
@@ -111,7 +111,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>

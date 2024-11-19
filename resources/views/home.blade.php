@@ -1,7 +1,7 @@
 <x-app-layout>              
     <!-- seo end -->
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h4 class="fw-bold py-3 mb-4"> HOLA, {{ Auth::user()->name }} - {{ now()->format('d/m/Y') }}
+        <h4 class="fw-bold py-3 mb-4"> WELCOME {{ Auth::user()->name }}! - {{ now()->format('d/m/Y') }}
         </h4>
         <h6>
             <p id="hora_actual">{{ $hora_actual }}</p>
@@ -14,7 +14,7 @@
                         <div class="row align-items-center">
                             <div class="col-6">
                                 <h3>{{ $totalEmpleados }}</h3>
-                                <h6 class="text-muted m-b-0">Empleados<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                                <h6 class="text-muted m-b-0">Employees<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
                             </div>
                             <div class="col-6">
                                 <div class="so_top_icon">
@@ -35,7 +35,7 @@
                         <div class="row align-items-center">
                             <div class="col-6">
                                 <h3>{{ $totalEquipos }}</h3>
-                                <h6 class="text-muted m-b-0">Equipos<i class="fa fa-caret-up text-c-green m-l-10"></i></h6>
+                                <h6 class="text-muted m-b-0">Equipments<i class="fa fa-caret-up text-c-green m-l-10"></i></h6>
                             </div>
                             <div class="col-6">
                                 <div class="so_top_icon">
@@ -56,7 +56,7 @@
                         <div class="row align-items-center">
                             <div class="col-6">
                                 <h3>{{ $totalUsuarios }}</h3>
-                                <h6 class="text-muted m-b-0">Usuarios<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                                <h6 class="text-muted m-b-0">Users<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
                             </div>
                             <div class="col-6">
                                 <div class="so_top_icon">
@@ -98,7 +98,7 @@
                         <div class="row align-items-center">
                             <div class="col-6">
                                 <h3>{{ $totalTpvs }}</h3>
-                                <h6 class="text-muted m-b-0">Tpvs<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                                <h6 class="text-muted m-b-0">Tpv's<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
                             </div>
                             <div class="col-6">
                                 <div class="so_top_icon">

@@ -8,7 +8,7 @@
                     @method('PUT')
 
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModal{{ $equipo->id }}">Editar equipo: {{ $equipo->name }}</h5>
+                        <h5 class="modal-title" id="editModal{{ $equipo->id }}">Edit equipment</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
@@ -16,7 +16,7 @@
                         
                             <!-- Nmae -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="name{{ $equipo->name }}" :value="__('Nombre de equipo')" />
+                            <x-input-label class="form-label" for="name" :value="__('Equipment name')" />
                                 <div class="input-group input-group-merge">
                                     <x-text-input id="name{{ $equipo->name }}" class="form-control" type="text"
                                         name="name" placeholder="SW-123" value="{{ $equipo->name }}" required
@@ -27,7 +27,7 @@
 
                             <!-- Marca -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="marca{{ $equipo->marca }}" :value="__('Marca de equipo')" />
+                            <x-input-label class="form-label" for="marca" :value="__('Brand')" />
                                 <div class="input-group input-group-merge">
                                     <x-text-input id="marca{{ $equipo->marca }}" class="form-control" type="text"
                                         name="marca" placeholder="CISCO" value="{{ $equipo->marca }}" required
@@ -38,7 +38,7 @@
 
                             <!-- Modelo -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="model{{ $equipo->model }}" :value="__('Modelo del equipo')" />
+                                <x-input-label class="form-label" for="model{{ $equipo->model }}" :value="__('Model')" />
                                 <div class="input-group input-group-merge">
                                     <x-text-input id="model{{ $equipo->model }}" class="form-control" type="text"
                                         name="model" placeholder="45RT7" value="{{ $equipo->model }}" required
@@ -49,7 +49,7 @@
 
                             <!-- Serial -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="serial{{ $equipo->serial }}" :value="__('Serie del equipo')" />
+                                <x-input-label class="form-label" for="serial{{ $equipo->serial }}" :value="__('Serial')" />
                                 <div class="input-group input-group-merge">
                                     <x-text-input id="serial{{ $equipo->serial }}" class="form-control" type="text"
                                         name="serial" placeholder="52RSCF78N93" value="{{ $equipo->serial }}" required
@@ -60,7 +60,7 @@
 
                             <!-- MAC -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="mac{{ $equipo->mac }}" :value="__('MAC del equipo')" />
+                                <x-input-label class="form-label" for="mac{{ $equipo->mac }}" :value="__('MAC address')" />
                                 <div class="input-group input-group-merge">
                                     <x-text-input id="mac-edit" class="form-control" type="text"
                                         name="mac" placeholder="12:C0:96:24:00" value="{{ $equipo->mac }}" required
@@ -71,7 +71,7 @@
 
                             <!-- IP -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="ip{{ $equipo->ip }}" :value="__('IP del equipo')" />
+                                <x-input-label class="form-label" for="ip{{ $equipo->ip }}" :value="__('IP')" />
                                 <div class="input-group input-group-merge">
                                     <x-text-input id="ip{{ $equipo->ip }}" class="form-control" type="text"
                                         name="ip" placeholder="10.01.2.31" value="{{ $equipo->ip }}" required
@@ -82,7 +82,7 @@
 
                             <!-- Total Ports -->
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="total_ports{{ $equipo->total_ports }}" :value="__('Total de puertos')" />
+                                <x-input-label class="form-label" for="total_ports{{ $equipo->total_ports }}" :value="__('Total ports')" />
                                 <div class="input-group input-group-merge">
                                     <x-text-input id="total_ports{{ $equipo->total_ports }}" class="form-control" type="text"
                                         name="total_ports" placeholder="24" value="{{ $equipo->total_ports }}" required
@@ -93,7 +93,7 @@
 
                             <!-- Locations -->
                             <div class="mb-3">
-                                <label for="hotel_id">Ubicacion</label>
+                            <x-input-label class="form-label" for="hotel_id" :value="__('Locations')" />
                                 <select class="form-control" id="hotel_id" name="hotel_id"
                                     aria-label="Default select example">
                                     @foreach ($hotels as $location)
@@ -107,7 +107,7 @@
 
                             <!-- Observacion -->
                             <div class="form-group">
-                                <x-input-label class="form-label" for="observacion{{ $equipo->observacion }}" :value="__('Observaciones')" />
+                                <x-input-label class="form-label" for="observacion{{ $equipo->observacion }}" :value="__('Observations')" />
                                 <div class="input-group input-group-merge">
                                     <textarea id="observacion{{ $equipo->observacion }}" class="form-control" type="textarea"
                                         name="observacion" placeholder="Escribe tus observaciones..." value="{{ $equipo->observacion }}" required
@@ -118,8 +118,8 @@
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                     </div>
                 </form>
             </div>

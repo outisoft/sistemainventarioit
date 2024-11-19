@@ -3,19 +3,20 @@
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Acces Points</h4>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true"></span>
-                </button>
-            </div>
 
-            <div class="modal-body">
-                <form action="{{ route('access-points.store') }}" method="POST">
+            <form action="{{ route('access-points.store') }}" method="POST">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Access Points</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
                     @csrf
                     <!-- NOMBRE -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="name" :value="__('Nombre del AP')" />
+                        <x-input-label class="form-label" for="name" :value="__('Name')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="name" class="form-control" type="text"
                                 name="name" placeholder="AP-123" :value="old('name')" required
@@ -26,7 +27,7 @@
 
                     <!-- Marca -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="marca" :value="__('Marca del AP')" />
+                        <x-input-label class="form-label" for="marca" :value="__('Brand')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="marca" class="form-control" type="text"
                                 name="marca" placeholder="CISCO" :value="old('marca')" required
@@ -37,7 +38,7 @@
 
                     <!-- Modelo -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="model" :value="__('Modelo del AP')" />
+                        <x-input-label class="form-label" for="model" :value="__('Model')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="model" class="form-control" type="text"
                                 name="model" placeholder="APOUYI7" :value="old('model')" required
@@ -48,7 +49,7 @@
 
                     <!-- Serial -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="serial" :value="__('Numero de serie')" />
+                        <x-input-label class="form-label" for="serial" :value="__('Serial number')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="serial" class="form-control" type="text"
                                 name="serial" placeholder="52RF97FNP0A87FJ" :value="old('serial')" required
@@ -59,7 +60,7 @@
 
                     <!-- MAC -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="mac" :value="__('Dirección MAC')" />
+                        <x-input-label class="form-label" for="mac" :value="__('MAC address')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="mac" class="form-control" type="text"
                                 name="mac" maxlength="17" placeholder="00:00:00:00:00:00" :value="old('mac')" required
@@ -70,7 +71,7 @@
 
                     <!-- IP DE EQUIPO -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="ip" :value="__('IP del AP')" />
+                        <x-input-label class="form-label" for="ip" :value="__('IP')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="ip" class="form-control" type="text"
                                 name="ip" placeholder="10.1.32.48" :value="old('ip')" required
@@ -80,7 +81,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="swittch_id">Switch</label>
+                        <x-input-label class="form-label" for="swittch_id" :value="__('Switch')" />
                         <select class="form-control" id="swittch_id" name="swittch_id" required>
                             @foreach($switches as $switch)
                                 <option value="{{ $switch->id }}">{{ $switch->name }}</option>
@@ -88,14 +89,16 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="port_number">Puerto</label>
+                        <x-input-label class="form-label" for="port_number" :value="__('Port number')" />
                         <select class="form-control" id="create_port_number" name="port_number" required>
                         </select>
                     </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
-            </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -135,7 +138,7 @@
                 fetch(`/switches/${switchId}/available-ports`)
                     .then(response => response.json())
                     .then(data => {
-                        portSelect.innerHTML = '<option value="">Seleccione un puerto</option>';
+                        portSelect.innerHTML = '<option value="">Select to port</option>';
                         data.available_ports.forEach(port => {
                             const option = document.createElement('option');
                             option.value = port;
@@ -146,10 +149,10 @@
 
                         // Actualizar el texto de puertos libres en el switch seleccionado
                         const selectedSwitchOption = switchSelect.options[switchSelect.selectedIndex];
-                        selectedSwitchOption.textContent = `${selectedSwitchOption.textContent.split('(')[0]} (${data.free_ports} puertos libres)`;
+                        selectedSwitchOption.textContent = `${selectedSwitchOption.textContent.split('(')[0]} (${data.free_ports} free ports)`;
                     });
             } else {
-                portSelect.innerHTML = '<option value="">Sin puertos disponibles</option>';
+                portSelect.innerHTML = '<option value="">No ports available</option>';
                 portSelect.disabled = true;
             }
         }

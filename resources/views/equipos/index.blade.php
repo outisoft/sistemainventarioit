@@ -7,12 +7,12 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipos /</span> Listado </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipments /</span> List </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de Equipos</h5>
+                    <h5 class="card-header">Equipment list</h5>
                     <!--div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('equipo.create')
@@ -29,11 +29,11 @@
                     <table id="tabla" class="table">
                         <thead class="bg-primary">
                             <tr>
-                                <th>Tipo</th>
-                                <th>Marca</th>
-                                <th>Modelo</th>
-                                <th>Serie</th>
-                                <th>Estado</th>
+                                <th>Type</th>
+                                <th>Brand</th>
+                                <th>Model</th>
+                                <th>Serial</th>
+                                <th>Status</th>
                                 <!--th>Acciones</th-->
                                 <!-- Otros encabezados de columnas según sea necesario -->
                             </tr>

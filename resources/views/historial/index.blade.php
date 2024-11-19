@@ -2,12 +2,12 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Historial </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> History </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Historial</h5>
+                    <h5 class="card-header">History</h5>
                 </div>
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
@@ -16,10 +16,10 @@
                                 <thead class="bg-primary">
                                     <tr>
                                         <th>CLAVE</th>
-                                        <th>Acción</th>
-                                        <th>Descripción</th>
-                                        <th>Usuario</th>
-                                        <th>Fecha</th>
+                                        <th>ACTION</th>
+                                        <th>DESCRIPTIONS</th>
+                                        <th>USER</th>
+                                        <th>DATA</th>
                                     </tr>
                                 </thead>
                                 <tbody>
