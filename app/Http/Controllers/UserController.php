@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Region;
 use App\Models\Historial;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -25,7 +26,8 @@ class UserController extends Controller
     {
         $users = User::with('roles')->get();
         $roles = Role::all();
-        return view('users.index', compact('users', 'roles'));
+        $regions = Region::all();
+        return view('users.index', compact('users', 'roles', 'regions'));
     }
 
     public function create()
@@ -42,6 +44,7 @@ class UserController extends Controller
             $validatedData = $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+                'region_id' => 'required',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'rol' => 'required|exists:roles,name',
             ]);
@@ -49,6 +52,7 @@ class UserController extends Controller
             $user = User::create([
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
+                'region_id' => $validatedData['region_id'],
                 'password' => Hash::make($validatedData['password']),
             ]);
 
@@ -100,6 +104,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
+        $user->region_id = $request->input('region_id');
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
         }

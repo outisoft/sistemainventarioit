@@ -16,8 +16,7 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <div class="nav-item w-px-40 h-auto">
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                    data-placement="top" title="Agregar Nuevo Registro">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Add new user</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             </div>
@@ -42,6 +41,7 @@
                                                 <th>User</th>
                                                 <th>Email</th>
                                                 <th>Rol</th>
+                                                <th>Region</th>
                                                 <th>Acctions</th>
                                             </tr>
                                         </thead>
@@ -64,6 +64,7 @@
                                                             @endif
                                                         @endforeach
                                                     </td>
+                                                    <td>{{ $user->region->name }}</td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button"

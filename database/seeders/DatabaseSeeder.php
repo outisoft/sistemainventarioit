@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            RegionSeeder::class,
             UserSeeder::class,
             HotelesSeeder::class,
             RolesSeeder::class,
@@ -30,11 +31,11 @@ class DatabaseSeeder extends Seeder
             PolicySeeder::class,
         ]);
 
-        //Tablet::factory()->count(10)->create();
         //Tpv::factory()->count(50)->create();
         //User::factory()->count(8)->create();
         Empleado::factory()->count(10)->create(); // Crea empleados (ajusta el número según tus necesidades)
         //Inventario::factory()->count(30)->create();
         Equipo::factory()->count(10)->create();
+        //User::factory()->create();
     }
 }

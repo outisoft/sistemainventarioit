@@ -39,10 +39,10 @@
                                             </a>
                                         </div>
                                         @can('roles.destroy')
-                                            <form action="{{ route('roles.destroy', $role) }} " onclick="return confirm('¿Estás seguro de eliminar este equipo?')"  method="POST">
+                                            <form action="{{ route('roles.destroy', $role) }} " onclick="return confirm('Are you sure to delete this role?')"  method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                                             </form>
                                         @endcan
                                     </div>
@@ -111,7 +111,7 @@
                                                             @endforeach
                                                         </ul>
                                                     @else
-                                                        <span class="text-muted">Sin usuarios asignados</span>
+                                                        <span class="text-muted">No users</span>
                                                     @endif
                                                 </td>
                                                 <td>
@@ -119,16 +119,16 @@
                                                 </td>
                                                 <td width="10px">
                                                     @can('roles.edit')
-                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ $role->id }}" class="btn btn-sm btn-primary">Editar</a>
+                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ $role->id }}" class="btn btn-sm btn-primary">Edit</a>
                                                     @endcan
                                                 </td>
                                                 <td width="10px">
                                                     @can('roles.destroy')
-                                                        <form action="{{ route('roles.destroy', $role) }} " onclick="return confirm('¿Estás seguro de eliminar este equipo?')"  method="POST">
+                                                        <form action="{{ route('roles.destroy', $role) }} " onclick="return confirm('Are you sure to delete this role?')"  method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit"
-                                                                class="btn btn-sm btn-danger">Eliminar</button>
+                                                                class="btn btn-sm btn-danger">Delete</button>
                                                         </form>
                                                     @endcan
                                                 </td>

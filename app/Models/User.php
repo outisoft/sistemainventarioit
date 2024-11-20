@@ -22,6 +22,7 @@ class User extends Authenticatable
         'image',
         'name',
         'email',
+        'region_id',
         'password',
     ];
 
@@ -53,5 +54,10 @@ class User extends Authenticatable
     public function maintenances()
     {
         return $this->hasMany(Maintenance::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id');
     }
 }
