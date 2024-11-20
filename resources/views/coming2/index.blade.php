@@ -7,7 +7,7 @@
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de Tabletas</h5>
+                    <h5 class="card-header">Tablet's List</h5>
                     @can ('coming2.create')
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">

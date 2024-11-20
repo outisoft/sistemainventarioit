@@ -7,12 +7,12 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Usuarios /</span> Listado </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Users /</span> List </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de Usuarios</h5>
+                    <h5 class="card-header">Users's List</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <div class="nav-item w-px-40 h-auto">
@@ -34,15 +34,15 @@
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap" id="searchResults">
                                 @if ($users->isEmpty())
-                                    <h5 class="card-header">No se encontro registro de usuarios.</h5>
+                                    <h5 class="card-header">Don't found users.</h5>
                                 @else
                                     <table id="usuarios" class="table">
                                         <thead class="bg-primary">
                                             <tr>
-                                                <th>Usuario</th>
-                                                <th>Correo Electrónico</th>
+                                                <th>User</th>
+                                                <th>Email</th>
                                                 <th>Rol</th>
-                                                <th>Acciones</th>
+                                                <th>Acctions</th>
                                             </tr>
                                         </thead>
                                         <tbody id="employeeList">
@@ -72,16 +72,16 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#showModal{{ $user->id }}" class="dropdown-item"><i class="bx bx-show-alt me-1"></i>Ver</a>
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#showModal{{ $user->id }}" class="dropdown-item"><i class="bx bx-show-alt me-1"></i>Show</a>
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
                                                                 <form action="{{ route('users.destroy', $user->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit"
                                                                         class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                        onclick="return confirm('Are you sure to delete this user?')"><i
+                                                                            class="bx bx-trash me-1"></i>Delete</button>
                                                                 </form>
                                                             </div>
                                                         </div>
