@@ -13,17 +13,17 @@ class HotelesSeeder extends Seeder
     public function run(): void
     {
         $datos = [
-            ['name' => 'AKUMAL', 'type' => 'LUXURY', 'country' => 'MÉXICO'],
-            ['name' => 'COBA', 'type' => 'GRAND', 'country' => 'MÉXICO'],
-            ['name' => 'COMING2', 'type' => 'SISTER COMPANY', 'country' => 'MÉXICO'],
-            ['name' => 'JAMAICA', 'type' => 'GRAND', 'country' => 'JAMAICA'],
-            ['name' => 'RUNAWAY BAY ', 'type' => 'LUXURY', 'country' => 'JAMAICA'],
-            ['name' => 'SCUBAQUATIC', 'type' => 'SISTER COMPANY', 'country' => 'MÉXICO'],
-            ['name' => 'SERVICIOS COMUNES', 'type' => 'COMMON SERVICES', 'country' => 'MÉXICO'],
-            ['name' => 'SIAN KA´AN', 'type' => 'LUXURY', 'country' => 'MÉXICO'],
-            ['name' => 'TRAINCAR', 'type' => 'SISTER COMPANY', 'country' => 'MÉXICO'],
-            ['name' => 'TULUM', 'type' => 'GRAND', 'country' => 'MÉXICO'],
-            ['name' => 'TULUM COUNTRY CLUB', 'type' => 'SISTER COMPANY', 'country' => 'MÉXICO'],
+            ['name' => 'AKUMAL', 'type' => 'LUXURY', 'region_id' => 2],
+            ['name' => 'COBA', 'type' => 'GRAND', 'region_id' => 2],
+            ['name' => 'COMING2', 'type' => 'SISTER COMPANY', 'region_id' => 2],
+            ['name' => 'JAMAICA', 'type' => 'GRAND', 'region_id' => 3],
+            ['name' => 'RUNAWAY BAY ', 'type' => 'LUXURY', 'region_id' => 3],
+            ['name' => 'SCUBAQUATIC', 'type' => 'SISTER COMPANY', 'region_id' => 2],
+            ['name' => 'SERVICIOS COMUNES', 'type' => 'COMMON SERVICES', 'region_id' => 2],
+            ['name' => 'SIAN KA´AN', 'type' => 'LUXURY', 'region_id' => 2],
+            ['name' => 'TRAINCAR', 'type' => 'SISTER COMPANY', 'region_id' => 2],
+            ['name' => 'TULUM', 'type' => 'GRAND', 'region_id' => 2],
+            ['name' => 'TULUM COUNTRY CLUB', 'type' => 'SISTER COMPANY', 'region_id' => 2],
         ];
 
         // Agregar los datos a la tabla "hoteles"

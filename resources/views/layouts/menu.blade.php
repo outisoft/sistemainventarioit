@@ -254,6 +254,13 @@
             </li>
         @endcan
 
+        <li class="menu-item {{ Request::routeIs('regions.index') ? 'active' : '' }} ">
+            <a href="{{ route('regions.index') }}" class="menu-link">
+                <i class='menu-icon bx bx-map-pin'></i>
+                <div data-i18n="Without navbar">Region</div>
+            </a>
+        </li>
+
         <!-- Hoteles y departamentos -->
         @can('hotels.index')
             <li class="menu-item {{ Request::routeIs('hotels.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.create') ? 'active' : '' }} || {{ Request::routeIs('hotels.show') ? 'active' : '' }} || {{ Request::routeIs('hotels.edit') ? 'active' : '' }} || {{ Request::routeIs('departments.index') ? 'active' : '' }} || {{ Request::routeIs('departments.create') ? 'active' : '' }} || {{ Request::routeIs('departments.show') ? 'active' : '' }} || {{ Request::routeIs('departments.edit') ? 'active' : '' }}">

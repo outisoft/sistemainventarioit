@@ -24,7 +24,7 @@ class HotelUpdateRequest extends FormRequest
         return [
             'name'             => 'required',
             'type'             => 'required',
-            'country'          => 'required',
+            'region_id'          => 'required',
             'department_ids'   => 'array',
             'department_ids.*' => 'exists:departamentos,id',
         ];

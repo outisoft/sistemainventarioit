@@ -9,7 +9,7 @@ class Hotel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'type', 'country'];
+    protected $fillable = ['name', 'type', 'region_id'];
 
     public function empleados()
     {
@@ -33,6 +33,10 @@ class Hotel extends Model
             ->whereHas('tipo', function ($query) {
                 $query->where('name', 'CPU');
             });
+    }
+
+    public function region() {
+        return $this->belongsTo(Region::class);
     }
 
     protected static function boot() //guardar en mayusculas

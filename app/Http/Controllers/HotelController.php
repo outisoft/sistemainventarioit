@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Hotel;
 use App\Models\Departamento;
+use App\Models\Region;
 use App\Http\Requests\HotelStoreRequest;
 use App\Http\Requests\HotelUpdateRequest;
 
@@ -23,7 +24,8 @@ class HotelController extends Controller
     {
         $hotels = Hotel::orderBy('name', 'asc')->withCount(['departments'])->get();
         $departments = Departamento::orderBy('name', 'asc')->get();
-        return view('hotels.index', compact('hotels', 'departments'));
+        $regions = Region::orderBy('name', 'asc')->get();
+        return view('hotels.index', compact('hotels', 'departments', 'regions'));
     }
 
     public function getDepartments($hotel_id)

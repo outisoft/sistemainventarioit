@@ -40,18 +40,21 @@
                         <x-input-error :messages="$errors->get('type')" class="mt-2" />
                     </div>
 
-                    <!-- Pais -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="country" :value="__('Tipo de hotel o empresa')" />
+                    <!-- Region -->
+                    <div class="mt-4">
+                        <x-input-label class="form-label" for="region_id" :value="__('Region')" />
+
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-fullname2" class="input-group-text">
-                                <i class='bx bxs-flag-alt'></i>
+                                <i class='bx bx-map-pin'></i>
                             </span>
-                            <x-text-input id="country" class="form-control" type="text"
-                                name="country" placeholder="México, Jamaica, España..." :value="old('country')" required
-                                autocomplete="country" />
+                            <select name="region_id" class="form-control" id="region_id"
+                                aria-label="Default select example">
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
-                        <x-input-error :messages="$errors->get('country')" class="mt-2" />
                     </div>
 
                     <br>

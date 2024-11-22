@@ -14,6 +14,7 @@ use App\Http\Controllers\TpvController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\DesktopController;
+use App\Http\Controllers\RegionController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\PrinterController;
@@ -40,7 +41,8 @@ use App\Models\AccessPoint;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 
-Route::middleware('auth')->group(function () {
+
+Route::group(['middleware' => ['auth', 'check.country']], function ()  {
 
     Route::get('/home', function () {
         // Obtener la cantidad de equipos de cada tipo
@@ -178,6 +180,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
     Route::resource('desktops', DesktopController::class); //Rutas PC
+    Route::resource('regions', RegionController::class); //Rutas Region
     Route::resource('hotels', HotelController::class); //Rutas hoteles
     Route::resource('departments', DepartamentoController::class); //Rutas departamentos
     Route::resource('printers', PrinterController::class);//Rutas printers

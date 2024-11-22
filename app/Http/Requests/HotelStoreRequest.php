@@ -24,7 +24,7 @@ class HotelStoreRequest extends FormRequest
         return [
             'name' => 'required',
             'type' => 'required',
-            'country' => 'required',
+            'region_id' => 'required',
         ];
     }
 }

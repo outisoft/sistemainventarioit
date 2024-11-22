@@ -15,7 +15,7 @@ class RoleUserSeeder extends Seeder
 
     public function run()
     {
-        $adminRole = Role::firstOrCreate(['name' => 'Administrador']);
+        $adminRole = Role::firstOrCreate(['name' => 'Administrator']);
 
         // Asignar roles a usuarios
         $adminUser = User::find(1); // Asumiendo que el usuario con ID 1 es el admin

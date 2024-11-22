@@ -14,7 +14,7 @@ class RolesSeeder extends Seeder
     public function run()
     {
         // Crear roles
-        $adminRole = Role::create(['name' => 'Administrador']);
+        $adminRole = Role::create(['name' => 'Administrator']);
 
         Permission::create(['name' => 'home', 'description' => 'Ver dashboard/home'])->syncRoles($adminRole);
 
@@ -127,5 +127,14 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'other.create', 'description' => 'Crear registros de otros'])->syncRoles($adminRole);
         Permission::create(['name' => 'other.edit', 'description' => 'Editar registros de otros'])->syncRoles($adminRole);
         Permission::create(['name' => 'other.destroy', 'description' => 'Eliminar registros de otros'])->syncRoles($adminRole);
+
+        // Crear permisos 
+        Permission::create(['name' => 'manage Mexico records', 'description' => 'Mange Mexico record']); 
+        Permission::create(['name' => 'manage Spain records', 'description' => 'Manage Spain Records']); 
+        // Crear roles y asignar permisos 
+        $mexicoRole = Role::create(['name' => 'Mexico user']); 
+        $mexicoRole->givePermissionTo('manage Mexico records'); 
+        $spainRole = Role::create(['name' => 'Spain user']); 
+        $spainRole->givePermissionTo('manage Spain records');
     }
 }
