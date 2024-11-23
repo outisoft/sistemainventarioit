@@ -21,6 +21,7 @@ use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ComplementController;
 use App\Http\Controllers\LaptopController;
 use App\Http\Controllers\TabController;
+use App\Http\Controllers\MobileController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SwitchController;
 use App\Http\Controllers\AccessPointController;
@@ -187,6 +188,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('complements', ComplementController::class);//Rutas complements
     Route::resource('laptops', LaptopController::class);//Rutas laptops
     Route::resource('tabs', TabController::class);//Rutas tabs
+    Route::resource('mobiles', MobileController::class);//Rutas phones
     Route::resource('phones', PhoneController::class);//Rutas phones
     Route::resource('access-points', AccessPointController::class);//Rutas access points
     Route::resource('switches', SwitchController::class);//Rutas switches

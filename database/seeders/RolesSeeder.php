@@ -128,6 +128,11 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'other.edit', 'description' => 'Editar registros de otros'])->syncRoles($adminRole);
         Permission::create(['name' => 'other.destroy', 'description' => 'Eliminar registros de otros'])->syncRoles($adminRole);
 
+        Permission::create(['name' => 'mobile.index', 'description' => 'Ver listado de Telefonos mobiles'])->syncRoles($adminRole);
+        Permission::create(['name' => 'mobile.create', 'description' => 'Registrar Telefonos mobiles'])->syncRoles($adminRole);
+        Permission::create(['name' => 'mobile.edit', 'description' => 'Editar Telefonos mobiles'])->syncRoles($adminRole);
+        Permission::create(['name' => 'mobile.destroy', 'description' => 'Eliminar Telefonos mobiles'])->syncRoles($adminRole);
+
         // Crear permisos 
         Permission::create(['name' => 'manage Mexico records', 'description' => 'Mange Mexico record']); 
         Permission::create(['name' => 'manage Spain records', 'description' => 'Manage Spain Records']); 

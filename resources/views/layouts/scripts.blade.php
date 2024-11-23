@@ -118,6 +118,40 @@
     });
 </script>
 
+<!--new DataTable('#phones');-->
+<script>
+    $('#phones').DataTable({
+        "pageLength": 50,
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+            
+        ]
+
+    });
+</script>
+
 <!--new DataTable('#office');-->
 <script>
     $('#office').DataTable({

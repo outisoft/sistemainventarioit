@@ -8,7 +8,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('phones.update', $equipo) }}" method="POST">
+                    <form action="{{ route('mobiles.update', $equipo) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <!-- Marca -->

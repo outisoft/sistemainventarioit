@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Nuevo Hotel</h4>
+                <h4 class="modal-title" id="myModalLabel">New Hotel</h4>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true"></span></button>
             </div>

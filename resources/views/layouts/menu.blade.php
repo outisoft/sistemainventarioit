@@ -33,9 +33,9 @@
             </a>
         </li>
 
-        <!-- Equipo -->
-        
-        <li class="menu-item {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('other.index') ? 'active' : '' }} || {{ Request::routeIs('phones.index') ? 'active' : '' }} || {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || 
+        <!-- Equipos -->
+         @can('equipo.index')
+        <li class="menu-item {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('other.index') ? 'active' : '' }} || {{ Request::routeIs('mobile.index') ? 'active' : '' }} || {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || 
         {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}
         {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}
         {{ Request::routeIs('desktops.index') ? 'active' : '' }} ">
@@ -99,11 +99,11 @@
                     </li>
                 @endcan
 
-                @can('phones.index')
-                    <li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }}">
-                        <a href="{{ route('phones.index') }}" class="menu-link">
+                @can('mobiles.index')
+                    <li class="menu-item {{ Request::routeIs('mobiles.index') ? 'active' : '' }}">
+                        <a href="{{ route('mobiles.index') }}" class="menu-link">
                             <i class='menu-icon bx bx-mobile-alt' ></i>
-                            <div data-i18n="Analytics">Phones</div>
+                            <div data-i18n="Analytics">Mobiles</div>
                         </a>
                     </li>
                 @endcan
@@ -143,6 +143,56 @@
                 </li-->
             </ul>
         </li>
+        @endcan
+
+         <!-- Redes -->
+         <li class="menu-item {{ Request::routeIs('swittches.index') ? 'active' : '' }} || {{ Request::routeIs('access-points.show') ? 'active' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon bx bx-server' ></i>
+                <div data-i18n="Layouts">Redes</div>
+            </a>
+
+            <ul class="menu-sub">
+                <!-- ACCESS POINTS -->
+                @can('access_points.index')
+                    <li class="menu-item {{ Request::routeIs('access-points.index') ? 'active' : '' }}">
+                        <a href="{{ route('access-points.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">AP's</div>
+                        </a>
+                    </li>
+                @endcan
+                <!-- SWITCHES -->
+                @can('switches.index')
+                    <li class="menu-item {{ Request::routeIs('switches.index') ? 'active' : '' }}">
+                        <a href="{{ route('switches.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Switches</div>
+                        </a>
+                    </li>
+                @endcan
+            </ul>
+        </li>
+
+        <!-- Radios y telefonos -->
+        <li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon bx bx-podcast'></i>
+                <div data-i18n="Layouts">Comunications</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }} ">
+                    <a href="{{ route('phones.index') }}" class="menu-link">
+                        <div data-i18n="Analytics">Phones</div>
+                    </a>
+                </li>
+
+                <li class="menu-item">
+                    <a href="#" class="menu-link">
+                        <div data-i18n="Without navbar">Radios</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
 
         <!-- Empleados -->
         @can('empleados.index')
@@ -172,33 +222,6 @@
                     <div data-i18n="Without navbar">Assignment</div>
                 </a>
             </li>
-        @endcan
-
-        <!-- REDES -->
-        @can('switches.index')
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">REDES</span>
-            </li>
-
-        <!-- SWITCHES -->
-            @can('switches.index')
-                <li class="menu-item {{ Request::routeIs('switches.index') ? 'active' : '' }}">
-                    <a href="{{ route('switches.index') }}" class="menu-link">
-                        <i class='menu-icon bx bx-server' ></i>
-                        <div data-i18n="Analytics">Switches</div>
-                    </a>
-                </li>
-            @endcan
-            
-        <!-- ACCESS POINTS -->
-            @can('access_points.index')
-                <li class="menu-item {{ Request::routeIs('access-points.index') ? 'active' : '' }}">
-                    <a href="{{ route('access-points.index') }}" class="menu-link">
-                        <i class='menu-icon tf-icons bx bx-broadcast'></i>
-                        <div data-i18n="Analytics">AP's</div>
-                    </a>
-                </li>
-            @endcan
         @endcan
 
         <!-- coming2 -->

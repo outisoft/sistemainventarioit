@@ -1,12 +1,12 @@
 <x-app-layout>
-@include('equipos.phones.create')
-@include('equipos.phones.edit')
+@include('equipos.mobiles.create')
+@include('equipos.mobiles.edit')
 
     <div class="content-wrapper">
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipments /</span> Phones </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipments /</span> Mobiles </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -14,7 +14,7 @@
                     <h5 class="card-header">Listado de telefonos moviles</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            @can('phones.create')
+                            @can('mobiles.create')
                                 <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
                                     data-placement="top" title="Agregar Nuevo Registro">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
@@ -67,7 +67,7 @@
                                                 @endcan
 
                                                 @can('phones.destroy')
-                                                    <form action="{{ route('phones.destroy', $equipo->id) }}" method="POST">
+                                                    <form action="{{ route('mobiles.destroy', $equipo->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"
