@@ -1,60 +1,34 @@
-<x-app-layout>
-    <div class="container-xxl navbar-expand-xl align-items-center">
-        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-            </a>
-        </div>
-    </div>
-    <div class="content-wrapper">
-        <!-- Content -->
-        <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">
-                    <a href="{{ route('departments.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
-                        title="Regresar">
-                        <span>
-                            <i class='bx bx-arrow-back'></i>
-                        </span>
-                    </a>
-                    / Departamento /</span> Editar
-            </h4>
-
-            <!-- Basic Bootstrap Table -->
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Editar Registro</h5>
-                </div>
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="table-responsive text-nowrap">
-                                <div class="card-body">
-                                    <form action="{{ route('departments.update', $departamento->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-
-                                        <div class="form-group">
-                                            <label class="form-label" for="name">Area</label>
-                                            <x-text-input type="text" name="name" id="name" class="form-control"
-                                                value="{{ $departamento->name }}" required />
-                                        </div>
-                                        <br>
-                                        <br>
-                                        <button type="submit" class="btn btn-primary"><i
-                                                class='bx bx-refresh'></i>Actualizar</button>
-                                    </form>
-                                </div>
+<!-- Modales de Edición -->
+@foreach($departamentos as $department)
+    <div class="modal fade" id="editModal{{ $department->id }}" tabindex="-1" aria-labelledby="editModal{{ $department->id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('departments.update', $department) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModal{{ $department->id }}">Edit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">                        
+                        <!-- Nombre de equipo -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="name{{ $department->name }}" :value="__('Equipment Name')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="name{{ $department->name }}" class="form-control" type="text"
+                                    name="name" placeholder="HP" value="{{ $department->name }}" required
+                                    autocomplete="name" />
                             </div>
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                     </div>
-                </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
             </div>
-            <!--/ Basic Bootstrap Table -->
-
-            <hr class="my-5" />
-
         </div>
-        <!-- / Content -->
     </div>
-</x-app-layout>
+@endforeach
