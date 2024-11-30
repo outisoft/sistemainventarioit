@@ -5,19 +5,22 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tpv's /</span> Listado </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipments /</span> Tpv's </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 @can('tpvs.create')
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5 class="card-header">Listado de Tpv's</h5>
+                        <h5 class="card-header">Tpv's list</h5>
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalToggle"
-                                    data-placement="top" title="Agregar Nuevo Registro">
-                                    <i class='bx bx-add-to-queue icon-lg'></i>
-                                </a>
+                                @can('tpvs.create')
+                                    <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" 
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" 
+                                        data-bs-html="true" title="" data-bs-original-title="<span>Add new equipment</span>">
+                                        <i class='bx bx-add-to-queue icon-lg'></i>
+                                    </a>
+                                @endcan
                             </div>
                         </div>
                     </div>
@@ -30,13 +33,13 @@
                                     <thead class="bg-primary">
                                         <tr>
                                             <th>Area</th>
-                                            <th>Departamento</th>
+                                            <th>Department</th>
                                             <th>Hotel</th>
                                             <th>Equipo</th>
-                                            <th>Marca</th>
-                                            <th>Modelo</th>
-                                            <th>Numero de serie</th>
-                                            <th>Nombre</th>
+                                            <th>Brand</th>
+                                            <th>Model</th>
+                                            <th>Serial</th>
+                                            <th>Name</th>
                                             <th>IP</th>
                                             <th>Link</th>
                                             <th></th>
@@ -67,12 +70,12 @@
                                                             @can('tpvs.show')
                                                                 <a class="dropdown-item"
                                                                     href="{{ route('tpvs.show', $tpv->id) }}"><i
-                                                                        class="bx bx-show-alt me-1"></i>Ver
+                                                                        class="bx bx-show-alt me-1"></i>Show
                                                                 </a>
                                                             @endcan
 
                                                             @can('tpvs.edit')
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-tpv-id="{{ $tpv->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-tpv-id="{{ $tpv->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 
                                                             @can('tpvs.destroy')
@@ -82,8 +85,8 @@
                                                                 @method('DELETE')
                                                                 <button type="submit"
                                                                     class="dropdown-item btn-danger"
-                                                                    onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                        class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                    onclick="return confirm('Are you sure to delete?')"><i
+                                                                        class="bx bx-trash me-1"></i>Delete</button>
                                                             </form>
                                                             @endcan
                                                         </div>

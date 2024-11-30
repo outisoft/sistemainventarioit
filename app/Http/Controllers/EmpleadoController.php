@@ -8,6 +8,7 @@ use App\Models\Equipo;
 use App\Models\Historial;
 use App\Models\Hotel;
 use App\Models\Tipo;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use App\Exports\EmpleadoExport;
 use App\Imports\EmpleadoImport;
@@ -25,6 +26,7 @@ class EmpleadoController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:empleados.index')->only('index');
         $this->middleware('can:empleados.create')->only('create', 'store');
         $this->middleware('can:empleados.edit')->only('edit', 'update');
@@ -38,10 +40,18 @@ class EmpleadoController extends Controller
 
     public function index()
     {
-        $empleados = Empleado::with('hotel', 'departments')->orderBy('name', 'asc')->get();
+        //$empleados = Empleado::with('hotel', 'departments')->orderBy('name', 'asc')->get();
         $hoteles = Hotel::all();
-        //$departamentos = Departamento::all();
-        return view('empleados.index', compact('empleados', 'hoteles'));
+        $regions = Region::all();
+        
+        $empleados = Empleado::with(['region', 'hotel', 'departments'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return view('empleados.index', compact('empleados', 'hoteles', 'regions'));
     }
 
     public function create()
@@ -62,6 +72,7 @@ class EmpleadoController extends Controller
                 'departamento_id' => 'required',
                 'hotel_id' => 'required|exists:hotels,id',
                 'ad' => 'required|unique:empleados',
+                'region_id' => 'required',
             ]);
 
             $registro = Empleado::create($data);
@@ -71,6 +82,7 @@ class EmpleadoController extends Controller
                 'accion' => 'Creacion',
                 'descripcion' => "Se creó el empleado {$registro->name}, con numero de colaborador {$registro->no_empleado}",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -138,6 +150,7 @@ class EmpleadoController extends Controller
             'departamento_id' => 'required|exists:departamentos,id',
             'hotel_id' => 'required|exists:hotels,id',
             'ad' => 'required',
+            'region_id' => 'required',
         ]);
 
         //dd($data);
@@ -151,6 +164,7 @@ class EmpleadoController extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo el empleado: {$registro->name}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         // Mostrar notificación Toastr para éxito
 
@@ -172,6 +186,7 @@ class EmpleadoController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el empleado {$registro->name}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

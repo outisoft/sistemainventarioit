@@ -28,6 +28,7 @@ return new class extends Migration
             $table->boolean('carta_firmada')->default(false);
             $table->longText('observacion');
             $table->string('folio_baja')->unique()->nullable();
+            $table->foreignId('region_id')->constrained();
             $table->softDeletes(); 
             $table->timestamps();
         });

@@ -15,6 +15,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:users.index')->only('index');
         $this->middleware('can:users.create')->only('create', 'store', 'crearUsuario');
         $this->middleware('can:users.edit')->only('edit', 'update');
@@ -24,9 +25,13 @@ class UserController extends Controller
     // Método para listar todos los usuarios
     public function index()
     {
-        $users = User::with('roles')->get();
+        $users = User::with(['region', 'roles'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
+        $regions = Region::orderBy('name', 'asc')->get();
         $roles = Role::all();
-        $regions = Region::all();
         return view('users.index', compact('users', 'roles', 'regions'));
     }
 

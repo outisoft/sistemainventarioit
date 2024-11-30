@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
+use App\Models\Region;
 use App\Models\Policy;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,7 @@ class MobileController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:mobile.index')->only('index');
         $this->middleware('can:mobile.create')->only('create', 'store');
         $this->middleware('can:mobile.edit')->only('edit', 'update');
@@ -23,14 +25,19 @@ class MobileController extends Controller
 
         $equipos = Equipo::whereHas('tipo', function ($query) {
             $query->where('name', 'PHONE');
-        })->with('policy')->get();
+        })->with(['region', 'policy'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
+    $regions = Region::orderBy('name', 'asc')->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
 
-        return view('equipos.mobile.index', compact('equipos', 'policies'));
+        return view('equipos.mobiles.index', compact('equipos', 'policies', 'regions'));
     }
 
     /**
@@ -56,6 +63,7 @@ class MobileController extends Controller
             'model' => 'required',
             'serial' => 'required|unique:equipos,serial',
             'policy_id' => 'required',
+            'region_id' => 'required',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
@@ -63,11 +71,12 @@ class MobileController extends Controller
             'accion' => 'Creacion',
             'descripcion' => "Se agrego un {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Se creo {$registro->tipo->name} ({$registro->serial}) correctamente.");
-        return redirect()->route('mobile.index');
+        return redirect()->route('mobiles.index');
     }
 
     /**
@@ -98,6 +107,7 @@ class MobileController extends Controller
             'model' => 'required',
             'serial' => 'required|unique:equipos,serial,' . $id,
             'policy_id' => 'required',
+            'region_id' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);
@@ -108,12 +118,13 @@ class MobileController extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo el {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Se actualizo el {$registro->serial} correctamente.");
 
-        return redirect()->route('mobile.index');
+        return redirect()->route('mobiles.index');
     }
 
     /**
@@ -130,6 +141,7 @@ class MobileController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la {$registro->tipo->name} con N/S {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

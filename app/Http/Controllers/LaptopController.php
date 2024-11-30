@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
 class LaptopController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:laptops.index')->only('index');
         $this->middleware('can:laptops.create')->only('create', 'store');
         $this->middleware('can:laptops.edit')->only('edit', 'update');
@@ -23,13 +25,20 @@ class LaptopController extends Controller
     {
         $tipo = Tipo::where('name', 'LAPTOP')->first();
 
-        $equipos = Equipo::where('tipo_id', $tipo->id)->get();
+        $equipos = Equipo::where('tipo_id', $tipo->id)
+            ->with(['region'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
+
+        $regions = Region::orderBy('name', 'asc')->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
-        return view('equipos.laptops.index', compact('equipos'));
+        return view('equipos.laptops.index', compact('equipos', 'regions'));
     }
 
     /**
@@ -50,6 +59,7 @@ class LaptopController extends Controller
             'ip' => 'required|unique:equipos,ip',
             'so' => 'required',
             'orden' => 'required',
+            'region_id' => 'required',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
@@ -57,6 +67,7 @@ class LaptopController extends Controller
             'accion' => 'Creacion',
             'descripcion' => "Se agrego la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -79,6 +90,7 @@ class LaptopController extends Controller
             'ip' => 'required|unique:equipos,ip,' . $id,
             'so' => 'required',
             'orden' => 'required',
+            'region_id' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);
@@ -88,6 +100,7 @@ class LaptopController extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -110,6 +123,7 @@ class LaptopController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

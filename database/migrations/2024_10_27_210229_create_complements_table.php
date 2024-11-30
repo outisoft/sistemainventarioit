@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('brand')->nullable();
             $table->string('model')->nullable();
             $table->string('serial')->nullable()->unique();
+            $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });
     }

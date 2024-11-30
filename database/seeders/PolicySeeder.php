@@ -14,18 +14,18 @@ class PolicySeeder extends Seeder
     public function run(): void
     {
         $datos = [
-            ['name' => 'MEX_TULUMTCC'],
-            ['name' => 'MEX_TURISCAR'],
-            ['name' => 'MEX_EISIHOTEL_2'],
-            ['name' => 'MEX_ESIHOTEL'],
-            ['name' => 'MEX_ENTRETENIMIENTO&HOSTESS'],
-            ['name' => 'MEX_SEGURIDAD'],
-            ['name' => 'MEX_STOCK',],
-            ['name' => 'MEX_SCUBA'],
-            ['name' => 'MEX_ALMACEN'],
-            ['name' => 'MEX_COMANDEROS'],
-            ['name' => 'MEX_CO2'],
-            ['name' => 'SIN POLITICA APLICADA'],
+            ['name' => 'MEX_TULUMTCC', 'region_id' => 1],
+            ['name' => 'MEX_TURISCAR', 'region_id' => 1],
+            ['name' => 'MEX_EISIHOTEL_2', 'region_id' => 1],
+            ['name' => 'MEX_ESIHOTEL', 'region_id' => 1],
+            ['name' => 'MEX_ENTRETENIMIENTO&HOSTESS', 'region_id' => 1],
+            ['name' => 'MEX_SEGURIDAD', 'region_id' => 1],
+            ['name' => 'MEX_STOCK', 'region_id' => 1],
+            ['name' => 'MEX_SCUBA', 'region_id' => 1],
+            ['name' => 'MEX_ALMACEN', 'region_id' => 1],
+            ['name' => 'MEX_COMANDEROS', 'region_id' => 1],
+            ['name' => 'MEX_CO2', 'region_id' => 1],
+            ['name' => 'SIN POLITICA APLICADA', 'region_id' => 1],
         ];
 
         // Agregar los datos a la tabla "hoteles"

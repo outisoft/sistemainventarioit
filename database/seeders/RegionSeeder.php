@@ -14,7 +14,6 @@ class RegionSeeder extends Seeder
     public function run(): void
     {
         $datos = [
-            ['name' => 'ALL'],
             ['name' => 'MÉXICO'],
             ['name' => 'JAMAICA'],
             ['name' => 'REPUBLICA DOMINICANA'],

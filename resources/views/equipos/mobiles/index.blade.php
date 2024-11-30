@@ -11,12 +11,13 @@
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de telefonos moviles</h5>
+                    <h5 class="card-header">Mobile phone list</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            @can('mobiles.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                    data-placement="top" title="Agregar Nuevo Registro">
+                            @can('mobile.create')
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" 
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" 
+                                    data-bs-html="true" title="" data-bs-original-title="<span>Add new equipment</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -28,12 +29,12 @@
                     <table id="tabs" class="table">
                         <thead class="bg-primary">
                             <tr>
-                                <th>MARCA</th>
-                                <th>MODELO</th>
-                                <th>SERIE</th>
-                                <th>POLITICA</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
+                                <th>BRAND</th>
+                                <th>MODEL</th>
+                                <th>SERIAL</th>
+                                <th>POLICY</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
                             </tr>
                         </thead>
@@ -62,17 +63,17 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <!-- Aquí se agregarán las opciones -->
-                                                @can('phones.edit')
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                @can('mobile.edit')
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
                                                 @endcan
 
-                                                @can('phones.destroy')
+                                                @can('mobile.destroy')
                                                     <form action="{{ route('mobiles.destroy', $equipo->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"
-                                                            onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                class="bx bx-trash me-1"></i>Eliminar</button>
+                                                            onclick="return confirm('Are you sure to delete?')"><i
+                                                                class="bx bx-trash me-1"></i>Delete</button>
                                                     </form>
                                                 @endcan
 

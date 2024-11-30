@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('total_ports');
             $table->foreignId('hotel_id')->constrained();
             $table->longText('observacion');
+            $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });
     }

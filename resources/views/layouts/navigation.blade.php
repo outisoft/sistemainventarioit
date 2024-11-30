@@ -24,7 +24,8 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img src="{{ asset(Auth::user()->image) }}" alt class="rounded-circle" height="40" width="40"/>
+                        <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt="Avatar" class="rounded-circle" height="40" width="40">
+                        
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -33,7 +34,7 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ asset(Auth::user()->image) }}" alt class="rounded-circle" height="50" width="50"/>
+                                        <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt class="rounded-circle" height="50" width="50"/>
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">

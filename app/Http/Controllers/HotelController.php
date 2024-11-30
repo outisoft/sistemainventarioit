@@ -13,6 +13,7 @@ class HotelController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:hotels.index')->only('index');
         $this->middleware('can:hotels.create')->only('create', 'store');
         $this->middleware('can:hotels.edit')->only('edit', 'update');
@@ -22,7 +23,13 @@ class HotelController extends Controller
 
     public function index()
     {
-        $hotels = Hotel::orderBy('name', 'asc')->withCount(['departments'])->get();
+        $hotels = Hotel::orderBy('name', 'asc')
+            ->withCount(['departments'])
+            ->with(['region'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
         $departments = Departamento::orderBy('name', 'asc')->get();
         $regions = Region::orderBy('name', 'asc')->get();
         return view('hotels.index', compact('hotels', 'departments', 'regions'));

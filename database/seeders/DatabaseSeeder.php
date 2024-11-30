@@ -9,7 +9,7 @@ use App\Models\Inventario;
 use App\Models\User;
 use App\Models\Equipo;
 use App\Models\Tablet;
-use App\Models\Tpv;
+use App\Models\Complement;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -33,9 +33,10 @@ class DatabaseSeeder extends Seeder
 
         //Tpv::factory()->count(50)->create();
         //User::factory()->count(8)->create();
-        Empleado::factory()->count(10)->create(); // Crea empleados (ajusta el número según tus necesidades)
+        //Empleado::factory()->count(10)->create(); // Crea empleados (ajusta el número según tus necesidades)
         //Inventario::factory()->count(30)->create();
-        Equipo::factory()->count(10)->create();
+        //Equipo::factory()->count(10)->create();
+        //Complement::factory()->count(10)->create();
         //User::factory()->create();
     }
 }

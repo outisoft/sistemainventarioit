@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tpvs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('region_id')->constrained();
             $table->string('area');
             $table->foreignId('departamento_id')->references('id')->on('departamentos')->cascadeOnDelete();
             $table->foreignId('hotel_id')->references('id')->on('hotels')->cascadeOnDelete();

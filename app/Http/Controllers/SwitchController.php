@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Swittch;
 use App\Models\Historial;
 use App\Models\Hotel;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -12,6 +13,7 @@ class SwitchController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:switches.index')->only('index');
         $this->middleware('can:switches.create')->only('create', 'store');
         $this->middleware('can:switches.edit')->only('edit', 'update');
@@ -20,10 +22,15 @@ class SwitchController extends Controller
     }
     public function index()
     {
-        $switches = Swittch::with('hotel', 'accessPoints')->get();
+        $switches = Swittch::with(['hotel', 'accessPoints', 'region'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
         $hotels = Hotel::orderBy('name', 'asc')->get();
-
-        return view('equipos.switches.index', compact('switches', 'hotels'));
+        $regions = Region::orderBy('name', 'asc')->get();
+        
+        return view('equipos.switches.index', compact('switches', 'hotels', 'regions'));
     }
 
     public function store(Request $request)
@@ -52,6 +59,7 @@ class SwitchController extends Controller
                 'total_ports' => 'required|integer|min:1|max:128',
                 'hotel_id' => 'required|exists:hotels,id',
                 'observacion' => 'required',
+                'region_id' => 'required',
             ], [
                 'name.unique' => 'Este nombre ya está en uso por otro switch.',
                 'ip.unique' => 'Esta dirección IP ya está en uso por otro switch.',
@@ -69,6 +77,7 @@ class SwitchController extends Controller
                 'accion' => 'Creacion',
                 'descripcion' => "Se agregó SW con el nombre: {$registro->name} y con N/S: {$registro->serial}",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -96,9 +105,6 @@ class SwitchController extends Controller
                 }
             }
 
-            /*toastr()
-                ->timeOut(3000)
-                ->addError('Ha ocurrido un error al crear el Switch. Por favor, inténtelo de nuevo.');*/
             return back()->withErrors($e->errors())->withInput();
         }
     }
@@ -109,6 +115,7 @@ class SwitchController extends Controller
         
         try {
             $validated = $request->validate([
+                'region_id' => 'required',
                 'name' => [
                     'required',
                     'string',
@@ -150,6 +157,7 @@ class SwitchController extends Controller
                 'accion' => 'Actualización',
                 'descripcion' => "Se actualizó SW con el nombre: {$switch->name} y con N/S: {$switch->serial}",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -191,6 +199,7 @@ class SwitchController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->name} con N/S {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

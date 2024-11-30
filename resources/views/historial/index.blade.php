@@ -30,7 +30,7 @@
                                             <td>{{ $registro->descripcion }}</td>
                                             <td>
                                                 <div style="display: flex; align-items: center;">
-                                                    <img src="{{ $registro->user->image }}" alt="user-avatar" class="employee-image"/>
+                                                    <img src="{{ $registro->user->image ? asset('/storage/avatars/' . $registro->user->image) : $registro->user->avatar }}" alt="user-avatar" class="employee-image"/>
                                                     <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($registro->user->name, 20, '...'); }}</span>
                                                 </div>
                                             </td>

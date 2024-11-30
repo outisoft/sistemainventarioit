@@ -3,17 +3,18 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipos /</span> Tablets </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipments /</span> Tablets </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Listado de tablets</h5>
+                    <h5 class="card-header">Tablets list</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('tabs.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                    data-placement="top" title="Agregar Nuevo Registro">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" 
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" 
+                                    data-bs-html="true" title="" data-bs-original-title="<span>Add new equipment</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -27,12 +28,12 @@
                     <table id="tabs" class="table">
                         <thead class="bg-primary">
                             <tr>
-                                <th>MARCA</th>
-                                <th>MODELO</th>
-                                <th>SERIE</th>
-                                <th>POLITICA</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
+                                <th>BRAND</th>
+                                <th>MODEL</th>
+                                <th>SERIAL</th>
+                                <th>POLICY</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
                             </tr>
                         </thead>
@@ -62,7 +63,7 @@
                                             <div class="dropdown-menu">
                                                 <!-- Aquí se agregarán las opciones -->
                                                 @can('tabs.edit')
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
                                                 @endcan
 
                                                 @can('tabs.destroy')
@@ -70,8 +71,8 @@
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"
-                                                            onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                class="bx bx-trash me-1"></i>Eliminar</button>
+                                                            onclick="return confirm('Are you sure to delete?')"><i
+                                                                class="bx bx-trash me-1"></i>Delete</button>
                                                     </form>
                                                 @endcan
 

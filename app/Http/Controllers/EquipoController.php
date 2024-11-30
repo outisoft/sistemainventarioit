@@ -14,6 +14,7 @@ class EquipoController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:equipo.index')->only('index');
         $this->middleware('can:equipo.create')->only('create', 'store');
         $this->middleware('can:equipo.edit')->only('edit', 'update');
@@ -25,11 +26,13 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        // Filtrar equipos por tipo
-        // Obtener todos los equipos
-        $equipos = Equipo::with('tipo')->get();
+        $equipos = Equipo::with(['region', 'tipo'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->orderBy('name', 'asc')
+            ->get();
 
-        // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
@@ -71,6 +74,7 @@ class EquipoController extends Controller
             'accion' => 'Asignacion',
             'descripcion' => "Se asigno al equipo {$equipo->name} (S/N:{$equipo->serial}) el complemento {$complement->type->name} (N/S: {$complement->serial})",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()
@@ -94,6 +98,7 @@ class EquipoController extends Controller
             'accion' => 'Desvinculó',
             'descripcion' => "Se desvinculó al equipo {$equipo->name} (S/N: {$equipo->serial} ) el complemento tipo {$complement->type->name} (S/N: {$complement->serial} )",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

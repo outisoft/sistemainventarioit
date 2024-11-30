@@ -38,6 +38,9 @@
                                             <th>#</th>
                                             <th>Name</th>
                                             <th>Job</th>
+                                            @role('Administrator')
+                                                <th>Region</th>
+                                            @endrole
                                             <th>Hotel</th>
                                             <th>Department</th>
                                             <th>AD</th>
@@ -51,6 +54,9 @@
                                                 <td>{{ $empleado->no_empleado}}</td>
                                                 <td>{{ Str::limit($empleado->name, 20, ' ...') }}</td>
                                                 <td>{{ Str::limit($empleado->puesto, 20, ' ...') }}</td>
+                                                @role('Administrator')
+                                                    <td>{{ $empleado->region->name}} </td>
+                                                @endrole
                                                 <td>{{ $empleado->hotel->name }}</td>
                                                 <td>{{ $empleado->departments->name }}</td>
                                                 <!--td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td-->

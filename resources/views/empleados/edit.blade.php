@@ -52,6 +52,25 @@
                             <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                         </div>
 
+                        {{-- Región (solo visible para administradores) --}}
+                        @role('Administrator')
+
+                        <!-- Region -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                            <select class="form-control" id="region" name="region_id">
+                                <option value="">Choose a region</option>
+                                @foreach($regions as $region)
+                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                        </div>
+                            
+                        @else
+                            <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                        @endrole
+
                         <!-- hotel -->
                         <div class="mb-3">
                             <x-input-label class="form-label" for="hotel_id" :value="__('HOTEL')" />
@@ -143,6 +162,7 @@
                     $('#job').val(data.empleado.puesto);
                     $('#hotel_id').val(data.empleado.hotel_id);
                     $('#adi').val(data.empleado.ad);
+                    $('#region').val(data.empleado.region_id);
                     
                     // Cargar departamentos del hotel y seleccionar el actual
                     cargarDepartamentos(data.empleado.hotel_id, data.empleado.departamento_id);

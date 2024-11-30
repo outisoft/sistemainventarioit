@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Equipo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipo_id', 'marca', 'model', 'serial', 'name', 'ip', 'so', 'policy_id', 'email', 'password', 'no_contrato','orden'];
+    protected $fillable = ['tipo_id', 'marca', 'model', 'serial', 'name', 'ip', 'so', 'policy_id', 'email', 'password', 'no_contrato','orden', 'region_id'];
 
     public function empleados()
     {
@@ -52,6 +53,21 @@ class Equipo extends Model
                 if (is_string($value)) {
                     $model->{$key} = strtoupper($value);
                 }
+            }
+        });
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id');
+    }
+
+    // Scope global para filtrar por región automáticamente
+    protected static function booted()
+    {
+        static::addGlobalScope('region', function (Builder $builder) {
+            if (auth()->check() && !auth()->user()->hasRole('Administrator')) {
+                $builder->where('region_id', auth()->user()->region_id);
             }
         });
     }

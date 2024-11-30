@@ -31,6 +31,7 @@ class EquipoFactory extends Factory
             'password' => $this->faker->word,
             'no_contrato' => $this->faker->word,
             'orden' => $this->faker->word,
+            'region_id' => rand(1, 4),
             // Otros campos si los tienes
         ];
     }

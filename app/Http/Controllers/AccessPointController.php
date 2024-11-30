@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AccessPoint;
 use App\Models\Historial;
 use App\Models\Swittch;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -12,6 +13,7 @@ class AccessPointController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:access_points.index')->only('index');
         $this->middleware('can:access_points.create')->only('create', 'store');
         $this->middleware('can:access_points.edit')->only('edit', 'update');
@@ -21,10 +23,15 @@ class AccessPointController extends Controller
 
     public function index()
     {
-        $accessPoints = AccessPoint::with('swittch')->orderBy('name', 'asc')->get();
+        $accessPoints = AccessPoint::with(['region', 'swittch'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
+        $regions = Region::orderBy('name', 'asc')->get();
         $switches = Swittch::orderBy('name', 'asc')->get();
         
-        return view('equipos.access_points.index', compact('accessPoints', 'switches'));
+        return view('equipos.access_points.index', compact('accessPoints', 'switches', 'regions'));
     }
 
     public function store(Request $request)
@@ -33,6 +40,7 @@ class AccessPointController extends Controller
         
         try {
             $validated = $request->validate([
+                'region_id' => 'required',
                 'name' => [
                     'required',
                     'unique:access_points',
@@ -71,6 +79,7 @@ class AccessPointController extends Controller
                 'accion' => 'Creacion',
                 'descripcion' => "Se agregó el AP con el nombre: {$registro->name} y con N/S: {$registro->serial}",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -109,6 +118,7 @@ class AccessPointController extends Controller
         
         try {
             $validated = $request->validate([
+                'region_id' => 'required',
                 'name' => [
                     'required',
                     'string',
@@ -147,6 +157,7 @@ class AccessPointController extends Controller
                 'accion' => 'Actualización',
                 'descripcion' => "Se actualizó el AP de nombre: {$accessPoint->name} y con N/S: {$accessPoint->serial}",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -154,7 +165,7 @@ class AccessPointController extends Controller
                 ->addSuccess("Se actualizó {$accessPoint->name} ({$accessPoint->serial}) correctamente.");
 
 
-            return redirect()->route('access_points.index');
+            return redirect()->route('access-points.index');
 
         } catch (ValidationException $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -189,6 +200,7 @@ class AccessPointController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->name} con N/S {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

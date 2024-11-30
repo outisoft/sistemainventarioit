@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tpv;
 use App\Models\Hotel;
 use App\Models\Departamento;
+use App\Models\Region;
 use App\Models\Historial;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,7 @@ class TpvController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:tpvs.index')->only('index');
         $this->middleware('can:tpvs.create')->only('create', 'store');
         $this->middleware('can:tpvs.edit')->only('edit', 'update');
@@ -23,8 +25,16 @@ class TpvController extends Controller
     {
         $hoteles = Hotel::all();
         $departamentos = Departamento::all();
-        $tpvs = tpv::with('hotel', 'departments')->orderBy('name', 'asc')->get();
-        return view('tpvs.index', compact('tpvs','hoteles', 'departamentos'));
+        $tpvs = tpv::with(['region', 'hotel', 'departments'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->orderBy('name', 'asc')
+            ->get();
+        
+        $regions = Region::all();
+        
+        return view('tpvs.index', compact('tpvs','hoteles', 'departamentos', 'regions'));
     }
 
     /**
@@ -43,6 +53,7 @@ class TpvController extends Controller
         try {
             //dd($request);
             $data = $request->validate([
+                'region_id' => 'required',
                 'area' => 'required',
                 'departamento_id' => 'required',
                 'hotel_id' => 'required|exists:hotels,id',
@@ -64,6 +75,7 @@ class TpvController extends Controller
                 'accion' => 'Creacion',
                 'descripcion' => "Se registro la Tpv {$registro->name} correctamente",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -96,16 +108,6 @@ class TpvController extends Controller
         return view('tpvs.show', compact('tpv', 'hotel', 'departamento'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    /*public function edit(Tpv $tpv)
-    {
-        $hoteles = Hotel::all();
-        $departamentos = Departamento::all();
-        return view('tpvs.edit', compact('tpv', 'hoteles', 'departamentos'));
-    }*/
-
     public function edit(Tpv $tpv)
     {
         return response()->json([
@@ -119,6 +121,7 @@ class TpvController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->validate([
+            'region_id' => 'required|exists:regions,id',
             'area' => 'required',
             'departamento_id' => 'required',
             'hotel_id' => 'required|exists:hotels,id',
@@ -142,6 +145,7 @@ class TpvController extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo la TPV {$registro->name} correctamente",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         // Mostrar notificación Toastr para éxito
 
@@ -162,6 +166,7 @@ class TpvController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la Tpv {$tpv->name} correctamente",
             'user_id' => $tpv->id,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

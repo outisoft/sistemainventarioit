@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('accion');
             $table->string('descripcion');
             $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });
     }

@@ -3,17 +3,37 @@
     <div class="modal fade" id="editModal{{ $equipo->id }}" tabindex="-1" aria-labelledby="editModal{{ $equipo->id }}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModal{{ $equipo->id }}">Editar equipo: {{ $equipo->serial }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('printers.update', $equipo) }}" method="POST">
-                        @csrf
-                        @method('PUT')
+                <form action="{{ route('printers.update', $equipo) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModal{{ $equipo->id }}">Edit: {{ $equipo->serial }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Region -->
+                        {{-- Región (solo visible para administradores) --}}
+                        @role('Administrator')
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                            <select class="form-control" id="region_id" name="region_id"
+                                aria-label="Default select example">
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}"
+                                        {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                        {{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                        </div>
+                            
+                        @else
+                            <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                        @endrole
+                        
                         <!-- Marca -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="marca{{ $equipo->marca }}" :value="__('Marca de equipo')" />
+                            <x-input-label class="form-label" for="marca{{ $equipo->marca }}" :value="__('Brand')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="marca{{ $equipo->marca }}" class="form-control" type="text"
                                     name="marca" placeholder="HP" value="{{ $equipo->marca }}" required
@@ -24,7 +44,7 @@
 
                         <!-- Modelo -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="model{{ $equipo->model }}" :value="__('Modelo del equipo')" />
+                            <x-input-label class="form-label" for="model{{ $equipo->model }}" :value="__('Model')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="model{{ $equipo->model }}" class="form-control" type="text"
                                     name="model" placeholder="HP" value="{{ $equipo->model }}" required
@@ -35,7 +55,7 @@
 
                         <!-- Serial -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="serial{{ $equipo->serial }}" :value="__('Serie del equipo')" />
+                            <x-input-label class="form-label" for="serial{{ $equipo->serial }}" :value="__('Serial number')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="serial{{ $equipo->serial }}" class="form-control" type="text"
                                     name="serial" placeholder="HP" value="{{ $equipo->serial }}" required
@@ -46,7 +66,7 @@
 
                         <!-- IP -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="ip{{ $equipo->ip }}" :value="__('IP del equipo')" />
+                            <x-input-label class="form-label" for="ip{{ $equipo->ip }}" :value="__('IP')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="ip{{ $equipo->ip }}" class="form-control" type="text"
                                     name="ip" placeholder="HP" value="{{ $equipo->ip }}" required
@@ -54,13 +74,13 @@
                             </div>
                             <x-input-error :messages="$errors->get('ip')" class="mt-2" />
                         </div>
+                    </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Actualizar</button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

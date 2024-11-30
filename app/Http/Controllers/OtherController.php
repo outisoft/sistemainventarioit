@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
+use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -12,6 +13,7 @@ class OtherController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:other.index')->only('index');
         $this->middleware('can:other.create')->only('create', 'store');
         $this->middleware('can:other.edit')->only('edit', 'update');
@@ -23,13 +25,20 @@ class OtherController extends Controller
     {
         $tipo = Tipo::where('name', 'OTHER')->first();
 
-        $equipos = Equipo::where('tipo_id', $tipo->id)->get();
+        $equipos = Equipo::where('tipo_id', $tipo->id)
+            ->with(['region'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
+
+        $regions = Region::orderBy('name', 'asc')->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
-        return view('equipos.other.index', compact('equipos'));
+        return view('equipos.other.index', compact('equipos', 'regions'));
     }
 
     public function store(Request $request)
@@ -46,6 +55,7 @@ class OtherController extends Controller
                     'required',
                     'unique:equipos',
                 ],
+                'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este número de serie ya está registrado.',
             ]);
@@ -57,6 +67,7 @@ class OtherController extends Controller
                 'accion' => 'Creacion',
                 'descripcion' => "Se agregó equipo con el nombre: {$registro->no_contrato} y con N/S: {$registro->serial}",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -100,6 +111,7 @@ class OtherController extends Controller
                 'marca' => 'required',
                 'model' => 'required',
                 'serial' => 'required|unique:equipos,serial,' . $id,
+                'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este número de serie ya está registrado.',
             ]);
@@ -111,6 +123,7 @@ class OtherController extends Controller
                 'accion' => 'Actualización',
                 'descripcion' => "Se actualizó SW con el nombre: {$registro->no_contrato} y con N/S: {$registro->serial}",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -152,6 +165,7 @@ class OtherController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->no_contrato} con N/S {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Tpv extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['area', 'departamento_id','hotel_id', 'equipment','brand', 'model', 'no_serial', 'name', 'ip', 'link'];
+    protected $fillable = ['region_id', 'area', 'departamento_id','hotel_id', 'equipment','brand', 'model', 'no_serial', 'name', 'ip', 'link'];
 
     public function hotel()
     {
@@ -30,6 +31,21 @@ class Tpv extends Model
                 if (is_string($value)) {
                     $model->{$key} = strtoupper($value);
                 }
+            }
+        });
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id');
+    }
+
+    // Scope global para filtrar por región automáticamente
+    protected static function booted()
+    {
+        static::addGlobalScope('region', function (Builder $builder) {
+            if (auth()->check() && !auth()->user()->hasRole('Administrator')) {
+                $builder->where('region_id', auth()->user()->region_id);
             }
         });
     }

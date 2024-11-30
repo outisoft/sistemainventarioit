@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Swittch extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'marca', 'model', 'serial', 'mac', 'ip', 'total_ports', 'hotel_id', 'observacion'];
+    protected $fillable = ['region_id', 'name', 'marca', 'model', 'serial', 'mac', 'ip', 'total_ports', 'hotel_id', 'observacion'];
 
     public function hotel()
     {
@@ -35,6 +36,21 @@ class Swittch extends Model
                 if (is_string($value)) {
                     $model->{$key} = strtoupper($value);
                 }
+            }
+        });
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id');
+    }
+
+    // Scope global para filtrar por región automáticamente
+    protected static function booted()
+    {
+        static::addGlobalScope('region', function (Builder $builder) {
+            if (auth()->check() && !auth()->user()->hasRole('Administrator')) {
+                $builder->where('region_id', auth()->user()->region_id);
             }
         });
     }

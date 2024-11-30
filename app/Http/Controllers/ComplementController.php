@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 use App\Models\Tipo;
 use App\Models\Complement;
 use App\Models\Historial;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
 class ComplementController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:complements.index')->only('index');
         $this->middleware('can:complements.create')->only('create', 'store');
         $this->middleware('can:complements.edit')->only('edit', 'update');
@@ -21,9 +23,15 @@ class ComplementController extends Controller
      */
     public function index()
     {
-        $equipos = Complement::with('type', 'equipments')->get();
-
-        return view('equipos.complements.index', compact('equipos'));
+        $equipos = Complement::with(['region', 'type', 'equipments'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
+        
+        $regions = Region::all();
+        
+        return view('equipos.complements.index', compact('equipos', 'regions'));
     }
 
     /**
@@ -40,6 +48,7 @@ class ComplementController extends Controller
             'brand' => 'required',
             'model' => 'required',
             'serial' => 'required|unique:complements,serial',
+            'region_id' => 'required',
         ]);
         $registro = Complement::create($data);
         $registro->save();
@@ -47,6 +56,7 @@ class ComplementController extends Controller
             'accion' => 'Creacion',
             'descripcion' => "Se agrego {$registro->type->name} con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -65,6 +75,7 @@ class ComplementController extends Controller
             'brand' => 'required',
             'model' => 'required',
             'serial' => 'required|unique:complements,serial,' . $id,
+            'region_id' => 'required',
         ]);
 
         $registro = Complement::findOrFail($id);
@@ -74,6 +85,7 @@ class ComplementController extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo el {$registro->type->name} con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -96,6 +108,7 @@ class ComplementController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->type->name} con N/S {$registro->serial}.",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

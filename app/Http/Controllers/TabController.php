@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
+use App\Models\Region;
 use App\Models\Policy;
 use Illuminate\Http\Request;
 
@@ -11,6 +12,7 @@ class TabController extends Controller
 {
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('can:tabs.index')->only('index');
         $this->middleware('can:tabs.create')->only('create', 'store');
         $this->middleware('can:tabs.edit')->only('edit', 'update');
@@ -26,14 +28,21 @@ class TabController extends Controller
 
         $equipos = Equipo::whereHas('tipo', function ($query) {
             $query->where('name', 'TABLET');
-        })->with('policy')->get();
+            })
+            ->with(['region', 'policy'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
+
+        $regions = Region::orderBy('name', 'asc')->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
 
-        return view('equipos.tabs.index', compact('equipos', 'policies'));
+        return view('equipos.tabs.index', compact('equipos', 'policies', 'regions'));
     }
 
     /**
@@ -51,6 +60,7 @@ class TabController extends Controller
             'model' => 'required',
             'serial' => 'required|unique:equipos,serial',
             'policy_id' => 'required',
+            'region_id' => 'required',
         ]);
         $registro = Equipo::create($data);
         $registro->save();
@@ -58,6 +68,7 @@ class TabController extends Controller
             'accion' => 'Creacion',
             'descripcion' => "Se agrego la {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -77,6 +88,7 @@ class TabController extends Controller
             'model' => 'required',
             'serial' => 'required|unique:equipos,serial,' . $id,
             'policy_id' => 'required',
+            'region_id' => 'required',
         ]);
 
         $registro = Equipo::findOrFail($id);
@@ -87,6 +99,7 @@ class TabController extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo la {$registro->tipo->name} con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -109,6 +122,7 @@ class TabController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la {$registro->tipo->name} con N/S {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

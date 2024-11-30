@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Laravolt\Avatar\Facade as Avatar;
 
 class User extends Authenticatable
 {
@@ -59,5 +60,15 @@ class User extends Authenticatable
     public function region()
     {
         return $this->belongsTo(Region::class, 'region_id');
+    }
+
+    public function getAvatarAttribute()
+    {
+        if ($this->attributes['image']) {
+            return asset('storage/avatars/' . $this->attributes['image']);
+        } else {
+            $name = $this->name ?: 'NN'; // 'NN' para usuarios sin nombre
+            return Avatar::create($name)->toBase64();
+        }
     }
 }

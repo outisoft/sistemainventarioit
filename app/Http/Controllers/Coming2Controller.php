@@ -58,6 +58,7 @@ class Coming2Controller extends Controller
             'accion' => 'Creacion',
             'descripcion' => "Se creó la tableta para {$registro->operario} con numero de serie {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()
@@ -120,6 +121,7 @@ class Coming2Controller extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo la tableta de {$registro->operario} con numero de serie {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()
@@ -134,6 +136,13 @@ class Coming2Controller extends Controller
         $tablet = Coming2::findOrFail($id);
         $tablet->delete();
 
+        Historial::create([
+            'accion' => 'Papelera',
+            'descripcion' => "Se envio a la papelera la tablet con numero de serie {$tablet->serial}",
+            'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
+        ]);
+
         toastr()
             ->timeOut(3000) // 3 second
             ->addSuccess("Tablet eliminado.");
@@ -145,6 +154,13 @@ class Coming2Controller extends Controller
     {
         $empleado = Coming2::withTrashed()->findOrFail($id);
         $empleado->restore();
+
+        Historial::create([
+            'accion' => 'Papelera',
+            'descripcion' => "Se restauro de la papelera la tablet con numero de serie {$tablet->serial}",
+            'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
+        ]);
 
         toastr()
             ->timeOut(3000) // 3 second
@@ -174,6 +190,7 @@ class Coming2Controller extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la tableta de {$tablet->operario} con numero de serie {$tablet->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

@@ -20,8 +20,9 @@ class EmpleadoFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'puesto' => $this->faker->jobTitle,
             'departamento_id' => rand(1, 64),
-            'hotel_id' => rand(1, 9),
+            'hotel_id' => rand(1, 13),
             'ad' => $this->faker->userName,
+            'region_id' => rand(1, 4),
         ];
     }
 }

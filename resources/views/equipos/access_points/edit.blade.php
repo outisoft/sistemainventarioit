@@ -3,15 +3,34 @@
     <div class="modal fade" id="editModal{{ $equipo->id }}" role="dialog" tabindex="-1" aria-labelledby="editModal{{ $equipo->id }}" aria-hidden="true"7>
         <div class="modal-dialog">
             <div class="modal-content">
-                <form id="editAccessPointForm" action="{{ route('access-points.update', $equipo) }}" method="POST">
+                <form id="editAccessPointForm" action="{{ route('access-points.update', $equipo) }}" method="POST">    
+                @csrf
+                @method('PUT')
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModal">Edit AP</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        @csrf
-                        @method('PUT')
                         <input type="hidden" id="edit_access_point_id" name="id">
+                        <!-- Region -->
+                        {{-- Región (solo visible para administradores) --}}
+                        @role('Administrator')
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                            <select class="form-control" id="region_id" name="region_id"
+                                aria-label="Default select example">
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}"
+                                        {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                        {{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                        </div>
+                            
+                        @else
+                            <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                        @endrole
                         <!-- Nmae -->
                         <div class="mb-3">
                             <x-input-label class="form-label" for="name{{ $equipo->name }}" :value="__('Name')" />
@@ -79,15 +98,16 @@
                         </div>
 
                         <!-- Switch ID -->
-                        <div class="form-group">
-                            <x-input-label class="form-label" for="switch_id" :value="__('Switch')" />
-                            <select class="form-control" id="edit_switch_id" name="switch_id" required>
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="swittch_id" :value="__('Switch')" />
+                            <select class="form-control" id="edit_switch_id" name="swittch_id" required>
                                 @foreach($switches as $switch)
                                     <option value="{{ $switch->id }}" {{ $equipo->switch_id == $switch->id ? 'selected' : '' }}>
                                         {{ $switch->name }}
                                     </option>
                                 @endforeach
                             </select>
+                            <x-input-error :messages="$errors->get('swittch_id')" class="mt-2" />
                         </div>
                         <div class="form-group">
                             <x-input-label class="form-label" for="port_number" :value="__('Port number')" />

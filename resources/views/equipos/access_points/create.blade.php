@@ -5,6 +5,7 @@
         <div class="modal-content">
 
             <form action="{{ route('access-points.store') }}" method="POST">
+                @csrf
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Access Points</h4>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
@@ -13,7 +14,27 @@
                 </div>
 
                 <div class="modal-body">
-                    @csrf
+                    <!-- Region -->
+                    {{-- Región (solo visible para administradores) --}}
+                    @role('Administrator')
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                        <select class="form-control" id="region_id" name="region_id">
+                            <option value="">Choose a region</option>
+                            @foreach($regions as $region)
+                                <option value="{{ $region->id }}" 
+                                        {{ old('region_id') == $region->id ? 'selected' : '' }}>
+                                    {{ $region->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                    </div>
+                        
+                    @else
+                        <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                    @endrole
+
                     <!-- NOMBRE -->
                     <div class="mb-3">
                         <x-input-label class="form-label" for="name" :value="__('Name')" />
@@ -80,7 +101,7 @@
                         <x-input-error :messages="$errors->get('ip')" class="mt-2" />
                     </div>
 
-                    <div class="form-group">
+                    <div class="mb-3">
                         <x-input-label class="form-label" for="swittch_id" :value="__('Switch')" />
                         <select class="form-control" id="swittch_id" name="swittch_id" required>
                             @foreach($switches as $switch)

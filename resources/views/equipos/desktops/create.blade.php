@@ -2,15 +2,16 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Desktop</h4>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true"></span></button>
-            </div>
+            
+            <form method="POST" action="{{ route('desktops.store') }}">
+            @csrf
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">Desktop</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true"></span></button>
+                </div>
 
-            <div class="modal-body">
-                <form method="POST" action="{{ route('desktops.store') }}">
-                    @csrf
+                <div class="modal-body">
                     <!-- Tipo -->
                     <div class="mb-3" style="display: none;">
                         <x-input-label class="form-label" for="tipo_id" :value="__('Tipo de equipo')" />
@@ -22,9 +23,31 @@
                         <x-input-error :messages="$errors->get('marca')" class="mt-2" />
                     </div>
 
+                    {{-- Región (solo visible para administradores) --}}
+                    @role('Administrator')
+
+                    <!-- Region -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                        <select class="form-control" id="region_id" name="region_id">
+                            <option value="">Choose a region</option>
+                            @foreach($regions as $region)
+                                <option value="{{ $region->id }}" 
+                                        {{ old('region_id') == $region->id ? 'selected' : '' }}>
+                                    {{ $region->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                    </div>
+                        
+                    @else
+                        <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                    @endrole
+
                     <!-- Marca -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="marca" :value="__('Marca de equipo')" />
+                        <x-input-label class="form-label" for="marca" :value="__('Equipment Brand')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="marca" class="form-control" type="text"
                                 name="marca" placeholder="HP" :value="old('marca')" required
@@ -35,7 +58,7 @@
 
                     <!-- Model -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="model" :value="__('Modelo de equipo')" />
+                        <x-input-label class="form-label" for="model" :value="__('Model')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="model" class="form-control" type="text"
                                 name="model" placeholder="SmartBook" :value="old('model')" required
@@ -46,7 +69,7 @@
 
                     <!-- Numero de serie -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="serial" :value="__('Numero de serie')" />
+                        <x-input-label class="form-label" for="serial" :value="__('Serial number')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="serial" class="form-control" type="text"
                                 name="serial" placeholder="R5BDI87D80" :value="old('serial')" required
@@ -57,7 +80,7 @@
 
                     <!-- NOMBRE DE EQUIPO -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="name" :value="__('Nombre del equipo')" />
+                        <x-input-label class="form-label" for="name" :value="__('Equipment Name')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="name" class="form-control" type="text"
                                 name="name" placeholder="TULSIS001" :value="old('name')" required
@@ -68,7 +91,7 @@
 
                     <!-- IP DE EQUIPO -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="ip" :value="__('IP del equipo')" />
+                        <x-input-label class="form-label" for="ip" :value="__('IP')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="ip" class="form-control" type="text"
                                 name="ip" placeholder="10.1.35.48" :value="old('ip')" required
@@ -79,7 +102,7 @@
 
                     <!-- SO -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="so" :value="__('Sistema Operativo')" />
+                        <x-input-label class="form-label" for="so" :value="__('Operating system')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="so" class="form-control" type="text"
                                 name="so" placeholder="Windows 10" :value="old('so')" required
@@ -90,7 +113,7 @@
 
                     <!-- ORDEN DE COMPRA -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="orden" :value="__('Orden de compra')" />
+                        <x-input-label class="form-label" for="orden" :value="__('Order')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="orden" class="form-control" type="text"
                                 name="orden" placeholder="ORDEN #1234" :value="old('orden')" required
@@ -98,10 +121,12 @@
                         </div>
                         <x-input-error :messages="$errors->get('orden')" class="mt-2" />
                     </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
-            </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

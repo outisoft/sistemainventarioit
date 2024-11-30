@@ -44,6 +44,7 @@ class LicenseController extends Controller
                 'accion' => 'Creacion',
                 'descripcion' => "Se registro la licencia de {$request->name} con el correo {$request->email}",
                 'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
             ]);
 
             toastr()
@@ -80,6 +81,7 @@ class LicenseController extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo la licencia de {$registro->name} con el correo {$request->email}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         toastr()
             ->timeOut(3000) // 3 second
@@ -99,6 +101,7 @@ class LicenseController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la licencia de {$registro->name} con el correo {$registro->email}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

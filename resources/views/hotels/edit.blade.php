@@ -31,14 +31,18 @@
                             </div>
                         </div>
 
-                        <!-- Pais -->
-                        <div class="mb-3">
-                            <x-input-label class="form-label" for="country" :value="__('Pais')" />
-                            <div class="input-group input-group-merge">
-                                <x-text-input id="country" class="form-control" type="text" name="country"
-                                    value="{{ $hotel->country }}" required autofocus />
-                                <x-input-error :messages="$errors->get('country')" class="mt-2" />
-                            </div>
+                        <!-- Reegion -->
+                        <div class="form-group">
+                            <x-input-label class="form-label" for="region_id" :value="__('Region')" />
+                            <select class="form-control" id="region_id" name="region_id"
+                                aria-label="Default select example">
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}"
+                                        {{ $hotel->region_id == $region->id ? 'selected' : '' }}>
+                                        {{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
                         </div>
 
                         <div class="mb-3">

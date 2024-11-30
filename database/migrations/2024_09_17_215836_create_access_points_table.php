@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('ip')->unique();
             $table->foreignId('swittch_id')->references('id')->on('swittches')->cascadeOnDelete();
             $table->integer('port_number');
+            $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });
     }

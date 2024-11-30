@@ -34,6 +34,7 @@ class PhoneController extends Controller
             'accion' => 'Creacion',
             'descripcion' => "Se agrego un telefono con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
         
         toastr()
@@ -61,6 +62,7 @@ class PhoneController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el telefono ({$registro->extension}) con N/S: {$registro->serial}",
             'user_id' => $user,
+            'region_id' => auth()->user()->region_id,
         ]);
 
         toastr()

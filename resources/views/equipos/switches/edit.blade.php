@@ -13,6 +13,25 @@
                     </div>
 
                     <div class="modal-body">
+                        <!-- Region -->
+                        {{-- Región (solo visible para administradores) --}}
+                        @role('Administrator')
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                            <select class="form-control" id="region_id" name="region_id"
+                                aria-label="Default select example">
+                                @foreach ($regions as $region)
+                                    <option value="{{ $region->id }}"
+                                        {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                        {{ $region->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                        </div>
+                            
+                        @else
+                            <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                        @endrole
                         
                             <!-- Nmae -->
                             <div class="mb-3">

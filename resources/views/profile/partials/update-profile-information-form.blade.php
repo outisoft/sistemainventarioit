@@ -20,7 +20,7 @@
         <!--Image profile-->
         <div class="card-body">
             <div class="d-flex align-items-start align-items-sm-center gap-4">
-                <img src="{{ asset(Auth::user()->image) }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar"/>
+                <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->image }}" alt="Avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar">                
                 <div class="button-wrapper">
                     <label for="image" class="btn btn-primary me-2 mb-4" tabindex="0">
                         <span class="d-none d-sm-block">Upload new photo</span>

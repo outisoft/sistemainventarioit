@@ -1,131 +1,148 @@
-<!-- Toggle Between Modals -->
-<div class="col-lg-4 col-md-6">
-    <form method="POST" action="{{ route('tpvs.store') }}">
-        @csrf
-        <div class="mt-3">
-            <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalToggleLabel">Registro de Nuevo Tpv</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<!--Modal create-->
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST" action="{{ route('tpvs.store') }}">
+            @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalToggleLabel">New Tpv</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Region -->
+                    {{-- Región (solo visible para administradores) --}}
+                    @role('Administrator')
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                        <select class="form-control" id="region_id" name="region_id">
+                            <option value="">Choose a region</option>
+                            @foreach($regions as $region)
+                                <option value="{{ $region->id }}" 
+                                        {{ old('region_id') == $region->id ? 'selected' : '' }}>
+                                    {{ $region->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                    </div>
+                        
+                    @else
+                        <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                    @endrole
+
+                    <!-- Area -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="area" :value="__('Area')" />
+                        <select class="form-control" name="area" id="area">
+                            <option value="BAR">BAR</option>
+                            <option value="COCINA CALIENTE">COCINA CALIENTE</option>
+                            <option value="COCINA FRIA">COCINA FRIA</option>
+                            <option value="PASTELERIA">PASTELERIA</option>
+                        </select>
+                        <x-input-error :messages="$errors->get('area')" class="mt-2" />
+                    </div>
+
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="hotels_id" :value="__('Hotel')" />
+                        <select class="form-control" id="hotels_id" name="hotel_id">
+                            <option value="">Select hotel</option>
+                            @foreach($hoteles as $hotel)
+                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="departamentos_id" :value="__('Departments')" />
+                        <select class="form-control" id="departamentos_id" name="departamento_id" disabled>
+                            <option value="">The first select to hotel</option>
+                        </select>
+                    </div>
+
+                    <!-- Equipo -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="equipment" :value="__('Equipment')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input id="equipment" class="form-control" type="text"
+                                name="equipment" placeholder="AIO" :value="old('equipment')" required
+                                autocomplete="equipment" />
                         </div>
-                        <div class="modal-body">
-                            <!-- Area -->
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="area" :value="__('Area')" />
-                                <select class="form-control" name="area" id="area">
-                                    <option value="BAR">BAR</option>
-                                    <option value="COCINA CALIENTE">COCINA CALIENTE</option>
-                                    <option value="COCINA FRIA">COCINA FRIA</option>
-                                    <option value="PASTELERIA">PASTELERIA</option>
-                                </select>
-                                <x-input-error :messages="$errors->get('area')" class="mt-2" />
-                            </div>
+                        <x-input-error :messages="$errors->get('equipment')" class="mt-2" />
+                    </div>
 
-                            <div class="mb-3">
-                                <label for="hotels_id" class="form-label">Hotel</label>
-                                <select class="form-control" id="hotels_id" name="hotel_id">
-                                    <option value="">Seleccione un hotel</option>
-                                    @foreach($hoteles as $hotel)
-                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="departamentos_id" class="form-label">Departamento</label>
-                                <select class="form-control" id="departamentos_id" name="departamento_id" disabled>
-                                    <option value="">Primero seleccione un hotel</option>
-                                </select>
-                            </div>
-
-                            <!-- Equipo -->
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="equipment" :value="__('Equipo')" />
-                                <div class="input-group input-group-merge">
-                                    <x-text-input id="equipment" class="form-control" type="text"
-                                        name="equipment" placeholder="AIO" :value="old('equipment')" required
-                                        autocomplete="equipment" />
-                                </div>
-                                <x-input-error :messages="$errors->get('equipment')" class="mt-2" />
-                            </div>
-
-                            <!-- Marca -->
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="brand" :value="__('Marca')" />
-                                <div class="input-group input-group-merge">
-                                    <x-text-input id="brand" class="form-control" type="text"
-                                        name="brand" placeholder="ELO TOUCH" :value="old('brand')" required
-                                        autocomplete="brand" />
-                                </div>
-                                <x-input-error :messages="$errors->get('brand')" class="mt-2" />
-                            </div>
-
-                            <!-- Modelo -->
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="model" :value="__('Modelo')" />
-                                <div class="input-group input-group-merge"> 
-                                    <x-text-input id="model" class="form-control" type="text"
-                                        name="model" placeholder="15E2-E" :value="old('model')" required
-                                        autocomplete="model" />
-                                </div>
-                                <x-input-error :messages="$errors->get('model')" class="mt-2" />
-                            </div>
-
-                            <!-- Numero de serie -->
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="no_serial" :value="__('Numero de serie')" />
-                                <div class="input-group input-group-merge">
-                                    <x-text-input id="no_serial" class="form-control" type="text"
-                                        name="no_serial" placeholder="L45EFGFF783" :value="old('no_serial')" required
-                                        autocomplete="no_serial" />
-                                </div>
-                                <x-input-error :messages="$errors->get('no_serial')" class="mt-2" />
-                            </div>
-
-                            <!-- Nombre -->
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="name" :value="__('Nombre')" />
-                                <div class="input-group input-group-merge">
-                                    <x-text-input id="name" class="form-control" type="text"
-                                        name="name" placeholder="RESTPV001" :value="old('name')" required
-                                        autocomplete="name" />
-                                </div>
-                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                            </div>
-
-                            <!-- IP -->
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="ip" :value="__('IP')" />
-                                <div class="input-group input-group-merge">
-                                    <x-text-input id="ip" class="form-control" type="text"
-                                        name="ip" placeholder="10.1.22.34" :value="old('ip')" required
-                                        autocomplete="ip" />
-                                </div>
-                                <x-input-error :messages="$errors->get('ip')" class="mt-2" />
-                            </div>
-
-                            <!-- Link -->
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="link" :value="__('Link')" />
-                                <div class="input-group input-group-merge">
-                                    <x-text-input id="link" class="form-control" type="text"
-                                        name="link" placeholder="https://tpvbp.grupo-pinero.com/" :value="old('link')" required
-                                        autocomplete="link" />
-                                </div>
-                                <x-input-error :messages="$errors->get('link')" class="mt-2" />
-                            </div>
+                    <!-- Marca -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="brand" :value="__('Brand')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input id="brand" class="form-control" type="text"
+                                name="brand" placeholder="ELO TOUCH" :value="old('brand')" required
+                                autocomplete="brand" />
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        <x-input-error :messages="$errors->get('brand')" class="mt-2" />
+                    </div>
+
+                    <!-- Modelo -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="model" :value="__('Model')" />
+                        <div class="input-group input-group-merge"> 
+                            <x-text-input id="model" class="form-control" type="text"
+                                name="model" placeholder="15E2-E" :value="old('model')" required
+                                autocomplete="model" />
                         </div>
+                        <x-input-error :messages="$errors->get('model')" class="mt-2" />
+                    </div>
+
+                    <!-- Numero de serie -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="no_serial" :value="__('Serial number')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input id="no_serial" class="form-control" type="text"
+                                name="no_serial" placeholder="L45EFGFF783" :value="old('no_serial')" required
+                                autocomplete="no_serial" />
+                        </div>
+                        <x-input-error :messages="$errors->get('no_serial')" class="mt-2" />
+                    </div>
+
+                    <!-- Nombre -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="name" :value="__('Name')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input id="name" class="form-control" type="text"
+                                name="name" placeholder="RESTPV001" :value="old('name')" required
+                                autocomplete="name" />
+                        </div>
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    </div>
+
+                    <!-- IP -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="ip" :value="__('IP')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input id="ip" class="form-control" type="text"
+                                name="ip" placeholder="10.1.22.34" :value="old('ip')" required
+                                autocomplete="ip" />
+                        </div>
+                        <x-input-error :messages="$errors->get('ip')" class="mt-2" />
+                    </div>
+
+                    <!-- Link -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="link" :value="__('Link')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input id="link" class="form-control" type="text"
+                                name="link" placeholder="https://tpvbp.grupo-pinero.com/" :value="old('link')" required
+                                autocomplete="link" />
+                        </div>
+                        <x-input-error :messages="$errors->get('link')" class="mt-2" />
                     </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -145,7 +162,7 @@
                     data: { hotel_id: hotelId },
                     success: function(data) {
                         departamentoSelect.empty();
-                        departamentoSelect.append('<option value="">Seleccione un departamento</option>');
+                        departamentoSelect.append('<option value="">Select department</option>');
                         
                         $.each(data, function(index, departamento) {
                             departamentoSelect.append('<option value="' + departamento.id + '">' + departamento.name + '</option>');
@@ -156,7 +173,7 @@
                 // Si no hay hotel seleccionado, deshabilitar y limpiar el select de departamentos
                 departamentoSelect.prop('disabled', true);
                 departamentoSelect.empty();
-                departamentoSelect.append('<option value="">Primero seleccione un hotel</option>');
+                departamentoSelect.append('<option value="">Firts select hotel</option>');
             }
         });
     });

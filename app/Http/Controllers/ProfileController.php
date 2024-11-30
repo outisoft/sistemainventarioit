@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -31,15 +32,10 @@ class ProfileController extends Controller
         $request->user()->fill($request->validated());
 
         if ($request->hasFile('image')){
+            $avatarName = $user->id.'_avatar'.time().'.'.$request->image->extension();
+            $request->image->storeAs('avatars', $avatarName, 'public');
 
-            if(File::exists(public_path($user->image)) && $user->image != 'uploads/gp-Logo.png'){
-                File::delete(public_path($user->image));
-            }
-            $image = $request->image;
-            $imageName = rand().'_'.$image->getClientOriginalName();
-            $image->move(public_path('uploads'), $imageName);
-            $path = "/uploads/".$imageName;
-            $user->image = $path;
+            $user->image = $avatarName;
         }
 
         if ($request->user()->isDirty('email')) {

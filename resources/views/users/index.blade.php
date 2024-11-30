@@ -51,7 +51,8 @@
                                                 <tr>
                                                     <td>
                                                         <div style="display: flex; align-items: center;">
-                                                            <img src="{{ $user->image }}" alt="user-avatar" class="employee-image"/>
+                                                            
+                                                            <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt="user-avatar" class="employee-image"/>
                                                             <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($user->name, 20, '...'); }}</span>
                                                         </div>
                                                     </td>
