@@ -2,16 +2,15 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">New Hotel</h4>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true"></span></button>
-            </div>
+            <form method="POST" action="{{ route('hotels.store') }}">
+                @csrf
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">New Hotel</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true"></span></button>
+                </div>
 
-            <div class="modal-body">
-                <form method="POST" action="{{ route('hotels.store') }}">
-                    @csrf
-
+                <div class="modal-body">
                     <!-- Nombre -->
                     <div class="mb-3">
                         <x-input-label class="form-label" for="name" :value="__('Nombre de Hotel o empresa')" />
@@ -41,7 +40,7 @@
                     </div>
 
                     <!-- Region -->
-                    <div class="mt-4">
+                    <div class="mb-3">
                         <x-input-label class="form-label" for="region_id" :value="__('Region')" />
 
                         <div class="input-group input-group-merge">
@@ -56,11 +55,12 @@
                             </select>
                         </div>
                     </div>
+                </div>
 
-                    <br>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                </form>
-            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

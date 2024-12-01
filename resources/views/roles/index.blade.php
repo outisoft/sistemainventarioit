@@ -26,7 +26,7 @@
                                         <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
                                             @foreach($role->users as $user)   
                                                 <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="{{ $user->name }}" data-bs-original-title="{{ $user->name }}">
-                                                    <img class="rounded-circle" src="{{ $user->image }}" alt="Avatar">
+                                                    <img class="rounded-circle" src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt="Avatar">
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -106,7 +106,7 @@
                                                         <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
                                                             @foreach($role->users as $user)
                                                                 <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="{{ $user->name }}" data-bs-original-title="{{ $user->name }}">
-                                                                    <img class="rounded-circle" src="{{ $user->image }}" alt="Avatar">
+                                                                    <img class="rounded-circle" src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt="Avatar">
                                                                 </li>
                                                             @endforeach
                                                         </ul>

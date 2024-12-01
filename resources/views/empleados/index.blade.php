@@ -70,7 +70,7 @@
                                                         </button>
                                                         <div class="dropdown-menu">
 
-                                                            @can('empleados.show')
+                                                            @can('empleadoss.show')
                                                                 <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class='bx bx-show-alt me-1'></i>Show</a>
                                                             @endcan
 

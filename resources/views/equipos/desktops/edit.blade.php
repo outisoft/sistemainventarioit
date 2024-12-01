@@ -3,14 +3,14 @@
     <div class="modal fade" id="editModal{{ $equipo->id }}" tabindex="-1" aria-labelledby="editModal{{ $equipo->id }}" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                
-            <form action="{{ route('desktops.update', $equipo) }}" method="POST">
-                @csrf
-                @method('PUT')
+                <form action="{{ route('desktops.update', $equipo) }}" method="POST">
+                    @csrf
+                    @method('PUT')
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModal{{ $equipo->id }}">Edit: {{ $equipo->name }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    
                     <div class="modal-body">
                         <!-- Region -->
                         {{-- Región (solo visible para administradores) --}}

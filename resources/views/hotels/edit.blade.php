@@ -32,7 +32,7 @@
                         </div>
 
                         <!-- Reegion -->
-                        <div class="form-group">
+                        <div class="mb-3">
                             <x-input-label class="form-label" for="region_id" :value="__('Region')" />
                             <select class="form-control" id="region_id" name="region_id"
                                 aria-label="Default select example">
@@ -45,8 +45,10 @@
                             <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
                         </div>
 
+                        <hr class="my-0">
+
                         <div class="mb-3">
-                            <label class="form-label">Departamentos</label>
+                            <x-input-label class="form-label" for="departments" :value="__('Departments')" />
                             @foreach($departments as $department)
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" 

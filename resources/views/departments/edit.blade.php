@@ -13,7 +13,7 @@
                     <div class="modal-body">                        
                         <!-- Nombre de equipo -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="name{{ $department->name }}" :value="__('Equipment Name')" />
+                            <x-input-label class="form-label" for="name{{ $department->name }}" :value="__('Department')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="name{{ $department->name }}" class="form-control" type="text"
                                     name="name" placeholder="HP" value="{{ $department->name }}" required
