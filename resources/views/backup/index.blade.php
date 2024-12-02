@@ -2,7 +2,6 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> History </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -13,7 +12,6 @@
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="container">
-                                <h1>Gestión de Respaldos</h1>
 
                                 @if(session('success'))
                                     <div class="alert alert-success">
@@ -47,9 +45,9 @@
                                             <div class="card-header">
                                                 Listado de Respaldos
                                             </div>
-                                            <div class="card-body">
-                                                <table class="table">
-                                                    <thead>
+                                            <div class="content-wrapper card-datatable table-responsive pt-0">
+                                                <table class="table table-striped">
+                                                    <thead class="bg-primary">
                                                         <tr>
                                                             <th>Nombre</th>
                                                             <th>Fecha</th>
