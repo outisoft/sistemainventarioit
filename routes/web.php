@@ -29,6 +29,7 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Coming2Controller;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\EquipmentComplementController;
+use App\Http\Controllers\BackupController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -196,6 +197,14 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('coming2', Coming2Controller::class);//Rutas coming2
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
+
+    //Backup
+    Route::prefix('backup')->group(function () {
+        Route::get('/', [BackupController::class, 'index'])->name('backup.index');
+        Route::post('/create', [BackupController::class, 'create'])->name('backup.create');
+        Route::get('/download/{filename}', [BackupController::class, 'download'])->name('backup.download');
+        Route::post('/restore', [BackupController::class, 'restore'])->name('backup.restore');
+    });
 
     //coming2
     Route::get('/co2/trashed', [Coming2Controller::class, 'trashedEmpleados'])->name('co2.trashed');
