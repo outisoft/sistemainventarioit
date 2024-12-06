@@ -30,6 +30,7 @@ use App\Http\Controllers\Coming2Controller;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\EquipmentComplementController;
 use App\Http\Controllers\BackupController;
+use App\Http\Controllers\GraphController;
 use Carbon\Carbon;
 use App\Exports\EmpleadoExport;
 use App\Models\Empleado;
@@ -166,6 +167,8 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::get('/exportar-grafica', function () {
         return Excel::download(new EmpleadoExport, 'datos-grafica.xlsx');
     });
+
+    Route::get('/microsoft', [GraphController::class, 'index'])->name('graph.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

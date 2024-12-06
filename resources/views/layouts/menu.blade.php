@@ -321,11 +321,11 @@
         @endcan
 
         <!-- Backup -->
-            <li class="menu-item {{ Request::routeIs('backup.index') ? 'active' : '' }}">
-                <a href="{{ route('backup.index') }}" class="menu-link">
-                    <i class='menu-icon bx bx-download'></i>
-                    <div data-i18n="Without menu">Backup</div>
-                </a>
-            </li>
+        <!--li class="menu-item {{ Request::routeIs('backup.index') ? 'active' : '' }}">
+            <a href="{{ route('backup.index') }}" class="menu-link">
+                <i class='menu-icon bx bx-download'></i>
+                <div data-i18n="Without menu">Backup</div>
+            </a>
+        </li-->
     </ul>        
 </aside>
