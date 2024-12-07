@@ -7,9 +7,19 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use ZipArchive;
 
 class BackupController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:backup.index')->only('index');
+        $this->middleware('can:backup.create')->only('create');
+        $this->middleware('can:backup.download')->only('download');
+        $this->middleware('can:backup.restore')->only('restore');
+    }
+
     public function index()
     {
         // Obtener lista de respaldos existentes
@@ -56,79 +66,156 @@ class BackupController extends Controller
 
     public function restore(Request $request)
     {
-        // Validación del archivo de respaldo
         $request->validate([
-            'backup_file' => 'required|file|mimes:zip,sql'
+            'backup_file' => 'required|file'
         ]);
 
         try {
             $file = $request->file('backup_file');
             
-            // Configuración de base de datos
-            $dbName = config('database.connections.mysql.database');
+            // Credenciales de la base de datos
+            $dbHost = config('database.connections.mysql.host');
             $dbUser = config('database.connections.mysql.username');
             $dbPass = config('database.connections.mysql.password');
-            $dbHost = config('database.connections.mysql.host');
+            $dbName = config('database.connections.mysql.database');
 
-            // Si es un archivo ZIP, extraer primero
-            if ($file->getClientOriginalExtension() === 'zip') {
-                // Crear directorio temporal
-                $tempDir = storage_path('temp_backup_restore');
-                if (!file_exists($tempDir)) {
-                    mkdir($tempDir, 0755, true);
-                }
+            // Leer el contenido del archivo SQL
+            $sqlContent = file_get_contents($file->getRealPath());
+            
+            // Crear archivo temporal para los INSERTs validados
+            $tempFile = storage_path('app/temp_' . uniqid() . '.sql');
+            $validStatements = [];
 
-                // Extraer archivo
-                $zip = new \ZipArchive();
-                $zipPath = $file->getRealPath();
+            // Obtener todas las sentencias SQL
+            $statements = array_filter(
+                explode(";\n", str_replace(";\r\n", ";\n", $sqlContent))
+            );
+
+            foreach ($statements as $statement) {
+                $statement = trim($statement);
                 
-                if ($zip->open($zipPath) === TRUE) {
-                    // Encontrar archivo SQL en el ZIP
-                    for ($i = 0; $i < $zip->numFiles; $i++) {
-                        $filename = $zip->getNameIndex($i);
-                        if (pathinfo($filename, PATHINFO_EXTENSION) === 'sql') {
-                            // Extraer archivo SQL
-                            $sqlContent = $zip->getFromIndex($i);
-                            $sqlPath = $tempDir . '/restore.sql';
-                            file_put_contents($sqlPath, $sqlContent);
-                            break;
+                // Procesar solo sentencias INSERT
+                if (stripos($statement, 'INSERT INTO') === 0) {
+                    // Extraer nombre de la tabla
+                    preg_match('/INSERT INTO [`]?(\w+)[`]?/i', $statement, $matches);
+                    
+                    if (!empty($matches[1])) {
+                        $tableName = $matches[1];
+                        
+                        // Validar que la tabla existe
+                        if(DB::getSchemaBuilder()->hasTable($tableName)) {
+                            // Añadir sentencias de desactivación/activación de claves
+                            if (!in_array("/*!40000 ALTER TABLE `{$tableName}` DISABLE KEYS */", $validStatements)) {
+                                $validStatements[] = "/*!40000 ALTER TABLE `{$tableName}` DISABLE KEYS */";
+                            }
+                            
+                            $validStatements[] = $statement;
+                            
+                            if (!in_array("/*!40000 ALTER TABLE `{$tableName}` ENABLE KEYS */", $validStatements)) {
+                                $validStatements[] = "/*!40000 ALTER TABLE `{$tableName}` ENABLE KEYS */";
+                            }
+                        } else {
+                            Log::warning("Tabla no encontrada: {$tableName}");
                         }
                     }
-                    $zip->close();
-                } else {
-                    throw new \Exception('No se pudo abrir el archivo ZIP');
                 }
-
-                $sqlPath = $tempDir . '/restore.sql';
-            } else {
-                // Si es directamente un archivo SQL
-                $sqlPath = $file->getRealPath();
             }
 
-            // Comando para restaurar base de datos
-            $command = "mysql -h {$dbHost} -u {$dbUser} " . 
-                ($dbPass ? "-p{$dbPass}" : "") . 
-                " {$dbName} < {$sqlPath}";
+            if (empty($validStatements)) {
+                throw new \Exception('No se encontraron sentencias INSERT válidas en el archivo.');
+            }
 
-            // Ejecutar restauración
-            exec($command, $output, $returnVar);
+            // Guardar sentencias validadas en archivo temporal
+            file_put_contents($tempFile, implode(";\n", $validStatements) . ';');
+
+            // Desactivar verificaciones de claves foráneas
+            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+            // Ejecutar archivo SQL
+            $command = sprintf(
+                'mysql -h %s -u %s -p%s %s < %s',
+                escapeshellarg($dbHost),
+                escapeshellarg($dbUser),
+                escapeshellarg($dbPass),
+                escapeshellarg($dbName),
+                escapeshellarg($tempFile)
+            );
+
+            exec($command . ' 2>&1', $output, $returnVar);
+
+            // Reactivar verificaciones de claves foráneas
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+            // Limpiar archivo temporal
+            if (file_exists($tempFile)) {
+                unlink($tempFile);
+            }
 
             if ($returnVar !== 0) {
-                throw new \Exception('Error en la restauración de la base de datos');
-            }
-
-            // Limpiar archivos temporales
-            if (isset($tempDir) && file_exists($tempDir)) {
-                array_map('unlink', glob($tempDir . '/*'));
-                rmdir($tempDir);
+                Log::error('Error en importación', [
+                    'output' => $output,
+                    'command' => $command
+                ]);
+                throw new \Exception('Error al importar datos: ' . implode("\n", $output));
             }
 
             return redirect()->route('backup.index')
-                ->with('success', 'Base de datos restaurada exitosamente');
+                ->with('success', 'Datos importados exitosamente');
 
         } catch (\Exception $e) {
-            Log::error('Backup restore error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Error al restaurar: ' . $e->getMessage());
+            Log::error('Error en restauración: ' . $e->getMessage());
+            return redirect()->back()
+                ->with('error', 'Error al restaurar: ' . $e->getMessage());
+        }
+    }
+
+    private function validateInsertStatement($statement)
+    {
+        // Extraer nombre de la tabla
+        preg_match('/INSERT INTO `?(\w+)`?/i', $statement, $matches);
+        if (empty($matches[1])) {
+            return false;
+        }
+        
+        $tableName = $matches[1];
+        
+        try {
+            // Obtener estructura de la tabla
+            $columns = DB::select("SHOW COLUMNS FROM {$tableName}");
+            $columnNames = array_column($columns, 'Field');
+            
+            // Analizar el INSERT
+            if (preg_match('/INSERT INTO.*?\((.*?)\)\s+VALUES/is', $statement, $colMatches)) {
+                // INSERT especifica columnas
+                $specifiedColumns = array_map('trim', explode(',', $colMatches[1]));
+                $columnCount = count($specifiedColumns);
+            } else {
+                // INSERT sin especificar columnas
+                $columnCount = count($columnNames);
+            }
+            
+            // Contar valores
+            preg_match('/VALUES\s*\((.*)\)/is', $statement, $valueMatches);
+            if (!empty($valueMatches[1])) {
+                $values = str_getcsv($valueMatches[1], ',', "'");
+                $valueCount = count($values);
+                
+                if ($columnCount !== $valueCount) {
+                    Log::error("INSERT inválido", [
+                        'table' => $tableName,
+                        'expected_columns' => $columnCount,
+                        'actual_values' => $valueCount,
+                        'table_structure' => $columnNames,
+                        'statement' => $statement
+                    ]);
+                    return false;
+                }
+            }
+            
+            return true;
+        } catch (\Exception $e) {
+            Log::error("Error validando INSERT: " . $e->getMessage());
+            return false;
         }
     }
 }

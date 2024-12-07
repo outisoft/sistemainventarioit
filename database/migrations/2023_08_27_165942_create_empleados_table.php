@@ -21,11 +21,6 @@ return new class extends Migration
             $table->foreignId('hotel_id')->references('id')->on('hotels')->cascadeOnDelete();
             $table->string('ad')->unique();
             $table->foreignId('region_id')->constrained();
-            //$table->unsignedBigInteger('equipo_id')->nullable();
-
-            // Configura la clave foránea
-            //$table->foreign('hotel_id')->references('id')->on('hotels');
-            //$table->foreign('equipo_id')->references('id')->on('equipos');
             $table->timestamps();
         });
     }

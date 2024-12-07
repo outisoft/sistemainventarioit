@@ -33,15 +33,15 @@ class MicrosoftGraphService
     public function getUsers()
     {
         return $this->graph->createRequest('GET', '/users')
-                           ->setReturnType(Model\User::class)
-                           ->execute();
+            ->setReturnType(Model\User::class)
+            ->execute();
     }
 
     public function getDevices()
     {
         return $this->graph->createRequest('GET', '/devices')
-                           ->setReturnType(Model\Device::class)
-                           ->execute();
+            ->setReturnType(Model\Device::class)
+            ->execute();
     }
 }
 
