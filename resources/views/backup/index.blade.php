@@ -107,6 +107,7 @@
                                                             </div>
                                                         @enderror
                                                     </div>
+                                                    <br>
 
                                                     <div class="alert alert-info">
                                                         <strong>Notas:</strong>
