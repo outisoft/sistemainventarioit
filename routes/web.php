@@ -275,10 +275,10 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
 Route::get('/', function () {
     if (Auth::check()) {
         // El usuario está autenticado
-        return redirect()->route('home');
+        return redirect()->route('/home');
     } else {
         // El usuario no está autenticado
-        return redirect()->route('login');
+        return redirect()->route('/login');
     }
 })->name('login');
 

@@ -36,7 +36,7 @@ return [
                 'local',
             ],
         ],
-        'temporary_directory' => storage_path('app/backup-temp'),
+        'temporary_directory' => storage_path('app/Laravel'),
         'password' => env('BACKUP_ARCHIVE_PASSWORD'),
         'encryption' => 'default',
         'tries' => 1,

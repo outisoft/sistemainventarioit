@@ -22,11 +22,41 @@ class BackupController extends Controller
 
     public function index()
     {
-        // Obtener lista de respaldos existentes
-        $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
-        $files = $disk->files(config('backup.backup.name'));
-        
-        return view('backup.index', compact('files'));
+        try {
+            $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+            $files = collect();
+
+            // Buscar en diferentes rutas posibles
+            $possiblePaths = [
+                'Laravel/',  // Ruta con L mayúscula
+                'laravel/',  // Ruta con l minúscula
+                '',         // Directorio raíz
+            ];
+
+            foreach ($possiblePaths as $path) {
+                if ($disk->exists($path)) {
+                    $pathFiles = $disk->files($path);
+                    $files = $files->concat(
+                        collect($pathFiles)->filter(function ($file) {
+                            return in_array(pathinfo($file, PATHINFO_EXTENSION), ['zip', 'sql']);
+                        })
+                    );
+                }
+            }
+
+            // Log para debugging
+            \Log::info('Archivos encontrados:', [
+                'files' => $files->toArray(),
+                'disk_path' => $disk->path(''),
+                'storage_path' => storage_path('app')
+            ]);
+
+            return view('backup.index', compact('files'));
+        } catch (\Exception $e) {
+            \Log::error('Error al listar backup: ' . $e->getMessage());
+            return view('backup.index', ['files' => collect()])
+                ->with('error', 'Error al listar los respaldos: ' . $e->getMessage());
+        }
     }
 
     public function create()
@@ -48,20 +78,45 @@ class BackupController extends Controller
 
     public function download($filename)
     {
-        $fullPath = storage_path('app/Laravel/' . $filename);
-        
-        if (!file_exists($fullPath)) {
-            abort(404, 'Archivo de respaldo no encontrado');
-        }
+        try {
+            $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+            
+            // Posibles rutas donde podría estar el archivo
+            $possiblePaths = [
+                'Laravel/' . $filename,
+                'laravel/' . $filename,
+                $filename
+            ];
 
-        return response()->download(
-            $fullPath, 
-            $filename, 
-            [
-                'Content-Type' => 'application/zip',
-                'Content-Disposition' => 'attachment; filename="' . $filename . '"'
-            ]
-        );
+            // Buscar el archivo en las posibles rutas
+            $filePath = null;
+            foreach ($possiblePaths as $path) {
+                if ($disk->exists($path)) {
+                    $filePath = $path;
+                    break;
+                }
+            }
+
+            if (!$filePath) {
+                \Log::error('Archivo no encontrado', [
+                    'filename' => $filename,
+                    'paths_checked' => $possiblePaths
+                ]);
+                abort(404, 'Archivo de respaldo no encontrado');
+            }
+
+            return response()->download(
+                $disk->path($filePath),
+                $filename,
+                [
+                    'Content-Type' => 'application/zip',
+                    'Content-Disposition' => 'attachment; filename="' . $filename . '"'
+                ]
+            );
+        } catch (\Exception $e) {
+            \Log::error('Error al descargar backup: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error al descargar el archivo: ' . $e->getMessage());
+        }
     }
 
     public function restore(Request $request)

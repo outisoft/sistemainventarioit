@@ -45,39 +45,50 @@
                                             <div class="card-header">
                                                 Listado de Respaldos
                                             </div>
-                                            <div class="content-wrapper card-datatable table-responsive pt-0">
-                                                <table class="table table-striped">
-                                                    <thead class="bg-primary">
-                                                        <tr>
-                                                            <th>Nombre</th>
-                                                            <th>Fecha</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        @forelse($files as $file)
-                                                        <tr>
-                                                            <td>{{ basename($file) }}</td>
-                                                            <td>
-                                                                {{ \Carbon\Carbon::createFromTimestamp(Storage::lastModified($file))->diffForHumans() }}
-                                                            </td>
-                                                            <td>
-                                                                <a href="{{ route('backup.download', ['filename' => basename($file)]) }}" 
-                                                                class="btn btn-sm btn-success">
-                                                                <i class="fas fa-download"></i> Descargar
-                                                                </a>
-                                                            </td>
-                                                        </tr>
-                                                        @empty
-                                                        <tr>
-                                                            <td colspan="3" class="text-center">
-                                                                No hay respaldos disponibles
-                                                            </td>
-                                                        </tr>
-                                                        @endforelse
-                                                    </tbody>
-                                                </table>
-                                            </div>
+
+                                            @if($files->isEmpty())
+                                                <div class="alert alert-info">
+                                                    No se encontraron archivos de respaldo.
+                                                    @if(config('app.debug'))
+                                                        <br>
+                                                        <small>Ruta de búsqueda: {{ storage_path('app/Laravel') }}</small>
+                                                    @endif
+                                                </div>
+                                            @else
+                                                <div class="content-wrapper card-datatable table-responsive pt-0">
+                                                    <table class="table table-striped">
+                                                        <thead class="bg-primary">
+                                                            <tr>
+                                                                <th>Nombre</th>
+                                                                <th>Fecha</th>
+                                                                <th>Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @forelse($files as $file)
+                                                            <tr>
+                                                                <td>{{ basename($file) }}</td>
+                                                                <td>
+                                                                    {{ \Carbon\Carbon::createFromTimestamp(Storage::lastModified($file))->diffForHumans() }}
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('backup.download', ['filename' => basename($file)]) }}" 
+                                                                    class="btn btn-sm btn-success">
+                                                                    <i class="fas fa-download"></i> Descargar
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                            @empty
+                                                            <tr>
+                                                                <td colspan="3" class="text-center">
+                                                                    No hay respaldos disponibles
+                                                                </td>
+                                                            </tr>
+                                                            @endforelse
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
 
@@ -130,6 +141,7 @@
                         </div>
                     </div>
                 </div>
+                <br>
             </div>
             <!--/ Basic Bootstrap Table -->
         </div>
