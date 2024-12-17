@@ -12,6 +12,7 @@ use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AssignmentController extends Controller
 {
@@ -30,7 +31,22 @@ class AssignmentController extends Controller
     {
         $request->validate([
             'empleado_id' => 'required|exists:empleados,id',
-            'equipo_id' => 'required|exists:equipos,id',
+            'equipo_id' => [
+                'required',
+                'exists:equipos,id',
+                function ($attribute, $value, $fail) {
+                    $equipoAsignado = DB::table('empleado_equipo')
+                        ->where('equipo_id', $value)
+                        ->exists();
+                        
+                    if ($equipoAsignado) {
+                        toastr()
+                            ->timeOut(3000) // 3 second
+                            ->addError("Este equipo ya está asignado a otro empleado.");
+                        $fail('Este equipo ya está asignado a otro empleado.');
+                    }
+                },
+            ],
         ]);
 
         $empleado = Empleado::find($request->input('empleado_id'));
