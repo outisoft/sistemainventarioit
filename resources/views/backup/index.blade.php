@@ -56,7 +56,7 @@
                                                 </div>
                                             @else
                                                 <div class="content-wrapper card-datatable table-responsive pt-0">
-                                                    <table class="table table-striped">
+                                                    <table id="backup" class="table table-striped">
                                                         <thead class="bg-primary">
                                                             <tr>
                                                                 <th>Nombre</th>
