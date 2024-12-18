@@ -59,7 +59,7 @@
                         <x-input-label class="form-label" for="model" :value="__('MODEL')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="model" class="form-control" type="text"
-                                name="model" placeholder="GALAXI TAB" :value="old('model')" required
+                                name="model" placeholder="GALAXY TAB" :value="old('model')" required
                                 autocomplete="model" />
                         </div>
                         <x-input-error :messages="$errors->get('model')" class="mt-2" />

@@ -53,7 +53,7 @@
 <script>
     new DataTable('#employees', {
         order: [[1, 'asc']],
-        pageLength: 50,
+        pageLength: 200,
         lengthMenu: [10, 25, 50, 75, 100],
         language: {
             search: '_INPUT_',

@@ -658,7 +658,50 @@
                 <div class="flex justify-center">
                     <!-- Imagen -->
                     <div class="image-container">
-                        <img src="{{ asset('images/gp-logo.png') }}" alt="Imagen de ejemplo" width="350" height="350"/>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    Importar Datos
+                                </div>
+                                <div class="card-body">
+                                    <form action="{{ route('backup.restore') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="backup_file">
+                                                Seleccionar archivo SQL con datos 
+                                                <small>(archivos SQL con sentencias INSERT)</small>
+                                            </label>
+                                            <input type="file" 
+                                                    name="backup_file" 
+                                                    id="backup_file" 
+                                                    class="form-control @error('backup_file') is-invalid @enderror" 
+                                                    accept=".sql" 
+                                                    required>
+                                            
+                                            @error('backup_file')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                        <br>
+
+                                        <div class="alert alert-info">
+                                            <strong>Notas:</strong>
+                                            <ul>
+                                                <li>Solo se procesarán las sentencias INSERT INTO.</li>
+                                                <li>Las tablas deben existir en la base de datos.</li>
+                                                <li>La estructura de las tablas debe coincidir con los datos a importar.</li>
+                                            </ul>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fas fa-upload"></i> Importar Datos
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
