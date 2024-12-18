@@ -320,6 +320,7 @@
             </li>
         @endcan
 
+        @can('backup.index')
         <!-- Backup -->
         <li class="menu-item {{ Request::routeIs('backup.index') ? 'active' : '' }}">
             <a href="{{ route('backup.index') }}" class="menu-link">
@@ -327,5 +328,6 @@
                 <div data-i18n="Without menu">Backup</div>
             </a>
         </li>
+        @endcan
     </ul>        
 </aside>
