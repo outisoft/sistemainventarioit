@@ -49,18 +49,21 @@
     });
 </script>
 
-<!--new DataTable('#backup');-->
+<!--new DataTable('#equipments');-->
 <script>
-    new DataTable('#backup', {
-        order: [[0, 'desc']],
-        pageLength: 200,
-        lengthMenu: [10, 25, 50, 75, 100],
+    $('#backup').DataTable({
+        order: [[1, 'asc']],
+        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 50,
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
-        info: false,
+        "info": false,
         dom: 'Bfrtip',
+        buttons: [
+        ]
+
     });
 </script>
 
