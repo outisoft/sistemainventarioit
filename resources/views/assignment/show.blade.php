@@ -161,9 +161,7 @@
             
             <a href="{{ route('assignment.index') }}" class="btn btn-secondary"><i
             class='bx bx-arrow-back'></i>RETURN</a>
-            <!--/ Basic Bootstrap Table -->
             <hr class="my-5" />
         </div>
-        <!-- / Content -->
     </div>
 </x-app-layout>
