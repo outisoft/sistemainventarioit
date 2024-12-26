@@ -10,14 +10,10 @@
         </a>
     </div>
 
+
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <!-- Search -->
-        <div class="navbar-nav align-items-center">
-            <div class="nav-item d-flex align-items-center">
-                <!--img src="{{ asset('images/gp-lg.png') }}" alt="Logo grupo piñero" width="200" height="35" /-->
-                <img src="{{ asset('images/gp-Logo.png') }}" alt="Logo GP" width="36" height="36" />
-            </div>
-        </div>
+        <!-- Search -->      
+        <livewire:global-search />
         <!-- /Search -->
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- User -->
@@ -87,5 +83,3 @@
         </ul>
     </div>
 </nav>
-
-<!-- / Navbar -->
