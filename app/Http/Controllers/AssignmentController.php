@@ -97,7 +97,7 @@ class AssignmentController extends Controller
 
     public function show($id)
     {
-        $empleado = Empleado::find($id); // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
+        $empleado = Empleado::find($id);
         $equiposAsignados = $empleado->equipos;
         $complementosAsignados = collect();
 
@@ -118,8 +118,13 @@ class AssignmentController extends Controller
         $date = $today->format('d \d\e M \d\e\l Y');
 
         $empleado = Empleado::findOrFail($id);
+        $complements = collect();
 
-        $pdf = FacadePdf::loadView('assignment.save-pdf', compact('empleado', 'date'));
+        foreach ($empleado->equipos as $equipo) {
+            $complements = $complements->merge($equipo->complements);
+        } // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
+
+        $pdf = FacadePdf::loadView('assignment.save-pdf', compact('empleado', 'date', 'complements'));
         return $pdf->stream();
     }
 
