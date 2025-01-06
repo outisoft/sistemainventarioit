@@ -35,6 +35,8 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'coming2.destroy', 'description' => 'Eliminar registros de coming2'])->syncRoles($admin, $adminRegion, $support);
 
         Permission::create(['name' => 'equipo.index', 'description' => 'Ver listado de equipos'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'details', 'description' => 'Ver detalles de equipos'])->syncRoles($admin, $adminRegion, $support);
+        
         Permission::create(['name' => 'complements.index', 'description' => 'Ver listado de complementos'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'complements.create', 'description' => 'Registrar complementos'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'complements.edit', 'description' => 'Editar complementos'])->syncRoles($admin, $adminRegion, $support);        

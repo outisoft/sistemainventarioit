@@ -17,9 +17,9 @@
                         <div class="nav-item d-flex align-items-center">
                             @can('equipo.create')
     <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip"
-                                                            data-placement="top" title="Agregar Nuevo Registro">
-                                                            <i class='bx bx-add-to-queue icon-lg'></i>
-                                                        </a>
+                                                                            data-placement="top" title="Agregar Nuevo Registro">
+                                                                            <i class='bx bx-add-to-queue icon-lg'></i>
+                                                                        </a>
 @endcan
                         </div>
                     </div-->

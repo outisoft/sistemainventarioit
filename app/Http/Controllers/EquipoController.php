@@ -19,7 +19,7 @@ class EquipoController extends Controller
         $this->middleware('can:equipo.create')->only('create', 'store');
         $this->middleware('can:equipo.edit')->only('edit', 'update');
         $this->middleware('can:equipo.show')->only('show');
-        $this->middleware('can:equipo.details')->only('details');
+        $this->middleware('can:details')->only('details');
         $this->middleware('can:equipo.destroy')->only('destroy');
     }
     /**
