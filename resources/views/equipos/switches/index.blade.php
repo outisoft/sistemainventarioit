@@ -12,7 +12,10 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('switches.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Add new equipment</span>">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Add new equipment</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -36,10 +39,10 @@
                             </tr>
                         </thead>
                         <tbody id="employeeList">
-                            @foreach($switches as $switch)
+                            @foreach ($switches as $switch)
                                 <tr>
                                     <td>{{ $switch->name }} ({{ $switch->total_ports }} puertos)</td>
-                                    <td>{{ $switch->marca}} / {{ $switch->model }} / {{ $switch->serial }}</td>
+                                    <td>{{ $switch->marca }} / {{ $switch->model }} / {{ $switch->serial }}</td>
                                     <td>{{ $switch->ip }}</td>
                                     <td>{{ $switch->mac }}</td>
                                     <td>{{ $switch->hotel->name }}</td>
@@ -51,13 +54,22 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <!-- Aquí se agregarán las opciones -->
+                                                @can('switches.show')
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('switches.show', $switch->id) }}"><i
+                                                            class="bx bx-show-alt me-1"></i>Show
+                                                    </a>
+                                                @endcan
+
                                                 @can('switches.edit')
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $switch->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#editModal{{ $switch->id }}"
+                                                        class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
                                                 @endcan
 
                                                 @can('switches.destroy')
-                                                    <form action="{{ route('switches.destroy', $switch->id) }}" method="POST">
+                                                    <form action="{{ route('switches.destroy', $switch->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"

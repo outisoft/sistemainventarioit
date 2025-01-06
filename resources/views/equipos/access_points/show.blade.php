@@ -10,18 +10,18 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-                    <a href="{{ route('tpvs.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
-                        title="Regresar">
+                    <a href="{{ route('access-points.index') }}" class="btn-ico" data-toggle="tooltip"
+                        data-placement="top" title="Regresar">
                         <span>
                             <i class='bx bx-arrow-back'></i>
                         </span>
                     </a>
-                    / TPV /</span> Detalles </h4>
+                    / Access Point /</span> Details </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Detalles de <strong>{{ $tpv->name }}</strong></h5>
+                    <h5 class="card-header">Details <strong>{{ $accessPoint->name }}</strong></h5>
                 </div>
 
                 <div class="content-wrapper">
@@ -30,55 +30,37 @@
                             <div class="card-body">
                                 <table class="table" BORDER=1 CELLPADDING=5 CELLSPACING=5>
                                     <tr>
-                                        <th class="bg-secondary">Area</th>
-                                        <td>{{ $tpv->area }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="bg-secondary">epartamento</th>
-                                        <td>{{ $departamento->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="bg-secondary">Hotel</th>
-                                        <td>{{ $hotel->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="bg-secondary">Equipo</th>
-                                        <td>{{ $tpv->equipment }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="bg-secondary">Marca</th>
-                                        <td>{{ $tpv->brand }}</td>
+                                        <th class="bg-secondary">Brand</th>
+                                        <td>{{ $accessPoint->marca }}</td>
                                     </tr>
                                     <tr>
                                         <th class="bg-secondary">Modelo</th>
-                                        <td>{{ $tpv->model }}</td>
+                                        <td>{{ $accessPoint->model }}</td>
                                     </tr>
                                     <tr>
                                         <th class="bg-secondary">Numero de serie</th>
-                                        <td>{{ $tpv->no_serial }}</td>
+                                        <td>{{ $accessPoint->serial }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Nombre</th>
-                                        <td>{{ $tpv->name }}</td>
+                                        <th class="bg-secondary">Mac Address</th>
+                                        <td>{{ $accessPoint->mac }}</td>
                                     </tr>
                                     <tr>
                                         <th class="bg-secondary">IP</th>
-                                        <td>{{ $tpv->ip }}</td>
+                                        <td>{{ $accessPoint->ip }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Link</th>
-                                        <td><a href="{{ $tpv->link }}" target="_blank">{{ $tpv->link }}</a></td>
+                                        <th class="bg-secondary">Switch</th>
+                                        <td>{{ $swittch->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="bg-secondary">Port Number</th>
+                                        <td>{{ $accessPoint->port_number }}</td>
                                     </tr>
                                 </table>
                                 <br>
-                                <a href="{{ route('tpvs.index') }}" class="btn btn-secondary"><i
+                                <a href="{{ route('access-points.index') }}" class="btn btn-secondary"><i
                                         class='bx bx-arrow-back'></i>Volver</a>
-                                @can('empleados.edit')
-                                    <a href="{{ route('tpvs.edit', $tpv->id) }}" class="btn btn-primary">
-                                        <i class="bx bx-edit me-1"></i>
-                                        Editar
-                                    </a>
-                                @endcan
                             </div>
                         </div>
                     </div>

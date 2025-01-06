@@ -18,9 +18,10 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('desktops.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" 
-                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" 
-                                    data-bs-html="true" title="" data-bs-original-title="<span>Add new equipment</span>">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Add new equipment</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -59,43 +60,49 @@
                                                 <td>{{ $equipo->orden }}</td>
                                                 <td>
                                                     @if ($equipo->estado === 'Libre')
-                                                        <span class="badge bg-label-success">{{ $equipo->estado }}</span>
-                                                        </td>
-                                                        <!--span class="badge rounded-pill bg-success">Libre</span-->
-                                                    @elseif ($equipo->estado === 'En Uso')
-                                                        <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
-                                                        <!--span class="badge rounded-pill bg-danger">En uso</span-->
-                                                    @endif
+                                                        <span
+                                                            class="badge bg-label-success">{{ $equipo->estado }}</span>
                                                 </td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <a href="{{ route('equipo.show', $equipo->id) }}" class="dropdown-item"><i class='bx bx-extension me-1'></i>Complements</a>
+                                                <!--span class="badge rounded-pill bg-success">Libre</span-->
+                                            @elseif ($equipo->estado === 'En Uso')
+                                                <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
+                                                <!--span class="badge rounded-pill bg-danger">En uso</span-->
+                                        @endif
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                    data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <a href="{{ route('equipo.show', $equipo->id) }}"
+                                                        class="dropdown-item"><i
+                                                            class='bx bx-extension me-1'></i>Complements</a>
 
-                                                            <!-- Aquí se agregarán las opciones -->
-                                                            @can('desktops.edit')
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
-                                                            @endcan
+                                                    <!-- Aquí se agregarán las opciones -->
+                                                    @can('desktops.edit')
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#editModal{{ $equipo->id }}"
+                                                            class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                    @endcan
 
-                                                            @can('desktops.destroy')
-                                                                <form action="{{ route('desktops.destroy', $equipo->id) }}" method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('Are you sure to delete?')"><i
-                                                                            class="bx bx-trash me-1"></i>Delete</button>
-                                                                </form>
-                                                            @endcan
+                                                    @can('desktops.destroy')
+                                                        <form action="{{ route('desktops.destroy', $equipo->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="dropdown-item btn-danger"
+                                                                onclick="return confirm('Are you sure to delete?')"><i
+                                                                    class="bx bx-trash me-1"></i>Delete</button>
+                                                        </form>
+                                                    @endcan
 
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <!-- Otros campos de la tabla -->
-                                            </tr>
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>

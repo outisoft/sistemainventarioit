@@ -12,7 +12,101 @@
 
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-        <!-- Search -->      
+        <!-- Search -->
+         <style>
+            /* Estilos para el contenedor de búsqueda */
+            .search-container {
+                position: relative;
+                min-width: 400px; /* Ancho mínimo del campo de búsqueda */
+            }
+
+            /* Estilos para los resultados de búsqueda */
+            .search-results {
+                z-index: 1000;
+                max-height: 600px; /* Altura máxima aumentada */
+                overflow-y: auto;
+                width: 550px; /* Ancho fijo para los resultados */
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            }
+
+            /* Estilos para cada elemento de resultado */
+            .search-result-item {
+                padding: 0.75rem 1rem;
+                transition: background-color 0.2s;
+            }
+
+            .search-result-item:hover {
+                background-color: #f8f9fa;
+            }
+
+            /* Estilos para el scrollbar */
+            .search-results::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            .search-results::-webkit-scrollbar-track {
+                background: #f1f1f1;
+                border-radius: 4px;
+            }
+
+            .search-results::-webkit-scrollbar-thumb {
+                background: #888;
+                border-radius: 4px;
+            }
+
+            .search-results::-webkit-scrollbar-thumb:hover {
+                background: #555;
+            }
+
+            /* Estilos para las secciones de resultados */
+            .search-section {
+                border-bottom: 1px solid #e9ecef;
+                padding: 0.5rem 0;
+            }
+
+            .search-section:last-child {
+                border-bottom: none;
+            }
+
+            /* Estilos para los títulos de sección */
+            .search-section-title {
+                font-size: 0.75rem;
+                text-transform: uppercase;
+                color: #6c757d;
+                padding: 0.5rem 1rem;
+                margin: 0;
+                font-weight: 600;
+            }
+
+            /* Estilos para la información del resultado */
+            .search-result-title {
+                font-weight: 600;
+                color: #2c3e50;
+                margin-bottom: 0.25rem;
+                font-size: 0.95rem;
+            }
+
+            .search-result-subtitle {
+                color: #6c757d;
+                font-size: 0.85rem;
+                white-space: normal; /* Permite el wrap del texto */
+                line-height: 1.4;
+            }
+
+            /* Estilos responsive */
+            @media (max-width: 768px) {
+                .search-container {
+                    min-width: 300px;
+                }
+                
+                .search-results {
+                    width: 100vw;
+                    max-width: 550px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                }
+            }
+         </style> 
         <livewire:global-search />
         <!-- /Search -->
         <ul class="navbar-nav flex-row align-items-center ms-auto">

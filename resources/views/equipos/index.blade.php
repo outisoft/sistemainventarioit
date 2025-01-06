@@ -16,11 +16,11 @@
                     <!--div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('equipo.create')
-                                <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip"
-                                    data-placement="top" title="Agregar Nuevo Registro">
-                                    <i class='bx bx-add-to-queue icon-lg'></i>
-                                </a>
-                            @endcan
+    <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip"
+                                                            data-placement="top" title="Agregar Nuevo Registro">
+                                                            <i class='bx bx-add-to-queue icon-lg'></i>
+                                                        </a>
+@endcan
                         </div>
                     </div-->
                 </div>
@@ -34,6 +34,9 @@
                                 <th>Model</th>
                                 <th>Serial</th>
                                 <th>Status</th>
+                                @can('details')
+                                    <th></th>
+                                @endcan
                                 <!--th>Acciones</th-->
                                 <!-- Otros encabezados de columnas según sea necesario -->
                             </tr>
@@ -48,14 +51,30 @@
                                     <td>
                                         @if ($equipo->estado === 'Libre')
                                             <span class="badge bg-label-success">{{ $equipo->estado }}</span>
-                                            </td>
-                                            <!--span class="badge rounded-pill bg-success">Libre</span-->
-                                        @elseif ($equipo->estado === 'En Uso')
-                                            <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
-                                            <!--span class="badge rounded-pill bg-danger">En uso</span-->
-                                        @endif
                                     </td>
-                                </tr>
+                                    <!--span class="badge rounded-pill bg-success">Libre</span-->
+                                @elseif ($equipo->estado === 'En Uso')
+                                    <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
+                                    <!--span class="badge rounded-pill bg-danger">En uso</span-->
+                            @endif
+                            </td>
+
+                            @can('details')
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{ route('details', $equipo->id) }}"><i
+                                                    class="bx bx-show-alt me-1"></i>Show
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            @endcan
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>

@@ -64,9 +64,11 @@ class ComplementController extends Controller
         return redirect()->route('complements.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function show(Complement $complement)
+    {
+        return view('equipos.complements.show', compact('complement'));
+    }
+
     public function update(Request $request, string $id)
     {
         $user = auth()->id();
@@ -94,9 +96,6 @@ class ComplementController extends Controller
         return redirect()->route('complements.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $registro = Complement::findOrFail($id);

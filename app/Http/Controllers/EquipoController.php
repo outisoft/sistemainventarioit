@@ -18,7 +18,8 @@ class EquipoController extends Controller
         $this->middleware('can:equipo.index')->only('index');
         $this->middleware('can:equipo.create')->only('create', 'store');
         $this->middleware('can:equipo.edit')->only('edit', 'update');
-        //$this->middleware('can:equipo.show')->only('show');
+        $this->middleware('can:equipo.show')->only('show');
+        $this->middleware('can:equipo.details')->only('details');
         $this->middleware('can:equipo.destroy')->only('destroy');
     }
     /**
@@ -57,6 +58,11 @@ class EquipoController extends Controller
         return view('equipos.desktops.show', compact('equipo', 'complementosAsignados', 'complementosDisponibles'));
     }
 
+    public function details(Equipo $equipo)
+    {
+        return view('equipos.show', compact('equipo'));
+    }
+
     public function asignarComplementos(Request $request, Equipo $equipo)
     {
         $request->validate([
@@ -84,7 +90,6 @@ class EquipoController extends Controller
         return redirect()->route('equipo.show', $equipo);
     }
 
-    // En EquipoController
     public function eliminarComplemento($equipo_id, $complement_id)
     {
         $equipo = Equipo::find($equipo_id);

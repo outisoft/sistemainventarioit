@@ -200,6 +200,8 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('coming2', Coming2Controller::class);//Rutas coming2
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
+    Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');
+
 
     //Backup
     Route::prefix('backup')->group(function () {

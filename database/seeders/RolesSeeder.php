@@ -24,6 +24,7 @@ class RolesSeeder extends Seeder
 
         Permission::create(['name' => 'access_points.index', 'description' => 'Ver listado de Access Points'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'access_points.create', 'description' => 'Registrar Access Points'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'access_points.show', 'description' => 'Ver detalles de Access Points'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'access_points.edit', 'description' => 'Editar Access Points'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'access_points.destroy', 'description' => 'Eliminar Access Points'])->syncRoles($admin, $adminRegion, $support);
 
@@ -36,7 +37,8 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'equipo.index', 'description' => 'Ver listado de equipos'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'complements.index', 'description' => 'Ver listado de complementos'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'complements.create', 'description' => 'Registrar complementos'])->syncRoles($admin, $adminRegion, $support);
-        Permission::create(['name' => 'complements.edit', 'description' => 'Editar complementos'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'complements.edit', 'description' => 'Editar complementos'])->syncRoles($admin, $adminRegion, $support);        
+        Permission::create(['name' => 'complements.show', 'description' => 'Ver detalles de complementsos'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'complements.destroy', 'description' => 'Eliminar complementos'])->syncRoles($admin, $adminRegion, $support);
 
         Permission::create(['name' => 'desktops.index', 'description' => 'Ver listado de desktops'])->syncRoles($admin, $adminRegion, $support);
@@ -54,7 +56,8 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'empleados.detalles', 'description' => 'Ver detalles de asignacion'])->syncRoles($admin, $adminRegion, $support);
 
         Permission::create(['name' => 'laptops.index', 'description' => 'Ver listado de laptops'])->syncRoles($admin, $adminRegion, $support);
-        Permission::create(['name' => 'laptops.create', 'description' => 'Registrar laptops'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'laptops.create', 'description' => 'Registrar laptops'])->syncRoles($admin, $adminRegion, $support);        
+        Permission::create(['name' => 'laptops.show', 'description' => 'Ver detalles de laptops'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'laptops.edit', 'description' => 'Editar laptops'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'laptops.destroy', 'description' => 'Eliminar laptops'])->syncRoles($admin, $adminRegion, $support);
 
@@ -66,6 +69,7 @@ class RolesSeeder extends Seeder
 
         Permission::create(['name' => 'mobile.index', 'description' => 'Ver listado de Telefonos mobiles'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'mobile.create', 'description' => 'Registrar Telefonos mobiles'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'mobile.show', 'description' => 'Ver detalles de mobiles'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'mobile.edit', 'description' => 'Editar Telefonos mobiles'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'mobile.destroy', 'description' => 'Eliminar Telefonos mobiles'])->syncRoles($admin, $adminRegion, $support);
 
@@ -77,21 +81,25 @@ class RolesSeeder extends Seeder
 
         Permission::create(['name' => 'phones.index', 'description' => 'Ver listado de Telefonos'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'phones.create', 'description' => 'Registrar Telefonos'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'phones.show', 'description' => 'Ver detalles de phones'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'phones.edit', 'description' => 'Editar Telefonos'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'phones.destroy', 'description' => 'Eliminar Telefonos'])->syncRoles($admin, $adminRegion, $support);
 
         Permission::create(['name' => 'printers.index', 'description' => 'Ver listado de impresoras'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'printers.create', 'description' => 'Registrar impresoras'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'printers.show', 'description' => 'Ver detalles de impresoras'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'printers.edit', 'description' => 'Editar impresoras'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'printers.destroy', 'description' => 'Eliminar impresoras'])->syncRoles($admin, $adminRegion, $support);
 
         Permission::create(['name' => 'switches.index', 'description' => 'Ver listado de switches'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'switches.create', 'description' => 'Registrar switches'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'switches.show', 'description' => 'Ver detalles de switches'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'switches.edit', 'description' => 'Editar switches'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'switches.destroy', 'description' => 'Eliminar switches'])->syncRoles($admin, $adminRegion, $support);
 
         Permission::create(['name' => 'tabs.index', 'description' => 'Ver listado de tablets'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'tabs.create', 'description' => 'Registrar tablets'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'tabs.show', 'description' => 'Ver detalles de tablets'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'tabs.edit', 'description' => 'Editar tablets'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'tabs.destroy', 'description' => 'Eliminar tablets'])->syncRoles($admin, $adminRegion, $support);
 

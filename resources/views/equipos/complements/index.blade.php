@@ -12,9 +12,10 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('complements.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" 
-                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" 
-                                    data-bs-html="true" title="" data-bs-original-title="<span>Add new complement</span>">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Add new complement</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -46,7 +47,7 @@
                                     <td>
                                         @if ($equipo->equipments->count() > 0)
                                             @foreach ($equipo->equipments as $equipo)
-                                                    {{ $equipo->name }}
+                                                {{ $equipo->name }}
                                             @endforeach
                                         @else
                                             To no assigned equipment
@@ -59,13 +60,21 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <!-- Aquí se agregarán las opciones -->
+                                                @can('complements.show')
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('complements.show', $equipo->id) }}"><i
+                                                            class="bx bx-show-alt me-1"></i>Show
+                                                    </a>
+                                                @endcan
                                                 @can('complements.edit')
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#editModal{{ $equipo->id }}"
+                                                        class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
                                                 @endcan
 
                                                 @can('complements.destroy')
-                                                    <form action="{{ route('complements.destroy', $equipo->id) }}" method="POST">
+                                                    <form action="{{ route('complements.destroy', $equipo->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"

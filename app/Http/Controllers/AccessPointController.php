@@ -17,7 +17,7 @@ class AccessPointController extends Controller
         $this->middleware('can:access_points.index')->only('index');
         $this->middleware('can:access_points.create')->only('create', 'store');
         $this->middleware('can:access_points.edit')->only('edit', 'update');
-        $this->middleware('can:access_points.show')->only('show');
+        //$this->middleware('can:access_points.show')->only('show');
         $this->middleware('can:access_points.destroy')->only('destroy');
     }
 
@@ -99,6 +99,12 @@ class AccessPointController extends Controller
             }
             return back()->withErrors($e->errors())->withInput();
         }
+    }
+
+    public function show(AccessPoint $accessPoint)
+    {
+        $swittch = Swittch::find($accessPoint->swittch_id);
+        return view('equipos.access_points.show', compact('accessPoint', 'swittch'));
     }
 
     public function getAvailablePort(Swittch $switch)

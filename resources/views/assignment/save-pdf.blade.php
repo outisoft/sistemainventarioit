@@ -60,6 +60,38 @@
             font-size: 10pt;
             margin-right: 10px;
         }
+
+        footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid #000;
+        }
+
+        .firma {
+            width: 45%;
+        }
+
+        .linea-firma {
+            border-bottom: 1px solid #000;
+            height: 40px;
+            margin-bottom: 5px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 20px;
+            }
+        }
     </style>
 </head>
 
@@ -127,9 +159,16 @@
             <p>Declaro el entendimiento del presente Documento, manifiesto mi conformidad con su contenido.</p>
         </div>
 
-        <div class="signature">
-            <p>Fdo: ______________________________</p>
-        </div>
+        <footer>
+            <div class="firma">
+                <div class="linea-firma"></div>
+                <p>Nombre del Receptor</p>
+            </div>
+            <div class="firma">
+                <div class="linea-firma"></div>
+                <p>Nombre del Emisor</p>
+            </div>
+        </footer>
     @endforeach
 
     @if ($complements->isNotEmpty())

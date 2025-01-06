@@ -13,7 +13,10 @@
                         <div class="nav-item d-flex align-items-center">
 
                             @can('access_points.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#createModal" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Add new equipment</span>">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#createModal"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Add new equipment</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -35,7 +38,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($accessPoints as $ap)
+                            @foreach ($accessPoints as $ap)
                                 <tr>
                                     <td>{{ $ap->name }}</td>
                                     <td>{{ $ap->ip }}</td>
@@ -43,18 +46,27 @@
                                     <td>{{ $ap->swittch->name }} (Pto: {{ $ap->port_number }})</td>
                                     <td>
                                         <div class="dropdown">
-                                            
+
                                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
                                                 data-bs-toggle="dropdown">
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
+                                                @can('access_points.show')
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('access-points.show', $ap->id) }}"><i
+                                                            class="bx bx-show-alt me-1"></i>Show
+                                                    </a>
+                                                @endcan
                                                 @can('access_points.edit')
-                                                    <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $ap->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#editModal{{ $ap->id }}"
+                                                        class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
                                                 @endcan
 
                                                 @can('access_points.destroy')
-                                                    <form action="{{ route('access-points.destroy', $ap->id) }}" method="POST">
+                                                    <form action="{{ route('access-points.destroy', $ap->id) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"

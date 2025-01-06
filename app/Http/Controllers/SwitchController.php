@@ -109,6 +109,11 @@ class SwitchController extends Controller
         }
     }
 
+    public function show(Swittch $switch)
+    {
+        return view('equipos.switches.show', compact('switch'));
+    }
+
     public function update(Request $request, Swittch $switch)
     {
         $user = auth()->id();
