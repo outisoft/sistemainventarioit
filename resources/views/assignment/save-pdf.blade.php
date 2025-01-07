@@ -46,6 +46,9 @@
 
         .signature {
             margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .signature-line {
@@ -61,18 +64,18 @@
             margin-right: 10px;
         }
 
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .izq {
+            width: 150px;
+            height: auto;
+            float: left;
+            width: 40%;
         }
 
         .der {
-            font-size: 12px;
+            font-size: 14px;
             text-align: right;
             float: left;
-            width: 50%;
+            width: 55%;
         }
 
         .firma {
@@ -151,8 +154,8 @@
             <p>Declaro el entendimiento del presente Documento, manifiesto mi conformidad con su contenido.</p>
         </div>
 
-        <div class="footer">
-            <p class="logo">Fdo: ______________________________</p>
+        <div class="signature">
+            <p class="izq">Fdo: ______________________________</p>
             <p class="der">{{ $user->name }} </p>
         </div>
     @endforeach
