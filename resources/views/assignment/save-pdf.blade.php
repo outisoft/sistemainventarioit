@@ -242,7 +242,8 @@
             </div>
 
             <div class="signature">
-                <p>Fdo: ______________________________</p>
+                <p class="izq">Fdo: ______________________________</p>
+                <p class="der">{{ $user->name }} </p>
             </div>
         @endforeach
     @else
