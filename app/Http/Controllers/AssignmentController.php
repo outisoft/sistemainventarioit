@@ -5,6 +5,7 @@ use App\Models\Empleado;
 use App\Models\Historial;
 use App\Models\Equipo;
 use App\Models\Hotel;
+use App\Models\User;
 use App\Models\Departamento;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
@@ -109,7 +110,11 @@ class AssignmentController extends Controller
         $departamento = Departamento::find($empleado->departamento_id);
         return view('assignment.show', compact('empleado', 'hotel', 'departamento','equiposAsignados', 'complementosAsignados'));
     }
-    public function save_pdf($id){
+    public function save_pdf($id)
+    {
+        $users = auth()->id();
+
+        $user = User::findOrFail($users);
 
         // Obtener la fecha actual
         $today = Carbon::now();
@@ -124,7 +129,7 @@ class AssignmentController extends Controller
             $complements = $complements->merge($equipo->complements);
         } // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
 
-        $pdf = FacadePdf::loadView('assignment.save-pdf', compact('empleado', 'date', 'complements'));
+        $pdf = FacadePdf::loadView('assignment.save-pdf', compact('empleado', 'date', 'complements', 'user'));
         return $pdf->stream();
     }
 

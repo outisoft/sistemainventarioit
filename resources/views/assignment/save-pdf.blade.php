@@ -61,12 +61,18 @@
             margin-right: 10px;
         }
 
-        footer {
-            margin-top: 50px;
+        .footer {
             display: flex;
             justify-content: space-between;
-            padding-top: 20px;
-            border-top: 1px solid #000;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .der {
+            font-size: 12px;
+            text-align: right;
+            float: left;
+            width: 50%;
         }
 
         .firma {
@@ -77,20 +83,6 @@
             border-bottom: 1px solid #000;
             height: 40px;
             margin-bottom: 5px;
-        }
-
-        @media print {
-            body {
-                padding: 0;
-            }
-
-            footer {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                padding: 20px;
-            }
         }
     </style>
 </head>
@@ -159,16 +151,10 @@
             <p>Declaro el entendimiento del presente Documento, manifiesto mi conformidad con su contenido.</p>
         </div>
 
-        <footer>
-            <div class="firma">
-                <div class="linea-firma"></div>
-                <p>Nombre del Receptor</p>
-            </div>
-            <div class="firma">
-                <div class="linea-firma"></div>
-                <p>Nombre del Emisor</p>
-            </div>
-        </footer>
+        <div class="footer">
+            <p class="logo">Fdo: ______________________________</p>
+            <p class="der">{{ $user->name }} </p>
+        </div>
     @endforeach
 
     @if ($complements->isNotEmpty())
@@ -180,7 +166,8 @@
                     <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
                 @endif
                 <div class="title">ENTREGA DE
-                    {{ $equipo->type->name }}<br>{{ $empleado->departments->name }}/{{ $empleado->hotel->name }}</div>
+                    {{ $equipo->type->name }}<br>{{ $empleado->departments->name }}/{{ $empleado->hotel->name }}
+                </div>
             </div>
             <br><br>
             <br>
