@@ -112,6 +112,12 @@ class AccessPointController extends Controller
         ]);
     }
 
+    public function show(AccessPoint $accessPoint)
+    {
+        $swittch = Swittch::find($accessPoint->swittch_id);
+        return view('equipos.access_points.show', compact('accessPoint', 'swittch'));
+    }
+
     public function update(Request $request, AccessPoint $accessPoint)
     {
         $user = auth()->id();

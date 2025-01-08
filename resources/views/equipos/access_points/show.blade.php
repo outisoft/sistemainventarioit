@@ -50,11 +50,11 @@
                                         <td>{{ $accessPoint->ip }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Switch</th>
+                                        <th class="bg-secondary">Switch conectado</th>
                                         <td>{{ $swittch->name }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Port Number</th>
+                                        <th class="bg-secondary">Puerto en uso</th>
                                         <td>{{ $accessPoint->port_number }}</td>
                                     </tr>
                                 </table>
