@@ -134,6 +134,20 @@
                                 <x-input-error :messages="$errors->get('numero_tableta')" class="mt-2" />
                             </div>
 
+                            <!-- Model -->
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="model" :value="__('Modelo')" />
+                                <div class="input-group input-group-merge">
+                                    <span id="basic-icon-default-fullname2" class="input-group-text">
+                                        <i class='bx bx-barcode'></i>
+                                    </span>
+                                    <x-text-input id="model" class="form-control" type="text" name="model"
+                                        placeholder="Galaxy Tab Active 5" :value="old('model')" required
+                                        autocomplete="serial" />
+                                </div>
+                                <x-input-error :messages="$errors->get('model')" class="mt-2" />
+                            </div>
+
                             <!-- Serial -->
                             <div class="mb-3">
                                 <x-input-label class="form-label" for="serial" :value="__('Serial')" />

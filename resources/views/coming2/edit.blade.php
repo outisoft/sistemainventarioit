@@ -88,6 +88,14 @@
                                 <x-input-error :messages="$errors->get('numero_tableta')" class="mt-2" />
                             </div>
 
+                            <!-- Model -->
+                            <div class="form-group">
+                                <label for="model">Modelo</label>
+                                <x-text-input type="text" name="model" class="form-control"
+                                    value="{{ $tablets->model }}" required />
+                                <x-input-error :messages="$errors->get('model')" class="mt-2" />
+                            </div>
+
                             <!-- Numero de serie -->
                             <div class="form-group">
                                 <label for="serial">Numero de serie</label>

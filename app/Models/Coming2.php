@@ -10,7 +10,7 @@ class Coming2 extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['operario', 'puesto', 'email', 'usuario', 'password', 'numero_tableta', 'serial', 'numero_telefono', 'imei', 'sim', 'policy_id', 'configurada', 'carta_firmada', 'observacion', 'folio_baja', 'deleted_at', 'region_id'];
+    protected $fillable = ['operario', 'puesto', 'email', 'usuario', 'password', 'numero_tableta', 'model', 'serial', 'numero_telefono', 'imei', 'sim', 'policy_id', 'configurada', 'carta_firmada', 'observacion', 'folio_baja', 'deleted_at', 'region_id'];
 
     public function policies()
     {

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('usuario');
             $table->string('password');
             $table->string('numero_tableta')->unique();
+            $table->string('model');
             $table->string('serial')->unique();
             $table->string('numero_telefono')->unique();
             $table->string('imei')->unique();
