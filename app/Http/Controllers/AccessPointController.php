@@ -101,12 +101,6 @@ class AccessPointController extends Controller
         }
     }
 
-    public function show(AccessPoint $accessPoint)
-    {
-        $swittch = Swittch::find($accessPoint->swittch_id);
-        return view('equipos.access_points.show', compact('accessPoint', 'swittch'));
-    }
-
     public function getAvailablePort(Swittch $switch)
     {
         $usedPorts = $switch->accessPoints()->pluck('port_number')->toArray();

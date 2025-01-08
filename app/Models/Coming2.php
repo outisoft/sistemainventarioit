@@ -10,11 +10,16 @@ class Coming2 extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['operario', 'puesto', 'email', 'usuario', 'password', 'numero_tableta', 'serial', 'numero_telefono', 'imei', 'sim', 'policy_id', 'configurada', 'carta_firmada', 'observacion', 'folio_baja', 'deleted_at'];
+    protected $fillable = ['operario', 'puesto', 'email', 'usuario', 'password', 'numero_tableta', 'serial', 'numero_telefono', 'imei', 'sim', 'policy_id', 'configurada', 'carta_firmada', 'observacion', 'folio_baja', 'deleted_at', 'region_id'];
 
     public function policies()
     {
         return $this->belongsTo(Policy::class, 'policy_id');
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id');
     }
 
     protected static function boot() //guardar en mayusculas

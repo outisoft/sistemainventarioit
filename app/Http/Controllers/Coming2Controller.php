@@ -5,6 +5,7 @@ use App\Models\Tablet;
 use App\Models\Historial;
 use App\Models\Policy;
 use App\Models\Coming2;
+use App\Models\Region;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -24,14 +25,20 @@ class Coming2Controller extends Controller
 
     public function index()
     {
+        $regions = Region::orderBy('name', 'asc')->get();
         $politicas = Policy::orderBy('name')->get();
-        $tablets = Coming2::get();
-        return view('coming2.index', compact('tablets', 'politicas'));
+        $tablets = Coming2::with(['region'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('region_id', auth()->user()->region_id);
+            })
+            ->get();
+        return view('coming2.index', compact('tablets', 'politicas', 'regions'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
+            'region_id' => 'required',
             'operario' => 'required',
             'puesto' => 'required',
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Coming2::class],
@@ -84,8 +91,9 @@ class Coming2Controller extends Controller
     {
         $tablets = Coming2::findOrFail($id);
         $politicas = Policy::orderBy('name')->get();
+        $regions = Region::orderBy('name')->get();
         //dd($configurada);
-        return view('coming2.edit', compact('tablets', 'politicas'));
+        return view('coming2.edit', compact('tablets', 'politicas', 'regions'));
     }
 
     /**
@@ -95,6 +103,7 @@ class Coming2Controller extends Controller
     {
         //dd($request);
         $data = $request->validate([
+            'region_id' => 'required',
             'operario' => 'required',
             'puesto' => 'required',
             'email' => 'required|email',

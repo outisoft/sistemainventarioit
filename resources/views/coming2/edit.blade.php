@@ -23,6 +23,23 @@
                             @csrf
                             @method('PUT')
 
+                            @role('Administrator')
+                                <div class="mb-3">
+                                    <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                    <select class="form-control" id="region_id" name="region_id"
+                                        aria-label="Default select example">
+                                        @foreach ($regions as $region)
+                                            <option value="{{ $region->id }}"
+                                                {{ $tablets->region_id == $region->id ? 'selected' : '' }}>
+                                                {{ $region->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                                </div>
+                            @else
+                                <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                            @endrole
+
                             <!-- Operario -->
                             <div class="form-group">
                                 <label for="operario">Nombre del Responsable</label>
@@ -30,7 +47,7 @@
                                     value="{{ $tablets->operario }}" required />
                                 <x-input-error :messages="$errors->get('operario')" class="mt-2" />
                             </div>
-                            
+
                             <!-- Puesto -->
                             <div class="form-group">
                                 <label for="puesto">Puesto</label>
@@ -46,7 +63,7 @@
                                     value="{{ $tablets->email }}" required />
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
-                            
+
                             <!-- Usuario -->
                             <div class="form-group">
                                 <label for="usuario">Usuario</label>
@@ -122,11 +139,15 @@
                                 <x-input-label class="form-label" for="configurada" :value="__('¿La tablet esta configurada?')" />
                                 <div class="col-md">
                                     <div class="form-check form-check-inline mt-3">
-                                        <input class="form-check-input" type="radio" name="configurada" id="configurada" value="1" {{ $tablets->configurada == '1' ? 'checked' : '' }} />
+                                        <input class="form-check-input" type="radio" name="configurada"
+                                            id="configurada" value="1"
+                                            {{ $tablets->configurada == '1' ? 'checked' : '' }} />
                                         <label class="form-check-label" for="configurada">Si</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="configurada" id="configurada" value="0" {{ $tablets->configurada == '0' ? 'checked' : '' }}/>
+                                        <input class="form-check-input" type="radio" name="configurada"
+                                            id="configurada" value="0"
+                                            {{ $tablets->configurada == '0' ? 'checked' : '' }} />
                                         <label class="form-check-label" for="configurada">No</label>
                                     </div>
                                 </div>
@@ -137,11 +158,15 @@
                                 <x-input-label class="form-label" for="carta_firmada" :value="__('¿La carta esta firmada?')" />
                                 <div class="col-md">
                                     <div class="form-check form-check-inline mt-3">
-                                        <input class="form-check-input" type="radio" name="carta_firmada" id="carta_firmada" value="1" {{ $tablets->carta_firmada == '1' ? 'checked' : '' }}/>
+                                        <input class="form-check-input" type="radio" name="carta_firmada"
+                                            id="carta_firmada" value="1"
+                                            {{ $tablets->carta_firmada == '1' ? 'checked' : '' }} />
                                         <label class="form-check-label" for="carta_firmada">Si</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="carta_firmada" id="carta_firmada" value="0" {{ $tablets->carta_firmada == '0' ? 'checked' : '' }}/>
+                                        <input class="form-check-input" type="radio" name="carta_firmada"
+                                            id="carta_firmada" value="0"
+                                            {{ $tablets->carta_firmada == '0' ? 'checked' : '' }} />
                                         <label class="form-check-label" for="carta_firmada">No</label>
                                     </div>
                                 </div>
@@ -158,8 +183,7 @@
                             <!-- Observacion -->
                             <div class="form-group">
                                 <label for="observacion">Observacion</label>
-                                <textarea id="observacion" class="form-control" type="textarea"
-                                    name="observacion" required
+                                <textarea id="observacion" class="form-control" type="textarea" name="observacion" required
                                     autocomplete="observacion" rows="4"> {{ $tablets->observacion }}
                                 </textarea>
                                 <x-input-error :messages="$errors->get('observacion')" class="mt-2" />
