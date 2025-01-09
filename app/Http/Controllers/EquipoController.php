@@ -70,6 +70,18 @@ class EquipoController extends Controller
             'complementos.*' => 'exists:complements,id|unique:complement_equipo,complement_id',
         ]);
 
+        foreach ($request->complements_id as $complement_id) {
+            $complement = Complement::find($complement_id);
+
+            if ($complement->equipo_id) {
+                toastr()
+                    ->timeOut(3000) // 3 seconds
+                    ->addError("El complemento {$complement->type->name} (N/S: {$complement->serial}) ya está asignado a otro equipo.");
+
+                return redirect()->route('equipo.show', $equipo);
+            }
+        }
+
         $equipo->complements()->attach($request->complements_id);
 
         $complement = Complement::where('id', $request->complements_id)->with('type')->first();
@@ -84,7 +96,7 @@ class EquipoController extends Controller
         ]);
 
         toastr()
-            ->timeOut(3000) // 3 second
+            ->timeOut(3000) // 3 seconds
             ->addSuccess("Complemento {$complement->type->name} asignado.");
 
         return redirect()->route('equipo.show', $equipo);

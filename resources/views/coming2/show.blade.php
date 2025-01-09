@@ -1,11 +1,4 @@
 <x-app-layout>
-    <div class="container-xxl navbar-expand-xl align-items-center">
-        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-            <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"></i>
-            </a>
-        </div>
-    </div>
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -24,7 +17,8 @@
                     <h5 class="card-header">Detalles de Registro</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="{{ route('coming2.save-pdf', $coming2->id) }}" target="_blank" class="btn-ico" data-placement="top" title="Hoja de resguardo">
+                            <a href="{{ route('coming2.save-pdf', $coming2->id) }}" target="_blank" class="btn-ico"
+                                data-placement="top" title="Hoja de resguardo">
                                 <i class='bx bxs-file-pdf icon-lg'></i>
                             </a>
                         </div>
@@ -85,11 +79,17 @@
                                             <td>
                                                 <div class="col-md">
                                                     <div class="form-check form-check-inline mt-3">
-                                                        <input class="form-check-input" type="radio" name="configurada" id="configurada" value="1" {{ $coming2->configurada == '1' ? 'checked' : '' }} disabled/>
+                                                        <input class="form-check-input" type="radio"
+                                                            name="configurada" id="configurada" value="1"
+                                                            {{ $coming2->configurada == '1' ? 'checked' : '' }}
+                                                            disabled />
                                                         <label class="form-check-label" for="configurada">Si</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="configurada" id="configurada" value="0" {{ $coming2->configurada == '0' ? 'checked' : '' }} disabled/>
+                                                        <input class="form-check-input" type="radio"
+                                                            name="configurada" id="configurada" value="0"
+                                                            {{ $coming2->configurada == '0' ? 'checked' : '' }}
+                                                            disabled />
                                                         <label class="form-check-label" for="configurada">No</label>
                                                     </div>
                                                 </div>
@@ -100,11 +100,17 @@
                                             <td>
                                                 <div class="col-md">
                                                     <div class="form-check form-check-inline mt-3">
-                                                        <input class="form-check-input" type="radio" name="carta_firmada" id="carta_firmada" value="1" {{ $coming2->carta_firmada == '1' ? 'checked' : '' }} disabled/>
+                                                        <input class="form-check-input" type="radio"
+                                                            name="carta_firmada" id="carta_firmada" value="1"
+                                                            {{ $coming2->carta_firmada == '1' ? 'checked' : '' }}
+                                                            disabled />
                                                         <label class="form-check-label" for="carta_firmada">Si</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input class="form-check-input" type="radio" name="carta_firmada" id="carta_firmada" value="0" {{ $coming2->carta_firmada == '0' ? 'checked' : '' }} disabled/>
+                                                        <input class="form-check-input" type="radio"
+                                                            name="carta_firmada" id="carta_firmada" value="0"
+                                                            {{ $coming2->carta_firmada == '0' ? 'checked' : '' }}
+                                                            disabled />
                                                         <label class="form-check-label" for="carta_firmada">No</label>
                                                     </div>
                                                 </div>

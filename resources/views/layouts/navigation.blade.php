@@ -3,7 +3,8 @@
     $role = $user->roles()->first();
 @endphp
 <!-- Navbar -->
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+    id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
             <i class="bx bx-menu bx-sm"></i>
@@ -13,19 +14,22 @@
 
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
         <!-- Search -->
-         <style>
+        <style>
             /* Estilos para el contenedor de búsqueda */
             .search-container {
                 position: relative;
-                min-width: 400px; /* Ancho mínimo del campo de búsqueda */
+                min-width: 50%;
+                /* Ancho mínimo del campo de búsqueda */
             }
 
             /* Estilos para los resultados de búsqueda */
             .search-results {
                 z-index: 1000;
-                max-height: 600px; /* Altura máxima aumentada */
+                max-height: 600px;
+                /* Altura máxima aumentada */
                 overflow-y: auto;
-                width: 550px; /* Ancho fijo para los resultados */
+                width: 550px;
+                /* Ancho fijo para los resultados */
                 box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             }
 
@@ -89,7 +93,8 @@
             .search-result-subtitle {
                 color: #6c757d;
                 font-size: 0.85rem;
-                white-space: normal; /* Permite el wrap del texto */
+                white-space: normal;
+                /* Permite el wrap del texto */
                 line-height: 1.4;
             }
 
@@ -98,7 +103,7 @@
                 .search-container {
                     min-width: 300px;
                 }
-                
+
                 .search-results {
                     width: 100vw;
                     max-width: 550px;
@@ -106,7 +111,7 @@
                     transform: translateX(-50%);
                 }
             }
-         </style> 
+        </style>
         <livewire:global-search />
         <!-- /Search -->
         <ul class="navbar-nav flex-row align-items-center ms-auto">
@@ -114,8 +119,9 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt="Avatar" class="rounded-circle" height="40" width="40">
-                        
+                        <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}"
+                            alt="Avatar" class="rounded-circle" height="40" width="40">
+
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -124,7 +130,8 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt class="rounded-circle" height="50" width="50"/>
+                                        <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}"
+                                            alt class="rounded-circle" height="50" width="50" />
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
@@ -163,9 +170,9 @@
                     </li>
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                            <a class="dropdown-item" href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"
-                            target="_blank">
+                            @csrf
+                            <a class="dropdown-item" href="route('logout')"
+                                onclick="event.preventDefault(); this.closest('form').submit();" target="_blank">
                                 <i class="bx bx-power-off me-2"></i>
                                 <span class="align-middle">Log Out</span>
                             </a>
