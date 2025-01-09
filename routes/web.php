@@ -213,7 +213,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
 
     //coming2
     Route::get('/co2/trashed', [Coming2Controller::class, 'trashedEmpleados'])->name('co2.trashed');
-    Route::delete('/co2/{id}', [Coming2Controller::class, 'delete'])->name('co2.delete');
+    Route::delete('/co2/{id}/trash', [Coming2Controller::class, 'trash'])->name('co2.trash');
     Route::post('/co2/{id}/restore', [Coming2Controller::class, 'restore'])->name('co2.restore');
 
     // Asignar complementos a un equipo

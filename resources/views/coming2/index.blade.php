@@ -107,7 +107,7 @@
                                                                 </a>
                                                             @endcan
 
-                                                            <form action="{{ route('co2.delete', $tablet->id) }}"
+                                                            <form action="{{ route('co2.trash', $tablet->id) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
