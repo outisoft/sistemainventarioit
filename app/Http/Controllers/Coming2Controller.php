@@ -142,10 +142,12 @@ class Coming2Controller extends Controller
         return redirect()->route('coming2.index');
     }
 
-    public function delete($id)
+    public function trash($id)
     {
         $tablet = Coming2::findOrFail($id);
         $tablet->delete();
+
+        $user = auth()->id();
 
         Historial::create([
             'accion' => 'Papelera',
@@ -166,9 +168,11 @@ class Coming2Controller extends Controller
         $empleado = Coming2::withTrashed()->findOrFail($id);
         $empleado->restore();
 
+        $user = auth()->id();
+
         Historial::create([
             'accion' => 'Papelera',
-            'descripcion' => "Se restauro de la papelera la tablet con numero de serie {$tablet->serial}",
+            'descripcion' => "Se restauro de la papelera la tablet con numero de serie {$empleado->serial}",
             'user_id' => $user,
             'region_id' => auth()->user()->region_id,
         ]);
@@ -188,26 +192,31 @@ class Coming2Controller extends Controller
         //return response()->json($empleados);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Coming2 $tablet)
+    public function destroy($id)
     {
-        $tablet->delete();
+        try {
+            $tablet = Coming2::withTrashed()->findOrFail($id);
+            $tablet->forceDelete();
+            $user = auth()->id();
 
-        $user = auth()->id();
+            // Crea un registro en el historial
+            Historial::create([
+                'accion' => 'Eliminacion',
+                'descripcion' => "Se elimino la tableta de {$tablet->operario} con numero de serie {$tablet->serial}",
+                'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
+            ]);
 
-        Historial::create([
-            'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino la tableta de {$tablet->operario} con numero de serie {$tablet->serial}",
-            'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
-        ]);
+            toastr()
+                ->timeOut(3000) // 3 segundos
+                ->addSuccess("Tablet de {$tablet->operario} eliminado.");
 
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Tablet de {$tablet->operario} eliminado.");
-        return redirect()->route('co2.trashed');
+            // Redirige a la ruta especificada
+            return redirect()->route('co2.trashed');
+        } catch (\Exception $e) {
+            // Muestra el error
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
     public function save_pdf($id)
