@@ -18,7 +18,10 @@
 <!--new DataTable('#equipments');-->
 <script>
     $('#tabla').DataTable({
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         "pageLength": 50,
         language: {
             search: '_INPUT_',
@@ -26,8 +29,7 @@
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
                 className: 'btn btn-ico',
@@ -43,17 +45,22 @@
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
 </script>
 
-<!--new DataTable('#equipments');-->
+<!--new DataTable('#BACKUP');-->
 <script>
     $('#backup').DataTable({
-        order: [[1, 'asc']],
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        order: [
+            [1, 'asc']
+        ],
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         "pageLength": 50,
         language: {
             search: '_INPUT_',
@@ -61,8 +68,7 @@
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-        ]
+        buttons: []
 
     });
 </script>
@@ -70,7 +76,9 @@
 <!--new DataTable('#employees');-->
 <script>
     new DataTable('#employees', {
-        order: [[1, 'asc']],
+        order: [
+            [1, 'asc']
+        ],
         pageLength: 200,
         lengthMenu: [10, 25, 50, 75, 100],
         language: {
@@ -79,13 +87,12 @@
         },
         info: false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: [0, 1, 2, 3, 4]
                 }
             },
             {
@@ -93,10 +100,10 @@
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to PDF</span>"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: [0, 1, 2, 3, 4]
                 }
             }
-            
+
         ]
 
     });
@@ -105,16 +112,18 @@
 <!--new DataTable('#complements');-->
 <script>
     $('#complements').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 200,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -130,7 +139,7 @@
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -139,16 +148,18 @@
 <!--new DataTable('#phones');-->
 <script>
     $('#phones').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -164,7 +175,7 @@
                     columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -173,16 +184,18 @@
 <!--new DataTable('#office');-->
 <script>
     $('#office').DataTable({
-        "pageLength": 10,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -198,7 +211,7 @@
                     columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -207,16 +220,18 @@
 <!--new DataTable('#aps');-->
 <script>
     $('#aps').DataTable({
-        "pageLength": 10,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -232,7 +247,7 @@
                     columns: [0, 1, 2, 3, 4, 5, 6] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -241,16 +256,18 @@
 <!--new DataTable('#switch');-->
 <script>
     $('#switchs').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 200,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -266,7 +283,7 @@
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -275,16 +292,18 @@
 <!--new DataTable('#desktops');-->
 <script>
     $('#desktops').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 200,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -300,7 +319,7 @@
                     columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -309,16 +328,18 @@
 <!--new DataTable('#printers');-->
 <script>
     $('#printers').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -334,7 +355,7 @@
                     columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -343,16 +364,18 @@
 <!--new DataTable('#laptops');-->
 <script>
     $('#laptops').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 200,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -368,7 +391,7 @@
                     columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -377,16 +400,18 @@
 <!--new DataTable('#tabs');-->
 <script>
     $('#tabs').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -402,7 +427,7 @@
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -411,17 +436,21 @@
 <!--new DataTable('#HISTORY');-->
 <script>
     $('#historial').DataTable({
-        order: [[0, 'desc']],
+        order: [
+            [0, 'desc']
+        ],
         "pageLength": 100,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
                 className: 'btn btn-ico',
@@ -437,7 +466,7 @@
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -446,16 +475,18 @@
 <!--new DataTable('#assign');-->
 <script>
     $('#asignacion').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 200,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -471,7 +502,7 @@
                     columns: [0, 1, 2] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -480,21 +511,24 @@
 <!--new DataTable('#tabletas');-->
 <script>
     $('#tabletas').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] // Exporta solo las columnas 0, 1 y 2
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                        16] // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -502,10 +536,11 @@
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16] // Exporta solo las columnas 0, 1 y 2
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+                        16] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -514,16 +549,18 @@
 <!--new DataTable('#tpvs');-->
 <script>
     $('#tpvs').DataTable({
-        "pageLength": 50,
-        "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "Todos"]],
+        "pageLength": 200,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         "info": false,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
@@ -539,7 +576,7 @@
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Exporta solo las columnas 0, 1 y 2
                 }
             }
-            
+
         ]
 
     });
@@ -575,6 +612,3 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!--Search-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-

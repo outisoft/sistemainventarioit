@@ -68,56 +68,57 @@
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h6 class="card-header">ASSIGNED EQUIPMENT</strong></h6>
                     </div>
-
-                    <table id="empleados" class="table table-striped footer">
-                        <thead class="bg-primary">
-                            <tr>
-                                <th>EQUIPMENT TYPE</th>
-                                <th>BRAND</th>
-                                <th>MODEL</th>
-                                <th>SERIAL</th>
-                                <th>EQUIPMENT NAME</th>
-                                <th>IP</th>
-                                <th>OPERATING SYSTEM</th>
-                                <th>ACTIONS</th>
-                            </tr>
-                        </thead>
-                        <tbody id="employeeList">
-                            <!-- Aquí se mostrarán los empleados -->
-                            @foreach ($equiposAsignados as $equipo)
+                    <div class="table-responsive text-nowrap" id="searchResults">
+                        <table id="empleados" class="table table-striped footer">
+                            <thead class="bg-primary">
                                 <tr>
-                                    <td>
-                                        {{ $equipo->tipo->name }}
-                                    </td>
-                                    <td>
-                                        {{ $equipo->marca }}
-                                    </td>
-                                    <td>
-                                        {{ $equipo->model }}
-                                    </td>
-                                    <td>
-                                        {{ $equipo->serial }}
-                                    </td>
-                                    <td>
-                                        {{ $equipo->name }}
-                                    </td>
-                                    <td>
-                                        {{ $equipo->ip }}
-                                    </td>
-                                    <td>
-                                        {{ $equipo->so }}
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
-                                            data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                            data-bs-html="true" title=""
-                                            data-bs-original-title="<span>Unlink employee equipment</span>"
-                                            class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
-                                    </td>
+                                    <th>EQUIPMENT TYPE</th>
+                                    <th>BRAND</th>
+                                    <th>MODEL</th>
+                                    <th>SERIAL</th>
+                                    <th>EQUIPMENT NAME</th>
+                                    <th>IP</th>
+                                    <th>OPERATING SYSTEM</th>
+                                    <th>ACTIONS</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="employeeList">
+                                <!-- Aquí se mostrarán los empleados -->
+                                @foreach ($equiposAsignados as $equipo)
+                                    <tr>
+                                        <td>
+                                            {{ $equipo->tipo->name }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->marca }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->model }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->serial }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->name }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->ip }}
+                                        </td>
+                                        <td>
+                                            {{ $equipo->so }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
+                                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                                data-bs-html="true" title=""
+                                                data-bs-original-title="<span>Unlink employee equipment</span>"
+                                                class="btn btn-danger btn-sm"><i class='bx bx-trash'></i></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 @else
                     <div class="card-header">
                         <p>No equipment(s) assigned.<a href="{{ route('equipo.index') }}"> Add equipment(s) -></a></p>
@@ -128,35 +129,37 @@
                     <div class="card-header">
                         <h6 class="card-header">ASSIGNED COMPLEMENT</strong></h6>
                     </div>
-                    <table id="empleados" class="table table-striped footer">
-                        <thead class="bg-primary">
-                            <tr>
-                                <th>EQUIPMENT TYPE</th>
-                                <th>BRAND</th>
-                                <th>MODEL</th>
-                                <th>SERIAL</th>
-                            </tr>
-                        </thead>
-                        <tbody id="employeeList">
-                            <!-- Aquí se mostrarán los empleados -->
-                            @foreach ($complementosAsignados as $complemento)
+                    <div class="table-responsive text-nowrap" id="searchResults">
+                        <table id="empleados" class="table">
+                            <thead class="bg-primary">
                                 <tr>
-                                    <td>
-                                        {{ $complemento->type->name }}
-                                    </td>
-                                    <td>
-                                        {{ $complemento->brand }}
-                                    </td>
-                                    <td>
-                                        {{ $complemento->model }}
-                                    </td>
-                                    <td>
-                                        {{ $complemento->serial }}
-                                    </td>
+                                    <th>EQUIPMENT TYPE</th>
+                                    <th>BRAND</th>
+                                    <th>MODEL</th>
+                                    <th>SERIAL</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody id="employeeList">
+                                <!-- Aquí se mostrarán los empleados -->
+                                @foreach ($complementosAsignados as $complemento)
+                                    <tr>
+                                        <td>
+                                            {{ $complemento->type->name }}
+                                        </td>
+                                        <td>
+                                            {{ $complemento->brand }}
+                                        </td>
+                                        <td>
+                                            {{ $complemento->model }}
+                                        </td>
+                                        <td>
+                                            {{ $complemento->serial }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 @else
                     <div class="card-header">
                         <p>No complement(s) assigned. <a href="{{ route('complements.index') }}"> Add complement(s)
