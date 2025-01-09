@@ -44,17 +44,9 @@ class EquipoController extends Controller
     public function show(Equipo $equipo)
     {
         $complementosAsignados = $equipo->complements;
-    
-        if ($complementosAsignados->isEmpty()) {
 
-            $complementosDisponibles = Complement::whereDoesntHave('equipments', function ($query) use ($equipo) {
-                $query->where('complements.id', '!=', $equipo->id);
-            })->get();
-            
-        } else {
-            $complementosDisponibles = Complement::whereNotIn('id', $complementosAsignados->pluck('id'))->get();
-        }
-        
+        $complementosDisponibles = Complement::whereDoesntHave('equipments')->get();
+
         return view('equipos.desktops.show', compact('equipo', 'complementosAsignados', 'complementosDisponibles'));
     }
 
