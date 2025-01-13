@@ -58,10 +58,10 @@
             [1, 'asc']
         ],
         "lengthMenu": [
-            [10, 25, 50, -1],
-            [10, 25, 50, "Todos"]
+            [5, 10, 25, 50, -1],
+            [5, 10, 25, 50, "Todos"]
         ],
-        "pageLength": 50,
+        "pageLength": 5,
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
@@ -528,7 +528,8 @@
                 className: 'btn btn-ico',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-                        16] // Exporta solo las columnas 0, 1 y 2
+                        16
+                    ] // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -537,7 +538,8 @@
                 className: 'btn btn-ico',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-                        16] // Exporta solo las columnas 0, 1 y 2
+                        16
+                    ] // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
