@@ -69,8 +69,11 @@ class BackupController extends Controller
                 '--disable-notifications' => true
             ]);
             
-            return redirect()->route('backup.index')
-                ->with('success', 'Respaldo creado exitosamente');
+            toastr()
+                ->timeOut(3000)
+                ->addSuccess("Se creó respaldo correctamente.");
+
+            return redirect()->route('backup.index');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al crear respaldo: ' . $e->getMessage());
         }

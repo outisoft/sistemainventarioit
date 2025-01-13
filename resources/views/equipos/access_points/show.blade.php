@@ -9,7 +9,8 @@
                             <i class='bx bx-arrow-back'></i>
                         </span>
                     </a>
-                    / Access Point /</span> Details </h4>
+                    / Access Point /</span> Details
+            </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
