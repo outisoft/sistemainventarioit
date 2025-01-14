@@ -63,10 +63,10 @@ class BackupController extends Controller
     {
         try {
             // Desactiva las notificaciones temporalmente
-            config(['backup.notifications.disable_notifications' => true]);
+            config(['backup.notifications.disable_notifications' => false]);
             
             Artisan::call('backup:run', [
-                '--disable-notifications' => true
+                '--disable-notifications' => false
             ]);
             
             toastr()

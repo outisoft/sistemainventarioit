@@ -44,6 +44,7 @@ return [
     ],
     'notifications' => [
         'notifications' => [
+            \App\Notifications\CustomBackupWasSuccessfulNotification::class => ['mail'],
             \Spatie\Backup\Notifications\Notifications\BackupHasFailedNotification::class => ['mail'],
             \Spatie\Backup\Notifications\Notifications\UnhealthyBackupWasFoundNotification::class => ['mail'],
             \Spatie\Backup\Notifications\Notifications\CleanupHasFailedNotification::class => ['mail'],
@@ -54,11 +55,11 @@ return [
         'notifiable' => \Spatie\Backup\Notifications\Notifiable::class,
 
         'mail' => [
-            'to' => 'jacuba98456@gmail.com',
+            'to' => 'abartolon@grupo-pinero.com',
 
             'from' => [
-                'address' => env('MAIL_FROM_ADDRESS', 'antoniocruz.dev@hotmail.com'),
-                'name' => env('MAIL_FROM_NAME', 'BACKUP'),
+                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+                'name' => env('MAIL_FROM_NAME', 'Example'),
             ],
         ],
 
