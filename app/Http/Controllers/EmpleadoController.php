@@ -20,6 +20,7 @@ use Carbon\Carbon;
 //use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Response;
 
 class EmpleadoController extends Controller
@@ -65,14 +66,34 @@ class EmpleadoController extends Controller
     {
         try {
             $data = $request->validate([
-                'no_empleado' => 'numeric|required|unique:empleados|digits_between:5,8',
+                'no_empleado' => [
+                    'numeric',
+                    'required',
+                    'unique:empleados',
+                    'digits_between:5,8',
+                ],
                 'name' => 'required',
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Empleado::class],
+                'email' => [
+                    'required', 
+                    'string', 
+                    'email', 
+                    'max:255', 
+                    'unique:' . Empleado::class
+                ],
                 'puesto' => 'required',
                 'departamento_id' => 'required',
                 'hotel_id' => 'required|exists:hotels,id',
-                'ad' => 'required|unique:empleados',
+                'ad' => [
+                    'required',
+                    'unique:empleados'
+                ],
                 'region_id' => 'required',
+            ], [
+                'no_empleado.unique' => 'Este numero de empleado ya esta en uso.',
+                'email.unique' => 'Este email ya está en uso por otro empleado.',
+                'hotel_id.required' => 'El campo hotel es obligatorio.',
+                'departamento_id.required' => 'El campo departamento es obligatorio.',
+                'ad.unique' => 'Esta AD ya está en uso por otro empleado.',
             ]);
 
             $registro = Empleado::create($data);
@@ -91,22 +112,15 @@ class EmpleadoController extends Controller
 
             return redirect()->route('empleados.index');
 
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            $errors = $e->validator->errors();
-
-            if ($errors->has('no_empleado')) {
-                toastr()->timeOut(6000)->addError("El número de empleado ya existe.");
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
             }
-
-            if ($errors->has('email')) {
-                toastr()->timeOut(6000)->addError("El correo electrónico ya está en uso.");
-            }
-
-            if ($errors->has('ad')) {
-                toastr()->timeOut(6000)->addError("El AD ya está en uso.");
-            }
-
-            return redirect()->back()->withErrors($e->validator)->withInput();
+            return back()->withErrors($e->errors())->withInput();
         }
     }
 
@@ -139,39 +153,78 @@ class EmpleadoController extends Controller
     }
 
     // Método para actualizar un registro
-    public function update(Request $request, $id)
+    public function update(Request $request, Empleado $empleado)
     {
-        //dd($request);
-        $data = $request->validate([
-            'no_empleado' => 'required',
-            'name' => 'required',
-            'email' => 'required|email',
-            'puesto' => 'required',
-            'departamento_id' => 'required|exists:departamentos,id',
-            'hotel_id' => 'required|exists:hotels,id',
-            'ad' => 'required',
-            'region_id' => 'required',
-        ]);
+        try {
+            $data = $request->validate([
+                'no_empleado' => 
+                [
+                    'numeric',
+                    'required',
+                    Rule::unique('empleados')->ignore($empleado->id),
+                    'digits_between:5,8',
+                ],
+                'name' => 'required',
+                'email' => [
+                    'required', 
+                    'string', 
+                    'email', 
+                    'max:255', 
+                    Rule::unique('empleados')->ignore($empleado->id),
+                ],
+                'puesto' => 'required',
+                'departamento_id' => 'required|exists:departamentos,id',
+                'hotel_id' => 'required|exists:hotels,id',
+                'ad' => [
+                    'required',
+                    Rule::unique('empleados')->ignore($empleado->id),
+                ],
+                'region_id' => 'required',
+            ], [
+                'no_empleado.unique' => 'Este numero de empleado ya esta en uso.',
+                'email.unique' => 'Este email ya está en uso por otro empleado.',
+                'hotel_id.required' => 'El campo hotel es obligatorio.',
+                'departamento_id.required' => 'El campo departamento es obligatorio.',
+                'ad.unique' => 'Esta AD ya está en uso por otro empleado.',
+            ]);
 
-        //dd($data);
+            $empleado->update($data);
 
-        $registro = Empleado::findOrFail($id);
-        $registro->update($data);
+            $user = auth()->id();
 
-        $user = auth()->id();
+            Historial::create([
+                'accion' => 'Actualizacion',
+                'descripcion' => "Se actualizo el empleado: {$empleado->name}",
+                'user_id' => $user,
+                'region_id' => auth()->user()->region_id,
+            ]);
+            // Mostrar notificación Toastr para éxito
 
-        Historial::create([
-            'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el empleado: {$registro->name}",
-            'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
-        ]);
-        // Mostrar notificación Toastr para éxito
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Empleado {$empleado->name} actualizado.");
+            return redirect()->route('empleados.index');
 
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Empleado {$registro->name} actualizado.");
-        return redirect()->route('empleados.index');
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
     // Método para eliminar un registro

@@ -1,14 +1,16 @@
 <!--Modal create-->
 <div class="col-lg-4 col-md-6">
     <form method="POST" action="{{ route('empleados.store') }}">
-    @csrf
+        @csrf
         <div class="mt-3">
-            <div class="modal fade" id="modalCreate" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none" aria-hidden="true">
+            <div class="modal fade" id="modalCreate" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h4 class="modal-title" id="myModalLabel">New employee</h4>
-                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true"></span></button>
                         </div>
 
                         <div class="modal-body">
@@ -34,9 +36,8 @@
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-user'></i>
                                     </span>
-                                    <x-text-input id="name" class="form-control" type="text"
-                                        name="name" placeholder="Katrina Jones" :value="old('name')" required
-                                        autocomplete="name" />
+                                    <x-text-input id="name" class="form-control" type="text" name="name"
+                                        placeholder="Katrina Jones" :value="old('name')" required autocomplete="name" />
                                 </div>
                                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
@@ -48,9 +49,9 @@
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-envelope'></i>
                                     </span>
-                                    <x-text-input id="email" class="form-control" type="email"
-                                        name="email" placeholder="correo@ejemplo.com" :value="old('email')"
-                                        required autocomplete="email" />
+                                    <x-text-input id="email" class="form-control" type="email" name="email"
+                                        placeholder="correo@ejemplo.com" :value="old('email')" required
+                                        autocomplete="email" />
                                 </div>
                                 <x-input-error :messages="$errors->get('email')" class="mt-2" />
                             </div>
@@ -62,9 +63,8 @@
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bxs-id-card'></i>
                                     </span>
-                                    <x-text-input id="puesto" class="form-control" type="text"
-                                        name="puesto" placeholder="Ama de llaves" :value="old('puesto')"
-                                        required autocomplete="puesto" />
+                                    <x-text-input id="puesto" class="form-control" type="text" name="puesto"
+                                        placeholder="Ama de llaves" :value="old('puesto')" required autocomplete="puesto" />
                                 </div>
                                 <x-input-error :messages="$errors->get('puesto')" class="mt-2" />
                             </div>
@@ -74,10 +74,14 @@
                                 <x-input-label class="form-label" for="hotel_id" :value="__('HOTEL')" />
                                 <select class="form-control" id="hotels_id" name="hotel_id">
                                     <option value="">Choose a hotel</option>
-                                    @foreach($hoteles as $hotel)
-                                        <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
+                                    @foreach ($hoteles as $hotel)
+                                        <option value="{{ $hotel->id }}"
+                                            {{ old('hotel_id') == $hotel->id ? 'selected' : '' }}>
+                                            {{ $hotel->name }}
+                                        </option>
                                     @endforeach
                                 </select>
+                                <x-input-error :messages="$errors->get('hotel_id')" class="mt-2" />
                             </div>
 
                             <!-- department -->
@@ -86,6 +90,7 @@
                                 <select class="form-control" id="departamentos_id" name="departamento_id" disabled>
                                     <option value="">First select a hotel</option>
                                 </select>
+                                <x-input-error :messages="$errors->get('departamento_id')" class="mt-2" />
                             </div>
 
                             <!-- AD -->
@@ -95,34 +100,32 @@
                                     <span id="basic-icon-default-fullname2" class="input-group-text">
                                         <i class='bx bx-at'></i>
                                     </span>
-                                    <x-text-input id="ad" class="form-control" type="text"
-                                        name="ad" placeholder="jkatrina" :value="old('ad')"
-                                        required autocomplete="ad" />
+                                    <x-text-input id="ad" class="form-control" type="text" name="ad"
+                                        placeholder="jkatrina" :value="old('ad')" required autocomplete="ad" />
                                 </div>
                                 <x-input-error :messages="$errors->get('ad')" class="mt-2" />
                             </div>
 
                             {{-- Región (solo visible para administradores) --}}
-                                @role('Administrator')
+                            @role('Administrator')
 
                                 <!-- Region -->
                                 <div class="mb-3">
                                     <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
                                     <select class="form-control" id="region_id" name="region_id">
                                         <option value="">Choose a region</option>
-                                        @foreach($regions as $region)
-                                            <option value="{{ $region->id }}" 
-                                                    {{ old('region_id') == $region->id ? 'selected' : '' }}>
+                                        @foreach ($regions as $region)
+                                            <option value="{{ $region->id }}"
+                                                {{ old('region_id') == $region->id ? 'selected' : '' }}>
                                                 {{ $region->name }}
                                             </option>
                                         @endforeach
                                     </select>
                                     <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
                                 </div>
-                                    
-                                @else
-                                    <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
-                                @endrole
+                            @else
+                                <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                            @endrole
                         </div>
 
                         <div class="modal-footer">
@@ -141,22 +144,27 @@
         $('#hotels_id').change(function() {
             var hotelId = $(this).val();
             var departamentoSelect = $('#departamentos_id');
-            
+
             if (hotelId) {
                 // Habilitar el select de departamentos
                 departamentoSelect.prop('disabled', false);
-                
+
                 // Realizar la petición AJAX
                 $.ajax({
                     url: '/get-departamentos',
                     type: 'GET',
-                    data: { hotel_id: hotelId },
+                    data: {
+                        hotel_id: hotelId
+                    },
                     success: function(data) {
                         departamentoSelect.empty();
-                        departamentoSelect.append('<option value="">Choose a department</option>');
-                        
+                        departamentoSelect.append(
+                            '<option value="">Choose a department</option>');
+
                         $.each(data, function(index, departamento) {
-                            departamentoSelect.append('<option value="' + departamento.id + '">' + departamento.name + '</option>');
+                            departamentoSelect.append('<option value="' +
+                                departamento.id + '">' + departamento.name +
+                                '</option>');
                         });
                     }
                 });
