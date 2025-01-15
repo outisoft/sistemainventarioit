@@ -52,7 +52,9 @@ class EquipoController extends Controller
 
     public function details(Equipo $equipo)
     {
-        return view('equipos.show', compact('equipo'));
+        $complementosAsignados = $equipo->complements;
+
+        return view('equipos.show', compact('equipo', 'complementosAsignados'));
     }
 
     public function asignarComplementos(Request $request, Equipo $equipo)

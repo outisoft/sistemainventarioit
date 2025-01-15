@@ -53,6 +53,48 @@
                             </div>
                         </div>
                     </div>
+
+                    @if ($complementosAsignados->count() > 0)
+                        <div class="card-header">
+                            <h6 class="card-header">ASSIGNED COMPLEMENT</strong></h6>
+                        </div>
+                        <div class="table-responsive text-nowrap" id="searchResults">
+                            <table id="empleados" class="table">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>EQUIPMENT TYPE</th>
+                                        <th>BRAND</th>
+                                        <th>MODEL</th>
+                                        <th>SERIAL</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="employeeList">
+                                    <!-- Aquí se mostrarán los empleados -->
+                                    @foreach ($complementosAsignados as $complemento)
+                                        <tr>
+                                            <td>
+                                                {{ $complemento->type->name }}
+                                            </td>
+                                            <td>
+                                                {{ $complemento->brand }}
+                                            </td>
+                                            <td>
+                                                {{ $complemento->model }}
+                                            </td>
+                                            <td>
+                                                {{ $complemento->serial }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <div class="card-header">
+                            <p>No complement(s) assigned. <a href="{{ route('complements.index') }}"> Add complement(s)
+                                    -></a></p>
+                        </div>
+                    @endif
                 </div>
             </div>
             <!--/ Basic Bootstrap Table -->
