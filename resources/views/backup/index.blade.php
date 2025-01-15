@@ -13,13 +13,13 @@
                         <div class="card-datatable table-responsive pt-0">
                             <div class="container">
 
-                                @if(session('success'))
+                                @if (session('success'))
                                     <div class="alert alert-success">
                                         {{ session('success') }}
                                     </div>
                                 @endif
 
-                                @if(session('error'))
+                                @if (session('error'))
                                     <div class="alert alert-danger">
                                         {{ session('error') }}
                                     </div>
@@ -46,12 +46,13 @@
                                                 Listado de Respaldos
                                             </div>
 
-                                            @if($files->isEmpty())
+                                            @if ($files->isEmpty())
                                                 <div class="alert alert-info">
                                                     No se encontraron archivos de respaldo.
-                                                    @if(config('app.debug'))
+                                                    @if (config('app.debug'))
                                                         <br>
-                                                        <small>Ruta de búsqueda: {{ storage_path('app/Laravel') }}</small>
+                                                        <small>Ruta de búsqueda:
+                                                            {{ storage_path('app/Laravel') }}</small>
                                                     @endif
                                                 </div>
                                             @else
@@ -61,29 +62,45 @@
                                                             <tr>
                                                                 <th>Nombre</th>
                                                                 <th>Fecha</th>
-                                                                <th>Acciones</th>
+                                                                <th></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             @forelse($files as $file)
-                                                            <tr>
-                                                                <td>{{ basename($file) }}</td>
-                                                                <td>
-                                                                    {{ \Carbon\Carbon::createFromTimestamp(Storage::lastModified($file))->diffForHumans() }}
-                                                                </td>
-                                                                <td>
-                                                                    <a href="{{ route('backup.download', ['filename' => basename($file)]) }}" 
-                                                                    class="btn btn-sm btn-success">
-                                                                    <i class="fas fa-download"></i> Descargar
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
+                                                                <tr>
+                                                                    <td>{{ basename($file) }}</td>
+                                                                    <td>
+                                                                        {{ \Carbon\Carbon::createFromTimestamp(Storage::lastModified($file))->diffForHumans() }}
+                                                                    </td>
+                                                                    <td class="d-flex align-items-center">
+                                                                        <a href="{{ route('backup.download', ['filename' => basename($file)]) }}"
+                                                                            class="btn btn-ico" data-bs-toggle="tooltip"
+                                                                            data-bs-placement="top" data-bs-html="true"
+                                                                            title=""
+                                                                            data-bs-original-title="<span>Download Backup</span>">
+                                                                            <i class='bx bxs-download'></i>
+                                                                        </a>
+
+                                                                        <!--form
+                                                                            action="{{ route('backup.delete', $file) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit" class="btn btn-ico"
+                                                                                data-bs-toggle="tooltip"
+                                                                                data-bs-placement="top"
+                                                                                data-bs-html="true" title=""
+                                                                                data-bs-original-title="<span>Delete Backup</span>">
+                                                                                <i class='bx bx-trash'></i></button>
+                                                                        </form-->
+                                                                    </td>
+                                                                </tr>
                                                             @empty
-                                                            <tr>
-                                                                <td colspan="3" class="text-center">
-                                                                    No hay respaldos disponibles
-                                                                </td>
-                                                            </tr>
+                                                                <tr>
+                                                                    <td colspan="3" class="text-center">
+                                                                        No hay respaldos disponibles
+                                                                    </td>
+                                                                </tr>
                                                             @endforelse
                                                         </tbody>
                                                     </table>
@@ -98,20 +115,18 @@
                                                 Importar Datos
                                             </div>
                                             <div class="card-body">
-                                                <form action="{{ route('backup.restore') }}" method="POST" enctype="multipart/form-data">
+                                                <form action="{{ route('backup.restore') }}" method="POST"
+                                                    enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="backup_file">
-                                                            Seleccionar archivo SQL con datos 
+                                                            Seleccionar archivo SQL con datos
                                                             <small>(archivos SQL con sentencias INSERT)</small>
                                                         </label>
-                                                        <input type="file" 
-                                                                name="backup_file" 
-                                                                id="backup_file" 
-                                                                class="form-control @error('backup_file') is-invalid @enderror" 
-                                                                accept=".sql" 
-                                                                required>
-                                                        
+                                                        <input type="file" name="backup_file" id="backup_file"
+                                                            class="form-control @error('backup_file') is-invalid @enderror"
+                                                            accept=".sql" required>
+
                                                         @error('backup_file')
                                                             <div class="invalid-feedback">
                                                                 {{ $message }}
@@ -125,7 +140,8 @@
                                                         <ul>
                                                             <li>Solo se procesarán las sentencias INSERT INTO.</li>
                                                             <li>Las tablas deben existir en la base de datos.</li>
-                                                            <li>La estructura de las tablas debe coincidir con los datos a importar.</li>
+                                                            <li>La estructura de las tablas debe coincidir con los datos
+                                                                a importar.</li>
                                                         </ul>
                                                     </div>
 

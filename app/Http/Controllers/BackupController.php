@@ -271,4 +271,19 @@ class BackupController extends Controller
             return false;
         }
     }
+
+    public function delete($filename)
+    {
+        try {            
+            Storage::disk('backups')->delete($filename);
+            
+            toastr()
+                ->timeOut(3000)
+                ->addSuccess("Se elimino respaldo correctamente.");
+
+                return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error al eliminar respaldo: ' . $e->getMessage());
+        }
+    }
 }

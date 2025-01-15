@@ -209,6 +209,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
         Route::post('/create', [BackupController::class, 'create'])->name('backup.create');
         Route::get('/download/{filename}', [BackupController::class, 'download'])->name('backup.download');
         Route::post('/restore', [BackupController::class, 'restore'])->name('backup.restore');
+        Route::delete('/delete/{filename}', [BackupController::class, 'delete'])->name('backup.delete');
     });
 
     //coming2
