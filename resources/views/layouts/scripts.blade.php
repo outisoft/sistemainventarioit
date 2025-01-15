@@ -55,7 +55,7 @@
 <script>
     $('#backup').DataTable({
         order: [
-            [1, 'asc']
+            [0, 'desc']
         ],
         "lengthMenu": [
             [5, 10, 25, 50, -1],
