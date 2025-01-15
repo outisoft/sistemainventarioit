@@ -61,13 +61,8 @@ class BackupController extends Controller
 
     public function create()
     {
-        try {
-            // Desactiva las notificaciones temporalmente
-            config(['backup.notifications.disable_notifications' => false]);
-            
-            Artisan::call('backup:run', [
-                '--disable-notifications' => false
-            ]);
+        try {            
+            Artisan::call('backup:run', ['--only-db' => true]);
             
             toastr()
                 ->timeOut(3000)
