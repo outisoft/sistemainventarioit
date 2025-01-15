@@ -1,6 +1,7 @@
 <!-- Modales de Edición -->
-@foreach($equipos as $equipo)
-    <div class="modal fade" id="editModal{{ $equipo->id }}" tabindex="-1" aria-labelledby="editModal{{ $equipo->id }}" aria-hidden="true">
+@foreach ($equipos as $equipo)
+    <div class="modal fade" id="editModal{{ $equipo->id }}" tabindex="-1" aria-labelledby="editModal{{ $equipo->id }}"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ route('complements.update', $equipo) }}" method="POST">
@@ -48,24 +49,23 @@
                         <!-- Region -->
                         {{-- Región (solo visible para administradores) --}}
                         @role('Administrator')
-                        <div class="mb-3">
-                            <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
-                            <select class="form-control" id="region_id" name="region_id"
-                                aria-label="Default select example">
-                                @foreach ($regions as $region)
-                                    <option value="{{ $region->id }}"
-                                        {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
-                                        {{ $region->name }}</option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
-                        </div>
-                            
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                <select class="form-control" id="region_id" name="region_id"
+                                    aria-label="Default select example">
+                                    @foreach ($regions as $region)
+                                        <option value="{{ $region->id }}"
+                                            {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                            {{ $region->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                            </div>
                         @else
                             <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
                         @endrole
                     </div>
-                    
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Update</button>

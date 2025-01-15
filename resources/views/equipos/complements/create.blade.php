@@ -15,14 +15,13 @@
                     <!-- Tipo -->
                     <div class="mb-3">
                         <x-input-label class="form-label" for="type_id" :value="__('Type equipment')" />
-                        <select id="type_id" name="type_id" class="form-control" aria-label="Default select example">
-                            <option value="5">MONITOR</option>
-                            <option value="6">MOUSE</option>
-                            <option value="7">NO-BREACK</option>
-                            <option value="1">SCANNER</option>
-                            <option value="8">TECLADO</option>
-                            <option value="14">TICKETERA</option>
-                            <option value="9">WACOM</option>
+                        <select class="form-control" id="type_id" name="type_id">
+                            <option value="">Choose a type</option>
+                            @foreach ($tipos as $tipo)
+                                <option value="{{ $tipo->id }}" {{ old('type_id') == $tipo->id ? 'selected' : '' }}>
+                                    {{ $tipo->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
