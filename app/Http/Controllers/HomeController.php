@@ -109,6 +109,9 @@ class HomeController extends Controller
             ->join('hotels', 'tpvs.hotel_id', '=', 'hotels.id')
             ->select('hotels.name as hotel', DB::raw('count(*) as cantidad_tpvs'))
             ->groupBy('hotels.name')
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('hotels.region_id', auth()->user()->region_id);
+            })
             ->get();
 
         $datosLap = DB::table('hotels')
@@ -117,16 +120,22 @@ class HomeController extends Controller
             ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
             ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('hotels.region_id', auth()->user()->region_id);
+            })
             ->whereIn('tipos.name', ['laptop'])
             ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
             ->get();
-
+        
         $datosCPU = DB::table('hotels')
             ->select('hotels.name as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
             ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
             ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
             ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $query->where('hotels.region_id', auth()->user()->region_id);
+            })
             ->whereIn('tipos.name', ['DESKTOP'])
             ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
             ->get();
