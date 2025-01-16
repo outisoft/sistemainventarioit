@@ -67,4 +67,18 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+
+    public function removeAvatar(Request $request)
+    {
+        $user = Auth::user();
+
+        // Eliminar la foto de perfil si existe
+        if ($user->image) {
+            Storage::delete('public/avatars/' . $user->image);
+            $user->image = null;
+            $user->save();
+        }
+
+        return redirect()->back()->with('status', 'Avatar eliminado y regresado al avatar por defecto.');
+    }
 }

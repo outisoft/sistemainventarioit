@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::post('/profile/remove-avatar', [ProfileController::class, 'removeAvatar'])->name('profile.remove-avatar');
 
     //Rutas de CRUD
     Route::resource('inventario', InventarioController::class); // Rutas Inventario
