@@ -23,7 +23,6 @@ class User extends Authenticatable
         'image',
         'name',
         'email',
-        'region_id',
         'password',
     ];
 
@@ -57,9 +56,9 @@ class User extends Authenticatable
         return $this->hasMany(Maintenance::class);
     }
 
-    public function region()
+    public function regions()
     {
-        return $this->belongsTo(Region::class, 'region_id');
+        return $this->belongsToMany(Region::class, 'region_user', 'user_id', 'region_id');
     }
 
     public function getAvatarAttribute()

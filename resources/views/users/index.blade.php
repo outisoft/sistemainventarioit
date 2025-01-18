@@ -16,7 +16,10 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <div class="nav-item w-px-40 h-auto">
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Add new user</span>">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Add new user</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             </div>
@@ -51,9 +54,11 @@
                                                 <tr>
                                                     <td>
                                                         <div style="display: flex; align-items: center;">
-                                                            
-                                                            <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt="user-avatar" class="employee-image"/>
-                                                            <span class="employee-name" style="margin-left: 15px;">{{ Str::limit($user->name, 20, '...'); }}</span>
+
+                                                            <img src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}"
+                                                                alt="user-avatar" class="employee-image" />
+                                                            <span class="employee-name"
+                                                                style="margin-left: 15px;">{{ Str::limit($user->name, 20, '...') }}</span>
                                                         </div>
                                                     </td>
                                                     <td>{{ $user->email }}</td>
@@ -65,7 +70,13 @@
                                                             @endif
                                                         @endforeach
                                                     </td>
-                                                    <td>{{ $user->region->name }}</td>
+                                                    <td>
+                                                        @foreach ($user->regions as $region)
+                                                            {{ $region->name }}@if (!$loop->last)
+                                                                ,
+                                                            @endif
+                                                        @endforeach
+                                                    </td>
                                                     <td>
                                                         <div class="dropdown">
                                                             <button type="button"
@@ -74,8 +85,14 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#showModal{{ $user->id }}" class="dropdown-item"><i class="bx bx-show-alt me-1"></i>Show</a>
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#showModal{{ $user->id }}"
+                                                                    class="dropdown-item"><i
+                                                                        class="bx bx-show-alt me-1"></i>Show</a>
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal{{ $user->id }}"
+                                                                    class="dropdown-item"><i
+                                                                        class="bx bx-edit me-1"></i>Edit</a>
                                                                 <form action="{{ route('users.destroy', $user->id) }}"
                                                                     method="POST">
                                                                     @csrf

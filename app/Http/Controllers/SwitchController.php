@@ -7,6 +7,7 @@ use App\Models\Historial;
 use App\Models\Hotel;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class SwitchController extends Controller
@@ -29,8 +30,22 @@ class SwitchController extends Controller
             ->get();
         $hotels = Hotel::orderBy('name', 'asc')->get();
         $regions = Region::orderBy('name', 'asc')->get();
+
+        // Obtener las regiones del usuario autenticado
+        $userRegions = auth()->user()->regions->pluck('id')->toArray();
+
+        // Obtener los hoteles y la cantidad de switches, filtrando por las regiones del usuario
+        $hoteles = DB::table('hotels')
+            ->select('regions.name as region', 'hotels.name as hotel', DB::raw('COUNT(swittches.id) as total_sw'))
+            ->leftJoin('regions', 'hotels.region_id', '=', 'regions.id')
+            ->leftJoin('swittches', 'hotels.id', '=', 'swittches.hotel_id')
+            ->groupBy('regions.name', 'hotels.name')
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) use ($userRegions) {
+                $query->whereIn('hotels.region_id', $userRegions);
+            })
+            ->get();
         
-        return view('equipos.switches.index', compact('switches', 'hotels', 'regions'));
+        return view('equipos.switches.index', compact('switches', 'hotels', 'regions', 'hoteles'));
     }
 
     public function store(Request $request)

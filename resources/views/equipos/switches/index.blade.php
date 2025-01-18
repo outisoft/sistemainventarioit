@@ -5,6 +5,35 @@
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Switches </h4>
 
+            <!-- Tarjeta de hoteles -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+                <div class="row g-6 mb-6">
+                    @foreach ($hoteles as $hotel)
+                        <div class="col-sm-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-start justify-content-between">
+                                        <div class="content-left">
+                                            <span class="text-heading">{{ $hotel->region }}</span>
+                                            <div class="d-flex align-items-center my-1">
+                                                <h4 class="mb-0 me-2">{{ $hotel->hotel }}</h4>
+                                                <p class="text-primary mb-0">({{ $hotel->total_sw }})</p>
+                                            </div>
+                                            <small class="mb-0">Total SW</small>
+                                        </div>
+                                        <div class="avatar">
+                                            <span class="avatar-initial rounded bg-label-primary">
+                                                <i class='bx bx-server icon-lg'></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">

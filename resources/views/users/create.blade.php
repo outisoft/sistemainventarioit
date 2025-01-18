@@ -2,7 +2,7 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            
+
             <form method="POST" action="{{ route('users.store') }}">
                 @csrf
                 <div class="modal-header">
@@ -19,9 +19,8 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-user'></i>
                             </span>
-                            <x-text-input id="name" class="form-control" type="text"
-                                name="name" placeholder="Juan Cerez" :value="old('name')" required
-                                autofocus autocomplete="name" />
+                            <x-text-input id="name" class="form-control" type="text" name="name"
+                                placeholder="Juan Cerez" :value="old('name')" required autofocus autocomplete="name" />
                         </div>
                     </div>
                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
@@ -33,9 +32,8 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-envelope'></i>
                             </span>
-                            <x-text-input id="email" class="form-control" type="email"
-                                name="email" placeholder="correo@ejemplo.com" :value="old('email')"
-                                required autocomplete="username" />
+                            <x-text-input id="email" class="form-control" type="email" name="email"
+                                placeholder="correo@ejemplo.com" :value="old('email')" required autocomplete="username" />
                         </div>
                         <x-input-error :messages="$errors->get('email')" class="mt-2" />
                     </div>
@@ -58,13 +56,13 @@
 
                     <!-- Region -->
                     <div class="mt-4">
-                        <x-input-label class="form-label" for="region_id" :value="__('Region')" />
+                        <x-input-label class="form-label" for="regions" :value="__('Region')" />
 
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-map-pin'></i>
                             </span>
-                            <select name="region_id" class="form-control" id="region_id"
+                            <select name="regions[]" class="form-control select2" id="regions" multiple
                                 aria-label="Default select example">
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}">{{ $region->name }}</option>
@@ -80,26 +78,24 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-barcode'></i>
                             </span>
-                            <x-text-input id="password" class="form-control" type="password"
-                                name="password" required autocomplete="new-password" />
+                            <x-text-input id="password" class="form-control" type="password" name="password" required
+                                autocomplete="new-password" />
                         </div>
                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                     </div>
 
                     <!-- Confirm Password -->
                     <div class="mt-4">
-                        <x-input-label class="form-label" for="password_confirmation"
-                            :value="__('Confirm Password')" />
+                        <x-input-label class="form-label" for="password_confirmation" :value="__('Confirm Password')" />
                         <div class="input-group input-group-merge">
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-barcode'></i>
                             </span>
-                            <x-text-input id="password_confirmation" class="form-control"
-                                type="password" name="password_confirmation" required
-                                autocomplete="new-password" />
+                            <x-text-input id="password_confirmation" class="form-control" type="password"
+                                name="password_confirmation" required autocomplete="new-password" />
                         </div>
                         <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-                    </div>                    
+                    </div>
                 </div>
 
                 <div class="modal-footer">

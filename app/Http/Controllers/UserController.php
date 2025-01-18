@@ -25,7 +25,7 @@ class UserController extends Controller
     // Método para listar todos los usuarios
     public function index()
     {
-        $users = User::with(['region', 'roles'])
+        $users = User::with(['regions', 'roles'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $query->where('region_id', auth()->user()->region_id);
             })
@@ -45,25 +45,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-            //dd($request);
             $validatedData = $request->validate([
                 'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
-                'region_id' => 'required',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'regions' => 'required|array',
+                'regions.*' => 'exists:regions,id',
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 'rol' => 'required|exists:roles,name',
             ]);
+
             // Crear el usuario
             $user = User::create([
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
-                'region_id' => $validatedData['region_id'],
                 'password' => Hash::make($validatedData['password']),
             ]);
 
-            // Obtener el tipo de usuario (por ejemplo, "admin", "editor", "usuario")
-            /*$tipoUsuario = $request->input('rol');
-            $user->assignRole([$tipoUsuario]);*/
+            $user->regions()->sync($request->regions);
 
             $role = Rol::findByName($validatedData['rol']);
             $user->assignRole($role);
@@ -72,13 +70,12 @@ class UserController extends Controller
                 ->timeOut(3000) // 3 second
                 ->addSuccess("Usuario {$user->name} creado.");
 
-            // Redireccionar o mostrar un mensaje de éxito
             return redirect()->route('users.index');
 
         } catch (\Illuminate\Validation\ValidationException $e) {
             if (isset($e->validator->failed()['email'])) {
                 toastr()
-                    ->timeOut(3000)
+                    ->timeOut(3000) // 3 second
                     ->addError("El correo electrónico ya está en uso.");
             }
             return redirect()->back()->withErrors($e->validator)->withInput();
@@ -106,25 +103,42 @@ class UserController extends Controller
     // Método para actualizar un registro
     public function update(Request $request, $id)
     {
+        // Validar los datos de entrada
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'regions' => 'required|array',
+            'regions.*' => 'exists:regions,id',
+            'rol' => 'required|exists:roles,name',
+        ]);
+
+        // Encontrar el usuario por ID
         $user = User::findOrFail($id);
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->region_id = $request->input('region_id');
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->input('password'));
-        }
-        $user->save();
 
-        // Actualizar el rol del usuario si se ha seleccionado un nuevo rol
-        if ($request->has('rol')) {
-            $nuevoRol = $request->input('rol');
-            $user->syncRoles([$nuevoRol]); // Asigna el nuevo rol
+        // Actualizar los datos del usuario
+        $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
+        ]);
+
+        // Sincronizar las regiones del usuario
+        $user->regions()->sync($request->regions);
+
+        // Verificar si el rol ha cambiado
+        $currentRole = $user->roles->first()->name ?? null;
+        if ($currentRole !== $data['rol']) {
+            // Eliminar el rol actual y asignar el nuevo rol
+            $user->syncRoles([$data['rol']]);
         }
 
+        // Mostrar mensaje de éxito
         toastr()
-            ->timeOut(3000) // 3 second
+            ->timeOut(3000) // 3 segundos
             ->addSuccess("Usuario {$user->name} actualizado.");
 
+        // Redirigir a la lista de usuarios
         return redirect()->route('users.index');
     }
 

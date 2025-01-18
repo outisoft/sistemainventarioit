@@ -23,11 +23,11 @@
                                 required />
                         </div>
                         <div class="mb-3">
-                            <label for="rol">Rol</label>
+                            <x-input-label class="form-label" for="rol" :value="__('Rol')" />
                             <select name="rol" id="rol" class="form-control">
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}"
-                                        {{ $user->roles->contains($role->id) ? 'selected' : '' }}>
+                                    <option value="{{ $role->name }}"
+                                        {{ $user->roles->contains('name', $role->name) ? 'selected' : '' }}>
                                         {{ $role->name }}
                                     </option>
                                 @endforeach
@@ -35,16 +35,17 @@
                             <x-input-error :messages="$errors->get('rol')" class="mt-2" />
                         </div>
                         <div class="mb-3">
-                            <label for="region_id">Region</label>
-                            <select class="form-control" id="region_id" name="region_id"
+                            <x-input-label class="form-label" for="regions" :value="__('Region')" />
+                            <select class="form-control select2" id="regions" name="regions[]" multiple
                                 aria-label="Default select example">
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}"
-                                        {{ $user->region_id == $region->id ? 'selected' : '' }}>
-                                        {{ $region->name }}</option>
+                                        {{ in_array($region->id, $user->regions->pluck('id')->toArray()) ? 'selected' : '' }}>
+                                        {{ $region->name }}
+                                    </option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('rol')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('regions')" class="mt-2" />
                         </div>
                         <div class="form-group">
                             <label class="form-label" for="password">Pssword</label>
