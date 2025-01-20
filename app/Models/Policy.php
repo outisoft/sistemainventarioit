@@ -15,4 +15,15 @@ class Policy extends Model
     {
         return $this->hasMany(Coming2::class, 'policy_id');
     }
+
+    // Scope global para filtrar por región automáticamente
+    protected static function booted()
+    {
+        static::addGlobalScope('region', function (Builder $builder) {
+            if (auth()->check() && !auth()->user()->hasRole('Administrator')) {
+                $userRegions = auth()->user()->regions->pluck('id')->toArray();
+                $builder->whereIn('region_id', $userRegions);
+            }
+        });
+    }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Region;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Database\Seeder;
@@ -17,10 +18,16 @@ class RoleUserSeeder extends Seeder
     {
         $adminRole = Role::firstOrCreate(['name' => 'Administrator']);
 
-        // Asignar roles a usuarios
-        $adminUser = User::find(1); // Asumiendo que el usuario con ID 1 es el admin
-        if ($adminUser) {
-            $adminUser->assignRole($adminRole);
+        $user = User::find(1);
+        if ($user) {
+            $user->assignRole($adminRole);
+        }
+
+        if ($user) {
+            $region = Region::where('name', 'Mexico')->first();
+            if ($region) {
+                $user->regions()->attach($region->id);
+            }
         }
     }
 }

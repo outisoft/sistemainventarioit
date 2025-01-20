@@ -25,8 +25,14 @@ class SwitchController extends Controller
     {
         $switches = Swittch::with(['hotel', 'accessPoints', 'region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
+            ->orderBy('name', 'asc')
             ->get();
         $hotels = Hotel::orderBy('name', 'asc')->get();
         $regions = Region::orderBy('name', 'asc')->get();
@@ -87,12 +93,23 @@ class SwitchController extends Controller
 
             $registro = Swittch::create($validated);
             $registro->save();
+            $user = auth()->user();
+            $regionId = null;
+
+            if ($user->hasRole('Administrator')) {
+                // Si el usuario es administrador, usa la región seleccionada en el registro
+                $regionId = $request->input('region_id');
+            } else {
+                // Si el usuario es básico, usa la región a la que pertenece
+                $regionId = $user->regions->pluck('id')->first();
+            }
+
 
             Historial::create([
                 'accion' => 'Creacion',
                 'descripcion' => "Se agregó SW con el nombre: {$registro->name} y con N/S: {$registro->serial}",
-                'user_id' => $user,
-                'region_id' => auth()->user()->region_id,
+                'user_id' => $user->id,
+                'region_id' => $regionId,
             ]);
 
             toastr()
@@ -173,11 +190,22 @@ class SwitchController extends Controller
 
             $switch->update($validated);
 
+            $user = auth()->user();
+            $regionId = null;
+
+            if ($user->hasRole('admin')) {
+                // Si el usuario es administrador, usa la región seleccionada en el formulario de edición
+                $regionId = $request->input('region_id');
+            } else {
+                // Si el usuario es básico, usa la región a la que pertenece
+                $regionId = $user->regions->pluck('id')->first();
+            }
+
             Historial::create([
                 'accion' => 'Actualización',
                 'descripcion' => "Se actualizó SW con el nombre: {$switch->name} y con N/S: {$switch->serial}",
-                'user_id' => $user,
-                'region_id' => auth()->user()->region_id,
+                'user_id' => $user->id,
+                'region_id' => $regionId,
             ]);
 
             toastr()
@@ -219,7 +247,7 @@ class SwitchController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->name} con N/S {$registro->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
 
         toastr()

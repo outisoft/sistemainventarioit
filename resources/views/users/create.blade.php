@@ -62,8 +62,7 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-map-pin'></i>
                             </span>
-                            <select name="regions[]" class="form-control select2" id="regions" multiple
-                                aria-label="Default select example">
+                            <select name="regions[]" class="form-control select2" id="regions" multiple aria-label="Default select example">
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}">{{ $region->name }}</option>
                                 @endforeach

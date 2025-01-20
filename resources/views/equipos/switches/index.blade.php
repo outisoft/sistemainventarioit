@@ -51,6 +51,10 @@
                         </div>
                     </div>
                 </div>
+                @php
+                    $user = auth()->user();
+                    $userRegions = $user->regions;
+                @endphp
                 @include('equipos.switches.create')
                 @include('equipos.switches.edit')
 
@@ -62,7 +66,10 @@
                                 <th>Details</th>
                                 <th>IP</th>
                                 <th>MAC</th>
-                                <th>LOcation</th>
+                                @role('Administrator')
+                                    <th>Region</th>
+                                @endrole
+                                <th>Location</th>
                                 <th>Observations</th>
                                 <th>Actions</th>
                             </tr>
@@ -74,6 +81,9 @@
                                     <td>{{ $switch->marca }} / {{ $switch->model }} / {{ $switch->serial }}</td>
                                     <td>{{ $switch->ip }}</td>
                                     <td>{{ $switch->mac }}</td>
+                                    @role('Administrator')
+                                        <td>{{ $switch->region->name}} </td>
+                                    @endrole
                                     <td>{{ $switch->hotel->name }}</td>
                                     <td>{{ $switch->observacion }}</td>
                                     <td>

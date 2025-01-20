@@ -46,7 +46,8 @@ class Hotel extends Model
     {
         static::addGlobalScope('region', function (Builder $builder) {
             if (auth()->check() && !auth()->user()->hasRole('Administrator')) {
-                $builder->where('region_id', auth()->user()->region_id);
+                $userRegions = auth()->user()->regions->pluck('id')->toArray();
+                $builder->whereIn('region_id', $userRegions);
             }
         });
     }

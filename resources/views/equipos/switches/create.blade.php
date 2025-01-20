@@ -30,8 +30,22 @@
                     </div>
                         
                     @else
-                        <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
-                    @endrole
+                        @if ($userRegions->count() > 1)
+                            <!-- Si el usuario tiene múltiples regiones, muestra un campo de selección -->
+                            <div class="mb-3">
+
+                            <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                <select name="region_id" id="region_id" class="form-control">
+                                    @foreach ($userRegions as $region)
+                                        <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @else
+                            <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
+                            <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
+                        @endif
+                    @endif
                     
                     <!-- NOMBRE -->
                     <div class="mb-3">

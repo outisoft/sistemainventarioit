@@ -36,8 +36,7 @@
                         </div>
                         <div class="mb-3">
                             <x-input-label class="form-label" for="regions" :value="__('Region')" />
-                            <select class="form-control select2" id="regions" name="regions[]" multiple
-                                aria-label="Default select example">
+                            <select class="form-control select2" id="regions" name="regions[]" multiple aria-label="Default select example">
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}"
                                         {{ in_array($region->id, $user->regions->pluck('id')->toArray()) ? 'selected' : '' }}>

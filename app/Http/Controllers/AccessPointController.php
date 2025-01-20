@@ -23,10 +23,18 @@ class AccessPointController extends Controller
 
     public function index()
     {
+        $user = auth()->user();
+
         $accessPoints = AccessPoint::with(['region', 'swittch'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
+            ->orderBy('name', 'asc')
             ->get();
         $regions = Region::orderBy('name', 'asc')->get();
         $switches = Swittch::orderBy('name', 'asc')->get();
@@ -73,13 +81,22 @@ class AccessPointController extends Controller
 
             $registro = AccessPoint::create($validated);
 
-            $registro->save();
+            $user = auth()->user();
+            $regionId = null;
+
+            if ($user->hasRole('Administrator')) {
+                // Si el usuario es administrador, usa la región seleccionada en el registro
+                $regionId = $request->input('region_id');
+            } else {
+                // Si el usuario es básico, usa la región a la que pertenece
+                $regionId = $user->regions->pluck('id')->first();
+            }
 
             Historial::create([
                 'accion' => 'Creacion',
                 'descripcion' => "Se agregó el AP con el nombre: {$registro->name} y con N/S: {$registro->serial}",
-                'user_id' => $user,
-                'region_id' => auth()->user()->region_id,
+                'user_id' => $user->id,
+                'region_id' => $regionId,
             ]);
 
             toastr()

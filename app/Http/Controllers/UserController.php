@@ -27,10 +27,18 @@ class UserController extends Controller
     {
         $users = User::with(['regions', 'roles'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('regions', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
+            ->orderBy('name', 'asc')
             ->get();
-        $regions = Region::orderBy('name', 'asc')->get();
+        
+        $user = auth()->user();
+        $regions = $user->hasRole('Administrator') ? Region::all() : $user->regions;
         $roles = Role::all();
         return view('users.index', compact('users', 'roles', 'regions'));
     }

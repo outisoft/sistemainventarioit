@@ -57,7 +57,7 @@
                                                 @role('Administrator')
                                                     <td>{{ $empleado->region->name}} </td>
                                                 @endrole
-                                                <td>{{ $empleado->hotel->name }}</td>
+                                                <td>{{ $empleado->hotel ? $empleado->hotel->name : 'Sin hotel asignado' }}</td>
                                                 <td>{{ $empleado->departments->name }}</td>
                                                 <!--td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td-->
                                                 <td>{{ $empleado->ad }}</td>
