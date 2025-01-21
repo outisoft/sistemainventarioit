@@ -130,7 +130,10 @@ class AssignmentController extends Controller
         } // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
 
         $pdf = FacadePdf::loadView('assignment.save-pdf', compact('empleado', 'date', 'complements', 'user'));
-        return $pdf->stream();
+        
+        // Asignar el nombre del empleado al archivo PDF
+        $fileName = $empleado->name . '-.pdf';
+        return $pdf->download($fileName);
     }
 
     public function generateQRCode($employeeId)
