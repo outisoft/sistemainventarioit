@@ -22,8 +22,8 @@
                             <x-text-input id="name" class="form-control" type="text" name="name"
                                 placeholder="Juan Cerez" :value="old('name')" required autofocus autocomplete="name" />
                         </div>
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
-                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
 
                     <!-- Email Address -->
                     <div class="mt-4">
@@ -62,7 +62,8 @@
                             <span id="basic-icon-default-fullname2" class="input-group-text">
                                 <i class='bx bx-map-pin'></i>
                             </span>
-                            <select name="regions[]" class="form-control select2" id="regions" multiple aria-label="Default select example">
+                            <select name="regions[]" class="form-control select2" id="regions" multiple
+                                aria-label="Default select example">
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}">{{ $region->name }}</option>
                                 @endforeach

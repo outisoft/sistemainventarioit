@@ -13,24 +13,6 @@
                     </div>
                     <div class="modal-body">
                         <input type="hidden" id="edit_access_point_id" name="id">
-                        <!-- Region -->
-                        {{-- Región (solo visible para administradores) --}}
-                        @role('Administrator')
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
-                                <select class="form-control" id="region_id" name="region_id"
-                                    aria-label="Default select example">
-                                    @foreach ($regions as $region)
-                                        <option value="{{ $region->id }}"
-                                            {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
-                                            {{ $region->name }}</option>
-                                    @endforeach
-                                </select>
-                                <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
-                            </div>
-                        @else
-                            <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
-                        @endrole
                         <!-- Nmae -->
                         <div class="mb-3">
                             <x-input-label class="form-label" for="name{{ $equipo->name }}" :value="__('Name')" />
@@ -88,8 +70,7 @@
                             <x-input-label class="form-label" for="ip{{ $equipo->ip }}" :value="__('IP')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="edit_ip" class="form-control" type="text" name="ip"
-                                    placeholder="10.01.2.31" value="{{ $equipo->ip }}" required
-                                    autocomplete="ip" />
+                                    placeholder="10.01.2.31" value="{{ $equipo->ip }}" required autocomplete="ip" />
                             </div>
                             <x-input-error :messages="$errors->get('ip')" class="mt-2" />
                         </div>

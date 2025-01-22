@@ -12,16 +12,20 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label class="form-label" for="name">Name</label>
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="name" :value="__('Name')" />
                             <x-text-input type="text" name="name" class="form-control" value="{{ $user->name }}"
                                 required />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
+
                         <div class="form-group">
-                            <label class="form-label" for="email">Email</label>
+                            <x-input-label class="form-label" for="email" :value="__('Email')" />
                             <x-text-input type="email" name="email" class="form-control" value="{{ $user->email }}"
                                 required />
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
+
                         <div class="mb-3">
                             <x-input-label class="form-label" for="rol" :value="__('Rol')" />
                             <select name="rol" id="rol" class="form-control">
@@ -36,7 +40,8 @@
                         </div>
                         <div class="mb-3">
                             <x-input-label class="form-label" for="regions" :value="__('Region')" />
-                            <select class="form-control select2" id="regions" name="regions[]" multiple aria-label="Default select example">
+                            <select class="form-control select2" id="regions" name="regions[]" multiple
+                                aria-label="Default select example">
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}"
                                         {{ in_array($region->id, $user->regions->pluck('id')->toArray()) ? 'selected' : '' }}>
@@ -47,8 +52,12 @@
                             <x-input-error :messages="$errors->get('regions')" class="mt-2" />
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="password">Pssword</label>
-                            <x-text-input type="password" name="password" class="form-control" />
+                            <x-input-label class="form-label" for="password" :value="__('Nueva Contraseña')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="password" name="password" type="password" class="form-control"
+                                    autocomplete="new-password" />
+                                <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+                            </div>
                         </div>
                     </div>
 
