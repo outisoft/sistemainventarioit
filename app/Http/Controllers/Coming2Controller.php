@@ -29,98 +29,129 @@ class Coming2Controller extends Controller
         $politicas = Policy::orderBy('name')->get();
         $tablets = Coming2::with(['region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
+            ->orderBy('operario', 'asc')
             ->get();
-        return view('coming2.index', compact('tablets', 'politicas', 'regions'));
+        
+        $userRegions = auth()->user()->regions;
+        
+        return view('coming2.index', compact('userRegions', 'tablets', 'politicas', 'regions'));
     }
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'region_id' => 'required',
-            'operario' => 'required',
-            'puesto' => 'required',
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Coming2::class],
-            'usuario' => 'required',
-            'password' => 'required',
-            'numero_tableta' => 'required',
-            'model' => 'required',
-            'serial' => 'required',
-            'numero_telefono' => 'required',
-            'imei' => 'required',
-            'sim' => 'required',
-            'policy_id' => 'required',
-            'configurada' => 'required',
-            'carta_firmada' => 'required',
-            'observacion' => 'required',
-            'folio_baja' => 'required',
-        ]);
+        try {
+            $data = $request->validate([
+                'region_id' => 'required',
+                'operario' => 'required',
+                'puesto' => 'required',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:' . Coming2::class],
+                'usuario' => ['required', 'unique:' . Coming2::class],
+                'password' => ['required'],
+                'numero_tableta' => ['required', 'unique:' . Coming2::class],
+                'model' => 'required',
+                'serial' => ['required', 'unique:' . Coming2::class],
+                'numero_telefono' => ['required', 'unique:' . Coming2::class],
+                'imei' => ['required', 'unique:' . Coming2::class],
+                'sim' => ['required', 'unique:' . Coming2::class],
+                'policy_id' => 'required',
+                'configurada' => 'required',
+                'carta_firmada' => 'required',
+                'observacion' => 'required',
+                'folio_baja' => ['required', 'unique:' . Coming2::class],
+            ], [
+                'email.unique' => 'Este email ya está en uso por otro operario.',
+                'usuario.unique' => 'El nombre de usuario ya esta en uso.',
+                'numero_tableta.unique' => 'El numero de tableta ya esta en uso.',
+                'serial.unique' => 'El numero de serie ya esta en uso.',
+                'numero_telefono.unique' => 'El numero de telefono ya esta en uso.',
+                'imei.unique' => 'El numero de IMEI ya esta en uso.',
+                'sim.unique' => 'El numero de SIM ya esta en uso.',
+                'folio_baja.unique' => 'El numero de folio de baja ya esta en uso.',
+            ]);
 
-        $registro = Coming2::create($data);
+            $registro = Coming2::create($data);
 
-        //dd($request);
-        $user = auth()->id();
+            $registro->regions()->sync($request->regions);
 
-        Historial::create([
-            'accion' => 'Creacion',
-            'descripcion' => "Se creó la tableta para {$registro->operario} con numero de serie {$registro->serial}",
-            'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
-        ]);
+            //dd($request);
+            $user = auth()->id();
 
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Registro creado exitosamente.");
+            Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se creó la tableta para {$registro->operario} con numero de serie {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->regions()->sync($request->regions),
+            ]);
 
-        return redirect()->route('coming2.index');
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro creado exitosamente.");
+
+            return redirect()->route('coming2.index');
+
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Coming2 $coming2)
     {
         $policies = Policy::orderBy('name')->get();
         return view('coming2.show', compact('coming2', 'policies'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $tablets = Coming2::findOrFail($id);
         $politicas = Policy::orderBy('name')->get();
         $regions = Region::orderBy('name')->get();
-        //dd($configurada);
-        return view('coming2.edit', compact('tablets', 'politicas', 'regions'));
+        $userRegions = auth()->user()->regions;
+        return view('coming2.edit', compact('userRegions', 'tablets', 'politicas', 'regions'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, $id)
     {
-        //dd($request);
         $data = $request->validate([
             'region_id' => 'required',
             'operario' => 'required',
             'puesto' => 'required',
-            'email' => 'required|email',
-            'usuario' => 'required',
-            'password' => 'required',
-            'numero_tableta' => 'required',
+            'email' => 'required|string|email|max:255|unique:coming2s,email,' . $id,
+            'usuario' => ['required', 'unique:coming2s,usuario,' . $id],
+            'password' => ['required'],
+            'numero_tableta' => ['required', 'unique:coming2s,numero_tableta,' . $id],
             'model' => 'required',
-            'serial' => 'required',
-            'numero_telefono' => 'required',
-            'imei' => 'required',
-            'sim' => 'required',
+            'serial' => ['required', 'unique:coming2s,serial,' . $id],
+            'numero_telefono' => ['required', 'unique:coming2s,numero_telefono,' . $id],
+            'imei' => ['required', 'unique:coming2s,imei,' . $id],
+            'sim' => ['required', 'unique:coming2s,sim,' . $id],
             'policy_id' => 'required',
             'configurada' => 'required',
             'carta_firmada' => 'required',
             'observacion' => 'required',
-            'folio_baja' => 'required',
+            'folio_baja' => ['required', 'unique:coming2s,folio_baja,' . $id],
+        ], [
+            'email.unique' => 'Este email ya está en uso por otro operario.',
+            'usuario.unique' => 'El nombre de usuario ya esta en uso.',
+            'numero_tableta.unique' => 'El numero de tableta ya esta en uso.',
+            'serial.unique' => 'El numero de serie ya esta en uso.',
+            'numero_telefono.unique' => 'El numero de telefono ya esta en uso.',
+            'imei.unique' => 'El numero de IMEI ya esta en uso.',
+            'sim.unique' => 'El numero de SIM ya esta en uso.',
+            'folio_baja.unique' => 'El numero de folio de baja ya esta en uso.',
         ]);
 
         $registro = Coming2::findOrFail($id);
@@ -132,7 +163,7 @@ class Coming2Controller extends Controller
             'accion' => 'Actualizacion',
             'descripcion' => "Se actualizo la tableta de {$registro->operario} con numero de serie {$registro->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
 
         toastr()
@@ -153,7 +184,7 @@ class Coming2Controller extends Controller
             'accion' => 'Papelera',
             'descripcion' => "Se envio a la papelera la tablet con numero de serie {$tablet->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $tablet->region_id,
         ]);
 
         toastr()
@@ -165,16 +196,16 @@ class Coming2Controller extends Controller
     // Método para restaurar empleado
     public function restore($id)
     {
-        $empleado = Coming2::withTrashed()->findOrFail($id);
-        $empleado->restore();
+        $tablet = Coming2::withTrashed()->findOrFail($id);
+        $tablet->restore();
 
         $user = auth()->id();
 
         Historial::create([
             'accion' => 'Papelera',
-            'descripcion' => "Se restauro de la papelera la tablet con numero de serie {$empleado->serial}",
+            'descripcion' => "Se restauro de la papelera la tablet con numero de serie {$tablet->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $tablet->region_id,
         ]);
 
         toastr()
@@ -204,7 +235,7 @@ class Coming2Controller extends Controller
                 'accion' => 'Eliminacion',
                 'descripcion' => "Se elimino la tableta de {$tablet->operario} con numero de serie {$tablet->serial}",
                 'user_id' => $user,
-                'region_id' => auth()->user()->region_id,
+                'region_id' => $tablet->region_id,
             ]);
 
             toastr()

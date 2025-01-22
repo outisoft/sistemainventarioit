@@ -38,8 +38,11 @@ class AccessPointController extends Controller
             ->get();
         $regions = Region::orderBy('name', 'asc')->get();
         $switches = Swittch::orderBy('name', 'asc')->get();
+
+        $userRegions = auth()->user()->regions;
+        //dd($userRegions);
         
-        return view('equipos.access_points.index', compact('accessPoints', 'switches', 'regions'));
+        return view('equipos.access_points.index', compact('userRegions', 'accessPoints', 'switches', 'regions'));
     }
 
     public function store(Request $request)
@@ -47,8 +50,7 @@ class AccessPointController extends Controller
         $user = auth()->id();
         
         try {
-            $validated = $request->validate([
-                'region_id' => 'required',
+            $data = $request->validate([
                 'name' => [
                     'required',
                     'unique:access_points',
@@ -79,29 +81,33 @@ class AccessPointController extends Controller
                 'serial.unique' => 'Este número de serie ya está registrado.',
             ]);
 
-            $registro = AccessPoint::create($validated);
+            $switch = Swittch::findOrFail($data['swittch_id']);
+
+            $accessPoint = AccessPoint::create([
+                'region_id' => $switch->region_id,
+                'name' => $data['name'],
+                'marca' => $data['marca'],
+                'model' => $data['model'],
+                'serial' => $data['serial'],
+                'mac' => $data['mac'],
+                'ip' => $data['ip'],
+                'swittch_id' => $data['swittch_id'],
+                'port_number' => $data['port_number'],
+                // Otros campos
+            ]);
 
             $user = auth()->user();
-            $regionId = null;
-
-            if ($user->hasRole('Administrator')) {
-                // Si el usuario es administrador, usa la región seleccionada en el registro
-                $regionId = $request->input('region_id');
-            } else {
-                // Si el usuario es básico, usa la región a la que pertenece
-                $regionId = $user->regions->pluck('id')->first();
-            }
 
             Historial::create([
                 'accion' => 'Creacion',
-                'descripcion' => "Se agregó el AP con el nombre: {$registro->name} y con N/S: {$registro->serial}",
+                'descripcion' => "Se agregó el AP con el nombre: {$data->name} y con N/S: {$data->serial}",
                 'user_id' => $user->id,
-                'region_id' => $regionId,
+                'region_id' => $switch->region_id,
             ]);
 
             toastr()
                 ->timeOut(3000)
-                ->addSuccess("Se creó {$registro->name} ({$registro->serial}) correctamente.");
+                ->addSuccess("Se creó {$data->name} ({$data->serial}) correctamente.");
 
 
             return redirect()->route('access-points.index');
@@ -135,34 +141,33 @@ class AccessPointController extends Controller
         return view('equipos.access_points.show', compact('accessPoint', 'swittch'));
     }
 
-    public function update(Request $request, AccessPoint $accessPoint)
+    public function update(Request $request, $id)
     {
         $user = auth()->id();
         
         try {
-            $validated = $request->validate([
-                'region_id' => 'required',
+            $data = $request->validate([
                 'name' => [
                     'required',
                     'string',
                     'max:255',
-                    Rule::unique('access_points')->ignore($accessPoint->id),
+                    'unique:access_points,name,' . $id,
                 ],
                 'marca' => 'required',
                 'model' => 'required',
                 'serial' => [
                     'required',
-                    Rule::unique('access_points')->ignore($accessPoint->id),
+                    'unique:access_points,serial,' . $id,
                 ],
                 'mac' => [
                     'required',
                     'regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
-                    Rule::unique('access_points')->ignore($accessPoint->id),
+                    'unique:access_points,mac,' . $id,
                 ],
                 'ip' => [
                     'required',
                     'ip',
-                    Rule::unique('access_points')->ignore($accessPoint->id),
+                    'unique:access_points,ip,' . $id,
                 ],
                 'swittch_id' => 'required|exists:swittches,id',
                 'port_number' => 'required',
@@ -174,13 +179,28 @@ class AccessPointController extends Controller
                 'mac.unique' => 'Esta dirección MAC ya está registrada.',
                 'serial.unique' => 'Este número de serie ya está registrado.',
             ]);
-            $accessPoint->update($validated);
+
+            $switch = Swittch::findOrFail($data['swittch_id']);
+
+            $accessPoint = AccessPoint::findOrFail($id);
+
+            $accessPoint->update([
+                'region_id' => $switch->region_id,
+                'name' => $data['name'],
+                'marca' => $data['marca'],
+                'model' => $data['model'],
+                'serial' => $data['serial'],
+                'mac' => $data['mac'],
+                'ip' => $data['ip'],
+                'swittch_id' => $data['swittch_id'],
+                'port_number' => $data['port_number'],
+            ]);
 
             Historial::create([
                 'accion' => 'Actualización',
                 'descripcion' => "Se actualizó el AP de nombre: {$accessPoint->name} y con N/S: {$accessPoint->serial}",
                 'user_id' => $user,
-                'region_id' => auth()->user()->region_id,
+                'region_id' => $switch->region_id,
             ]);
 
             toastr()

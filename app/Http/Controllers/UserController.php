@@ -132,7 +132,7 @@ class UserController extends Controller
         ]);
 
         // Sincronizar las regiones del usuario
-        $user->regions()->sync($request->regions);
+        $user->regions()->sync($data['regions']);
 
         // Verificar si el rol ha cambiado
         $currentRole = $user->roles->first()->name ?? null;
