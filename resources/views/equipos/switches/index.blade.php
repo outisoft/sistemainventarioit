@@ -6,10 +6,10 @@
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> Switches </h4>
 
             <!-- Tarjeta de hoteles -->
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <!--div class="container-xxl flex-grow-1 container-p-y">
                 <div class="row g-6 mb-6">
                     @foreach ($hoteles as $hotel)
-                        <div class="col-sm-6 col-xl-3">
+<div class="col-sm-6 col-xl-3">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-start justify-content-between">
@@ -30,9 +30,9 @@
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+@endforeach
                 </div>
-            </div>
+            </div-->
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -82,7 +82,7 @@
                                     <td>{{ $switch->ip }}</td>
                                     <td>{{ $switch->mac }}</td>
                                     @role('Administrator')
-                                        <td>{{ $switch->region->name}} </td>
+                                        <td>{{ $switch->region->name }} </td>
                                     @endrole
                                     <td>{{ $switch->hotel->name }}</td>
                                     <td>{{ $switch->observacion }}</td>
