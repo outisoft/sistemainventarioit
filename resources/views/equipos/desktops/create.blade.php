@@ -2,9 +2,9 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            
+
             <form method="POST" action="{{ route('desktops.store') }}">
-            @csrf
+                @csrf
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">Desktop</h4>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
@@ -54,15 +54,15 @@
                             <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
                             <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
                         @endif
-                    @endif
+                    @endrole
+
 
                     <!-- Marca -->
                     <div class="mb-3">
                         <x-input-label class="form-label" for="marca" :value="__('Equipment Brand')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="marca" class="form-control" type="text"
-                                name="marca" placeholder="HP" :value="old('marca')" required
-                                autocomplete="marca" />
+                            <x-text-input id="marca" class="form-control" type="text" name="marca"
+                                placeholder="HP" :value="old('marca')" required autocomplete="marca" />
                         </div>
                         <x-input-error :messages="$errors->get('marca')" class="mt-2" />
                     </div>
@@ -71,9 +71,8 @@
                     <div class="mb-3">
                         <x-input-label class="form-label" for="model" :value="__('Model')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="model" class="form-control" type="text"
-                                name="model" placeholder="SmartBook" :value="old('model')" required
-                                autocomplete="model" />
+                            <x-text-input id="model" class="form-control" type="text" name="model"
+                                placeholder="SmartBook" :value="old('model')" required autocomplete="model" />
                         </div>
                         <x-input-error :messages="$errors->get('model')" class="mt-2" />
                     </div>
@@ -82,9 +81,8 @@
                     <div class="mb-3">
                         <x-input-label class="form-label" for="serial" :value="__('Serial number')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="serial" class="form-control" type="text"
-                                name="serial" placeholder="R5BDI87D80" :value="old('serial')" required
-                                autocomplete="serial" />
+                            <x-text-input id="serial" class="form-control" type="text" name="serial"
+                                placeholder="R5BDI87D80" :value="old('serial')" required autocomplete="serial" />
                         </div>
                         <x-input-error :messages="$errors->get('serial')" class="mt-2" />
                     </div>
@@ -93,9 +91,8 @@
                     <div class="mb-3">
                         <x-input-label class="form-label" for="name" :value="__('Equipment Name')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="name" class="form-control" type="text"
-                                name="name" placeholder="TULSIS001" :value="old('name')" required
-                                autocomplete="name" />
+                            <x-text-input id="name" class="form-control" type="text" name="name"
+                                placeholder="TULSIS001" :value="old('name')" required autocomplete="name" />
                         </div>
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
@@ -104,9 +101,8 @@
                     <div class="mb-3">
                         <x-input-label class="form-label" for="ip" :value="__('IP')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="ip" class="form-control" type="text"
-                                name="ip" placeholder="10.1.35.48" :value="old('ip')" required
-                                autocomplete="ip" />
+                            <x-text-input id="ip" class="form-control" type="text" name="ip"
+                                placeholder="10.1.35.48" :value="old('ip')" required autocomplete="ip" />
                         </div>
                         <x-input-error :messages="$errors->get('ip')" class="mt-2" />
                     </div>
@@ -115,9 +111,8 @@
                     <div class="mb-3">
                         <x-input-label class="form-label" for="so" :value="__('Operating system')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="so" class="form-control" type="text"
-                                name="so" placeholder="Windows 10" :value="old('so')" required
-                                autocomplete="so" />
+                            <x-text-input id="so" class="form-control" type="text" name="so"
+                                placeholder="Windows 10" :value="old('so')" required autocomplete="so" />
                         </div>
                         <x-input-error :messages="$errors->get('so')" class="mt-2" />
                     </div>
@@ -126,9 +121,8 @@
                     <div class="mb-3">
                         <x-input-label class="form-label" for="orden" :value="__('Order')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="orden" class="form-control" type="text"
-                                name="orden" placeholder="ORDEN #1234" :value="old('orden')" required
-                                autocomplete="orden" />
+                            <x-text-input id="orden" class="form-control" type="text" name="orden"
+                                placeholder="ORDEN #1234" :value="old('orden')" required autocomplete="orden" />
                         </div>
                         <x-input-error :messages="$errors->get('orden')" class="mt-2" />
                     </div>

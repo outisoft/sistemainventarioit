@@ -28,7 +28,12 @@ class OtherController extends Controller
         $equipos = Equipo::where('tipo_id', $tipo->id)
             ->with(['region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
             ->get();
 
@@ -38,7 +43,9 @@ class OtherController extends Controller
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
-        return view('equipos.other.index', compact('equipos', 'regions'));
+        $userRegions = auth()->user()->regions;
+
+        return view('equipos.other.index', compact('userRegions', 'equipos', 'regions'));
     }
 
     public function store(Request $request)
@@ -67,7 +74,7 @@ class OtherController extends Controller
                 'accion' => 'Creacion',
                 'descripcion' => "Se agregó equipo con el nombre: {$registro->no_contrato} y con N/S: {$registro->serial}",
                 'user_id' => $user,
-                'region_id' => auth()->user()->region_id,
+                'region_id' => $registro->region_id,
             ]);
 
             toastr()
@@ -123,7 +130,7 @@ class OtherController extends Controller
                 'accion' => 'Actualización',
                 'descripcion' => "Se actualizó SW con el nombre: {$registro->no_contrato} y con N/S: {$registro->serial}",
                 'user_id' => $user,
-                'region_id' => auth()->user()->region_id,
+                'region_id' => $registro->region_id,
             ]);
 
             toastr()
@@ -165,7 +172,7 @@ class OtherController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->no_contrato} con N/S {$registro->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
 
         toastr()

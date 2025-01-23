@@ -119,7 +119,7 @@ class DesktopController extends Controller
                 'region_id' => $registro->region_id,
             ]);
             toastr()
-                ->timeOut(3000) // 3 second
+                ->timeOut(3000) 
                 ->addSuccess("Se actualizo el {$registro->name} correctamente.");
 
             return redirect()->route('desktops.index');

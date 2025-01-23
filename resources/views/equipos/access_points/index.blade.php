@@ -30,6 +30,14 @@
                     <table id="aps" class="table">
                         <thead class="bg-primary">
                             <tr>
+                                @role('Administrator')
+                                    <th>Region</th>
+                                @else
+                                    @if ($userRegions->count() > 1)
+                                        <th>Region</th>
+                                    @else
+                                    @endif
+                                @endrole
                                 <th>Name</th>
                                 <th>IP</th>
                                 <th>MAC</th>
@@ -40,6 +48,14 @@
                         <tbody>
                             @foreach ($accessPoints as $ap)
                                 <tr>
+                                    @role('Administrator')
+                                        <td>{{ $ap->region->name }} </td>
+                                    @else
+                                        @if ($userRegions->count() > 1)
+                                            <td>{{ $ap->region->name }} </td>
+                                        @else
+                                        @endif
+                                    @endrole
                                     <td>{{ $ap->name }}</td>
                                     <td>{{ $ap->ip }}</td>
                                     <td>{{ $ap->mac }}</td>

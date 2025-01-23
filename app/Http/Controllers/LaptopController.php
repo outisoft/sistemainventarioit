@@ -28,7 +28,12 @@ class LaptopController extends Controller
         $equipos = Equipo::where('tipo_id', $tipo->id)
             ->with(['region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
             ->get();
 
@@ -38,41 +43,55 @@ class LaptopController extends Controller
         foreach ($equipos as $equipo) {
             $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
         }
-        return view('equipos.laptops.index', compact('equipos', 'regions'));
+        $userRegions = auth()->user()->regions;
+
+        return view('equipos.laptops.index', compact('userRegions', 'equipos', 'regions'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $tipo = $request->input('tipo_id');
-        
+    {        
         $user = auth()->id();
-
-        $data = $request->validate([
-            'tipo_id' => 'required',
-            'marca' => 'required',
-            'model' => 'required',
-            'serial' => 'required|unique:equipos,serial',
-            'name' => 'required|unique:equipos,name',
-            'ip' => 'required|unique:equipos,ip',
-            'so' => 'required',
-            'orden' => 'required',
-            'region_id' => 'required',
-        ]);
-        $registro = Equipo::create($data);
-        $registro->save();
-        Historial::create([
-            'accion' => 'Creacion',
-            'descripcion' => "Se agrego la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
-            'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
-        ]);
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Se creo {$registro->name} correctamente.");
-        return redirect()->route('laptops.index');
+        try {
+            $data = $request->validate([
+                'tipo_id' => 'required',
+                'marca' => 'required',
+                'model' => 'required',
+                'serial' => 'required|unique:equipos,serial',
+                'name' => 'required|unique:equipos,name',
+                'ip' => 'required|unique:equipos,ip',
+                'so' => 'required',
+                'orden' => 'required',
+                'region_id' => 'required',
+            ], [
+                'serial.unique' => 'Este No. de serie ya existe.',
+                'name.unique' => 'Este nombre de equipo ya existe.',
+                'ip.unique' => 'Esta IP ya esta en uso.',
+            ]);
+            $registro = Equipo::create($data);
+            $registro->save();
+            Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se agrego la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Se creo {$registro->name} correctamente.");
+            return redirect()->route('laptops.index');
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
     /**
@@ -81,32 +100,56 @@ class LaptopController extends Controller
     public function update(Request $request, string $id)
     {
         $user = auth()->id();
+        try {
+            $data = $request->validate([
+                'marca' => 'required',
+                'model' => 'required',
+                'serial' => 'required|unique:equipos,serial,' . $id,
+                'name' => 'required|unique:equipos,name,' . $id,
+                'ip' => 'required|unique:equipos,ip,' . $id,
+                'so' => 'required',
+                'orden' => 'required',
+                'region_id' => 'required',
+            ], [
+                'serial.unique' => 'Este No. de serie ya existe.',
+                'name.unique' => 'Este nombre de equipo ya existe.',
+                'ip.unique' => 'Esta IP ya esta en uso.',
+            ]);
 
-        $data = $request->validate([
-            'marca' => 'required',
-            'model' => 'required',
-            'serial' => 'required|unique:equipos,serial,' . $id,
-            'name' => 'required|unique:equipos,name,' . $id,
-            'ip' => 'required|unique:equipos,ip,' . $id,
-            'so' => 'required',
-            'orden' => 'required',
-            'region_id' => 'required',
-        ]);
+            $registro = Equipo::findOrFail($id);
+            $registro->update($data);
 
-        $registro = Equipo::findOrFail($id);
-        $registro->update($data);
+            Historial::create([
+                'accion' => 'Actualizacion',
+                'descripcion' => "Se actualizo la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Se actualizo el {$registro->name} correctamente.");
 
-        Historial::create([
-            'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
-            'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
-        ]);
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Se actualizo el {$registro->name} correctamente.");
-
-        return redirect()->route('laptops.index');
+            return redirect()->route('laptops.index');
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
     /**
@@ -123,7 +166,7 @@ class LaptopController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
 
         toastr()

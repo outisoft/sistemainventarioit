@@ -17,7 +17,10 @@
                         <div class="nav-item d-flex align-items-center">
 
                             @can('empleados.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Add new employee</span>">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Add new employee</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
                             @endcan
@@ -45,7 +48,8 @@
                                                     <th>Region</th>
                                                 @else
                                                 @endif
-                                            @endif
+                                            @endrole
+
                                             <th>Hotel</th>
                                             <th>Department</th>
                                             <th>AD</th>
@@ -56,18 +60,20 @@
                                         <!-- Aquí se mostrarán los empleados -->
                                         @foreach ($empleados as $empleado)
                                             <tr>
-                                                <td>{{ $empleado->no_empleado}}</td>
+                                                <td>{{ $empleado->no_empleado }}</td>
                                                 <td>{{ Str::limit($empleado->name, 20, ' ...') }}</td>
                                                 <td>{{ Str::limit($empleado->puesto, 20, ' ...') }}</td>
                                                 @role('Administrator')
-                                                    <td>{{ $empleado->region->name}} </td>
+                                                    <td>{{ $empleado->region->name }} </td>
                                                 @else
                                                     @if ($userRegions->count() > 1)
-                                                        <td>{{ $empleado->region->name}} </td>
+                                                        <td>{{ $empleado->region->name }} </td>
                                                     @else
                                                     @endif
-                                                @endif
-                                                <td>{{ $empleado->hotel ? $empleado->hotel->name : 'Sin hotel asignado' }}</td>
+                                                @endrole
+
+                                                <td>{{ $empleado->hotel ? $empleado->hotel->name : 'Sin hotel asignado' }}
+                                                </td>
                                                 <td>{{ $empleado->departments->name }}</td>
                                                 <!--td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td-->
                                                 <td>{{ $empleado->ad }}</td>
@@ -81,11 +87,17 @@
                                                         <div class="dropdown-menu">
 
                                                             @can('empleados.show')
-                                                                <a href="{{ route('assignment.show', $empleado->id) }}" class="dropdown-item"><i class='bx bx-show-alt'></i></i>Show</a>
+                                                                <a href="{{ route('assignment.show', $empleado->id) }}"
+                                                                    class="dropdown-item"><i
+                                                                        class='bx bx-show-alt'></i></i>Show</a>
                                                             @endcan
 
                                                             @can('empleados.edit')
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-empleado-id="{{ $empleado->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal"
+                                                                    data-empleado-id="{{ $empleado->id }}"
+                                                                    class="dropdown-item btn-edit"><i
+                                                                        class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 
                                                             @can('empleados.destroy')
@@ -94,8 +106,7 @@
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit"
-                                                                        class="dropdown-item btn-danger"
+                                                                    <button type="submit" class="dropdown-item btn-danger"
                                                                         onclick="return confirm('Are you sure to delete this employee?')"><i
                                                                             class="bx bx-trash me-1"></i>Delete</button>
                                                                 </form>
@@ -117,4 +128,3 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
-

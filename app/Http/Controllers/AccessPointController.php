@@ -40,7 +40,6 @@ class AccessPointController extends Controller
         $switches = Swittch::orderBy('name', 'asc')->get();
 
         $userRegions = auth()->user()->regions;
-        //dd($userRegions);
         
         return view('equipos.access_points.index', compact('userRegions', 'accessPoints', 'switches', 'regions'));
     }

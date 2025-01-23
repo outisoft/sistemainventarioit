@@ -1,6 +1,7 @@
 <!-- Modales de Edición -->
-@foreach($hotels as $hotel)
-    <div class="modal fade" id="editModal{{ $hotel->id }}" tabindex="-1" aria-labelledby="editModal{{ $hotel->id }}" aria-hidden="true">
+@foreach ($hotels as $hotel)
+    <div class="modal fade" id="editModal{{ $hotel->id }}" tabindex="-1" aria-labelledby="editModal{{ $hotel->id }}"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -11,6 +12,42 @@
                     <form action="{{ route('hotels.update', $hotel) }}" method="POST">
                         @csrf
                         @method('PUT')
+
+                        <!-- Region -->
+                        @role('Administrator')
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                <select class="form-control" id="region_id" name="region_id"
+                                    aria-label="Default select example">
+                                    @foreach ($regions as $region)
+                                        <option value="{{ $region->id }}"
+                                            {{ $hotel->region_id == $region->id ? 'selected' : '' }}>
+                                            {{ $region->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                            </div>
+                        @else
+                            @if ($userRegions->count() > 1)
+                                <!-- Si el usuario tiene múltiples regiones, muestra un campo de selección -->
+                                <div class="mb-3">
+                                    <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                    <select class="form-control" id="region_id" name="region_id"
+                                        aria-label="Default select example">
+                                        @foreach ($userRegions as $region)
+                                            <option value="{{ $region->id }}"
+                                                {{ $hotel->region_id == $region->id ? 'selected' : '' }}>
+                                                {{ $region->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                                </div>
+                            @else
+                                <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
+                                <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
+                            @endif
+                        @endrole
                         <!-- Name -->
                         <div class="mb-3">
                             <x-input-label class="form-label" for="name" :value="__('Nombre')" />
@@ -31,32 +68,18 @@
                             </div>
                         </div>
 
-                        <!-- Reegion -->
-                        <div class="mb-3">
-                            <x-input-label class="form-label" for="region_id" :value="__('Region')" />
-                            <select class="form-control" id="region_id" name="region_id"
-                                aria-label="Default select example">
-                                @foreach ($regions as $region)
-                                    <option value="{{ $region->id }}"
-                                        {{ $hotel->region_id == $region->id ? 'selected' : '' }}>
-                                        {{ $region->name }}</option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
-                        </div>
-
                         <hr class="my-0">
 
                         <div class="mb-3">
                             <x-input-label class="form-label" for="departments" :value="__('Departments')" />
-                            @foreach($departments as $department)
+                            @foreach ($departments as $department)
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                            name="department_ids[]" 
-                                            value="{{ $department->id }}" 
-                                            id="department_ids{{ $hotel->id }}{{ $department->id }}"
-                                            {{ $hotel->departments->contains($department->id) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="department_ids{{ $hotel->id }}{{ $department->id }}">
+                                    <input class="form-check-input" type="checkbox" name="department_ids[]"
+                                        value="{{ $department->id }}"
+                                        id="department_ids{{ $hotel->id }}{{ $department->id }}"
+                                        {{ $hotel->departments->contains($department->id) ? 'checked' : '' }}>
+                                    <label class="form-check-label"
+                                        for="department_ids{{ $hotel->id }}{{ $department->id }}">
                                         {{ $department->name }}
                                     </label>
                                 </div>

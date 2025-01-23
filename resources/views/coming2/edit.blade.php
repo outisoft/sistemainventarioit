@@ -32,7 +32,7 @@
                                         aria-label="Default select example">
                                         @foreach ($regions as $region)
                                             <option value="{{ $region->id }}"
-                                                {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                                {{ $tablets->region_id == $region->id ? 'selected' : '' }}>
                                                 {{ $region->name }}</option>
                                         @endforeach
                                     </select>
@@ -47,7 +47,7 @@
                                             aria-label="Default select example">
                                             @foreach ($userRegions as $region)
                                                 <option value="{{ $region->id }}"
-                                                    {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                                    {{ $tablets->region_id == $region->id ? 'selected' : '' }}>
                                                     {{ $region->name }}
                                                 </option>
                                             @endforeach

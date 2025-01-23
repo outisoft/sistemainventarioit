@@ -15,9 +15,10 @@
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
                                 @can('tpvs.create')
-                                    <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" 
-                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" 
-                                        data-bs-html="true" title="" data-bs-original-title="<span>Add new equipment</span>">
+                                    <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                        data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                        data-bs-html="true" title=""
+                                        data-bs-original-title="<span>Add new equipment</span>">
                                         <i class='bx bx-add-to-queue icon-lg'></i>
                                     </a>
                                 @endcan
@@ -32,6 +33,14 @@
                                 <table id="tpvs" class="table">
                                     <thead class="bg-primary">
                                         <tr>
+                                            @role('Administrator')
+                                                <th>Region</th>
+                                            @else
+                                                @if ($userRegions->count() > 1)
+                                                    <th>Region</th>
+                                                @else
+                                                @endif
+                                            @endrole
                                             <th>Area</th>
                                             <th>Department</th>
                                             <th>Hotel</th>
@@ -49,6 +58,14 @@
                                         <!-- Aquí se mostrarán los empleados -->
                                         @foreach ($tpvs as $tpv)
                                             <tr>
+                                                @role('Administrator')
+                                                    <td>{{ $tpv->region->name }} </td>
+                                                @else
+                                                    @if ($userRegions->count() > 1)
+                                                        <td>{{ $tpv->region->name }} </td>
+                                                    @else
+                                                    @endif
+                                                @endrole
                                                 <td>{{ $tpv->area }}</td>
                                                 <td>{{ $tpv->departments->name }}</td>
                                                 <td>{{ $tpv->hotel->name }}</td>
@@ -75,19 +92,22 @@
                                                             @endcan
 
                                                             @can('tpvs.edit')
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal" data-tpv-id="{{ $tpv->id }}" class="dropdown-item btn-edit"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal"
+                                                                    data-tpv-id="{{ $tpv->id }}"
+                                                                    class="dropdown-item btn-edit"><i
+                                                                        class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 
                                                             @can('tpvs.destroy')
-                                                            <form action="{{ route('tpvs.destroy', $tpv->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="dropdown-item btn-danger"
-                                                                    onclick="return confirm('Are you sure to delete?')"><i
-                                                                        class="bx bx-trash me-1"></i>Delete</button>
-                                                            </form>
+                                                                <form action="{{ route('tpvs.destroy', $tpv->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="dropdown-item btn-danger"
+                                                                        onclick="return confirm('Are you sure to delete?')"><i
+                                                                            class="bx bx-trash me-1"></i>Delete</button>
+                                                                </form>
                                                             @endcan
                                                         </div>
                                                     </div>
@@ -106,5 +126,3 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
-
-

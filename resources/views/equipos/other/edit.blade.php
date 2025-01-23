@@ -1,6 +1,7 @@
 <!-- Modales de Edición -->
-@foreach($equipos as $equipo)
-    <div class="modal fade" id="editModal{{ $equipo->id }}" tabindex="-1" aria-labelledby="editModal{{ $equipo->id }}" aria-hidden="true">
+@foreach ($equipos as $equipo)
+    <div class="modal fade" id="editModal{{ $equipo->id }}" tabindex="-1" aria-labelledby="editModal{{ $equipo->id }}"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ route('other.update', $equipo) }}" method="POST">
@@ -15,30 +16,48 @@
                         <!-- Region -->
                         {{-- Región (solo visible para administradores) --}}
                         @role('Administrator')
-                        <div class="mb-3">
-                            <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
-                            <select class="form-control" id="region_id" name="region_id"
-                                aria-label="Default select example">
-                                @foreach ($regions as $region)
-                                    <option value="{{ $region->id }}"
-                                        {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
-                                        {{ $region->name }}</option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
-                        </div>
-                            
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                <select class="form-control" id="region_id" name="region_id"
+                                    aria-label="Default select example">
+                                    @foreach ($regions as $region)
+                                        <option value="{{ $region->id }}"
+                                            {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                            {{ $region->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                            </div>
                         @else
-                            <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
+                            @if ($userRegions->count() > 1)
+                                <!-- Si el usuario tiene múltiples regiones, muestra un campo de selección -->
+                                <div class="mb-3">
+                                    <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                    <select class="form-control" id="region_id" name="region_id"
+                                        aria-label="Default select example">
+                                        @foreach ($userRegions as $region)
+                                            <option value="{{ $region->id }}"
+                                                {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                                {{ $region->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                                </div>
+                            @else
+                                <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
+                                <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
+                            @endif
                         @endrole
-                        
+
                         <!-- Nombre de equipo -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="no_contrato{{ $equipo->no_contrato }}" :value="__('Equipment Name')" />
+                            <x-input-label class="form-label" for="no_contrato{{ $equipo->no_contrato }}"
+                                :value="__('Equipment Name')" />
                             <div class="input-group input-group-merge">
-                                <x-text-input id="no_contrato{{ $equipo->no_contrato }}" class="form-control" type="text"
-                                    name="no_contrato" placeholder="HP" value="{{ $equipo->no_contrato }}" required
-                                    autocomplete="no_contrato" />
+                                <x-text-input id="no_contrato{{ $equipo->no_contrato }}" class="form-control"
+                                    type="text" name="no_contrato" placeholder="HP"
+                                    value="{{ $equipo->no_contrato }}" required autocomplete="no_contrato" />
                             </div>
                             <x-input-error :messages="$errors->get('no_contrato')" class="mt-2" />
                         </div>

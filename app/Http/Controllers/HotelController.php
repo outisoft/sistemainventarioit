@@ -27,12 +27,20 @@ class HotelController extends Controller
             ->withCount(['departments'])
             ->with(['region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
+            ->orderBy('name', 'asc')
             ->get();
         $departments = Departamento::orderBy('name', 'asc')->get();
         $regions = Region::orderBy('name', 'asc')->get();
-        return view('hotels.index', compact('hotels', 'departments', 'regions'));
+        $userRegions = auth()->user()->regions;
+
+        return view('hotels.index', compact('userRegions', 'hotels', 'departments', 'regions'));
     }
 
     public function getDepartments($hotel_id)

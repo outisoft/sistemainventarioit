@@ -44,14 +44,15 @@
                             <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
                             <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
                         @endif
-                    @endif
+                    @endrole
+
                     <!-- Tipo -->
                     <div class="mb-3">
                         <x-input-label class="form-label" for="type_id" :value="__('Type equipment')" />
                         <select class="form-control" id="type_id" name="type_id" required>
                             <option value="">Choose a type</option>
                             @foreach ($tipos as $tipo)
-                                <option value="{{ $tipo->id }}" {{ old('type_id') == $tipo->id ? 'selected' : '' }} >
+                                <option value="{{ $tipo->id }}" {{ old('type_id') == $tipo->id ? 'selected' : '' }}>
                                     {{ $tipo->name }}
                                 </option>
                             @endforeach

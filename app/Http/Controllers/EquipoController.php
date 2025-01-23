@@ -29,7 +29,12 @@ class EquipoController extends Controller
     {
         $equipos = Equipo::with(['region', 'tipo'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
             ->orderBy('name', 'asc')
             ->get();

@@ -27,14 +27,21 @@ class TpvController extends Controller
         $departamentos = Departamento::all();
         $tpvs = tpv::with(['region', 'hotel', 'departments'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
             ->orderBy('name', 'asc')
             ->get();
         
         $regions = Region::all();
+
+        $userRegions = auth()->user()->regions;
         
-        return view('tpvs.index', compact('tpvs','hoteles', 'departamentos', 'regions'));
+        return view('tpvs.index', compact('userRegions', 'tpvs','hoteles', 'departamentos', 'regions'));
     }
 
     /**
@@ -51,7 +58,6 @@ class TpvController extends Controller
     public function store(Request $request)
     {
         try {
-            //dd($request);
             $data = $request->validate([
                 'region_id' => 'required',
                 'area' => 'required',
@@ -60,22 +66,25 @@ class TpvController extends Controller
                 'equipment' => 'required',
                 'brand' => 'required',
                 'model' => 'required',
-                'no_serial' => 'required',
+                'no_serial' => 'required|unique:tpvs',
                 'name' => 'required|unique:tpvs',
                 'ip' => 'required|unique:tpvs',
                 'link' => 'required',
+            ], [
+                'no_serial.unique' => 'Este No. de serie ya existe.',
+                'name.unique' => 'Este nombre de equipo ya existe.',
+                'ip.unique' => 'Esta IP ya esta en uso.',
             ]);
 
             $registro = Tpv::create($data);
 
-            //dd($request);
             $user = auth()->id();
 
             Historial::create([
                 'accion' => 'Creacion',
                 'descripcion' => "Se registro la Tpv {$registro->name} correctamente",
                 'user_id' => $user,
-                'region_id' => auth()->user()->region_id,
+                'region_id' => $registro->region_id,
             ]);
 
             toastr()
@@ -83,18 +92,15 @@ class TpvController extends Controller
                 ->addSuccess("Registro creado exitosamente.");
 
             return redirect()->route('tpvs.index');
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            $errors = $e->validator->errors();
-
-            if ($errors->has('name')) {
-                toastr()->timeOut(6000)->addError("El nombre de TPV ya existe.");
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
             }
-
-            if ($errors->has('ip')) {
-                toastr()->timeOut(6000)->addError("La Ip ya está en uso.");
-            }
-
-            return redirect()->back()->withErrors($e->validator)->withInput();
+            return back()->withErrors($e->errors())->withInput();
         }
     }
 
@@ -120,39 +126,57 @@ class TpvController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'region_id' => 'required|exists:regions,id',
-            'area' => 'required',
-            'departamento_id' => 'required',
-            'hotel_id' => 'required|exists:hotels,id',
-            'equipment' => 'required',
-            'brand' => 'required',
-            'model' => 'required',
-            'no_serial' => 'required',
-            'name' => 'required',
-            'ip' => 'required',
-            'link' => 'required',
-        ]);
+        try {
+            $data = $request->validate([
+                'region_id' => 'required|exists:regions,id',
+                'area' => 'required',
+                'departamento_id' => 'required',
+                'hotel_id' => 'required|exists:hotels,id',
+                'equipment' => 'required',
+                'brand' => 'required',
+                'model' => 'required',
+                'no_serial' => 'required|unique:tpvs,ip,' . $id,
+                'name' => 'required|unique:tpvs,ip,' . $id,
+                'ip' => 'required|unique:tpvs,ip,' . $id,
+                'link' => 'required',
+            ]);
 
-        //dd($data);
+            $registro = Tpv::findOrFail($id);
+            $registro->update($data);
 
-        $registro = Tpv::findOrFail($id);
-        $registro->update($data);
+            $user = auth()->id();
 
-        $user = auth()->id();
+            Historial::create([
+                'accion' => 'Actualizacion',
+                'descripcion' => "Se actualizo la TPV {$registro->name} correctamente",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
 
-        Historial::create([
-            'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo la TPV {$registro->name} correctamente",
-            'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
-        ]);
-        // Mostrar notificación Toastr para éxito
-
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Tpv {$registro->name} actualizado.");
-        return redirect()->route('tpvs.index');
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Tpv {$registro->name} actualizado.");
+            return redirect()->route('tpvs.index');
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
     /**
@@ -166,7 +190,7 @@ class TpvController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino la Tpv {$tpv->name} correctamente",
             'user_id' => $tpv->id,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
 
         toastr()
