@@ -26,13 +26,19 @@ class ComplementController extends Controller
         $tipos = Tipo::whereIn('name', ['MONITOR', 'MOUSE', 'NO BREACK', 'SCANNER', 'TECLADO', 'TICKETERA', 'WACOM'])->get();
         $equipos = Complement::with(['region', 'type', 'equipments'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('region_id', auth()->user()->region_id);
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
             })
             ->get();
         
-        $regions = Region::all();
+        $regions = Region::orderBy('name', 'asc')->get();
+        $userRegions = auth()->user()->regions;
         
-        return view('equipos.complements.index', compact('equipos', 'regions', 'tipos'));
+        return view('equipos.complements.index', compact('userRegions', 'equipos', 'regions', 'tipos'));
     }
 
     /**
@@ -40,29 +46,41 @@ class ComplementController extends Controller
      */
     public function store(Request $request)
     {
-        $tipo = $request->input('type_id');
-        
-        $user = auth()->id();
+        try {
+            $tipo = $request->input('type_id');
+            $user = auth()->id();
+            $data = $request->validate([
+                'type_id' => 'required',
+                'brand' => 'required',
+                'model' => 'required',
+                'serial' => 'required|unique:complements,serial',
+                'region_id' => 'required',
+            ], [
+                'serial.unique' => 'Este No. de serie ya existe.',
+            ]);
 
-        $data = $request->validate([
-            'type_id' => 'required',
-            'brand' => 'required',
-            'model' => 'required',
-            'serial' => 'required|unique:complements,serial',
-            'region_id' => 'required',
-        ]);
-        $registro = Complement::create($data);
-        $registro->save();
-        Historial::create([
-            'accion' => 'Creacion',
-            'descripcion' => "Se agrego {$registro->type->name} con N/S: {$registro->serial}",
-            'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
-        ]);
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Se creo {$registro->type->name} ({$registro->serial}) correctamente.");
-        return redirect()->route('complements.index');
+            $registro = Complement::create($data);
+            $registro->save();
+            Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se agrego {$registro->type->name} con N/S: {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Se creo {$registro->type->name} ({$registro->serial}) correctamente.");
+            return redirect()->route('complements.index');
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
     public function show(Complement $complement)
@@ -73,28 +91,50 @@ class ComplementController extends Controller
     public function update(Request $request, string $id)
     {
         $user = auth()->id();
+        try {
+            $data = $request->validate([
+                'brand' => 'required',
+                'model' => 'required',
+                'serial' => 'required|unique:complements,serial,' . $id,
+                'region_id' => 'required',
+            ], [
+                'serial.unique' => 'Este No. de serie ya existe.',
+            ]);
 
-        $data = $request->validate([
-            'brand' => 'required',
-            'model' => 'required',
-            'serial' => 'required|unique:complements,serial,' . $id,
-            'region_id' => 'required',
-        ]);
+            $registro = Complement::findOrFail($id);
+            $registro->update($data);
 
-        $registro = Complement::findOrFail($id);
-        $registro->update($data);
+            Historial::create([
+                'accion' => 'Actualizacion',
+                'descripcion' => "Se actualizo el {$registro->type->name} con N/S: {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Se actualizo el {$registro->serial} correctamente.");
 
-        Historial::create([
-            'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo el {$registro->type->name} con N/S: {$registro->serial}",
-            'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
-        ]);
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Se actualizo el {$registro->serial} correctamente.");
-
-        return redirect()->route('complements.index');
+            return redirect()->route('complements.index');
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
     public function destroy(string $id)
@@ -108,7 +148,7 @@ class ComplementController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->type->name} con N/S {$registro->serial}.",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
 
         toastr()

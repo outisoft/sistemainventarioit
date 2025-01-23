@@ -13,6 +13,56 @@
                     </div>
 
                     <div class="modal-body">
+                        <!-- Region -->
+                        {{-- Región (solo visible para administradores) --}}
+                        @role('Administrator')
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                <select class="form-control" id="region_id" name="region_id"
+                                    aria-label="Default select example">
+                                    @foreach ($regions as $region)
+                                        <option value="{{ $region->id }}"
+                                            {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                            {{ $region->name }}</option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                            </div>
+                        @else
+                            @if ($userRegions->count() > 1)
+                                <!-- Si el usuario tiene múltiples regiones, muestra un campo de selección -->
+                                <div class="mb-3">
+                                    <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
+                                    <select class="form-control" id="region_id" name="region_id"
+                                        aria-label="Default select example">
+                                        @foreach ($userRegions as $region)
+                                            <option value="{{ $region->id }}"
+                                                {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
+                                                {{ $region->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                                </div>
+                            @else
+                                <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
+                                <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
+                            @endif
+                        @endrole
+
+                        <!-- Tipo -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="type_id" :value="__('Type equipment')" />
+                            <select class="form-control" id="type_id" name="type_id" required>
+                                <option value="">Choose a type</option>
+                                @foreach ($tipos as $tipo)
+                                    <option value="{{ $tipo->id }}" {{ $equipo->type_id == $tipo->id ? 'selected' : '' }} >
+                                        {{ $tipo->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <!-- Marca -->
                         <div class="mb-3">
                             <x-input-label class="form-label" for="brand{{ $equipo->brand }}" :value="__('Brand')" />
@@ -45,25 +95,6 @@
                             </div>
                             <x-input-error :messages="$errors->get('serial')" class="mt-2" />
                         </div>
-
-                        <!-- Region -->
-                        {{-- Región (solo visible para administradores) --}}
-                        @role('Administrator')
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
-                                <select class="form-control" id="region_id" name="region_id"
-                                    aria-label="Default select example">
-                                    @foreach ($regions as $region)
-                                        <option value="{{ $region->id }}"
-                                            {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
-                                            {{ $region->name }}</option>
-                                    @endforeach
-                                </select>
-                                <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
-                            </div>
-                        @else
-                            <input type="hidden" name="region_id" value="{{ auth()->user()->region_id }}">
-                        @endrole
                     </div>
 
                     <div class="modal-footer">

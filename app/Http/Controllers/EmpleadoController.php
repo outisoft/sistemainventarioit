@@ -41,7 +41,6 @@ class EmpleadoController extends Controller
 
     public function index()
     {
-        $user = auth()->user();
         $hoteles = Hotel::all();
         $regions = Region::all();
 
@@ -49,15 +48,17 @@ class EmpleadoController extends Controller
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
-                    $query->whereHas('regions', function ($q) use ($regionIds) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
                         $q->whereIn('regions.id', $regionIds);
                     });
                 }
             })
             ->orderBy('name', 'asc')
             ->get();
-
-        return view('empleados.index', compact('empleados', 'hoteles', 'regions'));
+        
+        $userRegions = auth()->user()->regions;
+        
+        return view('empleados.index', compact('userRegions', 'empleados', 'hoteles', 'regions'));
     }
 
     public function create()
@@ -103,21 +104,12 @@ class EmpleadoController extends Controller
 
             $registro = Empleado::create($data);
             $user = auth()->user();
-            $regionId = null;
-
-            if ($user->hasRole('Administrator')) {
-                // Si el usuario es administrador, usa la región seleccionada en el registro
-                $regionId = $request->input('region_id');
-            } else {
-                // Si el usuario es básico, usa la región a la que pertenece
-                $regionId = $user->regions->pluck('id')->first();
-            }
 
             Historial::create([
                 'accion' => 'Creacion',
                 'descripcion' => "Se creó el empleado {$registro->name}, con numero de colaborador {$registro->no_empleado}",
                 'user_id' => $user->id,
-                'region_id' => $regionId,
+                'region_id' => $registro->region_id,
             ]);
 
             toastr()
@@ -205,21 +197,12 @@ class EmpleadoController extends Controller
             $empleado->update($data);
 
             $user = auth()->user();
-            $regionId = null;
-
-            if ($user->hasRole('admin')) {
-                // Si el usuario es administrador, usa la región seleccionada en el formulario de edición
-                $regionId = $request->input('region_id');
-            } else {
-                // Si el usuario es básico, usa la región a la que pertenece
-                $regionId = $user->regions->pluck('id')->first();
-            }
 
             Historial::create([
                 'accion' => 'Actualizacion',
                 'descripcion' => "Se actualizo el empleado: {$empleado->name}",
                 'user_id' => $user->id,
-                'region_id' => $regionId,
+                'region_id' => $empleado->region_id,
             ]);
             // Mostrar notificación Toastr para éxito
 

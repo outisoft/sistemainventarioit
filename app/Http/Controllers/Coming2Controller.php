@@ -125,52 +125,73 @@ class Coming2Controller extends Controller
 
     public function update(Request $request, $id)
     {
-        $data = $request->validate([
-            'region_id' => 'required',
-            'operario' => 'required',
-            'puesto' => 'required',
-            'email' => 'required|string|email|max:255|unique:coming2s,email,' . $id,
-            'usuario' => ['required', 'unique:coming2s,usuario,' . $id],
-            'password' => ['required'],
-            'numero_tableta' => ['required', 'unique:coming2s,numero_tableta,' . $id],
-            'model' => 'required',
-            'serial' => ['required', 'unique:coming2s,serial,' . $id],
-            'numero_telefono' => ['required', 'unique:coming2s,numero_telefono,' . $id],
-            'imei' => ['required', 'unique:coming2s,imei,' . $id],
-            'sim' => ['required', 'unique:coming2s,sim,' . $id],
-            'policy_id' => 'required',
-            'configurada' => 'required',
-            'carta_firmada' => 'required',
-            'observacion' => 'required',
-            'folio_baja' => ['required', 'unique:coming2s,folio_baja,' . $id],
-        ], [
-            'email.unique' => 'Este email ya está en uso por otro operario.',
-            'usuario.unique' => 'El nombre de usuario ya esta en uso.',
-            'numero_tableta.unique' => 'El numero de tableta ya esta en uso.',
-            'serial.unique' => 'El numero de serie ya esta en uso.',
-            'numero_telefono.unique' => 'El numero de telefono ya esta en uso.',
-            'imei.unique' => 'El numero de IMEI ya esta en uso.',
-            'sim.unique' => 'El numero de SIM ya esta en uso.',
-            'folio_baja.unique' => 'El numero de folio de baja ya esta en uso.',
-        ]);
+        try {
+            $data = $request->validate([
+                'region_id' => 'required',
+                'operario' => 'required',
+                'puesto' => 'required',
+                'email' => 'required|string|email|max:255|unique:coming2s,email,' . $id,
+                'usuario' => ['required', 'unique:coming2s,usuario,' . $id],
+                'password' => ['required'],
+                'numero_tableta' => ['required', 'unique:coming2s,numero_tableta,' . $id],
+                'model' => 'required',
+                'serial' => ['required', 'unique:coming2s,serial,' . $id],
+                'numero_telefono' => ['required', 'unique:coming2s,numero_telefono,' . $id],
+                'imei' => ['required', 'unique:coming2s,imei,' . $id],
+                'sim' => ['required', 'unique:coming2s,sim,' . $id],
+                'policy_id' => 'required',
+                'configurada' => 'required',
+                'carta_firmada' => 'required',
+                'observacion' => 'required',
+                'folio_baja' => ['required', 'unique:coming2s,folio_baja,' . $id],
+            ], [
+                'email.unique' => 'Este email ya está en uso por otro operario.',
+                'usuario.unique' => 'El nombre de usuario ya esta en uso.',
+                'numero_tableta.unique' => 'El numero de tableta ya esta en uso.',
+                'serial.unique' => 'El numero de serie ya esta en uso.',
+                'numero_telefono.unique' => 'El numero de telefono ya esta en uso.',
+                'imei.unique' => 'El numero de IMEI ya esta en uso.',
+                'sim.unique' => 'El numero de SIM ya esta en uso.',
+                'folio_baja.unique' => 'El numero de folio de baja ya esta en uso.',
+            ]);
 
-        $registro = Coming2::findOrFail($id);
-        $registro->update($data);
+            $registro = Coming2::findOrFail($id);
+            $registro->update($data);
 
-        $user = auth()->id();
+            $user = auth()->id();
 
-        Historial::create([
-            'accion' => 'Actualizacion',
-            'descripcion' => "Se actualizo la tableta de {$registro->operario} con numero de serie {$registro->serial}",
-            'user_id' => $user,
-            'region_id' => $registro->region_id,
-        ]);
+            Historial::create([
+                'accion' => 'Actualizacion',
+                'descripcion' => "Se actualizo la tableta de {$registro->operario} con numero de serie {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
 
-        toastr()
-            ->timeOut(3000) // 3 second
-            ->addSuccess("Registro {$registro->operario} actualizado.");
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Registro {$registro->operario} actualizado.");
 
-        return redirect()->route('coming2.index');
+            return redirect()->route('coming2.index');
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
     public function trash($id)

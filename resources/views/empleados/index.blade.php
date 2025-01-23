@@ -40,7 +40,12 @@
                                             <th>Job</th>
                                             @role('Administrator')
                                                 <th>Region</th>
-                                            @endrole
+                                            @else
+                                                @if ($userRegions->count() > 1)
+                                                    <th>Region</th>
+                                                @else
+                                                @endif
+                                            @endif
                                             <th>Hotel</th>
                                             <th>Department</th>
                                             <th>AD</th>
@@ -56,7 +61,12 @@
                                                 <td>{{ Str::limit($empleado->puesto, 20, ' ...') }}</td>
                                                 @role('Administrator')
                                                     <td>{{ $empleado->region->name}} </td>
-                                                @endrole
+                                                @else
+                                                    @if ($userRegions->count() > 1)
+                                                        <td>{{ $empleado->region->name}} </td>
+                                                    @else
+                                                    @endif
+                                                @endif
                                                 <td>{{ $empleado->hotel ? $empleado->hotel->name : 'Sin hotel asignado' }}</td>
                                                 <td>{{ $empleado->departments->name }}</td>
                                                 <!--td>{{ $empleado->equipo?->tipo ?? 'Sin equipo asignado' }}</td-->
