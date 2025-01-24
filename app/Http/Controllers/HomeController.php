@@ -111,7 +111,7 @@ class HomeController extends Controller
             ->groupBy('hotels.name')
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $user = auth()->user();
-                $regionIds = $user->regions()->pluck('region_id'); // Asumiendo que tienes una relación 'regions' definida en el modelo User
+                $regionIds = $user->regions()->pluck('region_id');
                 $query->whereIn('hotels.region_id', $regionIds);
             })
             ->get();
@@ -124,7 +124,7 @@ class HomeController extends Controller
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $user = auth()->user();
-                $regionIds = $user->regions()->pluck('region_id'); // Asumiendo que tienes una relación 'regions' definida en el modelo User
+                $regionIds = $user->regions()->pluck('region_id');
                 $query->whereIn('hotels.region_id', $regionIds);
             })
             ->whereIn('tipos.name', ['laptop'])
@@ -139,7 +139,7 @@ class HomeController extends Controller
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $user = auth()->user();
-                $regionIds = $user->regions()->pluck('region_id'); // Asumiendo que tienes una relación 'regions' definida en el modelo User
+                $regionIds = $user->regions()->pluck('region_id');
                 $query->whereIn('hotels.region_id', $regionIds);
             })
             ->whereIn('tipos.name', ['DESKTOP'])
