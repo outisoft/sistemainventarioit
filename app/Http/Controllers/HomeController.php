@@ -110,7 +110,9 @@ class HomeController extends Controller
             ->select('hotels.name as hotel', DB::raw('count(*) as cantidad_tpvs'))
             ->groupBy('hotels.name')
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('hotels.region_id', auth()->user()->region_id);
+                $user = auth()->user();
+                $regionIds = $user->regions()->pluck('region_id'); // Asumiendo que tienes una relación 'regions' definida en el modelo User
+                $query->whereIn('hotels.region_id', $regionIds);
             })
             ->get();
 
@@ -121,7 +123,9 @@ class HomeController extends Controller
             ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('hotels.region_id', auth()->user()->region_id);
+                $user = auth()->user();
+                $regionIds = $user->regions()->pluck('region_id'); // Asumiendo que tienes una relación 'regions' definida en el modelo User
+                $query->whereIn('hotels.region_id', $regionIds);
             })
             ->whereIn('tipos.name', ['laptop'])
             ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
@@ -134,7 +138,9 @@ class HomeController extends Controller
             ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
             ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $query->where('hotels.region_id', auth()->user()->region_id);
+                $user = auth()->user();
+                $regionIds = $user->regions()->pluck('region_id'); // Asumiendo que tienes una relación 'regions' definida en el modelo User
+                $query->whereIn('hotels.region_id', $regionIds);
             })
             ->whereIn('tipos.name', ['DESKTOP'])
             ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
