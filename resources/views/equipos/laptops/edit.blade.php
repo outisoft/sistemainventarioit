@@ -127,6 +127,40 @@
                             <x-input-error :messages="$errors->get('orden')" class="mt-2" />
                         </div>
 
+                        <!-- lease -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="arrendamiento" :value="__('Is it lease?')" />
+                            <div class="col-md">
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="arrendamiento"
+                                        id="arrendamiento" value="1" {{ $equipo->lease ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="arrendamiento_si">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="arrendamiento"
+                                        id="arrendamiento" value="0" {{ !$equipo->lease ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="arrendamiento_no">No</label>
+                                </div>
+                            </div>
+                            <x-input-error :messages="$errors->get('arrendamiento')" class="mt-2" />
+                        </div>
+
+                        <!-- Campos adicionales para arrendamiento -->
+                        <div id="arrendamiento_fields" style="display: {{ $equipo->lease ? 'block' : 'none' }};">
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="code" :value="__('Lease Code')" />
+                                <input type="text" class="form-control" id="code" name="code"
+                                    value="{{ $equipo->code }}">
+                                <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                            </div>
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="date" :value="__('Contract End Date')" />
+                                <input type="date" class="form-control" id="date" name="date"
+                                    value="{{ $equipo->date }}">
+                                <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                            </div>
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
                             <button type="submit" class="btn btn-primary">UPDATE</button>
@@ -137,3 +171,52 @@
         </div>
     </div>
 @endforeach
+<script>
+    $(document).ready(function() {
+        $('input[name="arrendamiento"]').on('change', function() {
+            if ($('#arrendamiento').is(':checked')) {
+                $('#arrendamiento_fields').show();
+                $('#code').attr('required', true);
+                $('#date').attr('required', true);
+            } else {
+                $('#arrendamiento_fields').hide();
+                $('#code').removeAttr('required');
+                $('#date').removeAttr('required');
+                $('#code').val('');
+                $('#date').val('');
+            }
+        });
+
+        // Trigger change event on page load to set initial state
+        $('input[name="arrendamiento"]:checked').trigger('change');
+
+        $('#saveButton').on('click', function() {
+            var formData = {
+                arrendamiento: $('input[name="arrendamiento"]:checked').val(),
+                code: $('#code').val(),
+                date: $('#date').val(),
+                _token: '{{ csrf_token() }}'
+            };
+
+            $.ajax({
+                url: '{{ route('laptops.update', $equipo->id) }}',
+                type: 'PUT',
+                data: formData,
+                success: function(response) {
+                    window.location.href = '{{ route('laptops.index') }}';
+                },
+                error: function(response) {
+                    // Handle validation errors
+                    var errors = response.responseJSON.errors;
+                    if (errors) {
+                        for (var field in errors) {
+                            var errorMessage = errors[field][0];
+                            $('#' + field).next('.invalid-feedback').text(errorMessage)
+                                .show();
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>

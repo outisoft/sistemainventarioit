@@ -18,9 +18,7 @@ class LaptopController extends Controller
         $this->middleware('can:laptops.show')->only('show');
         $this->middleware('can:laptops.destroy')->only('destroy');
     }
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $tipo = Tipo::where('name', 'LAPTOP')->first();
@@ -48,11 +46,8 @@ class LaptopController extends Controller
         return view('equipos.laptops.index', compact('userRegions', 'equipos', 'regions'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
-    {        
+    {
         $user = auth()->id();
         try {
             $data = $request->validate([
@@ -64,6 +59,9 @@ class LaptopController extends Controller
                 'ip' => 'required|unique:equipos,ip',
                 'so' => 'required',
                 'orden' => 'required',
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1|date',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
@@ -94,12 +92,8 @@ class LaptopController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        $user = auth()->id();
         try {
             $data = $request->validate([
                 'marca' => 'required',
@@ -109,6 +103,9 @@ class LaptopController extends Controller
                 'ip' => 'required|unique:equipos,ip,' . $id,
                 'so' => 'required',
                 'orden' => 'required',
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1|date',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
@@ -118,6 +115,7 @@ class LaptopController extends Controller
 
             $registro = Equipo::findOrFail($id);
             $registro->update($data);
+            $user = auth()->id();
 
             Historial::create([
                 'accion' => 'Actualizacion',
@@ -152,9 +150,6 @@ class LaptopController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $registro = Equipo::findOrFail($id);

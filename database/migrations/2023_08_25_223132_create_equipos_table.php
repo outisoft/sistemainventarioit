@@ -25,12 +25,10 @@ return new class extends Migration
             $table->string('password')->nullable();
             $table->string('no_contrato')->nullable();
             $table->string('orden')->nullable();
+            $table->boolean('lease')->default(false);
+            $table->string('code')->nullable();
+            $table->date('date')->nullable();
             $table->foreignId('region_id')->constrained();
-            //app
-            /*$table->string('nombre_app')->nullable();
-            $table->string('so')->nullable();
-            $table->string('office')->nullable();
-            $table->string('clave')->nullable();*/
             $table->timestamps();
         });
     }

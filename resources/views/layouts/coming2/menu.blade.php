@@ -114,11 +114,11 @@
 
                     @can('tablets.index')
                         <!--li disabled class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
-                                                                                                                                    <a href="#" class="menu-link">
-                                                                                                                                        <i class='menu-icon tf-icons bx bx-tab'></i>
-                                                                                                                                        <div data-i18n="Analytics">Tablets Co2</div>
-                                                                                                                                    </a>
-                                                                                                                                </li-->
+                                                                                    <a href="#" class="menu-link">
+                                                                                        <i class='menu-icon tf-icons bx bx-tab'></i>
+                                                                                        <div data-i18n="Analytics">Tablets Co2</div>
+                                                                                    </a>
+                                                                                </li-->
                     @endcan
 
                     @can('tpvs.index')
@@ -141,33 +141,14 @@
                     @endcan
 
                     <!--li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
-                                                                            <a href="{{ route('licenses.index') }}" class="menu-link">
-                                                                                <i class='menu-icon tf-icons bx bxl-microsoft'></i>
-                                                                                <div data-i18n="Without navbar">Office 365</div>
-                                                                            </a>
-                                                                        </li-->
+                                                    <a href="{{ route('licenses.index') }}" class="menu-link">
+                                                        <i class='menu-icon tf-icons bx bxl-microsoft'></i>
+                                                        <div data-i18n="Without navbar">Office 365</div>
+                                                    </a>
+                                                </li-->
                 </ul>
             </li>
         @endcan
-
-        <!-- Licencias -->
-        <!--li
-            class="menu-item {{ Request::routeIs('switches.show') ? 'active' : '' }} || {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('access-points.show') ? 'active' : '' }} || {{ Request::routeIs('access-points.index') ? 'active' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class='menu-icon bx bxl-adobe'></i>
-                <div data-i18n="Layouts">Licencias</div>
-            </a>
-
-            <ul class="menu-sub"-->
-        <!-- Office -->
-        <!--li
-                    class="menu-item {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('switches.show') ? 'active' : '' }}">
-                    <a href="{{ route('switches.index') }}" class="menu-link">
-                        <div data-i18n="Analytics">Office</div>
-                    </a>
-                </li>
-            </ul>
-            </li-->
 
         <!-- Redes -->
         @can('switches.index')

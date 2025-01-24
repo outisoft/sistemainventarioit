@@ -18,9 +18,7 @@ class ComplementController extends Controller
         $this->middleware('can:complements.show')->only('show');
         $this->middleware('can:complements.destroy')->only('destroy');
     }
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         $tipos = Tipo::whereIn('name', ['MONITOR', 'MOUSE', 'NO BREACK', 'SCANNER', 'TECLADO', 'TICKETERA', 'WACOM'])->get();
@@ -41,9 +39,6 @@ class ComplementController extends Controller
         return view('equipos.complements.index', compact('userRegions', 'equipos', 'regions', 'tipos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
