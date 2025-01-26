@@ -164,22 +164,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function() {
-        $('input[name="lease"]').on('change', function() {
-            if ($('#lease').is(':checked')) {
-                $('#lease_fields').show();
-                $('#code').attr('required', true);
-                $('#date').attr('required', true);
-            } else {
-                $('#lease_fields').hide();
-                $('#code').removeAttr('required');
-                $('#date').removeAttr('required');
-            }
-        });
-
-        // Trigger change event on page load to set initial state
-        $('input[name="lease"]:checked').trigger('change');
-    });
-</script>

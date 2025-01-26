@@ -61,7 +61,7 @@ class LaptopController extends Controller
                 'orden' => 'required',
                 'lease' => 'required|boolean',
                 'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1|date',
+                'date' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
