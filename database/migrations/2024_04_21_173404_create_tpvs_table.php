@@ -24,6 +24,9 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('ip')->unique();
             $table->string('link');
+            $table->boolean('lease')->default(false);
+            $table->string('code')->nullable();
+            $table->date('date')->nullable();
             $table->timestamps();
         });
     }

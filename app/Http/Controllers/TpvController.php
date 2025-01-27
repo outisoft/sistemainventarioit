@@ -70,6 +70,9 @@ class TpvController extends Controller
                 'name' => 'required|unique:tpvs',
                 'ip' => 'required|unique:tpvs',
                 'link' => 'required',
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1',
             ], [
                 'no_serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',
@@ -139,6 +142,9 @@ class TpvController extends Controller
                 'name' => 'required|unique:tpvs,ip,' . $id,
                 'ip' => 'required|unique:tpvs,ip,' . $id,
                 'link' => 'required',
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1',
             ]);
 
             $registro = Tpv::findOrFail($id);

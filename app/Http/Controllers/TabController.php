@@ -61,6 +61,9 @@ class TabController extends Controller
                 'model' => 'required',
                 'serial' => 'required|unique:equipos,serial',
                 'policy_id' => 'required',
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
@@ -101,6 +104,9 @@ class TabController extends Controller
                 'model' => 'required',
                 'serial' => 'required|unique:equipos,serial,' . $id,
                 'policy_id' => 'required',
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',

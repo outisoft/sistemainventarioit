@@ -42,6 +42,7 @@
                                 <th>Model</th>
                                 <th>Serial</th>
                                 <th>IP</th>
+                                <th>LEASE?</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
@@ -63,43 +64,49 @@
                                     <td>{{ $equipo->serial }}</td>
                                     <td>{{ $equipo->ip }}</td>
                                     <td>
+                                        @if ($equipo->lease)
+                                            Code: <span class="badge bg-label-dark">{{ $equipo->code }}</span><br>
+                                            Date: <span class="badge bg-label-info">{{ $equipo->date }}</span>
+                                        @else
+                                            No lease
+                                        @endif
+                                    </td>
+                                    <td>
                                         @if ($equipo->estado === 'Libre')
                                             <span class="badge bg-label-success">{{ $equipo->estado }}</span>
+                                        @elseif ($equipo->estado === 'En Uso')
+                                            <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
+                                        @endif
                                     </td>
-                                    <!--span class="badge rounded-pill bg-success">Libre</span-->
-                                @elseif ($equipo->estado === 'En Uso')
-                                    <span class="badge bg-label-danger">{{ $equipo->estado }}</span>
-                                    <!--span class="badge rounded-pill bg-danger">En uso</span-->
-                            @endif
-                            </td>
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <!-- Aquí se agregarán las opciones -->
-                                        @can('printers.edit')
-                                            <a href="#" data-bs-toggle="modal"
-                                                data-bs-target="#editModal{{ $equipo->id }}" class="dropdown-item"><i
-                                                    class="bx bx-edit me-1"></i>Edit</a>
-                                        @endcan
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                data-bs-toggle="dropdown">
+                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <!-- Aquí se agregarán las opciones -->
+                                                @can('printers.edit')
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#editModal{{ $equipo->id }}"
+                                                        class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                @endcan
 
-                                        @can('printers.destroy')
-                                            <form action="{{ route('printers.destroy', $equipo->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="dropdown-item btn-danger"
-                                                    onclick="return confirm('Are you sure to delete?')"><i
-                                                        class="bx bx-trash me-1"></i>Delete</button>
-                                            </form>
-                                        @endcan
+                                                @can('printers.destroy')
+                                                    <form action="{{ route('printers.destroy', $equipo->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item btn-danger"
+                                                            onclick="return confirm('Are you sure to delete?')"><i
+                                                                class="bx bx-trash me-1"></i>Delete</button>
+                                                    </form>
+                                                @endcan
 
-                                    </div>
-                                </div>
-                            </td>
-                            </tr>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

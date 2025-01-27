@@ -96,6 +96,40 @@
                             </select>
                             <x-input-error :messages="$errors->get('policy_id')" class="mt-2" />
                         </div>
+
+                        <!-- lease -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="lease" :value="__('Is it lease?')" />
+                            <div class="col-md">
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="lease" id="lease_si"
+                                        value="1" {{ $equipo->lease ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="lease_si">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="lease" id="lease_no"
+                                        value="0" {{ !$equipo->lease ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="lease_no">No</label>
+                                </div>
+                            </div>
+                            <x-input-error :messages="$errors->get('lease')" class="mt-2" />
+                        </div>
+
+                        <!-- Campos adicionales para arrendamiento -->
+                        <div id="lease_fields_edit" style="display: {{ $equipo->lease ? 'block' : 'none' }};">
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="codeEdit" :value="__('Lease Code')" />
+                                <input type="text" class="form-control" id="codeEdit" name="code"
+                                    value="{{ $equipo->code }}">
+                                <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                            </div>
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="dateEdit" :value="__('Contract End Date')" />
+                                <input type="date" class="form-control" id="dateEdit" name="date"
+                                    value="{{ $equipo->date }}">
+                                <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -105,4 +139,28 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Attach event handler to each modal when it is shown
+            $('.modal').on('shown.bs.modal', function() {
+                var modal = $(this);
+                modal.find('input[name="lease"]').on('change', function() {
+                    if (modal.find('#lease_si').is(':checked')) {
+                        modal.find('#lease_fields_edit').show();
+                        modal.find('#codeEdit').attr('required', true);
+                        modal.find('#dateEdit').attr('required', true);
+                    } else {
+                        modal.find('#lease_fields_edit').hide();
+                        modal.find('#codeEdit').removeAttr('required');
+                        modal.find('#dateEdit').removeAttr('required');
+                        modal.find('#codeEdit').val('');
+                        modal.find('#dateEdit').val('');
+                    }
+                });
+
+                // Trigger change event on page load to set initial state
+                modal.find('input[name="lease"]:checked').trigger('change');
+            });
+        });
+    </script>
 @endforeach

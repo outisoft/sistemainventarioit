@@ -51,6 +51,7 @@
                                             <th>Name</th>
                                             <th>IP</th>
                                             <th>Link</th>
+                                            <th>LEASE?</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -76,6 +77,16 @@
                                                 <td>{{ $tpv->name }}</td>
                                                 <td>{{ $tpv->ip }}</td>
                                                 <td>{{ Str::limit($tpv->link, 15, ' ...') }}</td>
+                                                <td>
+                                                    @if ($tpv->lease)
+                                                        Code: <span
+                                                            class="badge bg-label-dark">{{ $tpv->code }}</span><br>
+                                                        Date: <span
+                                                            class="badge bg-label-info">{{ $tpv->date }}</span>
+                                                    @else
+                                                        No lease
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"

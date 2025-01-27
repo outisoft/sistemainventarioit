@@ -59,6 +59,9 @@ class PrinterController extends Controller
                 'model' => 'required',
                 'serial' => 'required|unique:equipos,serial',
                 'ip' => 'required|unique:equipos,ip',
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
@@ -101,6 +104,9 @@ class PrinterController extends Controller
                 'model' => 'required',
                 'serial' => 'required|unique:equipos,serial,' . $id,
                 'ip' => 'required|unique:equipos,ip,' . $id,
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
