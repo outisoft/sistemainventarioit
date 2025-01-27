@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('brand')->nullable();
             $table->string('model')->nullable();
             $table->string('serial')->nullable()->unique();
+            $table->boolean('lease')->default(false);
+            $table->string('code')->nullable();
+            $table->date('date')->nullable();
             $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });

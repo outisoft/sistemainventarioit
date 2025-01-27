@@ -33,6 +33,7 @@
                                 <th>MODEL</th>
                                 <th>SERIAL</th>
                                 <th>ASSIGNED TO...</th>
+                                <th>LEASE?</th>
                                 <th>ACTIONS</th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
                             </tr>
@@ -46,11 +47,19 @@
                                     <td>{{ $equipo->serial }}</td>
                                     <td>
                                         @if ($equipo->equipments->count() > 0)
-                                            @foreach ($equipo->equipments as $equipo)
-                                                {{ $equipo->name }}
+                                            @foreach ($equipo->equipments as $equipment)
+                                                {{ $equipment->name }}
                                             @endforeach
                                         @else
                                             To no assigned equipment
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($equipo->lease)
+                                            Code: <span class="badge bg-label-dark">{{ $equipo->code }}</span><br>
+                                            Date: <span class="badge bg-label-info">{{ $equipo->date }}</span>
+                                        @else
+                                            No lease
                                         @endif
                                     </td>
                                     <td>

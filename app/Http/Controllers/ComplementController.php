@@ -49,6 +49,9 @@ class ComplementController extends Controller
                 'brand' => 'required',
                 'model' => 'required',
                 'serial' => 'required|unique:complements,serial',
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
@@ -91,6 +94,9 @@ class ComplementController extends Controller
                 'brand' => 'required',
                 'model' => 'required',
                 'serial' => 'required|unique:complements,serial,' . $id,
+                'lease' => 'required|boolean',
+                'code' => 'required_if:lease,1',
+                'date' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
