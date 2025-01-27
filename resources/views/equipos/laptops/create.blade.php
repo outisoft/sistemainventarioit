@@ -115,17 +115,17 @@
                     </div>
 
                     <!-- ORDEN DE COMPRA -->
-                    <div class="mb-3">
+                    <!--div class="mb-3">
                         <x-input-label class="form-label" for="orden" :value="__('ORDER')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="orden" class="form-control" type="text" name="orden"
                                 placeholder="ORDEN #1234" :value="old('orden')" required autocomplete="orden" />
                         </div>
                         <x-input-error :messages="$errors->get('orden')" class="mt-2" />
-                    </div>
+                    </div-->
 
                     <!-- lease? -->
-                    <div class="mb-3">
+                    <!--div class="mb-3">
                         <x-input-label class="form-label" for="lease" :value="__('Is it lease?')" />
                         <div class="col-md">
                             <div class="form-check form-check-inline mt-3">
@@ -140,10 +140,10 @@
                             </div>
                         </div>
                         <x-input-error :messages="$errors->get('lease')" class="mt-2" />
-                    </div>
+                    </div-->
 
                     <!-- Campos adicionales para arrendamiento -->
-                    <div id="lease_fields" style="display: none;">
+                    <!--div id="lease_fields" style="display: none;">
                         <div class="mb-3">
                             <x-input-label class="form-label" for="code" :value="__('Lease Code')" />
                             <input type="text" class="form-control" id="code" name="code">
@@ -154,7 +154,7 @@
                             <input type="date" class="form-control" id="date" name="date">
                             <x-input-error :messages="$errors->get('date')" class="mt-2" />
                         </div>
-                    </div>
+                    </div-->
                 </div>
 
                 <div class="modal-footer">

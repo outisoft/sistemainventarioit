@@ -91,7 +91,7 @@ class EquipoController extends Controller
             'accion' => 'Asignacion',
             'descripcion' => "Se asigno al equipo {$equipo->name} (S/N:{$equipo->serial}) el complemento {$complement->type->name} (N/S: {$complement->serial})",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $complement->region_id,
         ]);
 
         toastr()
@@ -114,7 +114,7 @@ class EquipoController extends Controller
             'accion' => 'Desvinculó',
             'descripcion' => "Se desvinculó al equipo {$equipo->name} (S/N: {$equipo->serial} ) el complemento tipo {$complement->type->name} (S/N: {$complement->serial} )",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $complement->region_id,
         ]);
 
         toastr()

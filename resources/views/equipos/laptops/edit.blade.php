@@ -117,7 +117,7 @@
                         </div>
 
                         <!-- ORDEN DE COMPRA -->
-                        <div class="mb-3">
+                        <!--div class="mb-3">
                             <x-input-label class="form-label" for="orden{{ $equipo->orden }}" :value="__('ORDER')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="orden{{ $equipo->orden }}" class="form-control" type="text"
@@ -125,10 +125,10 @@
                                     autocomplete="orden" />
                             </div>
                             <x-input-error :messages="$errors->get('orden')" class="mt-2" />
-                        </div>
+                        </div-->
 
                         <!-- lease -->
-                        <div class="mb-3">
+                        <!--div class="mb-3">
                             <x-input-label class="form-label" for="arrendamiento" :value="__('Is it lease?')" />
                             <div class="col-md">
                                 <div class="form-check form-check-inline mt-3">
@@ -143,10 +143,10 @@
                                 </div>
                             </div>
                             <x-input-error :messages="$errors->get('arrendamiento')" class="mt-2" />
-                        </div>
+                        </div-->
 
                         <!-- Campos adicionales para arrendamiento -->
-                        <div id="arrendamiento_fields" style="display: {{ $equipo->lease ? 'block' : 'none' }};">
+                        <!--div id="arrendamiento_fields" style="display: {{ $equipo->lease ? 'block' : 'none' }};">
                             <div class="mb-3">
                                 <x-input-label class="form-label" for="code" :value="__('Lease Code')" />
                                 <input type="text" class="form-control" id="code" name="code"
@@ -159,7 +159,7 @@
                                     value="{{ $equipo->date }}">
                                 <x-input-error :messages="$errors->get('date')" class="mt-2" />
                             </div>
-                        </div>
+                        </div-->
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
@@ -171,4 +171,3 @@
         </div>
     </div>
 @endforeach
-
