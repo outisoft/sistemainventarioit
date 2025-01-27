@@ -62,7 +62,7 @@ class AssignmentController extends Controller
             'accion' => 'Asignacion',
             'descripcion' => "Se asigno al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name} N/S: {$equipo->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $equipo->region_id,
         ]);
 
         toastr()
@@ -85,7 +85,7 @@ class AssignmentController extends Controller
             'accion' => 'Desvinculó',
             'descripcion' => "Se desvinculó al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $equipo->region_id,
         ]);
 
         toastr()
