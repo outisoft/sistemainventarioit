@@ -44,17 +44,6 @@ class TpvController extends Controller
         return view('tpvs.index', compact('userRegions', 'tpvs','hoteles', 'departamentos', 'regions'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         try {
@@ -107,9 +96,6 @@ class TpvController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Tpv $tpv)
     {
         $hotel = Hotel::find($tpv->hotel_id);
@@ -124,9 +110,16 @@ class TpvController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    public function getDepartments(Request $request)
+    {
+        $hotel_id = $request->hotel_id;
+        $departamentos = Departamento::whereHas('hotels', function ($query) use ($hotel_id) {
+            $query->where('hotel_id', $hotel_id);
+        })->get();
+
+        return response()->json($departamentos);
+    }
+
     public function update(Request $request, $id)
     {
         try {

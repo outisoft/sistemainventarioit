@@ -109,6 +109,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::get('empleados/{id}/equipos', [EmpleadoController::class, 'equipos'])->name('empleados.equipos');
 
     Route::get('/get-departamentos', [EmpleadoController::class, 'getDepartamentos'])->name('get.departamentos');
+    Route::get('/get-departments', [TpvController::class, 'getDepartments']);
     /*Route::get('/hotel/{hotel}/departments', [HotelController::class, 'getDepartments']);
     Route::get('/get-departments/{hotel}', [EmpleadoController::class, 'getDepartments']);*/
 

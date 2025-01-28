@@ -10,7 +10,7 @@ class Tpv extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['region_id', 'area', 'departamento_id','hotel_id', 'equipment','brand', 'model', 'no_serial', 'name', 'ip', 'link'];
+    protected $fillable = ['region_id', 'area', 'departamento_id','hotel_id', 'equipment','brand', 'model', 'no_serial', 'name', 'ip', 'link', 'lease', 'code', 'date',];
 
     public function hotel()
     {

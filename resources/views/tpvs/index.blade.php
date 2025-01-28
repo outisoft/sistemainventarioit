@@ -104,9 +104,10 @@
 
                                                             @can('tpvs.edit')
                                                                 <a href="#" data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal"
-                                                                    data-tpv-id="{{ $tpv->id }}"
-                                                                    class="dropdown-item btn-edit"><i
+                                                                    data-bs-target="#editModal{{ $tpv->id }}"
+                                                                    data-hotel-id="{{ $tpv->hotel_id }}"
+                                                                    data-departamento-id="{{ $tpv->departamento_id }}"
+                                                                    class="dropdown-item"><i
                                                                         class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 

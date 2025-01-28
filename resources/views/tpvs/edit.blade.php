@@ -1,197 +1,219 @@
 <!-- Modales de Edición -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="editForm" method="POST">
-                @csrf
-                @method('PUT')
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editModal">Edit TPV</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    {{-- Región (solo visible para administradores) --}}
-                    @role('Administrator')
-                        <div class="mb-3">
-                            <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
-                            <select class="form-control" id="region_id" name="region_id"
-                                aria-label="Default select example">
-                                @foreach ($regions as $region)
-                                    <option value="{{ $region->id }}">{{ $region->name }}</option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
-                        </div>
-                    @else
-                        @if ($userRegions->count() > 1)
-                            <!-- Si el usuario tiene múltiples regiones, muestra un campo de selección -->
+@foreach ($tpvs as $tpv)
+    <div class="modal fade" id="editModal{{ $tpv->id }}" tabindex="-1" aria-labelledby="editModal{{ $tpv->id }}"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="editForm{{ $tpv->id }}" method="POST" action="{{ route('tpvs.update', $tpv->id) }}">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModal">Edit TPV</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        {{-- Región (solo visible para administradores) --}}
+                        @role('Administrator')
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
-                                <select class="form-control" id="region_id" name="region_id"
+                                <x-input-label class="form-label" for="region_id{{ $tpv->id }}" :value="__('REGION')" />
+                                <select class="form-control" id="region_id{{ $tpv->id }}" name="region_id"
                                     aria-label="Default select example">
-                                    @foreach ($userRegions as $region)
+                                    @foreach ($regions as $region)
                                         <option value="{{ $region->id }}">{{ $region->name }}</option>
                                     @endforeach
                                 </select>
                                 <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
                             </div>
                         @else
-                            <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
-                            <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
-                        @endif
-                    @endrole
+                            @if ($userRegions->count() > 1)
+                                <!-- Si el usuario tiene múltiples regiones, muestra un campo de selección -->
+                                <div class="mb-3">
+                                    <x-input-label class="form-label" for="region_id{{ $tpv->id }}"
+                                        :value="__('REGION')" />
+                                    <select class="form-control" id="region_id{{ $tpv->id }}" name="region_id"
+                                        aria-label="Default select example">
+                                        @foreach ($userRegions as $region)
+                                            <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <x-input-error :messages="$errors->get('region_id')" class="mt-2" />
+                                </div>
+                            @else
+                                <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
+                                <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
+                            @endif
+                        @endrole
 
-                    <!-- Area -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="area" :value="__('Area')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="aread" class="form-control" type="text" name="area"
-                                placeholder="COCINA CALIENTE" required />
-                        </div>
-                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                    </div>
-
-                    <!-- hotel -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="hotel_id" :value="__('Hotel')" />
-                        <select class="form-control" id="hotel_id" name="hotel_id">
-                            @foreach ($hoteles as $hotel)
-                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="departamento_id" :value="__('Department')" />
-                        <select class="form-control" id="departamento_id" name="departamento_id">
-                        </select>
-                    </div>
-
-                    <!-- equipment -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="equipment" :value="__('equipment')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="equipo" class="form-control" type="text" name="equipment"
-                                required />
-                        </div>
-                        <x-input-error :messages="$errors->get('equipment')" class="mt-2" />
-                    </div>
-
-                    <!-- brand -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="brand" :value="__('Brand')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="marca" class="form-control" type="text" name="brand" required />
-                        </div>
-                        <x-input-error :messages="$errors->get('brand')" class="mt-2" />
-                    </div>
-
-                    <!-- Model -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="model" :value="__('Model')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="modelo" class="form-control" type="text" name="model" required />
-                        </div>
-                        <x-input-error :messages="$errors->get('model')" class="mt-2" />
-                    </div>
-
-                    <!-- Nombre -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="no_serial" :value="__('Serial number')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="serial" class="form-control" type="text" name="no_serial"
-                                required />
-                        </div>
-                        <x-input-error :messages="$errors->get('no_serial')" class="mt-2" />
-                    </div>
-
-                    <!-- Nombre -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="name" :value="__('Name')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="nombre" class="form-control" type="text" name="name"
-                                required />
-                        </div>
-                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
-                    </div>
-
-                    <!-- ip -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="ip" :value="__('IP')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="ips" class="form-control" type="text" name="ip"
-                                required />
-                        </div>
-                        <x-input-error :messages="$errors->get('ip')" class="mt-2" />
-                    </div>
-
-                    <!-- Link -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="link" :value="__('LINK')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="links" class="form-control" type="text" name="link"
-                                required />
-                        </div>
-                        <x-input-error :messages="$errors->get('link')" class="mt-2" />
-                    </div>
-
-                    <!-- lease -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="lease" :value="__('Is it lease?')" />
-                        <div class="col-md">
-                            <div class="form-check form-check-inline mt-3">
-                                <input class="form-check-input" type="radio" name="lease" id="lease_si"
-                                    value="1" {{ $equipo->lease ? 'checked' : '' }} />
-                                <label class="form-check-label" for="lease_si">Yes</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="lease" id="lease_no"
-                                    value="0" {{ !$equipo->lease ? 'checked' : '' }} />
-                                <label class="form-check-label" for="lease_no">No</label>
-                            </div>
-                        </div>
-                        <x-input-error :messages="$errors->get('lease')" class="mt-2" />
-                    </div>
-
-                    <!-- Campos adicionales para arrendamiento -->
-                    <div id="lease_fields_edit" style="display: {{ $equipo->lease ? 'block' : 'none' }};">
+                        <!-- Area -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="codeEdit" :value="__('Lease Code')" />
-                            <input type="text" class="form-control" id="codeEdit" name="code"
-                                value="{{ $equipo->code }}">
-                            <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                            <x-input-label class="form-label" for="area{{ $tpv->id }}" :value="__('Area')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="area{{ $tpv->id }}" class="form-control" type="text"
+                                    name="area" placeholder="COCINA CALIENTE" value="{{ $tpv->area }}"
+                                    required />
+                            </div>
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+
+                        <!-- hotel -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="hotel_id{{ $tpv->id }}" :value="__('Hotel')" />
+                            <select class="form-control" id="hotel_id{{ $tpv->id }}" name="hotel_id">
+                                <option value="">Seleccione un hotel</option>
+                                @foreach ($hoteles as $hotel)
+                                    <option value="{{ $hotel->id }}"
+                                        {{ $hotel->id == $tpv->hotel_id ? 'selected' : '' }}>
+                                        {{ $hotel->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="dateEdit" :value="__('Contract End Date')" />
-                            <input type="date" class="form-control" id="dateEdit" name="date"
-                                value="{{ $equipo->date }}">
-                            <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                            <x-input-label class="form-label" for="departamento_id{{ $tpv->id }}"
+                                :value="__('Department')" />
+                            <select class="form-control" id="departamento_id{{ $tpv->id }}"
+                                name="departamento_id">
+                                <option value="">Seleccione un departamento</option>
+                                <!-- Los departamentos se cargarán dinámicamente aquí -->
+                            </select>
+                        </div>
+
+                        <!-- equipment -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="equipment{{ $tpv->id }}" :value="__('equipment')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="equipment{{ $tpv->id }}" class="form-control" type="text"
+                                    name="equipment" required value="{{ $tpv->equipment }}" />
+                            </div>
+                            <x-input-error :messages="$errors->get('equipment')" class="mt-2" />
+                        </div>
+
+                        <!-- brand -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="brand{{ $tpv->id }}" :value="__('Brand')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="brand{{ $tpv->id }}" class="form-control" type="text"
+                                    name="brand" value="{{ $tpv->brand }}" required />
+                            </div>
+                            <x-input-error :messages="$errors->get('brand')" class="mt-2" />
+                        </div>
+
+                        <!-- Model -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="model{{ $tpv->id }}" :value="__('Model')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="model{{ $tpv->id }}" class="form-control" type="text"
+                                    name="model" value="{{ $tpv->model }}" required />
+                            </div>
+                            <x-input-error :messages="$errors->get('model')" class="mt-2" />
+                        </div>
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="no_serial{{ $tpv->id }}" :value="__('Serial number')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="no_serial{{ $tpv->id }}" class="form-control" type="text"
+                                    name="no_serial" value="{{ $tpv->no_serial }}" required />
+                            </div>
+                            <x-input-error :messages="$errors->get('no_serial')" class="mt-2" />
+                        </div>
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="name{{ $tpv->id }}" :value="__('Name')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="name{{ $tpv->id }}" class="form-control" type="text"
+                                    name="name" value="{{ $tpv->name }}" required />
+                            </div>
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+
+                        <!-- ip -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="ip{{ $tpv->id }}" :value="__('IP')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="ip{{ $tpv->id }}" class="form-control" type="text"
+                                    name="ip" value="{{ $tpv->ip }}" required />
+                            </div>
+                            <x-input-error :messages="$errors->get('ip')" class="mt-2" />
+                        </div>
+
+                        <!-- Link -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="link{{ $tpv->id }}" :value="__('LINK')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="link{{ $tpv->id }}" class="form-control" type="text"
+                                    name="link" value="{{ $tpv->link }}" required />
+                            </div>
+                            <x-input-error :messages="$errors->get('link')" class="mt-2" />
+                        </div>
+
+                        <!-- lease -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="lease{{ $tpv->id }}" :value="__('Is it lease?')" />
+                            <div class="col-md">
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="lease"
+                                        id="lease_si{{ $tpv->id }}" value="1"
+                                        {{ $tpv->lease ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="lease_si{{ $tpv->id }}">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="lease"
+                                        id="lease_no{{ $tpv->id }}" value="0"
+                                        {{ !$tpv->lease ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="lease_no{{ $tpv->id }}">No</label>
+                                </div>
+                            </div>
+                            <x-input-error :messages="$errors->get('lease')" class="mt-2" />
+                        </div>
+
+                        <!-- Campos adicionales para arrendamiento -->
+                        <div id="lease_fields_edit{{ $tpv->id }}"
+                            style="display: {{ $tpv->lease ? 'block' : 'none' }};">
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="codeEdit{{ $tpv->id }}"
+                                    :value="__('Lease Code')" />
+                                <input type="text" class="form-control" id="codeEdit{{ $tpv->id }}"
+                                    name="code" value="{{ $tpv->code }}">
+                                <x-input-error :messages="$errors->get('code')" class="mt-2" />
+                            </div>
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="dateEdit{{ $tpv->id }}"
+                                    :value="__('Contract End Date')" />
+                                <input type="date" class="form-control" id="dateEdit{{ $tpv->id }}"
+                                    name="date" value="{{ $tpv->date }}">
+                                <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update</button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
+@endforeach
+
 <script>
     $(document).ready(function() {
         // Attach event handler to each modal when it is shown
         $('.modal').on('shown.bs.modal', function() {
             var modal = $(this);
+            var tpvId = modal.attr('id').replace('editModal', '');
             modal.find('input[name="lease"]').on('change', function() {
-                if (modal.find('#lease_si').is(':checked')) {
-                    modal.find('#lease_fields_edit').show();
-                    modal.find('#codeEdit').attr('required', true);
-                    modal.find('#dateEdit').attr('required', true);
+                if (modal.find('#lease_si' + tpvId).is(':checked')) {
+                    modal.find('#lease_fields_edit' + tpvId).show();
+                    modal.find('#codeEdit' + tpvId).attr('required', true);
+                    modal.find('#dateEdit' + tpvId).attr('required', true);
                 } else {
-                    modal.find('#lease_fields_edit').hide();
-                    modal.find('#codeEdit').removeAttr('required');
-                    modal.find('#dateEdit').removeAttr('required');
-                    modal.find('#codeEdit').val('');
-                    modal.find('#dateEdit').val('');
+                    modal.find('#lease_fields_edit' + tpvId).hide();
+                    modal.find('#codeEdit' + tpvId).removeAttr('required');
+                    modal.find('#dateEdit' + tpvId).removeAttr('required');
+                    modal.find('#codeEdit' + tpvId).val('');
+                    modal.find('#dateEdit' + tpvId).val('');
                 }
             });
 
@@ -200,22 +222,16 @@
         });
     });
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        // Función para cargar departamentos
-        function cargarDepartamentos(hotelId, departamentoSeleccionado = null) {
-            var departamentoSelect = $('#departamento_id');
+        function loadDepartamentos(hotelId, selectedDepartamentoId = null, tpvId) {
+            var departamentoSelect = $('#departamento_id' + tpvId);
 
             if (hotelId) {
+                // Realizar la petición AJAX para obtener los departamentos del hotel seleccionado
                 $.ajax({
-                    url: '/get-departamentos',
+                    url: '/get-departments',
                     type: 'GET',
                     data: {
                         hotel_id: hotelId
@@ -224,73 +240,34 @@
                         departamentoSelect.empty();
                         departamentoSelect.append(
                             '<option value="">Seleccione un departamento</option>');
-
                         $.each(data, function(index, departamento) {
-                            var selected = (departamentoSeleccionado &&
-                                    departamentoSeleccionado == departamento.id) ?
+                            var selected = departamento.id == selectedDepartamentoId ?
                                 'selected' : '';
                             departamentoSelect.append('<option value="' + departamento.id +
-                                '" ' + selected + '>' +
-                                departamento.name + '</option>');
+                                '" ' + selected + '>' + departamento.name + '</option>');
                         });
                     }
                 });
             } else {
                 departamentoSelect.empty();
-                departamentoSelect.append('<option value="">First select hotel</option>');
+                departamentoSelect.append('<option value="">Seleccione un departamento</option>');
             }
         }
 
-        // Manejar click en botón editar
-        $('.btn-edit').click(function() {
-            var tpvId = $(this).data('tpv-id');
-
-            // Cargar datos del empleado
-            $.ajax({
-                url: '/tpvs/' + tpvId + '/edit',
-                type: 'GET',
-                success: function(data) {
-                    $('#editForm').attr('action', '/tpvs/' + tpvId);
-                    $('#region').val(data.tpv.region_id);
-                    $('#aread').val(data.tpv.area);
-                    $('#hotel_id').val(data.tpv.hotel_id);
-                    $('#equipo').val(data.tpv.equipment);
-                    $('#marca').val(data.tpv.brand);
-                    $('#modelo').val(data.tpv.model);
-                    $('#serial').val(data.tpv.no_serial);
-                    $('#nombre').val(data.tpv.name);
-                    $('#ips').val(data.tpv.ip);
-                    $('#links').val(data.tpv.link);
-
-                    // Cargar departamentos del hotel y seleccionar el actual
-                    cargarDepartamentos(data.tpv.hotel_id, data.tpv.departamento_id);
-                }
-            });
-        });
-
-        // Manejar cambio de hotel
-        $('#hotel_id').change(function() {
+        $(document).on('change', '[id^=hotel_id]', function() {
             var hotelId = $(this).val();
-            cargarDepartamentos(hotelId);
+            var tpvId = $(this).attr('id').replace('hotel_id', '');
+            loadDepartamentos(hotelId, null, tpvId);
         });
 
-        // Manejar guardado de cambios
-        $('#saveChanges').click(function() {
-            var form = $('#editForm');
-            $.ajax({
-                url: form.attr('action'),
-                type: 'POST',
-                data: form.serialize(),
-                success: function(response) {
-                    $('#editModal').modal('hide');
-                    // Recargar la página o actualizar la fila en la tabla
-                    window.location.reload();
-                },
-                error: function(xhr) {
-                    // Manejar errores
-                    alert('Error al guardar los cambios');
-                }
-            });
+        // Cargar los departamentos del hotel seleccionado al cargar el modal
+        $('[id^=editModal]').on('show.bs.modal', function(event) {
+            var modal = $(this);
+            var tpvId = modal.attr('id').replace('editModal', '');
+            var hotelId = modal.find('#hotel_id' + tpvId).val();
+            var departamentoId = modal.find('#departamento_id' + tpvId).val();
+
+            loadDepartamentos(hotelId, departamentoId, tpvId);
         });
     });
 </script>
