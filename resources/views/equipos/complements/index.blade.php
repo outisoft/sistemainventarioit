@@ -28,6 +28,14 @@
                     <table id="complements" class="table">
                         <thead class="bg-primary">
                             <tr>
+                                @role('Administrator')
+                                    <th>Region</th>
+                                @else
+                                    @if ($userRegions->count() > 1)
+                                        <th>Region</th>
+                                    @else
+                                    @endif
+                                @endrole
                                 <th>TYPE</th>
                                 <th>BRAND</th>
                                 <th>MODEL</th>
@@ -41,6 +49,14 @@
                         <tbody id="employeeList">
                             @foreach ($equipos as $equipo)
                                 <tr>
+                                    @role('Administrator')
+                                        <td>{{ $equipo->region->name }} </td>
+                                    @else
+                                        @if ($userRegions->count() > 1)
+                                            <td>{{ $equipo->region->name }} </td>
+                                        @else
+                                        @endif
+                                    @endrole
                                     <td>{{ $equipo->type->name }}</td>
                                     <td>{{ $equipo->brand }}</td>
                                     <td>{{ $equipo->model }}</td>
