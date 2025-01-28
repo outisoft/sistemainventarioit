@@ -6,17 +6,18 @@
 
     <div class="content-wrapper">
 
-    @include('roles.create')
-    @include('roles.edit')
+        @include('roles.create')
+        @include('roles.edit')
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="col-12">
                 <h4 class="fw-bold  mt-6 mb-1">Roles List</h4>
-                <p>A role provided access to predefined menus and features so that depending on assigned role an administrator can have access to what user needs.</p>
+                <p>A role provided access to predefined menus and features so that depending on assigned role an
+                    administrator can have access to what user needs.</p>
             </div>
-            
-            <div class="row"> 
-                @foreach ($roles as $role)              
+
+            <div class="row">
+                @foreach ($roles as $role)
                     <div class="col-xl-4 col-md-12">
                         <div class="card">
                             <div class="card-body">
@@ -24,9 +25,14 @@
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <p class="mb-0">Total {{ $role->users_count }} user(s)</p>
                                         <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-                                            @foreach($role->users as $user)   
-                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="{{ $user->name }}" data-bs-original-title="{{ $user->name }}">
-                                                    <img class="rounded-circle" src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt="Avatar">
+                                            @foreach ($role->users as $user)
+                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                    data-bs-placement="top" class="avatar pull-up"
+                                                    aria-label="{{ $user->name }}"
+                                                    data-bs-original-title="{{ $user->name }}">
+                                                    <img class="rounded-circle"
+                                                        src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}"
+                                                        alt="Avatar">
                                                 </li>
                                             @endforeach
                                         </ul>
@@ -34,17 +40,25 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="role-heading">
                                             <h5 class="mb-1">{{ $role->name }}</h5>
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ $role->id }}" class="role-edit-modal">
-                                                <p class="mb-0">Edit Role</p>
-                                            </a>
+                                            @if ($role->name != 'Administrator' || auth()->user()->hasRole('Administrator'))
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#editRoleModal{{ $role->id }}"
+                                                    class="role-edit-modal">
+                                                    <p class="mb-0">Edit Role</p>
+                                                </a>
+                                            @endif
                                         </div>
-                                        @can('roles.destroy')
-                                            <form action="{{ route('roles.destroy', $role) }} " onclick="return confirm('Are you sure to delete this role?')"  method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                            </form>
-                                        @endcan
+                                        @if ($role->name != 'Administrator' || auth()->user()->hasRole('Administrator'))
+                                            @can('roles.destroy')
+                                                <form action="{{ route('roles.destroy', $role) }}"
+                                                    onclick="return confirm('Are you sure to delete this role?')"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                </form>
+                                            @endcan
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -58,13 +72,16 @@
                             <div class="row align-items-center">
                                 <div class="col-5">
                                     <div class="d-flex align-items-end h-100 justify-content-center">
-                                        <img src="{{ asset('images/new.png') }}" alt="Avatar" class="d-block rounded" height="97" width="156"/>
+                                        <img src="{{ asset('images/new.png') }}" alt="Avatar" class="d-block rounded"
+                                            height="97" width="156" />
                                     </div>
                                 </div>
 
                                 <div class="col-7">
                                     <div class="card-body text-sm-end text-center ps-sm-0">
-                                        <button data-bs-target="#addRoleModal" data-bs-toggle="modal" class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role waves-effect waves-light" control-id="ControlID-1">Add New Role</button>
+                                        <button data-bs-target="#addRoleModal" data-bs-toggle="modal"
+                                            class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role waves-effect waves-light"
+                                            control-id="ControlID-1">Add New Role</button>
                                         <p class="mb-0">Add role, if it does not exist</p>
                                     </div>
                                 </div>
@@ -102,11 +119,17 @@
                                             <tr>
                                                 <td>{{ $role->name }}</td>
                                                 <td>
-                                                    @if($role->users->isNotEmpty())
-                                                        <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-                                                            @foreach($role->users as $user)
-                                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar pull-up" aria-label="{{ $user->name }}" data-bs-original-title="{{ $user->name }}">
-                                                                    <img class="rounded-circle" src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}" alt="Avatar">
+                                                    @if ($role->users->isNotEmpty())
+                                                        <ul
+                                                            class="list-unstyled d-flex align-items-center avatar-group mb-0">
+                                                            @foreach ($role->users as $user)
+                                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                                    data-bs-placement="top" class="avatar pull-up"
+                                                                    aria-label="{{ $user->name }}"
+                                                                    data-bs-original-title="{{ $user->name }}">
+                                                                    <img class="rounded-circle"
+                                                                        src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}"
+                                                                        alt="Avatar">
                                                                 </li>
                                                             @endforeach
                                                         </ul>
@@ -114,23 +137,29 @@
                                                         <span class="text-muted">No users</span>
                                                     @endif
                                                 </td>
-                                                <td>
-                                                    {{ $role->users_count }}
+                                                <td>{{ $role->users_count }}</td>
+                                                <td width="10px">
+                                                    @if ($role->name != 'Administrator' || auth()->user()->hasRole('Administrator'))
+                                                        @can('roles.edit')
+                                                            <a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#editRoleModal{{ $role->id }}"
+                                                                class="btn btn-sm btn-primary">Edit</a>
+                                                        @endcan
+                                                    @endif
                                                 </td>
                                                 <td width="10px">
-                                                    @can('roles.edit')
-                                                        <a href="#" data-bs-toggle="modal" data-bs-target="#editRoleModal{{ $role->id }}" class="btn btn-sm btn-primary">Edit</a>
-                                                    @endcan
-                                                </td>
-                                                <td width="10px">
-                                                    @can('roles.destroy')
-                                                        <form action="{{ route('roles.destroy', $role) }} " onclick="return confirm('Are you sure to delete this role?')"  method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit"
-                                                                class="btn btn-sm btn-danger">Delete</button>
-                                                        </form>
-                                                    @endcan
+                                                    @if ($role->name != 'Administrator' || auth()->user()->hasRole('Administrator'))
+                                                        @can('roles.destroy')
+                                                            <form action="{{ route('roles.destroy', $role) }}"
+                                                                onclick="return confirm('Are you sure to delete this role?')"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-sm btn-danger">Delete</button>
+                                                            </form>
+                                                        @endcan
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

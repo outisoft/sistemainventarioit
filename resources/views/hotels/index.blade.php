@@ -51,19 +51,21 @@
 
                                                             @can('hotels.edit')
                                                                 <!--a class="dropdown-item" href="{{ route('hotels.edit', $hotel->id) }}"><i class="bx bx-edit me-1"></i>Editar</a-->
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $hotel->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal{{ $hotel->id }}"
+                                                                    class="dropdown-item"><i
+                                                                        class="bx bx-edit me-1"></i>Editar</a>
                                                             @endcan
 
                                                             @can('hotels.destroy')
-                                                            <form action="{{ route('hotels.destroy', $hotel->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="dropdown-item btn-danger"
-                                                                    onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                        class="bx bx-trash me-1"></i>Eliminar</button>
-                                                            </form>
+                                                                <form action="{{ route('hotels.destroy', $hotel->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="dropdown-item btn-danger"
+                                                                        onclick="return confirm('¿Estás seguro de eliminar el registro de {{ $hotel->name }}?')"><i
+                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                </form>
                                                             @endcan
                                                         </div>
                                                     </div>
@@ -84,23 +86,25 @@
 </x-app-layout>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
-    $('#hotel-select').change(function() {
-        var hotelId = $(this).val();
-        if (hotelId) {
-            $.get('/hotel/' + hotelId + '/departments', function(data) {
-                $('#department-select').prop('disabled', false);
+    $(document).ready(function() {
+        $('#hotel-select').change(function() {
+            var hotelId = $(this).val();
+            if (hotelId) {
+                $.get('/hotel/' + hotelId + '/departments', function(data) {
+                    $('#department-select').prop('disabled', false);
+                    $('#department-select').empty();
+                    $('#department-select').append(
+                        '<option value="">Selecciona un departamento</option>');
+                    $.each(data, function(index, department) {
+                        $('#department-select').append('<option value="' + department
+                            .id + '">' + department.name + '</option>');
+                    });
+                });
+            } else {
+                $('#department-select').prop('disabled', true);
                 $('#department-select').empty();
                 $('#department-select').append('<option value="">Selecciona un departamento</option>');
-                $.each(data, function(index, department) {
-                    $('#department-select').append('<option value="' + department.id + '">' + department.name + '</option>');
-                });
-            });
-        } else {
-            $('#department-select').prop('disabled', true);
-            $('#department-select').empty();
-            $('#department-select').append('<option value="">Selecciona un departamento</option>');
-        }
+            }
+        });
     });
-});
 </script>

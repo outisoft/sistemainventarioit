@@ -1,8 +1,9 @@
 <div class="nav-item search-container">
-    <div class="d-flex align-items-center position-relative">
+    <div class="d-flex align-items-center position-relative w-100">
         <i class="bx bx-search fs-4 lh-0"></i>
-        <input wire:model.live.debounce.300ms="search" type="text" class="form-control border-0 shadow-none ps-1"
-            placeholder="Search..." aria-label="Search..." @focus="$wire.showResults = true" />
+        <input wire:model.live.debounce.300ms="search" type="text"
+            class="form-control border-0 shadow-none ps-1 flex-grow-1" placeholder="Search..." aria-label="Search..."
+            @focus="$wire.showResults = true" />
 
         <!-- Loading indicator -->
         <div wire:loading class="position-absolute top-50 end-0 translate-middle-y me-2">

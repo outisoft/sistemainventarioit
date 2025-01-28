@@ -10,11 +10,14 @@
                     <h5 class="card-header">Departments</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                        @can('departments.create')
-                            <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Add new employee</span>">
-                                <i class='bx bx-add-to-queue icon-lg'></i>
-                            </a>
-                        @endcan
+                            @can('departments.create')
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Add new employee</span>">
+                                    <i class='bx bx-add-to-queue icon-lg'></i>
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -53,21 +56,23 @@
                                                             @endcan
 
                                                             @can('departments.edit')
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $departamento->id }}" 
-                                                                    class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal{{ $departamento->id }}"
+                                                                    class="dropdown-item"><i
+                                                                        class="bx bx-edit me-1"></i>Edit
                                                                 </a>
                                                             @endcan
 
                                                             @can('departments.destroy')
-                                                            <form action="{{ route('departments.destroy', $departamento->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="dropdown-item btn-danger"
-                                                                    onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                        class="bx bx-trash me-1"></i>Delete</button>
-                                                            </form>
+                                                                <form
+                                                                    action="{{ route('departments.destroy', $departamento->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="dropdown-item btn-danger"
+                                                                        onclick="return confirm('¿Estás seguro de eliminar el departamento de {{ $departamento->name }} ?')"><i
+                                                                            class="bx bx-trash me-1"></i>Delete</button>
+                                                                </form>
                                                             @endcan
                                                         </div>
                                                     </div>
