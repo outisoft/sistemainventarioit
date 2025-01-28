@@ -1,4 +1,6 @@
 <x-app-layout>
+    @include('region.create')
+    @include('region.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -11,7 +13,7 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                data-placement="top" title="Agregar Hotel">
+                                data-placement="top" title="Add Region">
                                 <i class='bx bx-add-to-queue icon-lg'></i>
                             </a>
                         </div>
@@ -39,7 +41,8 @@
                                                 <td>
                                                     @if ($region->hotels->count() > 0)
                                                         @foreach ($region->hotels as $hotel)
-                                                            <span class="badge bg-label-success">{{ $hotel->name }}</span>
+                                                            <span
+                                                                class="badge bg-label-success">{{ $hotel->name }}</span>
                                                         @endforeach
                                                     @else
                                                         No hotels found
@@ -55,20 +58,21 @@
                                                         <div class="dropdown-menu">
 
                                                             @can('hotels.edit')
-                                                                
-                                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editModal{{ $region->id }}" class="dropdown-item"><i class="bx bx-edit me-1"></i>Editar</a>
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal{{ $region->id }}"
+                                                                    class="dropdown-item"><i
+                                                                        class="bx bx-edit me-1"></i>Editar</a>
                                                             @endcan
 
                                                             @can('hotels.destroy')
-                                                            <form action="{{ route('regions.destroy', $region->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="dropdown-item btn-danger"
-                                                                    onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                        class="bx bx-trash me-1"></i>Eliminar</button>
-                                                            </form>
+                                                                <form action="{{ route('regions.destroy', $region->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="dropdown-item btn-danger"
+                                                                        onclick="return confirm('¿Estás seguro de eliminar la region de {{ $region->name }} ?')"><i
+                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                </form>
                                                             @endcan
                                                         </div>
                                                     </div>
