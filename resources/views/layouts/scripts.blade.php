@@ -15,6 +15,22 @@
     }
 </style>
 
+
+<!--new DataTable('#equipments');-->
+<script>
+    $('#officees').DataTable({
+        "pageLength": 10,
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: []
+
+    });
+</script>
+
 <!--new DataTable('#equipments');-->
 <script>
     $('#tabla').DataTable({

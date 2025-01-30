@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('licenses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->foreignId('type_id')->references('id')->on('tipos')->cascadeOnDelete();
+            $table->string('type');
+            $table->string('key')->unique();
+            $table->date('end_date')->nullable(); // Solo para Office 365
+            $table->integer('max')->default(1);
+            $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });
     }

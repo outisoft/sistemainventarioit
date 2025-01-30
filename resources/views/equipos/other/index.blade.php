@@ -56,7 +56,7 @@
                                         @else
                                         @endif
                                     @endrole
-                                    <td>{{ $equipo->no_contrato }}</td>
+                                    <td>{{ $equipo->nombre }}</td>
                                     <td>{{ $equipo->marca }}</td>
                                     <td>{{ $equipo->model }}</td>
                                     <td>{{ $equipo->serial }}</td>

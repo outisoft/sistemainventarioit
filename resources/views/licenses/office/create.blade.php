@@ -2,17 +2,16 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form method="POST" action="{{ route('other.store') }}">
+            <form method="POST" action="{{ route('office.store') }}">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Others</h4>
+                    <h4 class="modal-title" id="myModalLabel">Office</h4>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true"></span></button>
                 </div>
 
                 <div class="modal-body">
                     <!-- Region -->
-                    {{-- Región (solo visible para administradores) --}}
                     @role('Administrator')
                         <div class="mb-3">
                             <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
@@ -47,54 +46,56 @@
 
                     <!-- Tipo -->
                     <div class="mb-3" style="display: none;">
-                        <x-input-label class="form-label" for="tipo_id" :value="__('Tipo de equipo')" />
+                        <x-input-label class="form-label" for="type_id" :value="__('Tipo de equipo')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input readonly='readonly' id="tipo_id" class="form-control" type="text"
-                                name="tipo_id" placeholder="Other" :value="13" required autocomplete="tipo_id" />
+                            <x-text-input readonly='readonly' id="type_id" class="form-control" type="text"
+                                name="type_id" placeholder="Other" :value="11" required autocomplete="type_id" />
                         </div>
-                        <x-input-error :messages="$errors->get('tipo_id')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('type_id')" class="mt-2" />
                     </div>
 
-                    <!-- Name -->
+                    <!-- TYPE -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="nombre" :value="__('Name')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="nombre" class="form-control" type="text" name="nombre"
-                                placeholder="Fire TV" :value="old('nombre')" required autocomplete="nombre" />
-                        </div>
-                        <x-input-error :messages="$errors->get('nombre')" class="mt-2" />
+                        <x-input-label class="form-label" for="type" :value="__('Tipo de Office')" />
+                        <select class="form-control" id="type" name="type" required>
+                            <option value="">Select Office</option>
+                            <option value="365">Microsoft 365</option>
+                            <option value="2019">Microsoft Office 2019</option>
+                            <option value="2016">Microsoft Office 2016</option>
+                            <option value="2013">Microsoft Office 2013</option>
+                            <option value="2010">Microsoft Office 2010</option>
+                            <option value="2007">Microsoft Office 2007</option>
+                            <option value="2003">Microsoft Office 2003</option>
+                            <!-- Agrega más opciones si es necesario -->
+                        </select>
+                        <x-input-error :messages="$errors->get('type')" class="mt-2" />
                     </div>
 
-                    <!-- Marca -->
+                    <!-- KEY -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="marca" :value="__('Brand')" />
+                        <x-input-label class="form-label" for="key" :value="__('Email/KEY')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="marca" class="form-control" type="text" name="marca"
-                                placeholder="Amazon" :value="old('marca')" required autocomplete="marca" />
+                            <x-text-input id="key" class="form-control" type="text" name="key"
+                                placeholder="XCD64-8768V-OT54E-BNG67C-M986RE" :value="old('key')" required
+                                autocomplete="key" />
                         </div>
-                        <x-input-error :messages="$errors->get('marca')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('key')" class="mt-2" />
                     </div>
 
-                    <!-- Model -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="model" :value="__('Model')" />
+                    <!-- Campo: Fecha de expiración (solo para Office 365) -->
+                    <div class="mb-3" id="fecha_expiracion_container" style="display: none;">
+                        <x-input-label class="form-label" for="end_date" :value="__('End Date')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="model" class="form-control" type="text" name="model"
-                                placeholder="E9L29Y" :value="old('model')" required autocomplete="model" />
+                            <x-text-input id="end_date" class="form-control" type="date" name="end_date"
+                                placeholder="XCD64-8768V-OT54E-BNG67C-M986RE" :value="old('end_date')" required
+                                autocomplete="end_date" />
                         </div>
-                        <x-input-error :messages="$errors->get('model')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
                     </div>
 
-                    <!-- Numero de serie -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="serial" :value="__('Serial number')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="serial" class="form-control" type="text" name="serial"
-                                placeholder="840080597126" :value="old('serial')" required autocomplete="serial" />
-                        </div>
-                        <x-input-error :messages="$errors->get('serial')" class="mt-2" />
-                    </div>
+                    <br>
                 </div>
+
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
@@ -102,3 +103,15 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('type').addEventListener('change', function() {
+        const fechaExpiracionContainer = document.getElementById('fecha_expiracion_container');
+        if (this.value === '365') {
+            fechaExpiracionContainer.style.display = 'block';
+            document.getElementById('end_date').setAttribute('required', true);
+        } else {
+            fechaExpiracionContainer.style.display = 'none';
+            document.getElementById('end_date').removeAttribute('required');
+        }
+    });
+</script>

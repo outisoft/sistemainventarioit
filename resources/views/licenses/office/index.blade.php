@@ -1,8 +1,10 @@
 <x-app-layout>
+    @include('licenses.office.create')
+    @include('licenses.office.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Licencias /</span> Office 365 </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Licencias /</span> Office </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -25,19 +27,46 @@
                                 <table id="office" class="table footer">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Correo</th>
-                                            <th>Password</th>
-                                            <th>Acciones</th>
+                                            @role('Administrator')
+                                                <th>REGION</th>
+                                            @else
+                                                @if ($userRegions->count() > 1)
+                                                    <th>REGION</th>
+                                                @else
+                                                @endif
+                                            @endrole
+                                            <th>OFFICE</th>
+                                            <th>EMAIL/KEY</th>
+                                            <th>FECHA DE EXPIRACION</th>
+                                            <th>TOTAL</th>
+                                            <th>ACCTIONS</th>
                                         </tr>
                                     </thead>
                                     <tbody id="licensesList">
                                         <!-- Aquí se mostrarán las licenias -->
-                                        @foreach ($equipos as $license)
+                                        @foreach ($offices as $office)
                                             <tr>
-                                                <td>{{ $license->name }}</td>
-                                                <td>{{ $license->email }}</td>
-                                                <td>{{ $license->password }}</td>
+                                                @role('Administrator')
+                                                    <td>{{ $office->region->name }} </td>
+                                                @else
+                                                    @if ($userRegions->count() > 1)
+                                                        <td>{{ $office->region->name }} </td>
+                                                    @else
+                                                    @endif
+                                                @endrole
+
+                                                <td>Microsoft Office {{ $office->type }}</td>
+                                                <td>{{ $office->key }}</td>
+
+                                                <td>
+                                                    @if (!empty($office->end_date))
+                                                        {{ $office->end_date }}
+                                                    @else
+                                                        Permanente
+                                                    @endif
+                                                </td>
+
+                                                <td>{{ $office->max }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
@@ -46,24 +75,25 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <!-- Aquí se agregarán las opciones -->
-                                                            @can('licenses.edit')
-                                                                <a href="#" data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal{{ $license->id }}"
-                                                                    class="dropdown-item"><i
-                                                                        class="bx bx-edit me-1"></i>Editar</a>
-                                                            @endcan
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('office.show', $office->id) }}"><i
+                                                                    class="bx bx-show-alt me-1"></i>Show
+                                                            </a>
 
-                                                            @can('licenses.destroy')
-                                                                <form action="{{ route('licenses.destroy', $license->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('¿Estás seguro de eliminar este equipo?')"><i
-                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
-                                                                </form>
-                                                            @endcan
+                                                            <a href="#" data-bs-toggle="modal"
+                                                                data-bs-target="#editModal{{ $office->id }}"
+                                                                class="dropdown-item"><i
+                                                                    class="bx bx-edit me-1"></i>Edit</a>
+
+                                                            <form action="{{ route('office.destroy', $office->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit" class="dropdown-item btn-danger"
+                                                                    onclick="return confirm('Are you sure to delete?')"><i
+                                                                        class="bx bx-trash me-1"></i>Delete</button>
+                                                            </form>
+
                                                         </div>
                                                     </div>
                                                 </td>

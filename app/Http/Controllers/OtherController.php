@@ -55,7 +55,7 @@ class OtherController extends Controller
         try {
             $validated = $request->validate([
                 'tipo_id' => 'required',
-                'no_contrato' => 'required|string|max:255',
+                'nombre' => 'required|string|max:255',
                 'marca' => 'required',
                 'model' => 'required',
                 'serial' => [
@@ -72,14 +72,14 @@ class OtherController extends Controller
 
             Historial::create([
                 'accion' => 'Creacion',
-                'descripcion' => "Se agregó equipo con el nombre: {$registro->no_contrato} y con N/S: {$registro->serial}",
+                'descripcion' => "Se agregó equipo con el nombre: {$registro->nombre} y con N/S: {$registro->serial}",
                 'user_id' => $user,
                 'region_id' => $registro->region_id,
             ]);
 
             toastr()
                 ->timeOut(3000)
-                ->addSuccess("Se creó {$registro->no_contrato} ({$registro->serial}) correctamente.");
+                ->addSuccess("Se creó {$registro->nombre} ({$registro->serial}) correctamente.");
 
             return redirect()->route('other.index');
 
@@ -110,7 +110,7 @@ class OtherController extends Controller
         $user = auth()->id();
         try {
             $data = $request->validate([
-                'no_contrato' => [
+                'nombre' => [
                     'required',
                     'string',
                     'max:255',
@@ -128,14 +128,14 @@ class OtherController extends Controller
 
             Historial::create([
                 'accion' => 'Actualización',
-                'descripcion' => "Se actualizó SW con el nombre: {$registro->no_contrato} y con N/S: {$registro->serial}",
+                'descripcion' => "Se actualizó el equipo con el nombre: {$registro->nombre} y con N/S: {$registro->serial}",
                 'user_id' => $user,
                 'region_id' => $registro->region_id,
             ]);
 
             toastr()
                 ->timeOut(3000)
-                ->addSuccess("Se actualizó {$registro->no_contrato} ({$registro->serial}) correctamente.");
+                ->addSuccess("Se actualizó {$registro->nombre} ({$registro->serial}) correctamente.");
 
             return redirect()->route('other.index');
 
@@ -170,14 +170,14 @@ class OtherController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el {$registro->no_contrato} con N/S {$registro->serial}",
+            'descripcion' => "Se elimino el {$registro->nombre} con N/S {$registro->serial}",
             'user_id' => $user,
             'region_id' => $registro->region_id,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se elimino el {$registro->no_contrato} correctamente.");
+            ->addSuccess("Se elimino el {$registro->nombre} correctamente.");
 
         return redirect()->route('other.index');
     }
