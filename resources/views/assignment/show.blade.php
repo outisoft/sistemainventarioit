@@ -174,7 +174,7 @@
             <div class="card">
                 <h5 class="card-header">License Information(s)</h5>
                 @if ($equipo->license->isEmpty())
-                    <p>No licenses assigned.</p>
+                    <p class="card-body">No licenses assigned.</p>
                 @else
                     @foreach ($equipo->license as $licencia)
                         @php
