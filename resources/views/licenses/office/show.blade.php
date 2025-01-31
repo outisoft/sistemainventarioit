@@ -14,7 +14,7 @@
             <!-- info de licensia -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Details <strong>{{ $licencia->type }}</strong></h5>
+                    <h5 class="card-header">Details <strong>Microsoft Office {{ $licencia->type }}</strong></h5>
                 </div>
 
                 <div class="content-wrapper">
@@ -35,71 +35,41 @@
             </div>
             <br>
             <!--info de asignados -->
+
             <div class="card">
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="card-body">
-                                <!-- Lista de equipos asignados -->
-                                <h5>Equipos Asignados</h5>
-                                @if ($licencia->equipo->isEmpty())
-                                    <p>No hay equipos asignados.</p>
-                                @else
-                                    <div class="row g-5">
-                                        @foreach ($licencia->equipo as $equipo)
-                                            <div class="col-md-5 col-xxl-4">
-                                                <div class="card h-100">
-                                                    <div class="card-body">
-                                                        <div class="bg-label-primary rounded-3 text-center mb-4 pt-6">
-                                                            <i class='bx bx-desktop bx-lg'></i>
-                                                        </div>
-                                                        <h5 class="mb-2">{{ $equipo->name }} </h5>
-                                                        @if ($equipo->empleados->isNotEmpty())
-                                                            <p>{{ $equipo->empleados->first()->name }}</p>
-                                                        @else
-                                                            <p> Sin asignar</p>
-                                                        @endif
-                                                        <div class="row mb-4 g-3">
-                                                            <div class="col-6">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <h6 class="mb-0 text-nowrap">
-                                                                            {{ $equipo->serial }}
-                                                                        </h6>
-                                                                        <small>Serial</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="d-flex align-items-center">
-                                                                    <div>
-                                                                        <h6 class="mb-0 text-nowrap">
-                                                                            {{ $equipo->marca }}
-                                                                            {{ $equipo->model }}
-                                                                        </h6>
-                                                                        <small>Model</small>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 text-center d-flex aling-items-center">
-                                                            <form
-                                                                action="{{ route('licencias.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger w-100 d-grid">Desasignar</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                        @endforeach
-                                    </div>
-                                @endif
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-12">
+                    <ul class="list-group list-group-horizontal-md">
+                        @foreach ($licencia->equipo as $equipo)
+                            <li class="list-group-item flex-fill p-6 text-body">
+                                <h6 class="d-flex align-items-center gap-2"><i
+                                        class='icon-base bx bx-desktop'></i>{{ $equipo->name }}
+                                </h6>
+                                <address class="mb-0">
+                                    @if ($equipo->empleados->isNotEmpty())
+                                        {{ $equipo->empleados->first()->name }}
+                                    @else
+                                        SIN ASIGNAR
+                                    @endif <br>
+                                    @if ($equipo->empleados->isNotEmpty() && $equipo->empleados->first()->hotel)
+                                        {{ $equipo->empleados->first()->hotel->name }}-{{ $equipo->empleados->first()->departments->name }}<br>
+                                    @else
+                                        HOTEL NO ASIGNADO<br>
+                                    @endif
+                                    {{ $equipo->serial }},<br>
+                                    {{ $equipo->marca }}, {{ $equipo->model }},<br>
+                                </address>
+                                <p class="col-12 text-center d-flex aling-items-center">
+                                <form
+                                    action="{{ route('licencias.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger d-grid">Desasignar</button>
+                                </form>
+                                </p>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
             <br>

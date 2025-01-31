@@ -166,7 +166,35 @@
                                 -></a></p>
                     </div>
                 @endif
-                <br>
+            </div>
+            <br>
+
+
+
+            <div class="card">
+                <h5 class="card-header">License Information(s)</h5>
+                @if ($equipo->license->isEmpty())
+                    <p>No licenses assigned.</p>
+                @else
+                    @foreach ($equipo->license as $licencia)
+                        @php
+                            $statusClass = [
+                                'Active' => 'badge bg-label-success',
+                                'Near expiration' => 'badge bg-label-warning',
+                                'Expired' => 'badge bg-label-danger',
+                            ][$licencia->getStatus()];
+                        @endphp
+                        <div class="card-body">
+                            <p>
+                                <strong>APLICATION:</strong> Microsoft Office {{ $licencia->type }} <br>
+                                <strong>EMAIL/KEY:</strong> {{ $licencia->key }} <br>
+                                <strong>END DATE:</strong> {{ $licencia->end_date ?? 'N/A' }} <br>
+                                <strong>STATUS:</strong> <span
+                                    class="{{ $statusClass }}">{{ $licencia->getStatus() }}</span>
+                            </p>
+                        </div>
+                    @endforeach
+                @endif
             </div>
             <br>
 

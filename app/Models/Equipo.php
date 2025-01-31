@@ -46,7 +46,7 @@ class Equipo extends Model
 
     public function license()
     {
-        return $this->belongsToMany(License::class, 'equipo_license');
+        return $this->belongsToMany(License::class, 'license_equipment');
     }
 
     protected static function boot() //guardar en mayusculas

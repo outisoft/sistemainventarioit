@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('licenses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary(); 
             $table->foreignId('type_id')->references('id')->on('tipos')->cascadeOnDelete();
             $table->string('type');
             $table->string('key')->unique();

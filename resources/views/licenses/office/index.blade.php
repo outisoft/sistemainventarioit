@@ -4,12 +4,12 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Licencias /</span> Office </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Licenses /</span> Office </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Licencias office</h5>
+                    <h5 class="card-header">OFFICE LICENSES</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
@@ -62,11 +62,21 @@
                                                     @if (!empty($office->end_date))
                                                         {{ $office->end_date }}
                                                     @else
-                                                        Permanente
+                                                        PERPETUA
                                                     @endif
+                                                    @php
+                                                        $statusClass = [
+                                                            'Active' => 'badge bg-label-success',
+                                                            'Near expiration' => 'badge bg-label-warning',
+                                                            'Expired' => 'badge bg-label-danger',
+                                                        ][$office->getStatus()];
+                                                    @endphp
+                                                    <span class="{{ $statusClass }}">
+                                                        {{ $office->getStatus() }}
+                                                    </span>
                                                 </td>
 
-                                                <td>{{ $office->max }}</td>
+                                                <td>EN USO {{ $office->equipo->count() }} DE {{ $office->max }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
@@ -90,7 +100,7 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="dropdown-item btn-danger"
-                                                                    onclick="return confirm('Are you sure to delete?')"><i
+                                                                    onclick="return confirm('Are you sure to delete Office {{ $office->type }}?')"><i
                                                                         class="bx bx-trash me-1"></i>Delete</button>
                                                             </form>
 

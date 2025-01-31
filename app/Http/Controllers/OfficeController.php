@@ -55,21 +55,35 @@ class OfficeController extends Controller
 
         // Validar que el equipo no tenga ya una licencia asignada
         if ($equipo->license()->exists()) {
-            return redirect()->route('office.show', $licenciaId)
-                            ->with('error', 'Este equipo ya tiene una licencia asignada.');
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addError("Este equipo ya tiene una licencia asignada.");
+            return redirect()->route('office.show', $licenciaId);
         }
 
         // Validar que la licencia no haya alcanzado su límite de asignaciones
         if ($licencia->equipo()->count() >= $licencia->max) {
-            return redirect()->route('office.show', $licenciaId)
-                            ->with('error', 'Límite de asignaciones alcanzado para esta licencia.');
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addError("Límite de asignaciones alcanzado para esta licencia.");
+            return redirect()->route('office.show', $licenciaId);
         }
 
         // Asignar la licencia al equipo
         $licencia->equipo()->attach($equipoId);
+        $user = auth()->id();
 
-        return redirect()->route('office.show', $licenciaId)
-                        ->with('success', 'Licencia asignada correctamente.');
+        Historial::create([
+            'accion' => 'Creacion',
+            'descripcion' => "Se asigno una licencia de Office {$licencia->type} ({$licencia->key}) al equipo {$equipo->name}",
+            'user_id' => $user,
+            'region_id' => $licencia->region_id,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se asigno la licencia correctamente.");
+
+        return redirect()->route('office.show', $licenciaId);
     }
 
     public function desasignarLicencia($licenciaId, $equipoId)
@@ -80,8 +94,20 @@ class OfficeController extends Controller
         // Desasignar la licencia del equipo
         $licencia->equipo()->detach($equipoId);
 
-        return redirect()->route('office.show', $licenciaId)
-                        ->with('success', 'Licencia desasignada correctamente.');
+        $user = auth()->id();
+        $equipo = Equipo::findOrFail($equipoId);
+
+        Historial::create([
+            'accion' => 'Creacion',
+            'descripcion' => "Se desvinculo una licencia de Office {$licencia->type} ({$licencia->key}) al equipo {$equipo->name}",
+            'user_id' => $user,
+            'region_id' => $licencia->region_id,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se desvinculo la licencia correctamente.");
+
+        return redirect()->route('office.show', $licenciaId);
     }
 
     public function store(Request $request)
@@ -110,7 +136,7 @@ class OfficeController extends Controller
 
             Historial::create([
                 'accion' => 'Creacion',
-                'descripcion' => "Se registro una licencia de: {$licencia->type}",
+                'descripcion' => "Se registro una licencia de: Microsoft Office {$licencia->type} ({$licencia->key})",
                 'user_id' => $user,
                 'region_id' => $licencia->region_id,
             ]);
@@ -163,7 +189,7 @@ class OfficeController extends Controller
 
             Historial::create([
                 'accion' => 'Actualización',
-                'descripcion' => "Se actualizó la licencia de {$licencia->type} ",
+                'descripcion' => "Se actualizó la licencia de Microsoft Office {$licencia->type} ({$licencia->key}) ",
                 'user_id' => $user,
                 'region_id' => $licencia->region_id,
             ]);
@@ -196,8 +222,24 @@ class OfficeController extends Controller
         }
     }
 
-    public function destroy(Office $office)
+    public function destroy($id)
     {
-        //
+        $licencia = License::findOrFail($id);
+        $licencia->delete();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Eliminacion',
+            'descripcion' => "Se elimino la licencia de Microsoft Office {$licencia->type} ({$licencia->key}) ",
+            'user_id' => $user,
+            'region_id' => $licencia->region_id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se elimino la licencia de Office {$licencia->type}.");
+
+        return redirect()->route('office.index');
     }
 }

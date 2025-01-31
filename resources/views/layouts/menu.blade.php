@@ -114,11 +114,11 @@
 
                     @can('tablets.index')
                         <!--li disabled class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
-                                                                                                                                                                            <a href="#" class="menu-link">
-                                                                                                                                                                                <i class='menu-icon tf-icons bx bx-tab'></i>
-                                                                                                                                                                                <div data-i18n="Analytics">Tablets Co2</div>
-                                                                                                                                                                            </a>
-                                                                                                                                                                        </li-->
+                                                                                                                                                                                            <a href="#" class="menu-link">
+                                                                                                                                                                                                <i class='menu-icon tf-icons bx bx-tab'></i>
+                                                                                                                                                                                                <div data-i18n="Analytics">Tablets Co2</div>
+                                                                                                                                                                                            </a>
+                                                                                                                                                                                        </li-->
                     @endcan
 
                     @can('tpvs.index')
@@ -141,11 +141,11 @@
                     @endcan
 
                     <!--li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
-                                                                                                <a href="{{ route('licenses.index') }}" class="menu-link">
-                                                                                                    <i class='menu-icon tf-icons bx bxl-microsoft'></i>
-                                                                                                    <div data-i18n="Without navbar">Office 365</div>
-                                                                                                </a>
-                                                                                            </li-->
+                                                                                                        <a href="{{ route('licenses.index') }}" class="menu-link">
+                                                                                                            <i class='menu-icon tf-icons bx bxl-microsoft'></i>
+                                                                                                            <div data-i18n="Without navbar">Office 365</div>
+                                                                                                        </a>
+                                                                                                    </li-->
                 </ul>
             </li>
         @endcan
@@ -155,7 +155,7 @@
             class="menu-item  {{ Request::routeIs('office.index') ? 'active' : '' }} {{ Request::routeIs('office.show') ? 'active' : '' }} ">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon bx bxl-adobe'></i>
-                <div data-i18n="Layouts">Licencias</div>
+                <div data-i18n="Layouts">Licenses</div>
             </a>
 
             <ul class="menu-sub">
