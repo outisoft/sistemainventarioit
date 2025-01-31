@@ -12,10 +12,12 @@
                     <h5 class="card-header">OFFICE LICENSES</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                data-placement="top" title="Agregar Nuevo Registro">
-                                <i class='bx bx-add-to-queue icon-lg'></i>
-                            </a>
+                            @can('licenses.create')
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-placement="top" title="Agregar Nuevo Registro">
+                                    <i class='bx bx-add-to-queue icon-lg'></i>
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -85,24 +87,30 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('office.show', $office->id) }}"><i
-                                                                    class="bx bx-show-alt me-1"></i>Show
-                                                            </a>
+                                                            @can('licenses.show')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('office.show', $office->id) }}"><i
+                                                                        class="bx bx-show-alt me-1"></i>Show
+                                                                </a>
+                                                            @endcan
 
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#editModal{{ $office->id }}"
-                                                                class="dropdown-item"><i
-                                                                    class="bx bx-edit me-1"></i>Edit</a>
+                                                            @can('licenses.edit')
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal{{ $office->id }}"
+                                                                    class="dropdown-item"><i
+                                                                        class="bx bx-edit me-1"></i>Edit</a>
+                                                            @endcan
 
-                                                            <form action="{{ route('office.destroy', $office->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item btn-danger"
-                                                                    onclick="return confirm('Are you sure to delete Office {{ $office->type }}?')"><i
-                                                                        class="bx bx-trash me-1"></i>Delete</button>
-                                                            </form>
+                                                            @can('licenses.destroy')
+                                                                <form action="{{ route('office.destroy', $office->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="dropdown-item btn-danger"
+                                                                        onclick="return confirm('Are you sure to delete Office {{ $office->type }}?')"><i
+                                                                            class="bx bx-trash me-1"></i>Delete</button>
+                                                                </form>
+                                                            @endcan
 
                                                         </div>
                                                     </div>

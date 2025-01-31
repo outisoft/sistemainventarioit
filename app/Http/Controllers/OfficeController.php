@@ -11,9 +11,18 @@ use Illuminate\Http\Request;
 
 class OfficeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:licenses.index')->only('index');
+        $this->middleware('can:licenses.create')->only('create', 'store');
+        $this->middleware('can:licenses.edit')->only('edit', 'update');
+        $this->middleware('can:licenses.show')->only('show');
+        $this->middleware('can:licenses.asignarLicencia')->only('asignarLicencia');
+        $this->middleware('can:licenses.desasignarLicencia')->only('desasignarLicencia');
+        $this->middleware('can:licenses.destroy')->only('destroy');
+    }
+
     public function index()
     {
         //$tipo = Tipo::where('name', 'OFFICE')->first();
