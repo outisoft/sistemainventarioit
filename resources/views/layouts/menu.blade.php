@@ -153,11 +153,21 @@
         <!-- Licencias -->
         @can('licenses.index')
             <li
-                class="menu-item  {{ Request::routeIs('office.index') ? 'active' : '' }} {{ Request::routeIs('office.show') ? 'active' : '' }} ">
+                class="menu-item {{ Request::routeIs('adobe.index') ? 'active' : '' }} || {{ Request::routeIs('office.index') ? 'active' : '' }} || {{ Request::routeIs('office.show') ? 'active' : '' }} ">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class='menu-icon bx bxl-adobe'></i>
                     <div data-i18n="Layouts">Licenses</div>
                 </a>
+
+                <ul class="menu-sub">
+                    <!-- Office -->
+                    <li
+                        class="menu-item {{ Request::routeIs('adobe.index') ? 'active' : '' }} || {{ Request::routeIs('office.show') ? 'active' : '' }}">
+                        <a href="{{ route('adobe.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Adobe</div>
+                        </a>
+                    </li>
+                </ul>
 
                 <ul class="menu-sub">
                     <!-- Office -->

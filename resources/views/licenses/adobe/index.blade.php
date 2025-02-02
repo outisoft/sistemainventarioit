@@ -1,15 +1,15 @@
 <x-app-layout>
-    @include('licenses.office.create')
-    @include('licenses.office.edit')
+@include('licenses.adobe.create')
+@include('licenses.adobe.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Licenses /</span> Office </h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Licenses /</span> Adobe </h4>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">OFFICE LICENSES</h5>
+                    <h5 class="card-header">Adobe Licenses</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('licenses.create')
@@ -37,7 +37,7 @@
                                                 @else
                                                 @endif
                                             @endrole
-                                            <th>OFFICE</th>
+                                            <th>ADOBE</th>
                                             <th>EMAIL/KEY</th>
                                             <th>FECHA DE EXPIRACION</th>
                                             <th>TOTAL</th>
@@ -46,23 +46,23 @@
                                     </thead>
                                     <tbody id="licensesList">
                                         <!-- Aquí se mostrarán las licenias -->
-                                        @foreach ($offices as $office)
+                                        @foreach ($licenses as $adobe)
                                             <tr>
                                                 @role('Administrator')
-                                                    <td>{{ $office->region->name }} </td>
+                                                    <td>{{ $adobe->region->name }} </td>
                                                 @else
                                                     @if ($userRegions->count() > 1)
-                                                        <td>{{ $office->region->name }} </td>
+                                                        <td>{{ $adobe->region->name }} </td>
                                                     @else
                                                     @endif
                                                 @endrole
 
-                                                <td>Microsoft Office {{ $office->type }}</td>
-                                                <td>{{ $office->key }}</td>
+                                                <td>ADOBE {{ $adobe->type }}</td>
+                                                <td>{{ $adobe->key }}</td>
 
                                                 <td>
-                                                    @if (!empty($office->end_date))
-                                                        {{ $office->end_date }}
+                                                    @if (!empty($adobe->end_date))
+                                                        {{ $adobe->end_date }}
                                                     @else
                                                         PERPETUA
                                                     @endif
@@ -71,14 +71,14 @@
                                                             'Active' => 'badge bg-label-success',
                                                             'Near expiration' => 'badge bg-label-warning',
                                                             'Expired' => 'badge bg-label-danger',
-                                                        ][$office->getStatus()];
+                                                        ][$adobe->getStatus()];
                                                     @endphp
                                                     <span class="{{ $statusClass }}">
-                                                        {{ $office->getStatus() }}
+                                                        {{ $adobe->getStatus() }}
                                                     </span>
                                                 </td>
 
-                                                <td>EN USO {{ $office->equipo->count() }} DE {{ $office->max }}</td>
+                                                <td>EN USO {{ $adobe->equipo->count() }} DE {{ $adobe->max }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
@@ -89,25 +89,25 @@
                                                         <div class="dropdown-menu">
                                                             @can('licenses.show')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('office.show', $office->id) }}"><i
+                                                                    href="{{ route('adobe.show', $adobe->id) }}"><i
                                                                         class="bx bx-show-alt me-1"></i>Show
                                                                 </a>
                                                             @endcan
 
                                                             @can('licenses.edit')
                                                                 <a href="#" data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal{{ $office->id }}"
+                                                                    data-bs-target="#editModal{{ $adobe->id }}"
                                                                     class="dropdown-item"><i
                                                                         class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 
                                                             @can('licenses.destroy')
-                                                                <form action="{{ route('office.destroy', $office->id) }}"
+                                                                <form action="{{ route('adobe.destroy', $adobe->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('Are you sure to delete Office {{ $office->type }}?')"><i
+                                                                        onclick="return confirm('Are you sure to delete ADOBE {{ $adobe->type }}?')"><i
                                                                             class="bx bx-trash me-1"></i>Delete</button>
                                                                 </form>
                                                             @endcan

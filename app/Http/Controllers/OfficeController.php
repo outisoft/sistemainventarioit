@@ -8,6 +8,7 @@ use App\Models\Equipo;
 use App\Models\Historial;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule; 
 
 class OfficeController extends Controller
 {
@@ -31,7 +32,9 @@ class OfficeController extends Controller
 
         $userRegions = auth()->user()->regions;
 
-        $offices = License::with(['region'])
+        $tipo = Tipo::where('name', 'OFFICE')->first();
+        $offices = License::where('type_id', $tipo->id)
+            ->with(['region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -127,7 +130,14 @@ class OfficeController extends Controller
             $validated = $request->validate([
                 'type_id' => 'required',
                 'type' => 'required|in:365,2019,2016,2013,2010,2007,2003', // Validar los tipos permitidos
-                'key' => 'required|string|unique:licenses,key',
+                'key' => [
+                    'required',
+                    'string',
+                    Rule::unique('licenses')->where(function ($query) use ($request) {
+                        return $query->where('key', $request->key)
+                                    ->where('type_id', $request->type_id);
+                    }),
+                ],
                 'end_date' => 'nullable|date|required_if:tipo,365',
                 'region_id' => 'required',
             ]);
@@ -186,7 +196,14 @@ class OfficeController extends Controller
 
             $data = $request->validate([
                 'type' => 'required|in:365,2019,2016,2013,2010,2007,2003', // Validar los tipos permitidos
-                'key' => 'required|string|unique:licenses,key,' . $licencia->id, // Ignorar la clave actual
+                'key' => [
+                    'required',
+                    'string',
+                    Rule::unique('licenses')->where(function ($query) use ($request) {
+                        return $query->where('key', $request->key)
+                                    ->where('type_id', $request->type_id);
+                    })->ignore($licencia->id),
+                ], // Ignorar la clave actual
                 'end_date' => 'nullable|date|required_if:type,365', // Obligatorio solo para Office 365
                 'region_id' => 'required',
             ]);

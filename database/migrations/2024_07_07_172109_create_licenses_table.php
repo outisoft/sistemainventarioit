@@ -15,7 +15,7 @@ return new class extends Migration
             $table->uuid('id')->primary(); 
             $table->foreignId('type_id')->references('id')->on('tipos')->cascadeOnDelete();
             $table->string('type');
-            $table->string('key')->unique();
+            $table->string('key');
             $table->date('end_date')->nullable(); // Solo para Office 365
             $table->integer('max')->default(1);
             $table->foreignId('region_id')->constrained();

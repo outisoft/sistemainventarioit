@@ -15,6 +15,7 @@ use App\Http\Controllers\TpvController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\AdobeController;
 use App\Http\Controllers\DesktopController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\HotelController;
@@ -78,6 +79,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('coming2', Coming2Controller::class);//Rutas coming2
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::resource('office', OfficeController::class);//Rutas Office
+    Route::resource('adobe', AdobeController::class);//Rutas Adobe
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
     Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');
 

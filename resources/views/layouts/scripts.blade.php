@@ -199,7 +199,7 @@
 
 <!--new DataTable('#office');-->
 <script>
-    $('#office').DataTable({
+    $('#licenses').DataTable({
         "pageLength": 100,
         "lengthMenu": [
             [10, 25, 50, -1],
@@ -216,7 +216,7 @@
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
-                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -224,7 +224,7 @@
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
-                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
