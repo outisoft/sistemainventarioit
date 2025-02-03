@@ -22,7 +22,7 @@
                         <div class="card-datatable table-responsive pt-0">
                             <div class="card-body">
                                 <!-- Información de la licencia -->
-                                <h5 class="card-title">Licencia: {{ $licencia->key }}</h5>
+                                <P class="card-title"><strong>Licensias:</strong> {{ $licencia->key }}</P>
                                 <p class="card-text">
                                     <strong>Tipo:</strong> {{ $licencia->type }}<br>
                                     <strong>Asignaciones Máximas:</strong> {{ $licencia->max }}<br>
