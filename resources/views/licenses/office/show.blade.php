@@ -14,7 +14,7 @@
             <!-- info de licensia -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Details <strong>Microsoft Office {{ $licencia->type }}</strong></h5>
+                    <h5 class="card-header">Details <strong> {{ $licencia->type }}</strong></h5>
                 </div>
 
                 <div class="content-wrapper">
@@ -24,7 +24,7 @@
                                 <!-- Información de la licencia -->
                                 <h5 class="card-title">Licencia: {{ $licencia->key }}</h5>
                                 <p class="card-text">
-                                    <strong>Tipo:</strong> Microsoft Office {{ $licencia->type }}<br>
+                                    <strong>Tipo:</strong> {{ $licencia->type }}<br>
                                     <strong>Asignaciones Máximas:</strong> {{ $licencia->max }}<br>
                                     <strong>Asignaciones Actuales:</strong> {{ $licencia->equipo->count() }}
                                 </p>
