@@ -14,7 +14,7 @@
             <!-- info de licensia -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Details <strong> {{ $licencia->type }}</strong></h5>
+                    <h5 class="card-header">DETAILS <strong> {{ $licencia->type }}</strong></h5>
                 </div>
 
                 <div class="content-wrapper">
