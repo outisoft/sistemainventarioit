@@ -59,8 +59,8 @@
                         <x-input-label class="form-label" for="type" :value="__('Tipo de Adobe')" />
                         <select class="form-control" id="type" name="type" required>
                             <option value="">Select Adobe</option>
-                            <option value="CREATIVE CLOUD">ADOBE CREATIVE CLOUD</option>
-                            <option value="ACROBAT PRO 2020">ADOBE ACROBAT PRO 2020</option>
+                            <option value="ADOBE CREATIVE CLOUD">ADOBE CREATIVE CLOUD</option>
+                            <option value="ADOBE ACROBAT PRO 2020">ADOBE ACROBAT PRO 2020</option>
                             <!-- Agrega más opciones si es necesario -->
                         </select>
                         <x-input-error :messages="$errors->get('type')" class="mt-2" />
@@ -101,7 +101,7 @@
 <script>
     document.getElementById('type').addEventListener('change', function() {
         const fechaExpiracionContainer = document.getElementById('fecha_expiracion_container');
-        if (this.value === 'CREATIVE CLOUD') {
+        if (this.value === 'ADOBE CREATIVE CLOUD') {
             fechaExpiracionContainer.style.display = 'block';
             document.getElementById('end_date').setAttribute('required', true);
         } else {

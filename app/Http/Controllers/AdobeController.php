@@ -66,7 +66,7 @@ class AdobeController extends Controller
 
             Historial::create([
                 'accion' => 'Creacion',
-                'descripcion' => "Se registro una licencia de: Adobe {$licencia->type} ({$licencia->key})",
+                'descripcion' => "Se registro una licencia de: {$licencia->type} ({$licencia->key})",
                 'user_id' => $user,
                 'region_id' => $licencia->region_id,
             ]);
@@ -99,6 +99,18 @@ class AdobeController extends Controller
         }
     }
 
+    public function show($licenciaId)
+    {
+        $licencia = License::findOrFail($licenciaId);
+        $equiposAsignados = $licencia->equipo->pluck('id')->toArray();
+
+        $equipos = Equipo::whereNotIn('id', $equiposAsignados)
+                 ->whereIn('tipo_id', [2, 4]) 
+                 ->get();
+
+        return view('licenses.adobe.show', compact('licencia', 'equipos'));
+    }
+
     public function update(Request $request, $id)
     {
         $user = auth()->id();
@@ -128,7 +140,7 @@ class AdobeController extends Controller
 
             Historial::create([
                 'accion' => 'Actualización',
-                'descripcion' => "Se actualizó la licencia de Adobe {$licencia->type} ({$licencia->key}) ",
+                'descripcion' => "Se actualizó la licencia de {$licencia->type} ({$licencia->key}) ",
                 'user_id' => $user,
                 'region_id' => $licencia->region_id,
             ]);
@@ -161,6 +173,66 @@ class AdobeController extends Controller
         }
     }
 
+    public function asignarLicencia(Request $request, $licenciaId, $equipoId)
+    {
+        $licencia = License::findOrFail($licenciaId);
+        $equipo = Equipo::findOrFail($equipoId);
+        $licenciaExistente = $equipo->license()->where('type_id', $licencia->type_id)->exists();
+
+        if ($licenciaExistente) {
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addError("Este equipo ya tiene una licencia asignada.");
+            return redirect()->route('office.show', $licenciaId);
+        }
+        if ($licencia->equipo()->count() >= $licencia->max) {
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addError("Límite de asignaciones alcanzado para esta licencia.");
+            return redirect()->route('office.show', $licenciaId);
+        }
+
+        // Asignar la licencia al equipo
+        $licencia->equipo()->attach($equipoId);
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Creacion',
+            'descripcion' => "Se asigno una licencia de {$licencia->type} ({$licencia->key}) al equipo {$equipo->name}",
+            'user_id' => $user,
+            'region_id' => $licencia->region_id,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se asigno la licencia correctamente.");
+
+        return redirect()->route('adobe.show', $licenciaId);
+    }
+
+    public function desasignarLicencia($licenciaId, $equipoId)
+    {
+        // Obtener la licencia por su ID
+        $licencia = License::findOrFail($licenciaId);
+
+        // Desasignar la licencia del equipo
+        $licencia->equipo()->detach($equipoId);
+
+        $user = auth()->id();
+        $equipo = Equipo::findOrFail($equipoId);
+
+        Historial::create([
+            'accion' => 'Creacion',
+            'descripcion' => "Se desvinculo una licencia de {$licencia->type} ({$licencia->key}) al equipo {$equipo->name}",
+            'user_id' => $user,
+            'region_id' => $licencia->region_id,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se desvinculo la licencia correctamente.");
+
+        return redirect()->route('adobe.show', $licenciaId);
+    }
+
     public function destroy($id)
     {
         $licencia = License::findOrFail($id);
@@ -170,14 +242,14 @@ class AdobeController extends Controller
 
         Historial::create([
             'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino la licencia de Adobe {$licencia->type} ({$licencia->key}) ",
+            'descripcion' => "Se elimino la licencia de {$licencia->type} ({$licencia->key}) ",
             'user_id' => $user,
             'region_id' => $licencia->region_id,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se elimino la licencia de Adobe {$licencia->type}.");
+            ->addSuccess("Se elimino la licencia de {$licencia->type}.");
 
         return redirect()->route('adobe.index');
     }

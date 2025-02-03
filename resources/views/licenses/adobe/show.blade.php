@@ -3,18 +3,18 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-                    <a href="{{ route('office.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
+                    <a href="{{ route('adobe.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
                         title="Regresar">
                         <span>
                             <i class='bx bx-arrow-back'></i>
                         </span>
                     </a>
-                    / Licenses / Office /</span> Details </h4>
+                    / Licenses / Adobe /</span> Details </h4>
 
             <!-- info de licensia -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Details <strong>Microsoft Office {{ $licencia->type }}</strong></h5>
+                    <h5 class="card-header">Details <strong>{{ $licencia->type }}</strong></h5>
                 </div>
 
                 <div class="content-wrapper">
@@ -24,7 +24,7 @@
                                 <!-- Información de la licencia -->
                                 <h5 class="card-title">Licencia: {{ $licencia->key }}</h5>
                                 <p class="card-text">
-                                    <strong>Tipo:</strong> Microsoft Office {{ $licencia->type }}<br>
+                                    <strong>Tipo:</strong> {{ $licencia->type }}<br>
                                     <strong>Asignaciones Máximas:</strong> {{ $licencia->max }}<br>
                                     <strong>Asignaciones Actuales:</strong> {{ $licencia->equipo->count() }}
                                 </p>
@@ -60,7 +60,7 @@
                                 </address>
                                 <p class="col-12 text-center d-flex aling-items-center">
                                 <form
-                                    action="{{ route('licencias.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
+                                    action="{{ route('adobe.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -113,7 +113,7 @@
                                                     <td>
                                                         @if ($equipo->license->where('type_id', $licencia->type_id)->isEmpty())
                                                             <form
-                                                                action="{{ route('licencias.asignar.post', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
+                                                                action="{{ route('adobe.asignar.post', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 <button type="submit"

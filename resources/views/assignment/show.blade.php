@@ -186,7 +186,7 @@
                         @endphp
                         <div class="card-body">
                             <p>
-                                <strong>APLICATION:</strong> Microsoft Office {{ $licencia->type }} <br>
+                                <strong>APLICATION:</strong> {{ $licencia->type }} <br>
                                 <strong>EMAIL/KEY:</strong> {{ $licencia->key }} <br>
                                 <strong>END DATE:</strong> {{ $licencia->end_date ?? 'N/A' }} <br>
                                 <strong>STATUS:</strong> <span

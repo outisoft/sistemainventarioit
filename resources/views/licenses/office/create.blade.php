@@ -59,13 +59,13 @@
                         <x-input-label class="form-label" for="type" :value="__('Tipo de Office')" />
                         <select class="form-control" id="type" name="type" required>
                             <option value="">Select Office</option>
-                            <option value="365">Microsoft 365</option>
-                            <option value="2019">Microsoft Office 2019</option>
-                            <option value="2016">Microsoft Office 2016</option>
-                            <option value="2013">Microsoft Office 2013</option>
-                            <option value="2010">Microsoft Office 2010</option>
-                            <option value="2007">Microsoft Office 2007</option>
-                            <option value="2003">Microsoft Office 2003</option>
+                            <option value="MICROSOFT 365">MICROSOFT 365</option>
+                            <option value="OFFICE 2019">OFFICE 2019</option>
+                            <option value="OFFICE 2016">OFFICE 2016</option>
+                            <option value="OFFICE 2013">OFFICE 2013</option>
+                            <option value="OFFICE 2010">OFFICE 2010</option>
+                            <option value="OFFICE 2007">OFFICE 2007</option>
+                            <option value="OFFICE 2003">OFFICE 2003</option>
                             <!-- Agrega más opciones si es necesario -->
                         </select>
                         <x-input-error :messages="$errors->get('type')" class="mt-2" />
@@ -106,7 +106,7 @@
 <script>
     document.getElementById('type').addEventListener('change', function() {
         const fechaExpiracionContainer = document.getElementById('fecha_expiracion_container');
-        if (this.value === '365') {
+        if (this.value === 'MICROSOFT 365') {
             fechaExpiracionContainer.style.display = 'block';
             document.getElementById('end_date').setAttribute('required', true);
         } else {

@@ -57,7 +57,7 @@
                                                     @endif
                                                 @endrole
 
-                                                <td>Microsoft Office {{ $office->type }}</td>
+                                                <td>{{ $office->type }}</td>
                                                 <td>{{ $office->key }}</td>
 
                                                 <td>
@@ -107,7 +107,7 @@
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('Are you sure to delete Office {{ $office->type }}?')"><i
+                                                                        onclick="return confirm('Are you sure to delete {{ $office->type }}?')"><i
                                                                             class="bx bx-trash me-1"></i>Delete</button>
                                                                 </form>
                                                             @endcan

@@ -1,6 +1,6 @@
 <x-app-layout>
-@include('licenses.adobe.create')
-@include('licenses.adobe.edit')
+    @include('licenses.adobe.create')
+    @include('licenses.adobe.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -57,7 +57,7 @@
                                                     @endif
                                                 @endrole
 
-                                                <td>ADOBE {{ $adobe->type }}</td>
+                                                <td>{{ $adobe->type }}</td>
                                                 <td>{{ $adobe->key }}</td>
 
                                                 <td>
@@ -107,7 +107,7 @@
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('Are you sure to delete ADOBE {{ $adobe->type }}?')"><i
+                                                                        onclick="return confirm('Are you sure to delete {{ $adobe->type }}?')"><i
                                                                             class="bx bx-trash me-1"></i>Delete</button>
                                                                 </form>
                                                             @endcan

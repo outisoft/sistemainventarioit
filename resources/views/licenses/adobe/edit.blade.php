@@ -55,7 +55,8 @@
                             <x-input-label class="form-label" for="type_id" :value="__('Tipo de equipo')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input readonly='readonly' id="type_id" class="form-control" type="text"
-                                    name="type_id" placeholder="Other" :value="15" required autocomplete="type_id" />
+                                    name="type_id" placeholder="Other" :value="15" required
+                                    autocomplete="type_id" />
                             </div>
                             <x-input-error :messages="$errors->get('type_id')" class="mt-2" />
                         </div>
@@ -65,9 +66,13 @@
                             <x-input-label class="form-label" for="type" :value="__('Tipo de Office')" />
                             <select class="form-control" id="type" name="type" required>
                                 <option value="">Seleccione un tipo</option>
-                                <option value="CREATIVE CLOUD" {{ $equipo->type == 'CREATIVE CLOUD' ? 'selected' : '' }}>ADOBE CREATIVE CLOUD
+                                <option value="ADOBE CREATIVE CLOUD"
+                                    {{ $equipo->type == 'ADOBE CREATIVE CLOUD' ? 'selected' : '' }}>ADOBE CREATIVE
+                                    CLOUD
                                 </option>
-                                <option value="ACROBAT PRO 2020" {{ $equipo->type == 'ACROBAT PRO 2020' ? 'selected' : '' }}>ADOBE ACROBAT PRO 2020
+                                <option value="ADOBE ACROBAT PRO 2020"
+                                    {{ $equipo->type == 'ADOBE ACROBAT PRO 2020' ? 'selected' : '' }}>ADOBE ACROBAT PRO
+                                    2020
                                 </option>
                             </select>
                             <x-input-error :messages="$errors->get('type')" class="mt-2" />
@@ -85,7 +90,7 @@
                         </div>
 
                         <div class="mb-3" id="end_date_container"
-                            style="display: {{ $equipo->type == 'CREATIVE CLOUD' ? 'block' : 'none' }};">
+                            style="display: {{ $equipo->type == 'ADOBE CREATIVE CLOUD' ? 'block' : 'none' }};">
                             <x-input-label class="form-label" for="end_date{{ $equipo->end_date }}"
                                 :value="__('Contract End Date')" />
                             <div class="input-group input-group-merge">
@@ -109,7 +114,7 @@
 <script>
     document.getElementById('type').addEventListener('change', function() {
         const endDateContainer = document.getElementById('end_date_container');
-        if (this.value === 'CREATIVE CLOUD') {
+        if (this.value === 'ADOBE CREATIVE CLOUD') {
             endDateContainer.style.display = 'block';
             document.getElementById('end_date').setAttribute('required', true);
         } else {

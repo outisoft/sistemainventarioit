@@ -86,6 +86,9 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::post('/licencias/{licenciaId}/asignar/{equipoId}', [OfficeController::class, 'asignarLicencia'])->name('licencias.asignar.post');
     Route::delete('/licencias/{licenciaId}/desasignar/{equipoId}', [OfficeController::class, 'desasignarLicencia'])->name('licencias.desasignar');
 
+    Route::post('/adobe/{licenciaId}/asignar/{equipoId}', [AdobeController::class, 'asignarLicencia'])->name('adobe.asignar.post');
+    Route::delete('/adobe/{licenciaId}/desasignar/{equipoId}', [AdobeController::class, 'desasignarLicencia'])->name('adobe.desasignar');
+
     //Backup
     Route::prefix('backup')->group(function () {
         Route::get('/', [BackupController::class, 'index'])->name('backup.index');

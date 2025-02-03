@@ -55,7 +55,8 @@
                             <x-input-label class="form-label" for="type_id" :value="__('Tipo de equipo')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input readonly='readonly' id="type_id" class="form-control" type="text"
-                                    name="type_id" placeholder="Other" :value="15" required autocomplete="type_id" />
+                                    name="type_id" placeholder="Other" :value="15" required
+                                    autocomplete="type_id" />
                             </div>
                             <x-input-error :messages="$errors->get('type_id')" class="mt-2" />
                         </div>
@@ -65,19 +66,26 @@
                             <x-input-label class="form-label" for="type" :value="__('Tipo de Office')" />
                             <select class="form-control" id="type" name="type" required>
                                 <option value="">Seleccione un tipo</option>
-                                <option value="365" {{ $equipo->type == '365' ? 'selected' : '' }}>Office 365
+                                <option value="MICROSOFT 365" {{ $equipo->type == 'MICROSOFT 365' ? 'selected' : '' }}>
+                                    MICROSOFT 365
                                 </option>
-                                <option value="2019" {{ $equipo->type == '2019' ? 'selected' : '' }}>Office 2019
+                                <option value="OFFICE 2019" {{ $equipo->type == 'OFFICE 2019' ? 'selected' : '' }}>
+                                    OFFICE 2019
                                 </option>
-                                <option value="2016" {{ $equipo->type == '2016' ? 'selected' : '' }}>Office 2016
+                                <option value="OFFICE 2016" {{ $equipo->type == 'OFFICE 2016' ? 'selected' : '' }}>
+                                    OFFICE 2016
                                 </option>
-                                <option value="2013" {{ $equipo->type == '2013' ? 'selected' : '' }}>Office 2013
+                                <option value="OFFICE 2013" {{ $equipo->type == 'OFFICE 2013' ? 'selected' : '' }}>
+                                    OFFICE 2013
                                 </option>
-                                <option value="2010" {{ $equipo->type == '2010' ? 'selected' : '' }}>Office 2010
+                                <option value="OFFICE 2010" {{ $equipo->type == 'OFFICE 2010' ? 'selected' : '' }}>
+                                    OFFICE 2010
                                 </option>
-                                <option value="2007" {{ $equipo->type == '2007' ? 'selected' : '' }}>Office 2007
+                                <option value="OFFICE 2007" {{ $equipo->type == 'OFFICE 2007' ? 'selected' : '' }}>
+                                    OFFICE 2007
                                 </option>
-                                <option value="2003" {{ $equipo->type == '2003' ? 'selected' : '' }}>Office 2003
+                                <option value="OFFICE 2003" {{ $equipo->type == 'OFFICE 2003' ? 'selected' : '' }}>
+                                    OFFICE 2003
                                 </option>
                             </select>
                             <x-input-error :messages="$errors->get('type')" class="mt-2" />
@@ -95,7 +103,7 @@
                         </div>
 
                         <div class="mb-3" id="end_date_container"
-                            style="display: {{ $equipo->type == '365' ? 'block' : 'none' }};">
+                            style="display: {{ $equipo->type == 'MICROSOFT 365' ? 'block' : 'none' }};">
                             <x-input-label class="form-label" for="end_date{{ $equipo->end_date }}"
                                 :value="__('Contract End Date')" />
                             <div class="input-group input-group-merge">
@@ -119,7 +127,7 @@
 <script>
     document.getElementById('type').addEventListener('change', function() {
         const endDateContainer = document.getElementById('end_date_container');
-        if (this.value === '365') {
+        if (this.value === 'MICROSOFT 365') {
             endDateContainer.style.display = 'block';
             document.getElementById('end_date').setAttribute('required', true);
         } else {
