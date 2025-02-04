@@ -13,6 +13,7 @@ use App\Models\Swittch;
 use App\Models\AccessPoint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use App\Models\License;
 
 class HomeController extends Controller
 {
@@ -146,6 +147,11 @@ class HomeController extends Controller
             ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
             ->get();
 
-        return view('home', compact('totalAps','totalSw','totalComing2','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
+        $officeCount = License::where('type_id', 11)->count(); // Office
+        $adobeCount = License::where('type_id', 15)->count(); // Adobe
+        //$autocadCount = License::where('type_id', 3)->count(); // AutoCAD
+        //$sketchupCount = License::where('type_id', 4)->count(); // SketchUp
+
+        return view('home', compact('officeCount', 'adobeCount', 'totalAps','totalSw','totalComing2','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
     }
 }

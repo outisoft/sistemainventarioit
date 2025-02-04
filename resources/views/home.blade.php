@@ -78,23 +78,23 @@
 
             @can('tablets.index')
                 <!--div class="col-xl-4 col-md-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-6">
-                                    <h3>{{ $totalTablets }}</h3>
-                                    <h6 class="text-muted m-b-0">Tabletas<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
-                                </div>
-                                <div class="col-6">
-                                    <div class="so_top_icon">
-                                        <i class='bx bx-tab bx-lg'></i>
-                                        <a href="{{ route('tabs.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div-->
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <div class="row align-items-center">
+                                                                <div class="col-6">
+                                                                    <h3>{{ $totalTablets }}</h3>
+                                                                    <h6 class="text-muted m-b-0">Tabletas<i class="fa fa-caret-down text-c-red m-l-10"></i></h6>
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    <div class="so_top_icon">
+                                                                        <i class='bx bx-tab bx-lg'></i>
+                                                                        <a href="{{ route('tabs.index') }}"><i class='bx bx-right-arrow-alt bx-lg' ></i> </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div-->
             @endcan
 
             @can('tpvs.index')
@@ -212,6 +212,11 @@
 
                     <!-- Grafica Total de Laptops Libres o en uso-->
                     @include('partials-home.total_laptops_libres_o_en_uso')
+                @endcan
+
+                @can('licenses.index')
+                    <!-- Grafica Total de Licencias por tipo-->
+                    @include('partials-home.total_licencias')
                 @endcan
 
                 @can('tpvs.index')
@@ -488,4 +493,34 @@
 
     var chart = new ApexCharts(document.querySelector("#laptopsChart"), options);
     chart.render();
+</script>
+
+<script>
+    const ctx = document.getElementById('licenciasChart').getContext('2d');
+    var colors = ['#b5a160', '#604933', '#c5b87f', '#2f2119', '#dad3ae', '#8d7141'];
+    const licenciasChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Office', 'Adobe'],
+            datasets: [{
+                label: 'Licencias por tipo',
+                data: [{{ $officeCount }}, {{ $adobeCount }}],
+                backgroundColor: colors,
+                borderColor: colors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Distribución de licencias por tipo'
+                }
+            }
+        }
+    });
 </script>
