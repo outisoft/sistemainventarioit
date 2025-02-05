@@ -60,12 +60,53 @@
                         <select class="form-control" id="type" name="type" required>
                             <option value="">Select Office</option>
                             <option value="MICROSOFT 365">MICROSOFT 365</option>
-                            <option value="OFFICE 2019">OFFICE 2019</option>
-                            <option value="OFFICE 2016">OFFICE 2016</option>
-                            <option value="OFFICE 2013">OFFICE 2013</option>
-                            <option value="OFFICE 2010">OFFICE 2010</option>
-                            <option value="OFFICE 2007">OFFICE 2007</option>
-                            <option value="OFFICE 2003">OFFICE 2003</option>
+
+                            <option value="OFFICE 2019 PROFESSIONAL">
+                                OFFICE 2019 PROFESSIONAL
+                            </option>
+                            <option value="OFFICE 2019 STANDARD">
+                                OFFICE 2019 STANDARD
+                            </option>
+                            <option value="OFFICE 2019 HOME AND BUSINESS">
+                                OFFICE 2019 HOME AND BUSINESS
+                            </option>
+                            <option value="OFFICE 2016 PROFESSIONAL">
+                                OFFICE 2016 PROFESSIONAL
+                            </option>
+                            <option value="OFFICE 2016 STANDARD">
+                                OFFICE 2016 STANDARD
+                            </option>
+                            <option value="OFFICE 2016 HOME AND BUSINESS">
+                                OFFICE 2016 HOME AND BUSINESS
+                            </option>
+                            <option value="OFFICE 2013 PROFESSIONAL">
+                                OFFICE 2013 PROFESSIONAL
+                            </option>
+                            <option value="OFFICE 2013 STANDARD">
+                                OFFICE 2013 STANDARD
+                            </option>
+                            <option value="OFFICE 2013 HOME AND BUSINESS">
+                                OFFICE 2013 HOME AND BUSINESS
+                            </option>
+                            <option value="OFFICE 2010 PROFESSIONAL">
+                                OFFICE 2010 PROFESSIONAL
+                            </option>
+                            <option value="OFFICE 2010 STANDARD">
+                                OFFICE 2010 STANDARD
+                            </option>
+                            <option value="OFFICE 2007 ENTERPRISE">
+                                OFFICE 2007 ENTERPRISE
+                            </option>
+                            <option value="OFFICE 2007 ULTIMATE">
+                                OFFICE 2007 ULTIMATE
+                            </option>
+                            <option value="OFFICE 2007 PROFESSIONAL">
+                                OFFICE 2007 PROFESSIONAL
+                            </option>
+                            <option value="OFFICE 2007 STANDARD">
+                                OFFICE 2007 STANDARD
+                            </option>
+                            <option value="OFFICE 2003 BASIC EDITION">OFFICE 2003 BASIC EDITION</option>
                             <!-- Agrega más opciones si es necesario -->
                         </select>
                         <x-input-error :messages="$errors->get('type')" class="mt-2" />

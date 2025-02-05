@@ -69,23 +69,69 @@
                                 <option value="MICROSOFT 365" {{ $equipo->type == 'MICROSOFT 365' ? 'selected' : '' }}>
                                     MICROSOFT 365
                                 </option>
-                                <option value="OFFICE 2019" {{ $equipo->type == 'OFFICE 2019' ? 'selected' : '' }}>
-                                    OFFICE 2019
+                                <option value="OFFICE 2019 PROFESSIONAL"
+                                    {{ $equipo->type == 'OFFICE 2019 PROFESSIONAL' ? 'selected' : '' }}>
+                                    OFFICE 2019 PROFESSIONAL
                                 </option>
-                                <option value="OFFICE 2016" {{ $equipo->type == 'OFFICE 2016' ? 'selected' : '' }}>
-                                    OFFICE 2016
+                                <option value="OFFICE 2019 STANDARD"
+                                    {{ $equipo->type == 'OFFICE 2019 STANDARD' ? 'selected' : '' }}>
+                                    OFFICE 2019 STANDARD
                                 </option>
-                                <option value="OFFICE 2013" {{ $equipo->type == 'OFFICE 2013' ? 'selected' : '' }}>
-                                    OFFICE 2013
+                                <option value="OFFICE 2019 HOME AND BUSINESS"
+                                    {{ $equipo->type == 'OFFICE 2019 HOME AND BUSINESS' ? 'selected' : '' }}>
+                                    OFFICE 2019 HOME AND BUSINESS
                                 </option>
-                                <option value="OFFICE 2010" {{ $equipo->type == 'OFFICE 2010' ? 'selected' : '' }}>
-                                    OFFICE 2010
+                                <option value="OFFICE 2016 PROFESSIONAL"
+                                    {{ $equipo->type == 'OFFICE 2016 PROFESSIONAL' ? 'selected' : '' }}>
+                                    OFFICE 2016 PROFESSIONAL
                                 </option>
-                                <option value="OFFICE 2007" {{ $equipo->type == 'OFFICE 2007' ? 'selected' : '' }}>
-                                    OFFICE 2007
+                                <option value="OFFICE 2016 STANDARD"
+                                    {{ $equipo->type == 'OFFICE 2016 STANDARD' ? 'selected' : '' }}>
+                                    OFFICE 2016 STANDARD
                                 </option>
-                                <option value="OFFICE 2003" {{ $equipo->type == 'OFFICE 2003' ? 'selected' : '' }}>
-                                    OFFICE 2003
+                                <option value="OFFICE 2016 HOME AND BUSINESS"
+                                    {{ $equipo->type == 'OFFICE 2016 HOME AND BUSINESS' ? 'selected' : '' }}>
+                                    OFFICE 2016 HOME AND BUSINESS
+                                </option>
+                                <option value="OFFICE 2013 PROFESSIONAL"
+                                    {{ $equipo->type == 'OFFICE 2013 PROFESSIONAL' ? 'selected' : '' }}>
+                                    OFFICE 2013 PROFESSIONAL
+                                </option>
+                                <option value="OFFICE 2013 STANDARD"
+                                    {{ $equipo->type == 'OFFICE 2013 STANDARD' ? 'selected' : '' }}>
+                                    OFFICE 2013 STANDARD
+                                </option>
+                                <option value="OFFICE 2013 HOME AND BUSINESS"
+                                    {{ $equipo->type == 'OFFICE 2013 HOME AND BUSINESS' ? 'selected' : '' }}>
+                                    OFFICE 2013 HOME AND BUSINESS
+                                </option>
+                                <option value="OFFICE 2010 PROFESSIONAL"
+                                    {{ $equipo->type == 'OFFICE 2010 PROFESSIONAL' ? 'selected' : '' }}>
+                                    OFFICE 2010 PROFESSIONAL
+                                </option>
+                                <option value="OFFICE 2010 STANDARD"
+                                    {{ $equipo->type == 'OFFICE 2010 STANDARD' ? 'selected' : '' }}>
+                                    OFFICE 2010 STANDARD
+                                </option>
+                                <option value="OFFICE 2007 ENTERPRISE"
+                                    {{ $equipo->type == 'OFFICE 2007 ENTERPRISE' ? 'selected' : '' }}>
+                                    OFFICE 2007 ENTERPRISE
+                                </option>
+                                <option value="OFFICE 2007 ULTIMATE"
+                                    {{ $equipo->type == 'OFFICE 2007 ULTIMATE' ? 'selected' : '' }}>
+                                    OFFICE 2007 ULTIMATE
+                                </option>
+                                <option value="OFFICE 2007 PROFESSIONAL"
+                                    {{ $equipo->type == 'OFFICE 2007 PROFESSIONAL' ? 'selected' : '' }}>
+                                    OFFICE 2007 PROFESSIONAL
+                                </option>
+                                <option value="OFFICE 2007 STANDARD"
+                                    {{ $equipo->type == 'OFFICE 2007 STANDARD' ? 'selected' : '' }}>
+                                    OFFICE 2007 STANDARD
+                                </option>
+                                <option value="OFFICE 2003 BASIC EDITION"
+                                    {{ $equipo->type == 'OFFICE 2003 BASIC EDITION' ? 'selected' : '' }}>
+                                    OFFICE 2003 BASIC EDITION
                                 </option>
                             </select>
                             <x-input-error :messages="$errors->get('type')" class="mt-2" />
