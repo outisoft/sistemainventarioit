@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class AccessPoint extends Model
 {
     use HasFactory;
+
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = ['region_id', 'name', 'marca', 'model', 'serial', 'mac', 'ip', 'swittch_id', 'port_number'];
 
@@ -26,6 +30,12 @@ class AccessPoint extends Model
                 if (is_string($value)) {
                     $model->{$key} = strtoupper($value);
                 }
+            }
+        });
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = (string) Str::uuid();
             }
         });
     }

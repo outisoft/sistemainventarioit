@@ -45,10 +45,10 @@ class AccessPointController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $user = auth()->id();
-        
+    {        
         try {
+            $user = auth()->user();
+    
             $data = $request->validate([
                 'name' => [
                     'required',
@@ -57,18 +57,18 @@ class AccessPointController extends Controller
                 'marca' => 'required',
                 'model' => 'required',
                 'serial' => [
-                        'required',
-                        'unique:access_points',
+                    'required',
+                    'unique:access_points',
                 ],
                 'mac' => [
-                        'required',
-                        'regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
-                        'unique:access_points',
+                    'required',
+                    'regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
+                    'unique:access_points',
                 ],
                 'ip' => [
-                        'required',
-                        'ip',
-                        Rule::unique('access_points'),
+                    'required',
+                    'ip',
+                    Rule::unique('access_points'),
                 ],
                 'swittch_id' => 'required|exists:swittches,id',
                 'port_number' => 'required|integer',
@@ -80,10 +80,9 @@ class AccessPointController extends Controller
                 'serial.unique' => 'Este número de serie ya está registrado.',
             ]);
 
-            $switch = Swittch::findOrFail($data['swittch_id']);
+            $swittch = Swittch::findOrFail($data['swittch_id']);
 
             $accessPoint = AccessPoint::create([
-                'region_id' => $switch->region_id,
                 'name' => $data['name'],
                 'marca' => $data['marca'],
                 'model' => $data['model'],
@@ -92,22 +91,20 @@ class AccessPointController extends Controller
                 'ip' => $data['ip'],
                 'swittch_id' => $data['swittch_id'],
                 'port_number' => $data['port_number'],
+                'region_id' => $swittch->region_id,
                 // Otros campos
             ]);
 
-            $user = auth()->user();
-
             Historial::create([
                 'accion' => 'Creacion',
-                'descripcion' => "Se agregó el AP con el nombre: {$data->name} y con N/S: {$data->serial}",
+                'descripcion' => "Se agregó el AP con el nombre: {$data['name']} y con N/S: {$data['serial']}",
                 'user_id' => $user->id,
-                'region_id' => $switch->region_id,
+                'region_id' => $swittch->region_id,
             ]);
 
             toastr()
                 ->timeOut(3000)
-                ->addSuccess("Se creó {$data->name} ({$data->serial}) correctamente.");
-
+                ->addSuccess("Se creó {$data['name']} ({$data['serial']}) correctamente.");
 
             return redirect()->route('access-points.index');
 
