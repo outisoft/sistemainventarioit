@@ -35,7 +35,7 @@
                                         <td>{{ $complement->model }}</td>
                                     </tr>
                                     <tr>
-                                        <th class="bg-secondary">Numero de serie</th>
+                                        <th class="bg-secondary">Numero de serie / CT</th>
                                         <td>{{ $complement->serial }}</td>
                                     </tr>
                                 </table>

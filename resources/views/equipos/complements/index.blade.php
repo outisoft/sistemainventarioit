@@ -39,7 +39,7 @@
                                 <th>TYPE</th>
                                 <th>BRAND</th>
                                 <th>MODEL</th>
-                                <th>SERIAL</th>
+                                <th>SERIAL / CT</th>
                                 <th>ASSIGNED TO...</th>
                                 <th>LEASE?</th>
                                 <th>ACTIONS</th>

@@ -21,7 +21,7 @@ class ComplementController extends Controller
     
     public function index()
     {
-        $tipos = Tipo::whereIn('name', ['MONITOR', 'MOUSE', 'NO BREACK', 'SCANNER', 'TECLADO', 'TICKETERA', 'WACOM'])->get();
+        $tipos = Tipo::whereIn('name', ['CHARGER', 'MONITOR', 'MOUSE', 'NO BREACK', 'SCANNER', 'TECLADO', 'TICKETERA', 'WACOM'])->get();
         $equipos = Complement::with(['region', 'type', 'equipments'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');

@@ -88,7 +88,7 @@
 
                         <!-- Serial -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="serial{{ $equipo->serial }}" :value="__('Serial number')" />
+                            <x-input-label class="form-label" for="serial{{ $equipo->serial }}" :value="__('Serial number / CT')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="serial{{ $equipo->serial }}" class="form-control" type="text"
                                     name="serial" placeholder="HP" value="{{ $equipo->serial }}" required

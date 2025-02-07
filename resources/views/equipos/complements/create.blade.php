@@ -81,7 +81,7 @@
 
                     <!-- Numero de serie -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="serial" :value="__('Serial number')" />
+                        <x-input-label class="form-label" for="serial" :value="__('Serial number / CT')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="serial" class="form-control" type="text" name="serial"
                                 placeholder="CNB1P50T0" :value="old('serial')" required autocomplete="serial" />
