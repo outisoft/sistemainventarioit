@@ -174,14 +174,7 @@ class AssignmentController extends Controller
     public function employeeDetails($employeeId)
     {
         $employee = Empleado::findOrFail($employeeId);
-        $equiposAsignados = $employee->equipos;
-        $complements = collect();
-
-        foreach ($equiposAsignados as $equipo) {
-            $complements = $complements->merge($equipo->complements);
-        }
-        //$assignments = $employee->equipmentAssignments()->with('equipment')->get();
-
-        return view('assignment.details', compact('complements', 'employee'));
+        
+        return view('assignment.details', compact('employee'));
     }
 }
