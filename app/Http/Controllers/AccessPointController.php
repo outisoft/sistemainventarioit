@@ -239,7 +239,7 @@ class AccessPointController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el {$registro->name} con N/S {$registro->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
 
         toastr()

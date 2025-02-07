@@ -165,7 +165,7 @@ class AssignmentController extends Controller
 
         $headers = [
             'Content-Type' => $result->getMimeType(),
-            'Content-Disposition' => 'attachment; filename="qrcode_employee_' . $employeeId . '.png"',
+            'Content-Disposition' => 'attachment; filename="QRCODE_' . $employee->name . '.png"',
         ];
 
         return Response::make($result->getString(), 200, $headers);
@@ -174,8 +174,14 @@ class AssignmentController extends Controller
     public function employeeDetails($employeeId)
     {
         $employee = Empleado::findOrFail($employeeId);
+        $equiposAsignados = $employee->equipos;
+        $complements = collect();
+
+        foreach ($equiposAsignados as $equipo) {
+            $complements = $complements->merge($equipo->complements);
+        }
         //$assignments = $employee->equipmentAssignments()->with('equipment')->get();
 
-        return view('assignment.details', compact('employee'));
+        return view('assignment.details', compact('complements', 'employee'));
     }
 }
