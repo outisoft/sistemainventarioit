@@ -9,11 +9,13 @@ use App\Models\Coming2;
 use App\Models\User;
 use App\Models\Tipo;
 use App\Models\Tpv;
+use App\Models\Hotel;
 use App\Models\Swittch;
 use App\Models\AccessPoint;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\License;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -152,6 +154,10 @@ class HomeController extends Controller
         //$autocadCount = License::where('type_id', 3)->count(); // AutoCAD
         //$sketchupCount = License::where('type_id', 4)->count(); // SketchUp
 
-        return view('home', compact('officeCount', 'adobeCount', 'totalAps','totalSw','totalComing2','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
+        $user = Auth::user();
+        $regionIds = $user->regions()->pluck('region_id');
+        $userHotelsCount = Hotel::whereIn('region_id', $regionIds)->count(); // Asumiendo que el usuario tiene una relación con los hoteles
+
+        return view('home', compact('userHotelsCount', 'officeCount', 'adobeCount', 'totalAps','totalSw','totalComing2','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
     }
 }

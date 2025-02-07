@@ -77,42 +77,14 @@ class BackupController extends Controller
     public function download($filename)
     {
         try {
-            $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
-            
-            // Posibles rutas donde podría estar el archivo
-            $possiblePaths = [
-                'Laravel/' . $filename,
-                'laravel/' . $filename,
-                $filename
-            ];
-
-            // Buscar el archivo en las posibles rutas
-            $filePath = null;
-            foreach ($possiblePaths as $path) {
-                if ($disk->exists($path)) {
-                    $filePath = $path;
-                    break;
-                }
+            $disk = Storage::disk('backups');
+            if ($disk->exists($filename)) {
+                return response()->download($disk->path($filename));
+            } else {
+                return redirect()->back()->with('error', 'El archivo no existe.');
             }
-
-            if (!$filePath) {
-                \Log::error('Archivo no encontrado', [
-                    'filename' => $filename,
-                    'paths_checked' => $possiblePaths
-                ]);
-                abort(404, 'Archivo de respaldo no encontrado');
-            }
-
-            return response()->download(
-                $disk->path($filePath),
-                $filename,
-                [
-                    'Content-Type' => 'application/zip',
-                    'Content-Disposition' => 'attachment; filename="' . $filename . '"'
-                ]
-            );
         } catch (\Exception $e) {
-            \Log::error('Error al descargar backup: ' . $e->getMessage());
+            Log::error('Error al descargar backup: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Error al descargar el archivo: ' . $e->getMessage());
         }
     }
@@ -274,16 +246,42 @@ class BackupController extends Controller
 
     public function delete($filename)
     {
-        try {            
-            Storage::disk('backups')->delete($filename);
-            
-            toastr()
-                ->timeOut(3000)
-                ->addSuccess("Se elimino respaldo correctamente.");
+        try {
+            $disk = Storage::disk('backups');
+            if ($disk->exists($filename)) {
+                $disk->delete($filename);
 
-                return redirect()->back();
+                toastr()
+                    ->timeOut(3000)
+                    ->addSuccess("Se eliminó respaldo correctamente.");
+            } else {
+                toastr()
+                    ->timeOut(3000)
+                    ->addError("El archivo no existe.");
+            }
+
+            return redirect()->back();
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al eliminar respaldo: ' . $e->getMessage());
         }
+    }
+
+    public function deleteOldBackups()
+    {
+        $files = Storage::disk('backups')->files();
+        $now = Carbon::now();
+
+        foreach ($files as $file) {
+            $lastModified = Carbon::createFromTimestamp(Storage::disk('backups')->lastModified($file));
+            if ($now->diffInDays($lastModified) > 30) { // Elimina archivos mayores a 30 días
+                Storage::disk('backups')->delete($file);
+            }
+        }
+
+        toastr()
+            ->timeOut(3000)
+            ->addSuccess("Respaldos antiguos eliminados correctamente.");
+
+        return redirect()->back();
     }
 }

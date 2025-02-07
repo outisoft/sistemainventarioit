@@ -201,11 +201,13 @@
                     <!-- Grafica Total de Equipos -->
                     @include('partials-home.total_equipos')
 
-                    <!-- Grafica Total de Equipos tipo laptops-->
-                    @include('partials-home.total_equipos_laptop')
+                    <!-- Grafica Total de Equipos tipo laptops POR HOTEL-->
+                    @if($userHotelsCount > 2)
+                        @include('partials-home.total_equipos_laptop')
 
-                    <!-- Grafica Total de Equipos tipo cpu-->
-                    @include('partials-home.total_equipos_cpu')
+                        <!-- Grafica Total de Equipos tipo cpu POR HOTEL-->
+                        @include('partials-home.total_equipos_cpu')
+                    @endif
 
                     <!-- Grafica Total de CPU Libres o en uso-->
                     @include('partials-home.total_cpu_libres_o_en_uso')

@@ -81,8 +81,8 @@
                                                                             <i class='bx bxs-download'></i>
                                                                         </a>
 
-                                                                        <!--form
-                                                                            action="{{ route('backup.delete', $file) }}"
+                                                                        <form
+                                                                            action="{{ route('backup.delete', ['filename' => basename($file)]) }}"
                                                                             method="POST">
                                                                             @csrf
                                                                             @method('DELETE')
@@ -90,9 +90,10 @@
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="top"
                                                                                 data-bs-html="true" title=""
-                                                                                data-bs-original-title="<span>Delete Backup</span>">
+                                                                                data-bs-original-title="<span>Delete Backup</span>"
+                                                                                onclick="return confirm('Are you sure to delete this backup?')">
                                                                                 <i class='bx bx-trash'></i></button>
-                                                                        </form-->
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                             @empty
