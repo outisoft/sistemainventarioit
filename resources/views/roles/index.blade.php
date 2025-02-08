@@ -5,93 +5,98 @@
     @endsection
 
     <div class="content-wrapper">
-
-        @include('roles.create')
-        @include('roles.edit')
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <div class="col-12">
-                <h4 class="fw-bold  mt-6 mb-1">Roles List</h4>
-                <p>A role provided access to predefined menus and features so that depending on assigned role an
-                    administrator can have access to what user needs.</p>
-            </div>
-
-            <div class="row">
-                @foreach ($roles as $role)
-                    <div class="col-xl-4 col-md-12">
+                    <h4 class="fw-bold  mt-6 mb-1">Roles List</h4>
+                    <p>A role provided access to predefined menus and features so that depending on assigned role an
+                        administrator can have access to what user needs.</p>
+                </div>
+                <!-- Role cards -->
+                <div class="row g-6">
+                    <!-- Role cards -->
+                    @foreach ($roles as $role)
+                    <div class="col-xl-4-c col-lg-6 col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <div class="row align-items-center">
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <p class="mb-0">Total {{ $role->users_count }} user(s)</p>
-                                        <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
-                                            @foreach ($role->users as $user)
-                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                    data-bs-placement="top" class="avatar pull-up"
-                                                    aria-label="{{ $user->name }}"
-                                                    data-bs-original-title="{{ $user->name }}">
-                                                    <img class="rounded-circle"
-                                                        src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}"
-                                                        alt="Avatar">
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="role-heading">
-                                            <h5 class="mb-1">{{ $role->name }}</h5>
-                                            @if ($role->name != 'Administrator' || auth()->user()->hasRole('Administrator'))
-                                                <a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#editRoleModal{{ $role->id }}"
-                                                    class="role-edit-modal">
-                                                    <p class="mb-0">Edit Role</p>
-                                                </a>
-                                            @endif
-                                        </div>
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h6 class="fw-normal mb-0 text-body">Total {{ $role->users_count }} user(s)</h6>
+                                    <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
+                                        @foreach ($role->users as $user)
+                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                data-bs-placement="top" class="avatar pull-up"
+                                                aria-label="{{ $user->name }}"
+                                                data-bs-original-title="{{ $user->name }}">
+                                                <img class="rounded-circle"
+                                                    src="{{ $user->image ? asset('/storage/avatars/' . $user->image) : $user->avatar }}"
+                                                    alt="Avatar">
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-end">
+                                    <div class="role-heading">
+                                    <h5 class="mb-1">{{ $role->name }}</h5>
                                         @if ($role->name != 'Administrator' || auth()->user()->hasRole('Administrator'))
-                                            @can('roles.destroy')
-                                                <form action="{{ route('roles.destroy', $role) }}"
-                                                    onclick="return confirm('Are you sure to delete this role?')"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                                </form>
-                                            @endcan
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#editRoleModal{{ $role->id }}"
+                                                class="role-edit-modal">
+                                                <p class="mb-0">Edit Role</p>
+                                            </a>
                                         @endif
                                     </div>
+                                    @if ($role->name != 'Administrator' || auth()->user()->hasRole('Administrator'))
+                                        @can('roles.destroy')
+                                            <form action="{{ route('roles.destroy', $role) }}"
+                                                onclick="return confirm('Are you sure to delete this role?')"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                            </form>
+                                        @endcan
+                                    @endif
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                    @endforeach
 
-                <div class="col-xl-4 col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div class="col-5">
-                                    <div class="d-flex align-items-end h-100 justify-content-center">
-                                        <img src="{{ asset('images/new.png') }}" alt="Avatar" class="d-block rounded"
-                                            height="97" width="156" />
+                    <!--ADD NEW ROLE-->
+                    <div class="col-xl-4-c col-lg-6 col-md-6">
+                        <div class="card h-100">
+                            <div class="row h-100">
+                                <div class="col-sm-5">
+                                    <div class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-4 ps-6">
+                                        <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/img/illustrations/lady-with-laptop-light.png" class="img-fluid" alt="Image" width="120" data-app-light-img="illustrations/lady-with-laptop-light.png" data-app-dark-img="illustrations/lady-with-laptop-dark.png" style="visibility: visible;">
                                     </div>
                                 </div>
-
-                                <div class="col-7">
+                                <div class="col-sm-7">
                                     <div class="card-body text-sm-end text-center ps-sm-0">
-                                        <button data-bs-target="#addRoleModal" data-bs-toggle="modal"
-                                            class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role waves-effect waves-light"
-                                            control-id="ControlID-1">Add New Role</button>
-                                        <p class="mb-0">Add role, if it does not exist</p>
+                                        <button data-bs-target="#addRoleModal" data-bs-toggle="modal" class="btn btn-sm btn-primary mb-4 text-nowrap add-new-role">Add New Role</button>
+                                        <p class="mb-0">
+                                            Add new role, <br>
+                                            if it doesn't exist.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <!--/ Role cards -->
             </div>
-            <br>
-            <br>
+        <!-- / Content -->
+        <div class="content-backdrop fade"></div>
+    </div>
+
+    <div class="content-wrapper">
+
+        @include('roles.create')
+        @include('roles.edit')
+        <!-- Content -->
+        <div class="container-xxl flex-grow-1 container-p-y">
+            
             <div class="col-12">
                 <h4 class="fw-bold mt-6 mb-1">Total users with their roles</h4>
                 <p class="mb-0">Find all of your company’s administrator accounts and their associate roles.</p>
