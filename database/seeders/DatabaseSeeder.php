@@ -8,7 +8,7 @@ use App\Models\Empleado;
 use App\Models\Inventario;
 use App\Models\User;
 use App\Models\Equipo;
-use App\Models\Tablet;
+use App\Models\License;
 use App\Models\Complement;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
             PolicySeeder::class,
         ]);
 
-        //Tpv::factory()->count(50)->create();
+        License::factory()->count(50)->create();
         //User::factory()->count(8)->create();
         //Empleado::factory()->count(10)->create(); // Crea empleados (ajusta el número según tus necesidades)
         //Inventario::factory()->count(30)->create();

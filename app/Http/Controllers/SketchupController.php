@@ -10,16 +10,15 @@ use App\Models\Historial;
 use App\Models\Region;
 use Illuminate\Validation\Rule; 
 
-class AdobeController extends Controller
+class SketchupController extends Controller
 {
-    
     public function index()
     {
         $regions = Region::orderBy('name', 'asc')->get();
 
         $userRegions = auth()->user()->regions;
 
-        $tipo = Tipo::where('name', 'ADOBE')->first();
+        $tipo = Tipo::where('name', 'SKETCHUP')->first();
         $licenses = License::where('type_id', $tipo->id)
             ->with(['region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
@@ -32,7 +31,7 @@ class AdobeController extends Controller
             })
             ->get();
 
-        return view('licenses.adobe.index', compact('userRegions', 'regions', 'licenses'));
+        return view('licenses.sketchup.index', compact('userRegions', 'regions', 'licenses'));
     }
 
     public function store(Request $request)
@@ -51,7 +50,7 @@ class AdobeController extends Controller
                                     ->where('type_id', $request->type_id);
                     }),
                 ],
-                'end_date' => 'nullable|date|required_if:tipo,Creative Cloud',
+                'end_date' => 'date|required',
                 'region_id' => 'required',
             ]);
 
@@ -75,7 +74,7 @@ class AdobeController extends Controller
                 ->timeOut(3000)
                 ->addSuccess("Se registro la licencia {$licencia->type}");
 
-            return redirect()->route('adobe.index');
+            return redirect()->route('sketchup.index');
 
         } catch (ValidationException $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -108,7 +107,7 @@ class AdobeController extends Controller
                 ->whereIn('tipo_id', [2, 4]) 
                 ->get();
 
-        return view('licenses.adobe.show', compact('licencia', 'equipos'));
+        return view('licenses.sketchup.show', compact('licencia', 'equipos'));
     }
 
     public function update(Request $request, $id)
@@ -127,7 +126,7 @@ class AdobeController extends Controller
                                     ->where('type_id', $request->type_id);
                     })->ignore($licencia->id),
                 ], // Ignorar la clave actual
-                'end_date' => 'nullable|date|required_if:type,365', // Obligatorio solo para Office 365
+                'end_date' => 'date|required', // Obligatorio solo para Office 365
                 'region_id' => 'required',
             ]);
 
@@ -149,7 +148,7 @@ class AdobeController extends Controller
                 ->timeOut(3000)
                 ->addSuccess("Se actualizó la licencia de {$licencia->type} correctamente.");
 
-            return redirect()->route('adobe.index');
+            return redirect()->route('sketchup.index');
 
         } catch (ValidationException $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -206,7 +205,7 @@ class AdobeController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se asigno la licencia correctamente.");
 
-        return redirect()->route('adobe.show', $licenciaId);
+        return redirect()->route('sketchup.show', $licenciaId);
     }
 
     public function desasignarLicencia($licenciaId, $equipoId)
@@ -230,7 +229,7 @@ class AdobeController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se desvinculo la licencia correctamente.");
 
-        return redirect()->route('adobe.show', $licenciaId);
+        return redirect()->route('sketchup.show', $licenciaId);
     }
 
     public function destroy($id)
@@ -251,6 +250,6 @@ class AdobeController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se elimino la licencia de {$licencia->type}.");
 
-        return redirect()->route('adobe.index');
+        return redirect()->route('sketchup.index');
     }
 }

@@ -153,7 +153,7 @@
         <!-- Licencias -->
         @can('licenses.index')
             <li
-                class="menu-item {{ Request::routeIs('adobe.show') ? 'active' : '' }} || {{ Request::routeIs('adobe.index') ? 'active' : '' }} || {{ Request::routeIs('office.index') ? 'active' : '' }} || {{ Request::routeIs('office.show') ? 'active' : '' }} ">
+                class="menu-item {{ Request::routeIs('sketchup.index') ? 'active' : '' }} || {{ Request::routeIs('sketchup.show') ? 'active' : '' }} || {{ Request::routeIs('autocad.show') ? 'active' : '' }} || {{ Request::routeIs('autocad.index') ? 'active' : '' }} || {{ Request::routeIs('adobe.show') ? 'active' : '' }} || {{ Request::routeIs('adobe.index') ? 'active' : '' }} || {{ Request::routeIs('office.index') ? 'active' : '' }} || {{ Request::routeIs('office.show') ? 'active' : '' }} ">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class='menu-icon bx bxl-adobe'></i>
                     <div data-i18n="Layouts">Licenses</div>
@@ -167,11 +167,28 @@
                             <div data-i18n="Analytics">Adobe</div>
                         </a>
                     </li>
+
+                    <!-- AUTOCAD -->
+                    <li
+                        class="menu-item {{ Request::routeIs('autocad.index') ? 'active' : '' }} || {{ Request::routeIs('autocad.show') ? 'active' : '' }}">
+                        <a href="{{ route('autocad.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">AutoCAD</div>
+                        </a>
+                    </li>
+
                     <!-- Office -->
                     <li
-                        class="menu-item {{ Request::routeIs('office.index') ? 'active' : '' }} {{ Request::routeIs('office.show') ? 'active' : '' }}">
+                        class="menu-item {{ Request::routeIs('office.index') ? 'active' : '' }} || {{ Request::routeIs('office.show') ? 'active' : '' }}">
                         <a href="{{ route('office.index') }}" class="menu-link">
                             <div data-i18n="Analytics">Office</div>
+                        </a>
+                    </li>
+
+                    <!-- SketchUp -->
+                    <li
+                        class="menu-item {{ Request::routeIs('sketchup.index') ? 'active' : '' }} || {{ Request::routeIs('sketchup.show') ? 'active' : '' }}">
+                        <a href="{{ route('sketchup.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">SketchUp</div>
                         </a>
                     </li>
                 </ul>

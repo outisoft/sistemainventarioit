@@ -3,13 +3,13 @@
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-                    <a href="{{ route('adobe.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
+                    <a href="{{ route('sketchup.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
                         title="Regresar">
                         <span>
                             <i class='bx bx-arrow-back'></i>
                         </span>
                     </a>
-                    / Licenses / Adobe /</span> Details </h4>
+                    / Licenses / SketchUp /</span> Details </h4>
 
             <!-- info de licensia -->
             <div class="card">
@@ -60,7 +60,7 @@
                                 </address>
                                 <p class="col-12 text-center d-flex aling-items-center">
                                 <form
-                                    action="{{ route('adobe.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
+                                    action="{{ route('sketchup.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
                                     method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -113,7 +113,7 @@
                                                     <td>
                                                         @if ($equipo->license->where('type_id', $licencia->type_id)->isEmpty())
                                                             <form
-                                                                action="{{ route('adobe.asignar.post', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
+                                                                action="{{ route('sketchup.asignar.post', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 <button type="submit"
@@ -135,7 +135,7 @@
                 </div>
             @endif
             <br>
-            <a href="{{ route('adobe.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
+            <a href="{{ route('sketchup.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
 
             <hr class="my-5" />
 

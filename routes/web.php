@@ -16,6 +16,8 @@ use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\AdobeController;
+use App\Http\Controllers\AutocadController;
+use App\Http\Controllers\SketchupController;
 use App\Http\Controllers\DesktopController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\HotelController;
@@ -80,6 +82,8 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::resource('office', OfficeController::class);//Rutas Office
     Route::resource('adobe', AdobeController::class);//Rutas Adobe
+    Route::resource('autocad', AutocadController::class);//Rutas Autocad
+    Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
     Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');
 
@@ -88,6 +92,12 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
 
     Route::post('/adobe/{licenciaId}/asignar/{equipoId}', [AdobeController::class, 'asignarLicencia'])->name('adobe.asignar.post');
     Route::delete('/adobe/{licenciaId}/desasignar/{equipoId}', [AdobeController::class, 'desasignarLicencia'])->name('adobe.desasignar');
+
+    Route::post('/sketchup/{licenciaId}/asignar/{equipoId}', [SketchupController::class, 'asignarLicencia'])->name('sketchup.asignar.post');
+    Route::delete('/sketchup/{licenciaId}/desasignar/{equipoId}', [SketchupController::class, 'desasignarLicencia'])->name('sketchup.desasignar');
+
+    Route::post('/autocad/{licenciaId}/asignar/{equipoId}', [AutocadController::class, 'asignarLicencia'])->name('autocad.asignar.post');
+    Route::delete('/autocad/{licenciaId}/desasignar/{equipoId}', [AutocadController::class, 'desasignarLicencia'])->name('autocad.desasignar');
 
     //Backup
     Route::prefix('backup')->group(function () {
