@@ -16,6 +16,9 @@
 </style>
 
 
+
+
+
 <!--new DataTable('#equipments');-->
 <script>
     $('#officees').DataTable({

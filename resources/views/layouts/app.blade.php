@@ -29,7 +29,6 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
         class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/serach.css') }}" />
 
     @yield('css')
     <!-- Vendors CSS -->
@@ -87,9 +86,6 @@
                             </div>
                             <div>
                                 <a href="#" class="footer-link me-4" target="_blank">Grupo Piñero</a>
-                                <!--a href="javascript:void(0)" class="footer-link me-4">Help</a>
-                    <a href="javascript:void(0)" class="footer-link me-4">Contact</a>
-                    <a href="javascript:void(0)" class="footer-link">Terms &amp; Conditions</a-->
                             </div>
                         </div>
                     </footer>

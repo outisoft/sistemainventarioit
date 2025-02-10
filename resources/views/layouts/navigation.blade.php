@@ -115,6 +115,43 @@
         <livewire:global-search />
         <!-- /Search -->
         <ul class="navbar-nav flex-row align-items-center ms-auto">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <script>
+                const darkModeSwitch = document.getElementById('darkModeSwitch');
+                const body = document.body;
+                const logo = document.getElementById('logo');
+
+                // Verificar si el usuario ya tiene una preferencia de modo oscuro
+                if (localStorage.getItem('darkMode') === 'enabled') {
+                    body.classList.add('dark-mode');
+                    darkModeSwitch.checked = true;
+                    logo.src = "{{ asset('images/gp-h-blanco.png') }}"; // Cambiar al logo oscuro
+                }
+
+                // Cambiar entre modo oscuro y claro
+                darkModeSwitch.addEventListener('change', function() {
+                    if (this.checked) {
+                        body.classList.add('dark-mode');
+                        localStorage.setItem('darkMode', 'enabled');
+                        logo.src = "{{ asset('images/gp-h-blanco.png') }}"; // Cambiar al logo oscuro
+                    } else {
+                        body.classList.remove('dark-mode');
+                        localStorage.setItem('darkMode', 'disabled');
+                        logo.src = "{{ asset('images/gp-lg-50.png') }}"; // Cambiar al logo claro
+                    }
+                });
+            </script>
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">

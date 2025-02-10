@@ -1283,6 +1283,35 @@ html:not(.layout-menu-collapsed)
     background-color: #b4bdc6;
 }
 
+/*DARK MODE*/
+#logo {
+    transition: opacity 0.3s ease-in-out;
+}
+.dark-mode #logo {
+    opacity: 0.9; /* Ajusta la opacidad si es necesario */
+}
+.dark-mode .bg-footer-theme {
+    background-color: #121212 !important;
+    color: #fff !important;
+    transition: 0.5s;
+}
+
+.dark-mode h6 {
+    color: #ddd;
+}
+
+.dark-mode .search-result-title {
+    color: #f5f5f9;
+}
+
+.dark-mode .search-result-subtitle {
+    color: #b4bdc6;
+}
+.dark-mode .modal-content {
+    background-color: #121212;
+}
+/*DARK MODE*/
+
 .bg-footer-theme {
     background-color: #f5f5f9 !important;
     color: #697a8d;

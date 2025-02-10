@@ -9,7 +9,7 @@
         <span class="app-brand-logo demo">
             <div class="shrink-0 flex items-center">
                 <a href="{{ route('home') }}">
-                    <img src="{{ asset('images/gp-lg-50.png') }}" alt="Logo Grupo Piñero" height="36" />
+                    <img id="logo" src="{{ asset('images/gp-lg-50.png') }}" alt="Logo Grupo Piñero" height="36" />
                 </a>
             </div>
         </span>
@@ -391,3 +391,4 @@
         @endcan
     </ul>
 </aside>
+
