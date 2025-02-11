@@ -1284,6 +1284,7 @@ html:not(.layout-menu-collapsed)
 }
 
 /*DARK MODE*/
+
 #logo {
     transition: opacity 0.3s ease-in-out;
 }

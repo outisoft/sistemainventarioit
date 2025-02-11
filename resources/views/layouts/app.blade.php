@@ -29,6 +29,10 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
         class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/serach.css') }}" />
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
     @yield('css')
     <!-- Vendors CSS -->
@@ -100,6 +104,9 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
+
+    <!-- Swiper JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/gh/livewire/livewire@v3.x.x/dist/livewire.js"></script>
     @livewireScripts

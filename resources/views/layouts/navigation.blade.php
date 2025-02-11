@@ -115,8 +115,9 @@
         <livewire:global-search />
         <!-- /Search -->
         <ul class="navbar-nav flex-row align-items-center ms-auto">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                
+            <!-- DARK MODE -->
+            <!--button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
@@ -126,7 +127,7 @@
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div-->
             <script>
                 const darkModeSwitch = document.getElementById('darkModeSwitch');
                 const body = document.body;
@@ -152,6 +153,8 @@
                     }
                 });
             </script>
+            <!--/ DARK MODE -->
+
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">

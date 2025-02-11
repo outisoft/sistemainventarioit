@@ -78,7 +78,7 @@
                     </div>
 
                     <!-- Campo: Fecha de expiración (solo para Office 365) -->
-                    <div class="mb-3" for="end_date" >
+                    <div class="mb-3" for="end_date">
                         <x-input-label class="form-label" for="end_date" :value="__('End Date')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="end_date" class="form-control" type="date" name="end_date"

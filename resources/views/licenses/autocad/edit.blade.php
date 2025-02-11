@@ -66,8 +66,7 @@
                             <x-input-label class="form-label" for="type" :value="__('Tipo de Office')" />
                             <select class="form-control" id="type" name="type" required>
                                 <option value="">Seleccione un tipo</option>
-                                <option value="AUTOCAD LT "
-                                    {{ $equipo->type == 'AUTOCAD LT ' ? 'selected' : '' }}>
+                                <option value="AUTOCAD LT " {{ $equipo->type == 'AUTOCAD LT ' ? 'selected' : '' }}>
                                     AUTOCAD LT
                                 </option>
                                 <option value="AUTOCAD STANDARD"
@@ -88,24 +87,25 @@
                             <x-input-error :messages="$errors->get('key')" class="mt-2" />
                         </div>
 
-                        <div class="mb-3" for="end_date{{ $equipo->end_date }}>
-                            <x-input-label class="form-label" for="end_date{{ $equipo->end_date }}"
-                                :value="__('Contract End Date')" />
-                            <div class="input-group input-group-merge">
-                                <x-text-input type="date" class="form-control" id="end_date{{ $equipo->end_date }}"
-                                    name="end_date" value="{{ $equipo->end_date }}" autocomplete="end_date" />
-                            </div>
-                            <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
+                        <div class="mb-3"
+                            for="end_date{{ $equipo->end_date }}>
+                            <x-input-label class="form-label"
+                            for="end_date{{ $equipo->end_date }}" :value="__('Contract End Date')" />
+                        <div class="input-group input-group-merge">
+                            <x-text-input type="date" class="form-control" id="end_date{{ $equipo->end_date }}"
+                                name="end_date" value="{{ $equipo->end_date }}" autocomplete="end_date" />
                         </div>
+                        <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
                     </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </div>
-
-                </form>
             </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </div>
+
+            </form>
         </div>
+    </div>
     </div>
 @endforeach

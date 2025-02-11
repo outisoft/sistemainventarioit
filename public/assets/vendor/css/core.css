@@ -3485,91 +3485,91 @@ fieldset:disabled .btn {
 }
 
 /*DARK MODE*/
-.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-    transition: 0.5s;
-}
+    .dark-mode {
+        background-color: #121212;
+        color: #ffffff;
+        transition: 0.5s;
+    }
 
-.dark-mode .navbar {
-    background-color: #1f1f1f !important;
-    transition: 0.5s;
-}
-.dark-mode .card {
-    background-color: #1f1f1f;
-    color: #ffffff;
-    transition: 0.5s;
-}
+    .dark-mode .navbar {
+        background-color: #1f1f1f !important;
+        transition: 0.5s;
+    }
+    .dark-mode .card {
+        background-color: #1f1f1f;
+        color: #ffffff;
+        transition: 0.5s;
+    }
 
-.dark-mode .navbar-nav {
-    background-color: #1f1f1f;
-    color: #fff;
-    transition: 0.5s;
-}
+    .dark-mode .navbar-nav {
+        background-color: #1f1f1f;
+        color: #fff;
+        transition: 0.5s;
+    }
 
-.dark-mode .form-control {
-    background-color: #1f1f1f;
-    color: #fff;
-    transition: 0.5s;
-}
+    .dark-mode .form-control {
+        background-color: #1f1f1f;
+        color: #fff;
+        transition: 0.5s;
+    }
 
-.dark-mode .search-results {
-    background-color: #1f1f1f !important;
-    color: #fff !important;
-    transition: 0.5s;
-}
-.dark-mode .search-result-item {
-    background-color: #1f1f1f !important;
-    color: #fff !important;
-    transition: 0.5s;
-}
-.dark-mode .search-result-item:hover {
-    background-color: #121212 !important;
-    transition: 0.5s;
-}
+    .dark-mode .search-results {
+        background-color: #1f1f1f !important;
+        color: #fff !important;
+        transition: 0.5s;
+    }
+    .dark-mode .search-result-item {
+        background-color: #1f1f1f !important;
+        color: #fff !important;
+        transition: 0.5s;
+    }
+    .dark-mode .search-result-item:hover {
+        background-color: #121212 !important;
+        transition: 0.5s;
+    }
 
-.dark-mode .footer {
-    background-color: #1f1f1f;
-    color: #fff;
-    transition: 0.5s;
-}
+    .dark-mode .footer {
+        background-color: #1f1f1f;
+        color: #fff;
+        transition: 0.5s;
+    }
 
-.dark-mode .footer-link {
-    color: #ddd;
-    transition: 0.5s;
-}
+    .dark-mode .footer-link {
+        color: #ddd;
+        transition: 0.5s;
+    }
 
-.dark-mode .footer-link:hover {
-    color: #fff;
-    transition: 0.5s;
-}
+    .dark-mode .footer-link:hover {
+        color: #fff;
+        transition: 0.5s;
+    }
 
-.dark-mode aside {
-    background-color: #1f1f1f !important;
-    color: #fff !important;
-    transition: 0.5s;
-}
+    .dark-mode aside {
+        background-color: #1f1f1f !important;
+        color: #fff !important;
+        transition: 0.5s;
+    }
 
-.dark-mode a {
-    color: #ddd !important;
-    transition: 0.5s;
-}
+    .dark-mode a {
+        color: #ddd !important;
+        transition: 0.5s;
+    }
 
-.dark-mode .dropdown-menu {
-    background-color: #1f1f1f !important;
-    color: #fff !important;
-    transition: 0.5s;
-}
+    .dark-mode .dropdown-menu {
+        background-color: #1f1f1f !important;
+        color: #fff !important;
+        transition: 0.5s;
+    }
 
-.dark-mode footer {
-    background-color: #1f1f1f !important;
-    color: #fff !important;
-    transition: 0.5s;
-}
+    .dark-mode footer {
+        background-color: #1f1f1f !important;
+        color: #fff !important;
+        transition: 0.5s;
+    }
 
-.dark-mode .text-muted {
-    color: #b4bdc6 !important;
-}
+    .dark-mode .text-muted {
+        color: #b4bdc6 !important;
+    }
 
 /*DARK MODE*/
 

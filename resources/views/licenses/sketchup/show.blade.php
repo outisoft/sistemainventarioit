@@ -135,7 +135,8 @@
                 </div>
             @endif
             <br>
-            <a href="{{ route('sketchup.index') }}" class="btn btn-secondary"><i class='bx bx-arrow-back'></i>Volver</a>
+            <a href="{{ route('sketchup.index') }}" class="btn btn-secondary"><i
+                    class='bx bx-arrow-back'></i>Volver</a>
 
             <hr class="my-5" />
 

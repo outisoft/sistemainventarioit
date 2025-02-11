@@ -1,6 +1,6 @@
 <x-app-layout>
-@include('licenses.sketchup.create')
-@include('licenses.sketchup.edit')
+    @include('licenses.sketchup.create')
+    @include('licenses.sketchup.edit')
 
     <div class="content-wrapper">
         <!-- Content -->
@@ -103,7 +103,8 @@
                                                             @endcan
 
                                                             @can('licenses.destroy')
-                                                                <form action="{{ route('sketchup.destroy', $sketchup->id) }}"
+                                                                <form
+                                                                    action="{{ route('sketchup.destroy', $sketchup->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')

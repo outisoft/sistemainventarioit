@@ -1,6 +1,6 @@
 <x-app-layout>
-@include('licenses.autocad.create')
-@include('licenses.autocad.edit')
+    @include('licenses.autocad.create')
+    @include('licenses.autocad.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
