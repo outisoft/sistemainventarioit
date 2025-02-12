@@ -1,53 +1,10 @@
-<style>
-    #property-section #property-slider {
-        width: 100%;
-        height: 400px;
-        margin-top: 50px;
-    }
-
-    #property-slider .swiper {
-        width: 100%;
-        height: 100%;
-    }
-
-    #property-slider .swiper .swiper-slide .property-list {
-        padding: 10px;
-        background-color: #ffffff;
-        border-radius: 0 30px 0 30px;
-        color: #000000;
-    }
-
-    #property-slider .swiper .swiper-slide .property-list p {
-        font-weight: 500;
-    }
-
-    #property-slider .swiper .swiper-slide .property-list .image {
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-        border-radius: 0 30px 0 30px;
-        margin-bottom: 10px;
-    }
-
-    #property-slider .swiper .swiper-slide .property-list .image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-</style>
 <x-app-layout>
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h5 class="mb-2">WELCOME BACK,<span class="h4"> {{ Auth::user()->name }}! 👋🏻</span></h5><br>
+        <h5 class="mb-2">WELCOME BACK,<span class="h4"> {{ Auth::user()->name }}! 👋🏻</span></h5>
 
         <!--Property Section Here-->
         <section id="property-section">
-            <div class="container">
-                <h6 class="h6 color-primary m-0">Recent</h6>
-                <h1 class="h1 h1-responsive mb-4">Recently Added Properties!</h1>
-                <div class="text-right">
-                    <a href="#">Find more proyets <i class="fas fa-long-arrow-alt-right ml-4"></i></a>
-                </div>
                 <!--Property List Slider Her-->
                 <div id="property-slider">
                     <!-- Slider main container -->
@@ -55,118 +12,171 @@
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <!-- Slides -->
+                            <!-- SW / APS -->
                             <div class="swiper-slide">
-                                <div class="property-list shadow">
-                                    <div class="image">
-                                        <img src="assets/img/property-1.jpg" alt="">
-                                    </div>
-                                    <div class="text-right">
-                                        <h4 class="h5">$10,965</h4>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <div class="item">
-                                            <h4 class="h5 m-0">Place</h4>
-                                            <p class="m-0">City, Contry</p>
+                                <div class="row">
+                                    <!-- Switches -->
+                                    @can('switches.index')
+                                        <div class="col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <i class='bx bx-server bx-lg rounded'
+                                                                style="font-size: 2rem; color: #b5a160;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <span class="fw-semibold d-block mb-1">Switches</span>
+                                                    <h3 class="card-title text-nowrap mb-2">{{ $totalSw }}</h3>
+                                                    <small class="text-primary fw-semibold"> <a
+                                                            href="{{ route('switches.index') }}">Show<i
+                                                                class='bx bx-right-arrow-alt'></i></a></small>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="item d-flex aling-self-center">
-                                            <i class="fas fa-bed mx-2 aling-self-center"></i>
-                                            <span class="mr-3">5</span>
-                                            <i class="fas fa-bath mx-2 aling-self-center"></i>
-                                            <span>3</span>
+                                    @endcan
+
+                                    <!-- Access Points -->
+                                    @can('access_points.index')
+                                        <div class="col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <i class='bx bx-broadcast bx-lg rounded'
+                                                                style="font-size: 2rem; color: #b5a160;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <span class="fw-semibold d-block mb-1">Access Points</span>
+                                                    <h3 class="card-title mb-2">{{ $totalAps }}</h3>
+                                                    <small class="text-primary fw-semibold"> <a
+                                                            href="{{ route('access-points.index') }}">Show<i
+                                                                class='bx bx-right-arrow-alt'></i></a></small>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endcan
                                 </div>
                             </div>
 
+                            <!-- coming2 / TPVS -->
                             <div class="swiper-slide">
-                                <div class="property-list shadow">
-                                    <div class="image">
-                                        <img src="assets/img/property-3.jpg" alt="">
-                                    </div>
-                                    <div class="text-right">
-                                        <h4 class="h5">$10,965</h4>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <div class="item">
-                                            <h4 class="h5 m-0">Place</h4>
-                                            <p class="m-0">City, Contry</p>
+                                <div class="row">
+                                    <!-- coming2 -->
+                                    @can('coming2.index')
+                                        <div class="col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <i class='bx bx-tab bx-lg rounded'
+                                                                style="font-size: 2rem; color: #b5a160;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <span class="fw-semibold d-block mb-1">Coming2</span>
+                                                    <h3 class="card-title text-nowrap mb-2">{{ $totalComing2 }}</h3>
+                                                    <small class="text-primary fw-semibold"> <a
+                                                            href="{{ route('coming2.index') }}">Show<i
+                                                                class='bx bx-right-arrow-alt'></i></a></small>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="item d-flex aling-self-center">
-                                            <i class="fas fa-bed mx-2 aling-self-center"></i>
-                                            <span class="mr-3">5</span>
-                                            <i class="fas fa-bath mx-2 aling-self-center"></i>
-                                            <span>3</span>
+                                    @endcan
+
+                                    <!-- TPVS -->
+                                    @can('tpvs.index')
+                                        <div class="col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <i class='bx bx-tv bx-lg rounded'
+                                                                style="font-size: 2rem; color: #b5a160;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <span class="fw-semibold d-block mb-1">Tpv's</span>
+                                                    <h3 class="card-title mb-2">{{ $totalTpvs }}</h3>
+                                                    <small class="text-primary fw-semibold"> <a
+                                                            href="{{ route('tpvs.index') }}">Show<i
+                                                                class='bx bx-right-arrow-alt'></i></a></small>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endcan
                                 </div>
                             </div>
 
+                            <!-- Users / ** -->
                             <div class="swiper-slide">
-                                <div class="property-list shadow">
-                                    <div class="image">
-                                        <img src="assets/img/home-pic-3.jpg" alt="">
-                                    </div>
-                                    <div class="text-right">
-                                        <h4 class="h5">$10,965</h4>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <div class="item">
-                                            <h4 class="h5 m-0">Place</h4>
-                                            <p class="m-0">City, Contry</p>
+                                <div class="row">
+                                    <!-- Users -->
+                                    @can('users.index')
+                                        <div class="col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <i class='bx bx-user bx-lg rounded'
+                                                                style="font-size: 2rem; color: #b5a160;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <span class="fw-semibold d-block mb-1">Users</span>
+                                                    <h3 class="card-title text-nowrap mb-2">{{ $totalUsuarios }}</h3>
+                                                    <small class="text-primary fw-semibold"> <a
+                                                            href="{{ route('users.index') }}">Show<i
+                                                                class='bx bx-right-arrow-alt'></i></a></small>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="item d-flex aling-self-center">
-                                            <i class="fas fa-bed mx-2 aling-self-center"></i>
-                                            <span class="mr-3">5</span>
-                                            <i class="fas fa-bath mx-2 aling-self-center"></i>
-                                            <span>3</span>
-                                        </div>
-                                    </div>
+                                    @endcan
                                 </div>
                             </div>
 
-                            <div class="swiper-slide">
-                                <div class="property-list shadow">
-                                    <div class="image">
-                                        <img src="assets/img/home-pic-1.jpg" alt="">
-                                    </div>
-                                    <div class="text-right">
-                                        <h4 class="h5">$10,965</h4>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <div class="item">
-                                            <h4 class="h5 m-0">Place</h4>
-                                            <p class="m-0">City, Contry</p>
-                                        </div>
-                                        <div class="item d-flex aling-self-center">
-                                            <i class="fas fa-bed mx-2 aling-self-center"></i>
-                                            <span class="mr-3">5</span>
-                                            <i class="fas fa-bath mx-2 aling-self-center"></i>
-                                            <span>3</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
+                            <!--Employees / Equipments -->
                             <div class="swiper-slide">
-                                <div class="property-list shadow">
-                                    <div class="image">
-                                        <img src="assets/img/home-pic-2.jpg" alt="">
-                                    </div>
-                                    <div class="text-right">
-                                        <h4 class="h5">$10,965</h4>
-                                    </div>
-                                    <div class="d-flex justify-content-between mb-4">
-                                        <div class="item">
-                                            <h4 class="h5 m-0">Place</h4>
-                                            <p class="m-0">City, Contry</p>
+                                <div class="row">
+                                    <!--Employees-->
+                                    @can('empleados.index')
+                                        <div class="col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <i class='bx bx-user-pin bx-lg rounded'
+                                                                style="font-size: 2rem; color: #b5a160;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <span class="fw-semibold d-block mb-1">Employees</span>
+                                                    <h3 class="card-title mb-2">{{ $totalEmpleados }}</h3>
+                                                    <small class="text-primary fw-semibold"> <a
+                                                            href="{{ route('empleados.index') }}">Show<i
+                                                                class='bx bx-right-arrow-alt'></i></a></small>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="item d-flex aling-self-center">
-                                            <i class="fas fa-bed mx-2 aling-self-center"></i>
-                                            <span class="mr-3">5</span>
-                                            <i class="fas fa-bath mx-2 aling-self-center"></i>
-                                            <span>3</span>
+                                    @endcan
+
+                                    <!--Equipments-->
+                                    @can('equipo.index')
+                                        <div class="col-6 mb-4">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="card-title d-flex align-items-start justify-content-between">
+                                                        <div class="avatar flex-shrink-0">
+                                                            <i class='bx bx-desktop bx-lg rounded'
+                                                                style="font-size: 2rem; color: #b5a160;"></i>
+                                                        </div>
+                                                    </div>
+                                                    <span class="fw-semibold d-block mb-1">Equipments</span>
+                                                    <h3 class="card-title text-nowrap mb-1">{{ $totalEquipos }}</h3>
+                                                    <small class="text-primary fw-semibold"> <a
+                                                            href="{{ route('equipo.index') }}">Show<i
+                                                                class='bx bx-right-arrow-alt'></i></a></small>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endcan
                                 </div>
                             </div>
                         </div>
@@ -174,180 +184,9 @@
 
                 </div>
                 <!--/Property List Slider Her-->
-            </div>
         </section>
         <!--/Property Section Here-->
 
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
-                <!--Employees / Equipments -->
-                <div class="swiper-slide">
-                    <div class="row">
-                        <!--Employees-->
-                        @can('empleados.index')
-                            <div class="col-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            <div class="avatar flex-shrink-0">
-                                                <i class='bx bx-user-pin bx-lg rounded'
-                                                    style="font-size: 2rem; color: #b5a160;"></i>
-                                            </div>
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Employees</span>
-                                        <h3 class="card-title mb-2">{{ $totalEmpleados }}</h3>
-                                        <small class="text-primary fw-semibold"> <a
-                                                href="{{ route('empleados.index') }}">Show<i
-                                                    class='bx bx-right-arrow-alt'></i></a></small>
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-
-                        <!--Equipments-->
-                        @can('equipo.index')
-                            <div class="col-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            <div class="avatar flex-shrink-0">
-                                                <i class='bx bx-desktop bx-lg rounded'
-                                                    style="font-size: 2rem; color: #b5a160;"></i>
-                                            </div>
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Equipments</span>
-                                        <h3 class="card-title text-nowrap mb-1">{{ $totalEquipos }}</h3>
-                                        <small class="text-primary fw-semibold"> <a
-                                                href="{{ route('equipo.index') }}">Show<i
-                                                    class='bx bx-right-arrow-alt'></i></a></small>
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-                    </div>
-                </div>
-
-                <!-- SW / APS -->
-                <div class="swiper-slide">
-                    <div class="row">
-                        <!-- Switches -->
-                        @can('switches.index')
-                            <div class="col-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            <div class="avatar flex-shrink-0">
-                                                <i class='bx bx-server bx-lg rounded'
-                                                    style="font-size: 2rem; color: #b5a160;"></i>
-                                            </div>
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Switches</span>
-                                        <h3 class="card-title text-nowrap mb-2">{{ $totalSw }}</h3>
-                                        <small class="text-primary fw-semibold"> <a
-                                                href="{{ route('switches.index') }}">Show<i
-                                                    class='bx bx-right-arrow-alt'></i></a></small>
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-
-                        <!-- Access Points -->
-                        @can('access_points.index')
-                            <div class="col-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            <div class="avatar flex-shrink-0">
-                                                <i class='bx bx-broadcast bx-lg rounded'
-                                                    style="font-size: 2rem; color: #b5a160;"></i>
-                                            </div>
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Access Points</span>
-                                        <h3 class="card-title mb-2">{{ $totalAps }}</h3>
-                                        <small class="text-primary fw-semibold"> <a
-                                                href="{{ route('access-points.index') }}">Show<i
-                                                    class='bx bx-right-arrow-alt'></i></a></small>
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-                    </div>
-                </div>
-
-                <!-- coming2 / TPVS -->
-                <div class="swiper-slide">
-                    <div class="row">
-                        <!-- coming2 -->
-                        @can('coming2.index')
-                            <div class="col-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            <div class="avatar flex-shrink-0">
-                                                <i class='bx bx-tab bx-lg rounded'
-                                                    style="font-size: 2rem; color: #b5a160;"></i>
-                                            </div>
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Coming2</span>
-                                        <h3 class="card-title text-nowrap mb-2">{{ $totalComing2 }}</h3>
-                                        <small class="text-primary fw-semibold"> <a
-                                                href="{{ route('coming2.index') }}">Show<i
-                                                    class='bx bx-right-arrow-alt'></i></a></small>
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-
-                        <!-- TPVS -->
-                        @can('tpvs.index')
-                            <div class="col-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            <div class="avatar flex-shrink-0">
-                                                <i class='bx bx-tv bx-lg rounded'
-                                                    style="font-size: 2rem; color: #b5a160;"></i>
-                                            </div>
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Tpv's</span>
-                                        <h3 class="card-title mb-2">{{ $totalTpvs }}</h3>
-                                        <small class="text-primary fw-semibold"> <a
-                                                href="{{ route('tpvs.index') }}">Show<i
-                                                    class='bx bx-right-arrow-alt'></i></a></small>
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-                    </div>
-                </div>
-
-                <!-- Users / ** -->
-                <div class="swiper-slide">
-                    <div class="row">
-                        <!-- Users -->
-                        @can('users.index')
-                            <div class="col-6 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="card-title d-flex align-items-start justify-content-between">
-                                            <div class="avatar flex-shrink-0">
-                                                <i class='bx bx-user bx-lg rounded'
-                                                    style="font-size: 2rem; color: #b5a160;"></i>
-                                            </div>
-                                        </div>
-                                        <span class="fw-semibold d-block mb-1">Users</span>
-                                        <h3 class="card-title text-nowrap mb-2">{{ $totalUsuarios }}</h3>
-                                        <small class="text-primary fw-semibold"> <a
-                                                href="{{ route('users.index') }}">Show<i
-                                                    class='bx bx-right-arrow-alt'></i></a></small>
-                                    </div>
-                                </div>
-                            </div>
-                        @endcan
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
         <div class="row">
@@ -819,7 +658,6 @@
 </script>
 
 <!-- Initialize Swiper -->
-
 <script>
     var swiper = new Swiper('#property-slider .swiper', {
         // Optional parameters
@@ -837,13 +675,9 @@
                 spaceBetween: 20,
             },
             1024: {
-                slidesPerView: 4,
+                slidesPerView: 3,
                 spaceBetween: 30,
             },
         }
-    });
-    var swiper = new Swiper('#testimonial-slider .swiper', {
-        // Optional parameters
-        loop: true,
     });
 </script>
