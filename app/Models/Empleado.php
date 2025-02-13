@@ -5,10 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Ramsey\Uuid\Uuid;
 
 class Empleado extends Model
 {
     use HasFactory;
+
+    public $incrementing = false; // Indicar que no es autoincremental
+    protected $keyType = 'string';
 
     protected $fillable = ['no_empleado', 'name', 'email', 'puesto', 'departamento_id', 'hotel_id', 'ad', 'region_id'];
 
@@ -51,6 +55,10 @@ class Empleado extends Model
                     $model->{$key} = strtoupper($value);
                 }
             }
+        });
+
+        static::creating(function ($model) {
+            $model->id = Uuid::uuid4()->toString();
         });
     }
 
