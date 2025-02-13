@@ -6,17 +6,21 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class ChangeIdToUuidInEmpleadosAndEmpleadoEquipo extends Migration
+return new class extends Migration
 {
     public function up()
     {
         // Agregar columnas UUID temporales
         Schema::table('empleados', function (Blueprint $table) {
-            $table->uuid('uuid_temp')->nullable();
+            if (!Schema::hasColumn('empleados', 'uuid_temp')) {
+                $table->uuid('uuid_temp')->nullable();
+            }
         });
 
         Schema::table('empleado_equipo', function (Blueprint $table) {
-            $table->uuid('empleado_uuid_temp')->nullable();
+            if (!Schema::hasColumn('empleado_equipo', 'empleado_uuid_temp')) {
+                $table->uuid('empleado_uuid_temp')->nullable();
+            }
         });
 
         // Generar UUIDs para los registros existentes
@@ -33,22 +37,34 @@ class ChangeIdToUuidInEmpleadosAndEmpleadoEquipo extends Migration
                 ->update(['empleado_uuid_temp' => $empleado->uuid_temp]);
         });
 
+        // Deshabilitar restricciones de clave foránea
+        Schema::disableForeignKeyConstraints();
+
         // Eliminar claves foráneas y columnas de ID antiguas
         Schema::table('empleado_equipo', function (Blueprint $table) {
             $table->dropForeign(['empleado_id']);
             $table->dropColumn('empleado_id');
         });
 
+        // Eliminar el atributo AUTO_INCREMENT y la clave primaria de la columna id
+        DB::statement('ALTER TABLE empleados MODIFY id INT NOT NULL');
         Schema::table('empleados', function (Blueprint $table) {
             $table->dropPrimary('id');
             $table->dropColumn('id');
-            $table->uuid('id')->primary()->change();
+        });
+
+        // Agregar la nueva columna UUID como primaria
+        Schema::table('empleados', function (Blueprint $table) {
+            $table->uuid('id')->primary()->first();
         });
 
         Schema::table('empleado_equipo', function (Blueprint $table) {
-            $table->uuid('empleado_id')->change();
+            $table->uuid('empleado_id');
             $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
         });
+
+        // Habilitar restricciones de clave foránea
+        Schema::enableForeignKeyConstraints();
 
         // Copiar UUIDs temporales a las nuevas columnas
         DB::table('empleados')->update([
@@ -72,6 +88,8 @@ class ChangeIdToUuidInEmpleadosAndEmpleadoEquipo extends Migration
     public function down()
     {
         // Revertir los cambios en caso de rollback
+        Schema::disableForeignKeyConstraints();
+
         Schema::table('empleado_equipo', function (Blueprint $table) {
             $table->dropForeign(['empleado_id']);
             $table->dropColumn('empleado_id');
@@ -85,5 +103,7 @@ class ChangeIdToUuidInEmpleadosAndEmpleadoEquipo extends Migration
             $table->unsignedInteger('empleado_id');
             $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
         });
+
+        Schema::enableForeignKeyConstraints();
     }
-}
+};
