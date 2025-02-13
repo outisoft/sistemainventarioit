@@ -84,6 +84,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('adobe', AdobeController::class);//Rutas Adobe
     Route::resource('autocad', AutocadController::class);//Rutas Autocad
     Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
+    Route::get('/hotels/{hotel}/switches', [SwitchController::class, 'showSwitches'])->name('hotels.switches');
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
     Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');
 

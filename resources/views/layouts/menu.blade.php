@@ -198,7 +198,7 @@
         <!-- Redes -->
         @can('switches.index')
             <li
-                class="menu-item {{ Request::routeIs('switches.show') ? 'active' : '' }} || {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('access-points.show') ? 'active' : '' }} || {{ Request::routeIs('access-points.index') ? 'active' : '' }}">
+                class="menu-item {{ Request::routeIs('hotels.switches') ? 'active' : '' }} || {{ Request::routeIs('switches.show') ? 'active' : '' }} || {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('access-points.show') ? 'active' : '' }} || {{ Request::routeIs('access-points.index') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class='menu-icon bx bx-server'></i>
                     <div data-i18n="Layouts">Redes</div>
@@ -217,7 +217,7 @@
                     <!-- SWITCHES -->
                     @can('switches.index')
                         <li
-                            class="menu-item {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('switches.show') ? 'active' : '' }}">
+                            class="menu-item {{ Request::routeIs('hotels.switches') ? 'active' : '' }} || {{ Request::routeIs('switches.index') ? 'active' : '' }} || {{ Request::routeIs('switches.show') ? 'active' : '' }}">
                             <a href="{{ route('switches.index') }}" class="menu-link">
                                 <div data-i18n="Analytics">Switches</div>
                             </a>

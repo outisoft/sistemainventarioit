@@ -2,8 +2,11 @@
     <div class="content-wrapper">
         <!-- Content -->
 
-        <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> </span> Access Point </h4>
+        <div class="container-xxl flex-grow-1 container-p-y"><nav aria-label="b7 readcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item active fw-bold">ACCESS POINTS</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">

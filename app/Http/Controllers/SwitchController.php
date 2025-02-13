@@ -21,6 +21,7 @@ class SwitchController extends Controller
         $this->middleware('can:switches.show')->only('show');
         $this->middleware('can:switches.destroy')->only('destroy');
     }
+    
     public function index()
     {
         $switches = Swittch::with(['hotel', 'accessPoints', 'region'])
@@ -37,15 +38,13 @@ class SwitchController extends Controller
         $hotels = Hotel::orderBy('name', 'asc')->get();
         $regions = Region::orderBy('name', 'asc')->get();
 
-        // Obtener las regiones del usuario autenticado
         $userRegions = auth()->user()->regions->pluck('id')->toArray();
 
-        // Obtener los hoteles y la cantidad de switches, filtrando por las regiones del usuario
         $hoteles = DB::table('hotels')
-            ->select('regions.name as region', 'hotels.name as hotel', DB::raw('COUNT(swittches.id) as total_sw'))
+            ->select('hotels.id', 'regions.name as region', 'hotels.name as hotel', DB::raw('COUNT(swittches.id) as total_sw'))
             ->leftJoin('regions', 'hotels.region_id', '=', 'regions.id')
             ->leftJoin('swittches', 'hotels.id', '=', 'swittches.hotel_id')
-            ->groupBy('regions.name', 'hotels.name')
+            ->groupBy('hotels.id', 'regions.name', 'hotels.name')
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) use ($userRegions) {
                 $query->whereIn('hotels.region_id', $userRegions);
             })
@@ -234,6 +233,14 @@ class SwitchController extends Controller
             }
             return back()->withErrors($e->errors())->withInput();
         }
+    }
+
+    public function showSwitches($hotelId)
+    {
+        $hotel = Hotel::findOrFail($hotelId);
+        $switches = $hotel->switches; // Asumiendo que tienes una relación definida en el modelo Hotel
+
+        return view('equipos.switches.details', compact('hotel', 'switches'));
     }
 
     public function destroy(String $id)

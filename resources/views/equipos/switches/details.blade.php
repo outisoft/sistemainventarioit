@@ -1,92 +1,118 @@
 <x-app-layout>
     <div class="content-wrapper">
-        <!-- Content -->
-        
         <div class="container-xxl flex-grow-1 container-p-y">
-            <nav aria-label="b7 readcrumb">
+
+            <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
-                    <li class="breadcrumb-item active fw-bold">SWITCHES</li>
+                    <li class="breadcrumb-item">
+                    <a href="{{ route('switches.index') }}">SWITCHES</a>
+                    </li>
+                    <li class="breadcrumb-item active fw-bold">{{ $hotel->name }}</li>
                 </ol>
             </nav>
+            <style>
+                .hex-grid {
+                    display: flex;
+                    flex-wrap: wrap;
+                    width: 300px;
+                }
 
-            <!-- Tarjeta de hoteles -->
-            <!--div-- class="row g-6 mb-6">
-                @foreach ($hoteles as $hotel)
-                    <div class="col-xl-4-c col-lg-6 col-md-6">
-                        <div class="card card-border-shadow-primary h-100">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="avatar me-4">
-                                        <span class="avatar-initial rounded bg-label-primary"><i class="icon-base bx bx-server icon-lg"></i> </span>
-                                    </div>
-                                    <h4 class="mb-0">{{ $hotel->total_sw }}</h4>
+                .hex {
+                    position: relative;
+                    width: 15%;
+                    height: 40px;
+                    margin: 7px 0;
+                    background-color: #64c7cc;
+                    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+                }
+
+                .hex-online {
+                    position: relative;
+                    width: 12%;
+                    height: 40px;
+                    margin: 7px 0;
+                    background-color: var(--bs-success);
+                    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+                }
+
+                .hex-offline {
+                    position: relative;
+                    width: 12%;
+                    height: 40px;
+                    margin: 7px 0;
+                    background-color: var(--bs-danger);
+                    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+                }
+
+                .hex-in {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .hex-content {
+                    text-align: center;
+                    color: white;
+                    font-size: 10px;
+                }
+            </style>
+            <div class="card">
+                <div class="hex-grid">
+                    @foreach ($switches as $switch)
+                        @if ($switch->status === 'online')
+                        <div class="hex-online">
+                            <div class="hex-in" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>{{ $switch->name }}</span>">
+                                <div class="hex-content" >
+                                
                                 </div>
-                                <p class="mb-2">{{ $hotel->hotel }}</p>
-                                <p class="mb-0">
-                                    <span class="text-heading fw-medium me-2">{{ $hotel->region }} </span>
-                                    <span class="text-body-secondary">
-                                        <a href="{{ route('hotels.switches', $hotel->id) }}">
-                                            Show<i class='bx bx-right-arrow-alt'></i>
-                                        </a>
-                                    </span>
-                                </p>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            </div--><br>
-            <!-- Tarjeta de hoteles -->
-
-            <!-- Basic Bootstrap Table -->
-            <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Switches list</h5>
-                    <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            @can('switches.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                        @else
+                        <div class="hex-offline">
+                            <div class="hex-in" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                     data-bs-html="true" title=""
-                                    data-bs-original-title="<span>Add new equipment</span>">
-                                    <i class='bx bx-add-to-queue icon-lg'></i>
-                                </a>
-                            @endcan
+                                    data-bs-original-title="<span>{{ $switch->name }}</span>">
+                                <div class="hex-content" >
+                                
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        @endif
+                    @endforeach
+                    <!-- Repite los hexágonos según sea necesario -->
                 </div>
-                @php
-                    $user = auth()->user();
-                    $userRegions = $user->regions;
-                @endphp
-                @include('equipos.switches.create')
-                @include('equipos.switches.edit')
+            </div>
+            <br>
 
-                <div class="table-responsive text-nowrap" id="searchResults">
-                    <table id="switchs" class="table">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-header">Lista de Switches</h5>
+                </div>
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
                         <thead class="bg-primary">
                             <tr>
-                                <th>Name</th>
-                                <th>Details</th>
+                                <th>Nombre</th>
+                                <th>Detalles</th>
                                 <th>IP</th>
                                 <th>MAC</th>
-                                @role('Administrator')
-                                    <th>Region</th>
-                                @endrole
-                                <th>Location</th>
-                                <th>Observations</th>
-                                <th>Actions</th>
+                                <th>Ubicación</th>
+                                <th>Observaciones</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="employeeList">
+                        <tbody>
                             @foreach ($switches as $switch)
                                 <tr>
                                     <td>{{ $switch->name }} ({{ $switch->total_ports }} puertos)</td>
                                     <td>{{ $switch->marca }} / {{ $switch->model }} / {{ $switch->serial }}</td>
                                     <td>{{ $switch->ip }}</td>
                                     <td>{{ $switch->mac }}</td>
-                                    @role('Administrator')
-                                        <td>{{ $switch->region->name }} </td>
-                                    @endrole
                                     <td>{{ $switch->hotel->name }}</td>
                                     <td>{{ $switch->observacion }}</td>
                                     <td>
@@ -128,8 +154,6 @@
                     </table>
                 </div>
             </div>
-            <!--/ Basic Bootstrap Table -->
         </div>
-        <!-- / Content -->
     </div>
 </x-app-layout>

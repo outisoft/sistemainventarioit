@@ -7,6 +7,7 @@ use App\Models\Historial;
 use App\Models\Swittch;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class AccessPointController extends Controller
@@ -38,6 +39,8 @@ class AccessPointController extends Controller
             ->get();
         $regions = Region::orderBy('name', 'asc')->get();
         $switches = Swittch::orderBy('name', 'asc')->get();
+
+        $userRegions = auth()->user()->regions->pluck('id')->toArray();
 
         $userRegions = auth()->user()->regions;
         
