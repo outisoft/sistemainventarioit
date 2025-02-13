@@ -174,17 +174,21 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
 });
 
 Route::get('/', function () {
-    if (Auth::check()) {
-        // El usuario está autenticado
+    /*if (Auth::check()) {
         return redirect()->route('home');
     } else {
-        // El usuario no está autenticado
         return redirect()->route('login');
-    }
+    }*/
+    return view('errors/maintenance');
 })->name('login');
 
 Route::get('/welcome', function () {
     return view('welcome');
 });
+
+/*Route::get('/maintenance', function () {
+    return view('errors/maintenance');
+});*/
+
 
 require __DIR__ . '/auth.php';

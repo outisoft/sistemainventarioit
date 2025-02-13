@@ -5,185 +5,185 @@
 
         <!--Property Section Here-->
         <section id="property-section">
-                <!--Property List Slider Her-->
-                <div id="property-slider">
-                    <!-- Slider main container -->
-                    <div class="swiper">
-                        <!-- Additional required wrapper -->
-                        <div class="swiper-wrapper">
-                            <!-- Slides -->
-                            <!-- SW / APS -->
-                            <div class="swiper-slide">
-                                <div class="row">
-                                    <!-- Switches -->
-                                    @can('switches.index')
-                                        <div class="col-6 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                                        <div class="avatar flex-shrink-0">
-                                                            <i class='bx bx-server bx-lg rounded'
-                                                                style="font-size: 2rem; color: #b5a160;"></i>
-                                                        </div>
+            <!--Property List Slider Her-->
+            <div id="property-slider">
+                <!-- Slider main container -->
+                <div class="swiper">
+                    <!-- Additional required wrapper -->
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <!-- SW / APS -->
+                        <div class="swiper-slide">
+                            <div class="row">
+                                <!-- Switches -->
+                                @can('switches.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-server bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
                                                     </div>
-                                                    <span class="fw-semibold d-block mb-1">Switches</span>
-                                                    <h3 class="card-title text-nowrap mb-2">{{ $totalSw }}</h3>
-                                                    <small class="text-primary fw-semibold"> <a
-                                                            href="{{ route('switches.index') }}">Show<i
-                                                                class='bx bx-right-arrow-alt'></i></a></small>
                                                 </div>
+                                                <span class="fw-semibold d-block mb-1">Switches</span>
+                                                <h3 class="card-title text-nowrap mb-2">{{ $totalSw }}</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="{{ route('switches.index') }}">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
                                             </div>
                                         </div>
-                                    @endcan
+                                    </div>
+                                @endcan
 
-                                    <!-- Access Points -->
-                                    @can('access_points.index')
-                                        <div class="col-6 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                                        <div class="avatar flex-shrink-0">
-                                                            <i class='bx bx-broadcast bx-lg rounded'
-                                                                style="font-size: 2rem; color: #b5a160;"></i>
-                                                        </div>
+                                <!-- Access Points -->
+                                @can('access_points.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-broadcast bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
                                                     </div>
-                                                    <span class="fw-semibold d-block mb-1">Access Points</span>
-                                                    <h3 class="card-title mb-2">{{ $totalAps }}</h3>
-                                                    <small class="text-primary fw-semibold"> <a
-                                                            href="{{ route('access-points.index') }}">Show<i
-                                                                class='bx bx-right-arrow-alt'></i></a></small>
                                                 </div>
+                                                <span class="fw-semibold d-block mb-1">Access Points</span>
+                                                <h3 class="card-title mb-2">{{ $totalAps }}</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="{{ route('access-points.index') }}">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
                                             </div>
                                         </div>
-                                    @endcan
-                                </div>
+                                    </div>
+                                @endcan
                             </div>
+                        </div>
 
-                            <!-- coming2 / TPVS -->
-                            <div class="swiper-slide">
-                                <div class="row">
-                                    <!-- coming2 -->
-                                    @can('coming2.index')
-                                        <div class="col-6 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                                        <div class="avatar flex-shrink-0">
-                                                            <i class='bx bx-tab bx-lg rounded'
-                                                                style="font-size: 2rem; color: #b5a160;"></i>
-                                                        </div>
+                        <!-- coming2 / TPVS -->
+                        <div class="swiper-slide">
+                            <div class="row">
+                                <!-- coming2 -->
+                                @can('coming2.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-tab bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
                                                     </div>
-                                                    <span class="fw-semibold d-block mb-1">Coming2</span>
-                                                    <h3 class="card-title text-nowrap mb-2">{{ $totalComing2 }}</h3>
-                                                    <small class="text-primary fw-semibold"> <a
-                                                            href="{{ route('coming2.index') }}">Show<i
-                                                                class='bx bx-right-arrow-alt'></i></a></small>
                                                 </div>
+                                                <span class="fw-semibold d-block mb-1">Coming2</span>
+                                                <h3 class="card-title text-nowrap mb-2">{{ $totalComing2 }}</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="{{ route('coming2.index') }}">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
                                             </div>
                                         </div>
-                                    @endcan
+                                    </div>
+                                @endcan
 
-                                    <!-- TPVS -->
-                                    @can('tpvs.index')
-                                        <div class="col-6 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                                        <div class="avatar flex-shrink-0">
-                                                            <i class='bx bx-tv bx-lg rounded'
-                                                                style="font-size: 2rem; color: #b5a160;"></i>
-                                                        </div>
+                                <!-- TPVS -->
+                                @can('tpvs.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-tv bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
                                                     </div>
-                                                    <span class="fw-semibold d-block mb-1">Tpv's</span>
-                                                    <h3 class="card-title mb-2">{{ $totalTpvs }}</h3>
-                                                    <small class="text-primary fw-semibold"> <a
-                                                            href="{{ route('tpvs.index') }}">Show<i
-                                                                class='bx bx-right-arrow-alt'></i></a></small>
                                                 </div>
+                                                <span class="fw-semibold d-block mb-1">Tpv's</span>
+                                                <h3 class="card-title mb-2">{{ $totalTpvs }}</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="{{ route('tpvs.index') }}">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
                                             </div>
                                         </div>
-                                    @endcan
-                                </div>
+                                    </div>
+                                @endcan
                             </div>
+                        </div>
 
-                            <!-- Users / ** -->
-                            <div class="swiper-slide">
-                                <div class="row">
-                                    <!-- Users -->
-                                    @can('users.index')
-                                        <div class="col-6 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                                        <div class="avatar flex-shrink-0">
-                                                            <i class='bx bx-user bx-lg rounded'
-                                                                style="font-size: 2rem; color: #b5a160;"></i>
-                                                        </div>
+                        <!-- Users / ** -->
+                        <div class="swiper-slide">
+                            <div class="row">
+                                <!-- Users -->
+                                @can('users.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-user bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
                                                     </div>
-                                                    <span class="fw-semibold d-block mb-1">Users</span>
-                                                    <h3 class="card-title text-nowrap mb-2">{{ $totalUsuarios }}</h3>
-                                                    <small class="text-primary fw-semibold"> <a
-                                                            href="{{ route('users.index') }}">Show<i
-                                                                class='bx bx-right-arrow-alt'></i></a></small>
                                                 </div>
+                                                <span class="fw-semibold d-block mb-1">Users</span>
+                                                <h3 class="card-title text-nowrap mb-2">{{ $totalUsuarios }}</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="{{ route('users.index') }}">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
                                             </div>
                                         </div>
-                                    @endcan
-                                </div>
+                                    </div>
+                                @endcan
                             </div>
+                        </div>
 
 
-                            <!--Employees / Equipments -->
-                            <div class="swiper-slide">
-                                <div class="row">
-                                    <!--Employees-->
-                                    @can('empleados.index')
-                                        <div class="col-6 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                                        <div class="avatar flex-shrink-0">
-                                                            <i class='bx bx-user-pin bx-lg rounded'
-                                                                style="font-size: 2rem; color: #b5a160;"></i>
-                                                        </div>
+                        <!--Employees / Equipments -->
+                        <div class="swiper-slide">
+                            <div class="row">
+                                <!--Employees-->
+                                @can('empleados.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-user-pin bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
                                                     </div>
-                                                    <span class="fw-semibold d-block mb-1">Employees</span>
-                                                    <h3 class="card-title mb-2">{{ $totalEmpleados }}</h3>
-                                                    <small class="text-primary fw-semibold"> <a
-                                                            href="{{ route('empleados.index') }}">Show<i
-                                                                class='bx bx-right-arrow-alt'></i></a></small>
                                                 </div>
+                                                <span class="fw-semibold d-block mb-1">Employees</span>
+                                                <h3 class="card-title mb-2">{{ $totalEmpleados }}</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="{{ route('empleados.index') }}">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
                                             </div>
                                         </div>
-                                    @endcan
+                                    </div>
+                                @endcan
 
-                                    <!--Equipments-->
-                                    @can('equipo.index')
-                                        <div class="col-6 mb-4">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="card-title d-flex align-items-start justify-content-between">
-                                                        <div class="avatar flex-shrink-0">
-                                                            <i class='bx bx-desktop bx-lg rounded'
-                                                                style="font-size: 2rem; color: #b5a160;"></i>
-                                                        </div>
+                                <!--Equipments-->
+                                @can('equipo.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-desktop bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
                                                     </div>
-                                                    <span class="fw-semibold d-block mb-1">Equipments</span>
-                                                    <h3 class="card-title text-nowrap mb-1">{{ $totalEquipos }}</h3>
-                                                    <small class="text-primary fw-semibold"> <a
-                                                            href="{{ route('equipo.index') }}">Show<i
-                                                                class='bx bx-right-arrow-alt'></i></a></small>
                                                 </div>
+                                                <span class="fw-semibold d-block mb-1">Equipments</span>
+                                                <h3 class="card-title text-nowrap mb-1">{{ $totalEquipos }}</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="{{ route('equipo.index') }}">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
                                             </div>
                                         </div>
-                                    @endcan
-                                </div>
+                                    </div>
+                                @endcan
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <!--/Property List Slider Her-->
+
+            </div>
+            <!--/Property List Slider Her-->
         </section>
         <!--/Property Section Here-->
 
@@ -553,7 +553,7 @@
                             color: headingColor,
                             offsetY: -15,
                             formatter: function(val) {
-                                return '#' + parseInt(val);
+                                return parseInt(val);
                             }
                         },
                         name: {
