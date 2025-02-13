@@ -6,11 +6,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-return new class extends Migration
+class ChangeIdToUuidInEmpleadosAndEmpleadoEquipo extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         // Agregar columnas UUID temporales
@@ -89,4 +86,4 @@ return new class extends Migration
             $table->foreign('empleado_id')->references('id')->on('empleados')->onDelete('cascade');
         });
     }
-};
+}
