@@ -28,7 +28,8 @@
                                             <td>{{ $registro->clave }}</td>
                                             <td>{{ $registro->accion }}</td>
                                             <td style="word-wrap: break-word; white-space: normal;">
-                                                {{ $registro->descripcion }}</td>
+                                                {{ $registro->descripcion }}
+                                            </td>
                                             <td>
                                                 <div style="display: flex; align-items: center;">
                                                     <img src="{{ $registro->user->image ? asset('/storage/avatars/' . $registro->user->image) : $registro->user->avatar }}"
