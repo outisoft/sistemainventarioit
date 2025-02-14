@@ -126,6 +126,7 @@ class BackupController extends Controller
 
         try {
             $file = $request->file('backup_file');
+            $extension = $file->getClientOriginalExtension();
             
             // Credenciales de la base de datos
             $dbHost = config('database.connections.mysql.host');
@@ -133,50 +134,87 @@ class BackupController extends Controller
             $dbPass = config('database.connections.mysql.password');
             $dbName = config('database.connections.mysql.database');
 
-            // Leer el contenido del archivo SQL
-            $sqlContent = file_get_contents($file->getRealPath());
-            
-            // Crear archivo temporal para los INSERTs validados
+            $sqlContents = [];
+
+            if ($extension === 'zip') {
+                // Descomprimir archivo ZIP
+                $zip = new ZipArchive;
+                if ($zip->open($file->getRealPath()) === TRUE) {
+                    $extractPath = storage_path('app/temp_' . uniqid());
+                    $zip->extractTo($extractPath);
+                    $zip->close();
+
+                    // Leer todos los archivos SQL del ZIP
+                    $files = glob($extractPath . '/*.sql');
+                    foreach ($files as $sqlFile) {
+                        $sqlContents[] = file_get_contents($sqlFile);
+                    }
+
+                    // Limpiar archivos extraídos
+                    array_map('unlink', $files);
+                    // Eliminar cualquier archivo restante, incluyendo archivos ocultos
+                    $this->deleteDirectory($extractPath);
+                } else {
+                    throw new \Exception('No se pudo abrir el archivo ZIP.');
+                }
+            } elseif ($extension === 'sql') {
+                // Leer el contenido del archivo SQL
+                $sqlContents[] = file_get_contents($file->getRealPath());
+            } else {
+                throw new \Exception('Formato de archivo no soportado. Solo se permiten archivos ZIP o SQL.');
+            }
+
+            // Crear archivo temporal para las sentencias validadas
             $tempFile = storage_path('app/temp_' . uniqid() . '.sql');
             $validStatements = [];
 
-            // Obtener todas las sentencias SQL
-            $statements = array_filter(
-                explode(";\n", str_replace(";\r\n", ";\n", $sqlContent))
-            );
+            foreach ($sqlContents as $sqlContent) {
+                // Obtener todas las sentencias SQL
+                $statements = array_filter(
+                    explode(";\n", str_replace(";\r\n", ";\n", $sqlContent))
+                );
 
-            foreach ($statements as $statement) {
-                $statement = trim($statement);
-                
-                // Procesar solo sentencias INSERT
-                if (stripos($statement, 'INSERT INTO') === 0) {
-                    // Extraer nombre de la tabla
-                    preg_match('/INSERT INTO [`]?(\w+)[`]?/i', $statement, $matches);
+                foreach ($statements as $statement) {
+                    $statement = trim($statement);
                     
-                    if (!empty($matches[1])) {
-                        $tableName = $matches[1];
+                    // Procesar sentencias CREATE TABLE y INSERT INTO
+                    if (stripos($statement, 'CREATE TABLE') === 0 || stripos($statement, 'INSERT INTO') === 0) {
+                        // Extraer nombre de la tabla
+                        preg_match('/(?:CREATE TABLE|INSERT INTO) [`]?(\w+)[`]?/i', $statement, $matches);
                         
-                        // Validar que la tabla existe
-                        if(DB::getSchemaBuilder()->hasTable($tableName)) {
-                            // Añadir sentencias de desactivación/activación de claves
-                            if (!in_array("/*!40000 ALTER TABLE `{$tableName}` DISABLE KEYS */", $validStatements)) {
-                                $validStatements[] = "/*!40000 ALTER TABLE `{$tableName}` DISABLE KEYS */";
-                            }
+                        if (!empty($matches[1])) {
+                            $tableName = $matches[1];
                             
-                            $validStatements[] = $statement;
-                            
-                            if (!in_array("/*!40000 ALTER TABLE `{$tableName}` ENABLE KEYS */", $validStatements)) {
-                                $validStatements[] = "/*!40000 ALTER TABLE `{$tableName}` ENABLE KEYS */";
+                            // Validar que la tabla existe o es una sentencia CREATE TABLE
+                            if (DB::getSchemaBuilder()->hasTable($tableName) || stripos($statement, 'CREATE TABLE') === 0) {
+                                // Añadir sentencias de desactivación/activación de claves para INSERT INTO
+                                if (stripos($statement, 'INSERT INTO') === 0) {
+                                    if (!in_array("/*!40000 ALTER TABLE `{$tableName}` DISABLE KEYS */", $validStatements)) {
+                                        $validStatements[] = "/*!40000 ALTER TABLE `{$tableName}` DISABLE KEYS */";
+                                    }
+                                    
+                                    $validStatements[] = $statement;
+                                    
+                                    if (!in_array("/*!40000 ALTER TABLE `{$tableName}` ENABLE KEYS */", $validStatements)) {
+                                        $validStatements[] = "/*!40000 ALTER TABLE `{$tableName}` ENABLE KEYS */";
+                                    }
+                                } else {
+                                    // Añadir IF NOT EXISTS para evitar errores si la tabla ya existe
+                                    $statement = preg_replace('/CREATE TABLE/i', 'CREATE TABLE IF NOT EXISTS', $statement);
+                                    $validStatements[] = $statement;
+                                }
+                            } else {
+                                Log::warning("Tabla no encontrada: {$tableName}");
                             }
-                        } else {
-                            Log::warning("Tabla no encontrada: {$tableName}");
                         }
+                    } else {
+                        Log::info("Sentencia no válida encontrada: {$statement}");
                     }
                 }
             }
 
             if (empty($validStatements)) {
-                throw new \Exception('No se encontraron sentencias INSERT válidas en el archivo.');
+                throw new \Exception('No se encontraron sentencias válidas en el archivo.');
             }
 
             // Guardar sentencias validadas en archivo temporal
@@ -221,6 +259,28 @@ class BackupController extends Controller
             return redirect()->back()
                 ->with('error', 'Error al restaurar: ' . $e->getMessage());
         }
+    }
+
+    private function deleteDirectory($dir) {
+        if (!file_exists($dir)) {
+            return true;
+        }
+
+        if (!is_dir($dir)) {
+            return unlink($dir);
+        }
+
+        foreach (scandir($dir) as $item) {
+            if ($item == '.' || $item == '..') {
+                continue;
+            }
+
+            if (!self::deleteDirectory($dir . DIRECTORY_SEPARATOR . $item)) {
+                return false;
+            }
+        }
+
+        return rmdir($dir);
     }
 
     private function validateInsertStatement($statement)
