@@ -27,6 +27,11 @@ class Swittch extends Model
         return strtoupper($value);
     }
 
+    public function breack()
+    {
+        return $this->belongsToMany(Complement::class, 'breack_switch', 'switch_id', 'complement_id');
+    }
+
     protected static function boot() //guardar en mayusculas
     {
         parent::boot();

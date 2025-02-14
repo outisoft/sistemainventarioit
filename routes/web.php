@@ -99,7 +99,11 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
 
     Route::post('/autocad/{licenciaId}/asignar/{equipoId}', [AutocadController::class, 'asignarLicencia'])->name('autocad.asignar.post');
     Route::delete('/autocad/{licenciaId}/desasignar/{equipoId}', [AutocadController::class, 'desasignarLicencia'])->name('autocad.desasignar');
-
+    
+    //Asignar breack al sw
+    Route::post('/switch/{switch}/asignar/', [SwitchController::class, 'asignarBreack'])->name('breack.asignar');
+    Route::delete('/switch/{switch}/desasignar/{breack}', [SwitchController::class, 'desasignarBreack'])->name('breack.desasignar');
+    
     //Backup
     Route::prefix('backup')->group(function () {
         Route::get('/', [BackupController::class, 'index'])->name('backup.index');

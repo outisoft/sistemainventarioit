@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Swittch;
 use App\Models\Historial;
 use App\Models\Hotel;
+use App\Models\Complement;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -142,7 +143,77 @@ class SwitchController extends Controller
 
     public function show(Swittch $switch)
     {
-        return view('equipos.switches.show', compact('switch'));
+        $cAsignados = $switch->complements;
+
+        $cDisponibles = Complement::whereDoesntHave('switches')
+            ->whereHas('type', function($query) {
+                $query->where('name', 'NO BREACK');
+            })
+            ->get();
+
+        return view('equipos.switches.show', compact('switch', 'cAsignados', 'cDisponibles'));
+    }
+
+    public function asignarBreack(Request $request, Swittch $switch)
+    {
+        $request->validate([
+            'complements_id' => 'required|array',
+            'complementos.*' => 'exists:complements,id|unique:breack_switch,complement_id',
+        ]);
+
+        foreach ($request->complements_id as $complement_id) {
+            $complement = Complement::find($complement_id);
+
+            if ($complement->switch_id) {
+                toastr()
+                    ->timeOut(3000) // 3 seconds
+                    ->addError("El complemento {$complement->type->name} (N/S: {$complement->serial}) ya está asignado a otro equipo.");
+
+                return redirect()->route('equipo.show', $switch);
+            }
+        }
+
+        $switch->breack()->attach($request->complements_id);
+
+        $complement = Complement::where('id', $request->complements_id)->with('type')->first();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Asignacion',
+            'descripcion' => "Se asigno al equipo {$switch->name} (S/N:{$switch->serial}) un NO BREACK (N/S: {$complement->serial})",
+            'user_id' => $user,
+            'region_id' => $complement->region_id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 seconds
+            ->addSuccess("Complemento {$complement->type->name} asignado.");
+
+        return redirect()->route('switches.show', $switch);
+    }
+
+    public function desasignarBreack($switch_id, $complement_id)
+    {
+        $equipo = Swittch::find($switch_id);
+        $equipo->breack()->detach($complement_id);
+
+        $complement = Complement::where('id', $complement_id)->with('type')->first();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Desvinculó',
+            'descripcion' => "Se desvinculó al equipo {$equipo->name} (S/N: {$equipo->serial} ) el NO BREACK (S/N: {$complement->serial} )",
+            'user_id' => $user,
+            'region_id' => $complement->region_id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Complemento {$equipo->name} desvinculado.");
+        
+        return redirect()->route('switches.show', $equipo);
     }
 
     public function update(Request $request, Swittch $switch)

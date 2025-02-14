@@ -24,6 +24,11 @@ class Complement extends Model
         //return $this->belongsToMany(Equipo::class)->withTimestamps();
     }
 
+    public function switches()
+    {
+        return $this->belongsToMany(Swittch::class, 'breack_switch', 'switch_id', 'complement_id');
+    }
+
     protected static function boot() //guardar en mayusculas
     {
         parent::boot();
