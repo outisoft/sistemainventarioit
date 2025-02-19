@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Empleado;
 use App\Models\Historial;
 use App\Models\Equipo;
+use App\Models\License;
 use App\Models\Hotel;
 use App\Models\User;
 use App\Models\Departamento;
@@ -21,7 +22,6 @@ class AssignmentController extends Controller
     {
         $empleados = Empleado::with('hotel', 'departments')->orderBy('name', 'asc')->get();
         $equipos = Equipo::with('tipo')->get();
-        //$equipos = DB::table('equipos')->get();
         $empleadosConEquipos = Empleado::whereHas('empleados_equipos')->get();
         $equiposSinAsignar = Equipo::whereDoesntHave('empleados')->get();
 
@@ -101,14 +101,17 @@ class AssignmentController extends Controller
         $empleado = Empleado::find($id);
         $equiposAsignados = $empleado->equipos;
         $complementosAsignados = collect();
+        $licencias = collect();
 
         foreach ($equiposAsignados as $equipo) {
             $complementosAsignados = $complementosAsignados->merge($equipo->complements);
+            $licencias = $licencias->merge($equipo->license);
         } // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
 
         $hotel = Hotel::find($empleado->hotel_id); // Obtiene el hotel asociado al empleado
         $departamento = Departamento::find($empleado->departamento_id);
-        return view('assignment.show', compact('empleado', 'hotel', 'departamento','equiposAsignados', 'complementosAsignados'));
+        
+        return view('assignment.show', compact('licencias', 'empleado', 'hotel', 'departamento','equiposAsignados', 'complementosAsignados'));
     }
     public function save_pdf($id)
     {
