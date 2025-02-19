@@ -169,14 +169,12 @@
             </div>
             <br>
 
-
-
             <div class="card">
                 <h5 class="card-header">License Information(s)</h5>
-                @if ($equipo->license->isEmpty())
+                @if ($licencias->isEmpty())
                     <p class="card-body">No licenses assigned.</p>
                 @else
-                    @foreach ($equipo->license as $licencia)
+                    @foreach ($licencias as $licencia)
                         @php
                             $statusClass = [
                                 'Active' => 'badge bg-label-success',
