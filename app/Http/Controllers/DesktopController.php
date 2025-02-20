@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
+use App\Models\Lease;
 use App\Models\Region;
 use Illuminate\Http\Request;
 
@@ -22,10 +23,11 @@ class DesktopController extends Controller
     public function index()
     {
         $regions = Region::orderBy('name', 'asc')->get();
+        $leases = Lease::orderBy('lease', 'asc')->get();
         $tipo = Tipo::where('name', 'DESKTOP')->first();
 
         $equipos = Equipo::where('tipo_id', $tipo->id)
-            ->with(['region'])
+            ->with(['region', 'leases'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -43,7 +45,7 @@ class DesktopController extends Controller
 
         $userRegions = auth()->user()->regions;
 
-        return view('equipos.desktops.index', compact('userRegions', 'equipos', 'regions'));
+        return view('equipos.desktops.index', compact('leases', 'userRegions', 'equipos', 'regions'));
     }
 
     public function store(Request $request)
@@ -61,8 +63,7 @@ class DesktopController extends Controller
                 'so' => 'required',
                 'orden' => 'required',
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',
@@ -107,8 +108,7 @@ class DesktopController extends Controller
                 'orden' => 'required',
                 'region_id' => 'required',
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1|exists:leases,id',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',

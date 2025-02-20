@@ -150,40 +150,37 @@
 
                         <!-- lease -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="lease{{ $tpv->id }}" :value="__('Is it lease?')" />
+                            <x-input-label class="form-label" for="lease" :value="__('Is it lease?')" />
                             <div class="col-md">
                                 <div class="form-check form-check-inline mt-3">
-                                    <input class="form-check-input" type="radio" name="lease"
-                                        id="lease_si{{ $tpv->id }}" value="1"
-                                        {{ $tpv->lease ? 'checked' : '' }} />
-                                    <label class="form-check-label" for="lease_si{{ $tpv->id }}">Yes</label>
+                                    <input class="form-check-input" type="radio" name="lease" id="lease_si"
+                                        value="1" {{ $tpv->lease ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="lease_si">Yes</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="lease"
-                                        id="lease_no{{ $tpv->id }}" value="0"
-                                        {{ !$tpv->lease ? 'checked' : '' }} />
-                                    <label class="form-check-label" for="lease_no{{ $tpv->id }}">No</label>
+                                    <input class="form-check-input" type="radio" name="lease" id="lease_no"
+                                        value="0" {{ !$tpv->lease ? 'checked' : '' }} />
+                                    <label class="form-check-label" for="lease_no">No</label>
                                 </div>
                             </div>
                             <x-input-error :messages="$errors->get('lease')" class="mt-2" />
                         </div>
 
                         <!-- Campos adicionales para arrendamiento -->
-                        <div id="lease_fields_edit{{ $tpv->id }}"
-                            style="display: {{ $tpv->lease ? 'block' : 'none' }};">
+                        <div id="lease_fields_edit" style="display: {{ $tpv->lease ? 'block' : 'none' }};">
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="codeEdit{{ $tpv->id }}"
-                                    :value="__('Lease Code')" />
-                                <input type="text" class="form-control" id="codeEdit{{ $tpv->id }}"
-                                    name="code" value="{{ $tpv->code }}">
-                                <x-input-error :messages="$errors->get('code')" class="mt-2" />
-                            </div>
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="dateEdit{{ $tpv->id }}"
-                                    :value="__('Contract End Date')" />
-                                <input type="date" class="form-control" id="dateEdit{{ $tpv->id }}"
-                                    name="date" value="{{ $tpv->date }}">
-                                <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                                <x-input-label class="form-label" for="lease_id" :value="__('LEASE')" />
+                                <select class="form-control" id="lease_id" name="lease_id"
+                                    aria-label="Default select example">
+                                    <option value="">Choose a lease</option>
+                                    @foreach ($leases as $lease)
+                                        <option value="{{ $lease->id }}"
+                                            {{ $tpv->lease_id == $lease->id ? 'selected' : '' }}>
+                                            {{ $lease->lease }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('lease_id')" class="mt-2" />
                             </div>
                         </div>
                     </div>
@@ -202,18 +199,14 @@
         // Attach event handler to each modal when it is shown
         $('.modal').on('shown.bs.modal', function() {
             var modal = $(this);
-            var tpvId = modal.attr('id').replace('editModal', '');
             modal.find('input[name="lease"]').on('change', function() {
-                if (modal.find('#lease_si' + tpvId).is(':checked')) {
-                    modal.find('#lease_fields_edit' + tpvId).show();
-                    modal.find('#codeEdit' + tpvId).attr('required', true);
-                    modal.find('#dateEdit' + tpvId).attr('required', true);
+                if (modal.find('#lease_si').is(':checked')) {
+                    modal.find('#lease_fields_edit').show();
+                    modal.find('#lease_id').attr('required', true);
                 } else {
-                    modal.find('#lease_fields_edit' + tpvId).hide();
-                    modal.find('#codeEdit' + tpvId).removeAttr('required');
-                    modal.find('#dateEdit' + tpvId).removeAttr('required');
-                    modal.find('#codeEdit' + tpvId).val('');
-                    modal.find('#dateEdit' + tpvId).val('');
+                    modal.find('#lease_fields_edit').hide();
+                    modal.find('#lease_id').removeAttr('required');
+                    modal.find('#lease_id').val('');
                 }
             });
 

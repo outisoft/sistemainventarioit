@@ -5,6 +5,7 @@ use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
 use App\Models\Region;
+use App\Models\Lease;
 use App\Models\Policy;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class TabController extends Controller
         $equipos = Equipo::whereHas('tipo', function ($query) {
             $query->where('name', 'TABLET');
             })
-            ->with(['region', 'policy'])
+            ->with(['region', 'policy', 'leases'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -40,7 +41,8 @@ class TabController extends Controller
             })
             ->get();
 
-        $regions = Region::orderBy('name', 'asc')->get();
+        $regions = Region::orderBy('name', 'asc')->get();        
+        $leases = Lease::orderBy('lease', 'asc')->get();
 
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
@@ -48,7 +50,7 @@ class TabController extends Controller
         }
         $userRegions = auth()->user()->regions;
 
-        return view('equipos.tabs.index', compact('userRegions', 'equipos', 'policies', 'regions'));
+        return view('equipos.tabs.index', compact('leases', 'userRegions', 'equipos', 'policies', 'regions'));
     }
 
     public function store(Request $request)
@@ -62,8 +64,7 @@ class TabController extends Controller
                 'serial' => 'required|unique:equipos,serial',
                 'policy_id' => 'required',
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
@@ -105,8 +106,7 @@ class TabController extends Controller
                 'serial' => 'required|unique:equipos,serial,' . $id,
                 'policy_id' => 'required',
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1|exists:leases,id',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',

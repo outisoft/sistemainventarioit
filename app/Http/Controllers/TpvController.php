@@ -6,6 +6,7 @@ use App\Models\Tpv;
 use App\Models\Hotel;
 use App\Models\Departamento;
 use App\Models\Region;
+use App\Models\Lease;
 use App\Models\Historial;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class TpvController extends Controller
     {
         $hoteles = Hotel::all();
         $departamentos = Departamento::all();
-        $tpvs = tpv::with(['region', 'hotel', 'departments'])
+        $tpvs = tpv::with(['region', 'hotel', 'departments', 'leases'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -38,10 +39,11 @@ class TpvController extends Controller
             ->get();
         
         $regions = Region::all();
+        $leases = Lease::orderBy('lease', 'asc')->get();
 
         $userRegions = auth()->user()->regions;
         
-        return view('tpvs.index', compact('userRegions', 'tpvs','hoteles', 'departamentos', 'regions'));
+        return view('tpvs.index', compact('leases', 'userRegions', 'tpvs','hoteles', 'departamentos', 'regions'));
     }
 
     public function store(Request $request)
@@ -60,8 +62,7 @@ class TpvController extends Controller
                 'ip' => 'required|unique:tpvs',
                 'link' => 'required',
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1',
             ], [
                 'no_serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',
@@ -136,8 +137,7 @@ class TpvController extends Controller
                 'ip' => 'required|unique:tpvs,ip,' . $id,
                 'link' => 'required',
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1|exists:leases,id',
             ]);
 
             $registro = Tpv::findOrFail($id);

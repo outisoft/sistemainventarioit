@@ -5,6 +5,7 @@ use App\Models\Tipo;
 use App\Models\Complement;
 use App\Models\Historial;
 use App\Models\Region;
+use App\Models\Lease;
 use Illuminate\Http\Request;
 
 class ComplementController extends Controller
@@ -22,7 +23,7 @@ class ComplementController extends Controller
     public function index()
     {
         $tipos = Tipo::whereIn('name', ['CHARGER', 'MONITOR', 'MOUSE', 'NO BREACK', 'SCANNER', 'TECLADO', 'TICKETERA', 'WACOM'])->get();
-        $equipos = Complement::with(['region', 'type', 'equipments'])
+        $equipos = Complement::with(['region', 'type', 'equipments', 'leases'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -35,13 +36,14 @@ class ComplementController extends Controller
         
         $regions = Region::orderBy('name', 'asc')->get();
         $userRegions = auth()->user()->regions;
+        $leases = Lease::orderBy('lease', 'asc')->get();
         
-        return view('equipos.complements.index', compact('userRegions', 'equipos', 'regions', 'tipos'));
+        return view('equipos.complements.index', compact('leases', 'userRegions', 'equipos', 'regions', 'tipos'));
     }
 
     public function store(Request $request)
     {
-        try {
+        //try {
             $tipo = $request->input('type_id');
             $user = auth()->id();
             $data = $request->validate([
@@ -50,8 +52,7 @@ class ComplementController extends Controller
                 'model' => 'required',
                 'serial' => 'required|unique:complements,serial',
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
@@ -69,7 +70,7 @@ class ComplementController extends Controller
                 ->timeOut(3000) // 3 second
                 ->addSuccess("Se creo {$registro->type->name} ({$registro->serial}) correctamente.");
             return redirect()->route('complements.index');
-        } catch (\Exception $e) {
+        /*} catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
                 foreach ($errors as $error) {
                     toastr()
@@ -78,7 +79,7 @@ class ComplementController extends Controller
                 }
             }
             return back()->withErrors($e->errors())->withInput();
-        }
+        }*/
     }
 
     public function show(Complement $complement)
@@ -95,8 +96,7 @@ class ComplementController extends Controller
                 'model' => 'required',
                 'serial' => 'required|unique:complements,serial,' . $id,
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1|exists:leases,id',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',

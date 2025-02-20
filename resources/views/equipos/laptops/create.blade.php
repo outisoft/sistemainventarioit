@@ -145,14 +145,17 @@
                     <!-- Campos adicionales para arrendamiento -->
                     <div id="lease_fields" style="display: none;">
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="code" :value="__('Lease Code')" />
-                            <input type="text" class="form-control" id="code" name="code">
-                            <x-input-error :messages="$errors->get('code')" class="mt-2" />
-                        </div>
-                        <div class="mb-3">
-                            <x-input-label class="form-label" for="date" :value="__('Contract End Date')" />
-                            <input type="date" class="form-control" id="date" name="date">
-                            <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                            <x-input-label class="form-label" for="lease_id" :value="__('LEASE')" />
+                            <select class="form-control" id="lease_id" name="lease_id" required>
+                                <option value="">Choose a lease</option>
+                                @foreach ($leases as $lease)
+                                    <option value="{{ $lease->id }}"
+                                        {{ old('lease_id') == $lease->id ? 'selected' : '' }}>
+                                        {{ $lease->lease }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('lease_id')" class="mt-2" />
                         </div>
                     </div>
                 </div>
@@ -169,12 +172,10 @@
         $('input[name="lease"]').on('change', function() {
             if ($('#lease').is(':checked')) {
                 $('#lease_fields').show();
-                $('#code').attr('required', true);
-                $('#date').attr('required', true);
+                $('#lease_id').attr('required', true);
             } else {
                 $('#lease_fields').hide();
-                $('#code').removeAttr('required');
-                $('#date').removeAttr('required');
+                $('#lease_id').removeAttr('required');
             }
         });
 

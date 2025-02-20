@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
+use App\Models\Lease;
 use App\Models\Region;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,7 @@ class PrinterController extends Controller
         $tipo = Tipo::where('name', 'IMPRESORA')->first();
 
         $equipos = Equipo::where('tipo_id', $tipo->id)
-            ->with(['region'])
+            ->with(['region', 'leases'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -36,6 +37,7 @@ class PrinterController extends Controller
                 }
             })
             ->get();
+        $leases = Lease::orderBy('lease', 'asc')->get();
         $regions = Region::orderBy('name', 'asc')->get();
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
@@ -43,7 +45,7 @@ class PrinterController extends Controller
         }
         $userRegions = auth()->user()->regions;
 
-        return view('equipos.printers.index', compact('userRegions', 'equipos', 'regions'));
+        return view('equipos.printers.index', compact('leases', 'userRegions', 'equipos', 'regions'));
     }
 
     /**
@@ -60,8 +62,7 @@ class PrinterController extends Controller
                 'serial' => 'required|unique:equipos,serial',
                 'ip' => 'required|unique:equipos,ip',
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
@@ -105,8 +106,7 @@ class PrinterController extends Controller
                 'serial' => 'required|unique:equipos,serial,' . $id,
                 'ip' => 'required|unique:equipos,ip,' . $id,
                 'lease' => 'required|boolean',
-                'code' => 'required_if:lease,1',
-                'date' => 'required_if:lease,1',
+                'lease_id' => 'required_if:lease,1|exists:leases,id',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',

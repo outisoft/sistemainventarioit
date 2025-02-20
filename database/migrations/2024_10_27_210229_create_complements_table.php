@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('model')->nullable();
             $table->string('serial')->nullable()->unique();
             $table->boolean('lease')->default(false);
-            $table->string('code')->nullable();
-            $table->date('date')->nullable();
+            $table->uuid('lease_id')->nullable()->constrained('leases', 'id')->onDelete('cascade');
             $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });

@@ -10,7 +10,7 @@ class Tpv extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['region_id', 'area', 'departamento_id','hotel_id', 'equipment','brand', 'model', 'no_serial', 'name', 'ip', 'link', 'lease', 'code', 'date',];
+    protected $fillable = ['region_id', 'area', 'departamento_id','hotel_id', 'equipment','brand', 'model', 'no_serial', 'name', 'ip', 'link', 'lease', 'lease_id',];
 
     public function hotel()
     {
@@ -20,6 +20,11 @@ class Tpv extends Model
     public function departments()
     {
         return $this->belongsTo(Departamento::class, 'departamento_id');
+    }
+
+    public function leases()
+    {
+        return $this->belongsTo(Lease::class, 'lease_id');
     }
 
     protected static function boot() //guardar en mayusculas

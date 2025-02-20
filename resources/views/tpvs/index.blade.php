@@ -5,7 +5,14 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipments /</span> Tpv's </h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('equipo.index') }}">EQUIPMENTS</a>
+                    </li>
+                    <li class="breadcrumb-item active fw-bold">TPV's</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -78,13 +85,15 @@
                                                 <td>{{ $tpv->ip }}</td>
                                                 <td>{{ Str::limit($tpv->link, 15, ' ...') }}</td>
                                                 <td>
-                                                    @if ($tpv->lease)
-                                                        Code: <span
-                                                            class="badge bg-label-dark">{{ $tpv->code }}</span><br>
-                                                        Date: <span
-                                                            class="badge bg-label-info">{{ $tpv->date }}</span>
+                                                    @if ($tpv->lease_id && $tpv->lease)
+                                                        <div>
+                                                            Lease Code: <span
+                                                                class="badge bg-label-dark">{{ $tpv->leases->lease }}</span><br>
+                                                            End Date: <span
+                                                                class="badge bg-label-info">{{ $tpv->leases->end_date }}</span>
+                                                        </div>
                                                     @else
-                                                        No lease
+                                                        <span class="badge bg-label-danger">No</span>
                                                     @endif
                                                 </td>
                                                 <td>

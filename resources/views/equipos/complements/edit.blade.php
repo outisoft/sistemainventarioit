@@ -118,16 +118,18 @@
                         <!-- Campos adicionales para arrendamiento -->
                         <div id="lease_fields_edit" style="display: {{ $equipo->lease ? 'block' : 'none' }};">
                             <div class="mb-3">
-                                <x-input-label class="form-label" for="codeEdit" :value="__('Lease Code')" />
-                                <input type="text" class="form-control" id="codeEdit" name="code"
-                                    value="{{ $equipo->code }}">
-                                <x-input-error :messages="$errors->get('code')" class="mt-2" />
-                            </div>
-                            <div class="mb-3">
-                                <x-input-label class="form-label" for="dateEdit" :value="__('Contract End Date')" />
-                                <input type="date" class="form-control" id="dateEdit" name="date"
-                                    value="{{ $equipo->date }}">
-                                <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                                <x-input-label class="form-label" for="lease_id" :value="__('LEASE')" />
+                                <select class="form-control" id="lease_id" name="lease_id"
+                                    aria-label="Default select example">
+                                    <option value="">Choose a lease</option>
+                                    @foreach ($leases as $lease)
+                                        <option value="{{ $lease->id }}"
+                                            {{ $equipo->lease_id == $lease->id ? 'selected' : '' }}>
+                                            {{ $lease->lease }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                <x-input-error :messages="$errors->get('lease_id')" class="mt-2" />
                             </div>
                         </div>
                     </div>
@@ -148,14 +150,11 @@
                 modal.find('input[name="lease"]').on('change', function() {
                     if (modal.find('#lease_si').is(':checked')) {
                         modal.find('#lease_fields_edit').show();
-                        modal.find('#codeEdit').attr('required', true);
-                        modal.find('#dateEdit').attr('required', true);
+                        modal.find('#lease_id').attr('required', true);
                     } else {
                         modal.find('#lease_fields_edit').hide();
-                        modal.find('#codeEdit').removeAttr('required');
-                        modal.find('#dateEdit').removeAttr('required');
-                        modal.find('#codeEdit').val('');
-                        modal.find('#dateEdit').val('');
+                        modal.find('#lease_id').removeAttr('required');
+                        modal.find('#lease_id').val('');
                     }
                 });
 

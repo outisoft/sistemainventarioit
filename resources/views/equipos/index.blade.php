@@ -7,7 +7,11 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipments /</span> List </h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item active fw-bold">EQUIPMENTS</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -17,9 +21,9 @@
                         <div class="nav-item d-flex align-items-center">
                             @can('equipo.create')
     <a href="{{ route('equipo.create') }}" class="btn-ico" data-toggle="tooltip"
-                                                                            data-placement="top" title="Agregar Nuevo Registro">
-                                                                            <i class='bx bx-add-to-queue icon-lg'></i>
-                                                                        </a>
+                                                                                data-placement="top" title="Agregar Nuevo Registro">
+                                                                                <i class='bx bx-add-to-queue icon-lg'></i>
+                                                                            </a>
 @endcan
                         </div>
                     </div-->

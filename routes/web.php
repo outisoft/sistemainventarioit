@@ -35,7 +35,7 @@ use App\Http\Controllers\Coming2Controller;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\EquipmentComplementController;
 use App\Http\Controllers\BackupController;
-use App\Http\Controllers\GraphController;
+use App\Http\Controllers\LeaseController;
 use App\Exports\EmpleadoExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('empleados', EmpleadoController::class); // Rutas Empleados
     Route::resource('equipo', EquipoController::class); // Rutas Equipos
     Route::resource('users', UserController::class); // Rutas Usuario
-    Route::resource('charts', ChartController::class); // Rutas Graficas
+    Route::resource('lease', LeaseController::class); // Rutas Lease
     Route::resource('roles', RoleController::class); // Rutas roles
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento

@@ -11,7 +11,7 @@ class Equipo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tipo_id', 'marca', 'model', 'serial', 'name', 'ip', 'so', 'policy_id', 'email', 'key', 'nombre','orden', 'lease', 'code', 'date', 'region_id'];
+    protected $fillable = ['tipo_id', 'marca', 'model', 'serial', 'name', 'ip', 'so', 'policy_id', 'email', 'key', 'nombre','orden', 'lease', 'lease_id', 'region_id'];
 
     public function empleados()
     {
@@ -47,6 +47,11 @@ class Equipo extends Model
     public function license()
     {
         return $this->belongsToMany(License::class, 'license_equipment');
+    }
+
+    public function leases()
+    {
+        return $this->belongsTo(Lease::class, 'lease_id');
     }
 
     protected static function boot() //guardar en mayusculas

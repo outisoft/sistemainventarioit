@@ -116,14 +116,16 @@
                                                 Importar Datos
                                             </div>
                                             <div class="card-body">
-                                                <form action="{{ route('backup.restore') }}" method="POST" enctype="multipart/form-data">
+                                                <form action="{{ route('backup.restore') }}" method="POST"
+                                                    enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="form-group">
                                                         <label for="backup_file">
-                                                            Seleccionar archivo ZIP o SQL con datos                                                            
+                                                            Seleccionar archivo ZIP o SQL con datos
                                                         </label>
                                                         <input type="file" name="backup_file" id="backup_file"
-                                                            class="form-control @error('backup_file') is-invalid @enderror" required>
+                                                            class="form-control @error('backup_file') is-invalid @enderror"
+                                                            required>
 
                                                         @error('backup_file')
                                                             <div class="invalid-feedback">
@@ -136,9 +138,11 @@
                                                     <div class="alert alert-info">
                                                         <strong>Notas:</strong>
                                                         <ul>
-                                                            <li>Se procesarán archivos ZIP que contengan archivos SQL o archivos SQL individuales.</li>
+                                                            <li>Se procesarán archivos ZIP que contengan archivos SQL o
+                                                                archivos SQL individuales.</li>
                                                             <li>Las tablas deben existir en la base de datos.</li>
-                                                            <li>La estructura de las tablas debe coincidir con los datos a importar.</li>
+                                                            <li>La estructura de las tablas debe coincidir con los datos
+                                                                a importar.</li>
                                                         </ul>
                                                     </div>
 

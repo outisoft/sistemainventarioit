@@ -3,7 +3,14 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipments /</span> Laptops </h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('equipo.index') }}">EQUIPMENTS</a>
+                    </li>
+                    <li class="breadcrumb-item active fw-bold">LAPTOPS</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -70,11 +77,15 @@
                                     <td>{{ $equipo->so }}</td>
                                     <td>{{ $equipo->orden }}</td>
                                     <td>
-                                        @if ($equipo->lease)
-                                            Code: <span class="badge bg-label-dark">{{ $equipo->code }}</span><br>
-                                            Date: <span class="badge bg-label-info">{{ $equipo->date }}</span>
+                                        @if ($equipo->lease_id && $equipo->lease)
+                                            <div>
+                                                Lease Code: <span
+                                                    class="badge bg-label-dark">{{ $equipo->leases->lease }}</span><br>
+                                                End Date: <span
+                                                    class="badge bg-label-info">{{ $equipo->leases->end_date }}</span>
+                                            </div>
                                         @else
-                                            No lease
+                                            <span class="badge bg-label-danger">No</span>
                                         @endif
                                     </td>
                                     <td>

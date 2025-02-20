@@ -9,7 +9,14 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Equipments /</span> Desktops</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('equipo.index') }}">EQUIPMENTS</a>
+                    </li>
+                    <li class="breadcrumb-item active fw-bold">DESKTOPS</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -85,12 +92,15 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($equipo->estado === 'Libre')
-                                                        <span
-                                                            class="badge bg-label-success">{{ $equipo->estado }}</span>
-                                                    @elseif ($equipo->estado === 'En Uso')
-                                                        <span
-                                                            class="badge bg-label-danger">{{ $equipo->estado }}</span>
+                                                    @if ($equipo->lease_id && $equipo->lease)
+                                                        <div>
+                                                            Lease Code: <span
+                                                                class="badge bg-label-dark">{{ $equipo->leases->lease }}</span><br>
+                                                            End Date: <span
+                                                                class="badge bg-label-info">{{ $equipo->leases->end_date }}</span>
+                                                        </div>
+                                                    @else
+                                                        <span class="badge bg-label-danger">No</span>
                                                     @endif
                                                 </td>
                                                 <td>
