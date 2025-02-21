@@ -113,6 +113,7 @@ class AssignmentController extends Controller
         
         return view('assignment.show', compact('licencias', 'empleado', 'hotel', 'departamento','equiposAsignados', 'complementosAsignados'));
     }
+    
     public function save_pdf($id)
     {
         $users = auth()->id();
@@ -136,7 +137,7 @@ class AssignmentController extends Controller
         
         // Asignar el nombre del empleado al archivo PDF
         $fileName = $empleado->name . '-.pdf';
-        return $pdf->download($fileName);
+        return $pdf->stream($fileName);
     }
 
     public function generateQRCode($employeeId)
