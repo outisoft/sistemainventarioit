@@ -167,6 +167,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::post('/asignar', [AssignmentController::class, 'asignar'])->name('asignar');
     Route::get('/desvincular/{empleado_id}/{equipo_id}', [AssignmentController::class, 'desvincular'])->name('desvincular');
     Route::get('/save-pdf/{id}', [AssignmentController::class, 'save_pdf'])->name('save-pdf');
+    Route::get('/save-pdf-tcc/{id}', [AssignmentController::class, 'save_pdf_tcc'])->name('save-pdf-tcc');
     //Route::get('/detalles/{id}', [AssignmentController::class, 'detalles'])->name('detalles');
 
     //Generacion de hojas de resguardo

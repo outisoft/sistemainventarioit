@@ -1,8 +1,16 @@
 <x-app-layout>
+    @include('assignment.modal-resguardo')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Assign /</span> Details </h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('assignment.index') }}">ASSIGN</a>
+                    </li>
+                    <li class="breadcrumb-item active fw-bold">DETAILS</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -15,12 +23,21 @@
                                 data-bs-html="true" title="" data-bs-original-title="<span>QR Code</span>">
                                 <i class='bx bx-qr-scan icon-lg'></i>
                             </a>
-                            <a href="{{ route('save-pdf', $empleado->id) }}" target="_blank" class="btn-ico"
-                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                data-bs-html="true" title=""
-                                data-bs-original-title="<span>Responsive sheet</span>">
-                                <i class='bx bxs-file-pdf icon-lg'></i>
-                            </a>
+                            @if ($empleado->hotel->name == 'TULUM COUNTRY CLUB')
+                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#equiposModal"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Responsive sheet</span>">
+                                    <i class='bx bxs-file-pdf icon-lg'></i>
+                                </a>
+                            @else
+                                <a href="{{ route('save-pdf', $empleado->id) }}" target="_blank" class="btn-ico"
+                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                    data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Responsive sheet</span>">
+                                    <i class='bx bxs-file-pdf icon-lg'></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>

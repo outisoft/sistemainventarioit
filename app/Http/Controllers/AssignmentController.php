@@ -7,6 +7,7 @@ use App\Models\Equipo;
 use App\Models\License;
 use App\Models\Hotel;
 use App\Models\User;
+use App\Models\Complement;
 use App\Models\Departamento;
 use Carbon\Carbon;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
@@ -139,6 +140,44 @@ class AssignmentController extends Controller
         $fileName = $empleado->name . '-.pdf';
         return $pdf->stream($fileName);
     }
+
+    public function save_pdf_tcc(Request $request, $id)
+    {
+        $users = auth()->id();
+
+        $user = User::findOrFail($users);
+
+        // Obtener la fecha actual
+        $today = Carbon::now();
+
+        // Formatear la fecha como "día, mes y año"
+        $date = $today->format('d \d\e M \d\e\l Y');
+
+        $equipoIds = explode(',', $request->query('equipos'));
+        $complementoIds = explode(',', $request->query('complementos'));
+        $equipos = Equipo::whereIn('id', $equipoIds)->get();
+        $complementos = Complement::whereIn('id', $complementoIds)->get();
+
+        $empleado = Empleado::findOrFail($id);
+
+        $pdf = FacadePdf::loadView('assignment.save-pdf-tcc', compact('empleado', 'date', 'complementos', 'user', 'equipos'));
+        
+        // Asignar el nombre del empleado al archivo PDF
+        $fileName = $empleado->name . '-.pdf';
+        return $pdf->stream($fileName);
+    }
+
+    public function savePdfTcc(Request $request, $id)
+    {
+        $equipoIds = explode(',', $request->query('equipos'));
+        $complementoIds = explode(',', $request->query('complementos'));
+
+        $equipos = Equipo::whereIn('id', $equipoIds)->get();
+        $complementos = Complemento::whereIn('id', $complementoIds)->get();
+
+        return view('assignment.save-pdf-tcc', compact('equipos', 'complementos'));
+    }
+
 
     public function generateQRCode($employeeId)
     {
