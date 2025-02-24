@@ -141,7 +141,7 @@ class AssignmentController extends Controller
         return $pdf->stream($fileName);
     }
 
-    public function save_pdf_tcc(Request $request, $id)
+    public function save_pdf_tcc(Request $request, $uuid)
     {
         $users = auth()->id();
 
@@ -158,7 +158,7 @@ class AssignmentController extends Controller
         $equipos = Equipo::whereIn('id', $equipoIds)->get();
         $complementos = Complement::whereIn('id', $complementoIds)->get();
 
-        $empleado = Empleado::findOrFail($id);
+        $empleado = Empleado::findOrFail($uuid);
 
         $pdf = FacadePdf::loadView('assignment.save-pdf-tcc', compact('empleado', 'date', 'complementos', 'user', 'equipos'));
         
@@ -166,18 +166,6 @@ class AssignmentController extends Controller
         $fileName = $empleado->name . '-.pdf';
         return $pdf->stream($fileName);
     }
-
-    public function savePdfTcc(Request $request, $id)
-    {
-        $equipoIds = explode(',', $request->query('equipos'));
-        $complementoIds = explode(',', $request->query('complementos'));
-
-        $equipos = Equipo::whereIn('id', $equipoIds)->get();
-        $complementos = Complemento::whereIn('id', $complementoIds)->get();
-
-        return view('assignment.save-pdf-tcc', compact('equipos', 'complementos'));
-    }
-
 
     public function generateQRCode($employeeId)
     {
