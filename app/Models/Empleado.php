@@ -11,8 +11,8 @@ class Empleado extends Model
 {
     use HasFactory;
 
-    /*public $incrementing = false;
-    protected $keyType = 'string';*/
+    public $incrementing = false; // Indicar que no es autoincremental
+    protected $keyType = 'string';
 
     protected $fillable = ['no_empleado', 'name', 'email', 'puesto', 'departamento_id', 'hotel_id', 'ad', 'region_id'];
 
@@ -57,9 +57,9 @@ class Empleado extends Model
             }
         });
 
-        /*static::creating(function ($model) {
+        static::creating(function ($model) {
             $model->id = Uuid::uuid4()->toString();
-        });*/
+        });
     }
 
     public function region()
