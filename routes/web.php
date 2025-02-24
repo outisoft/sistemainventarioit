@@ -179,12 +179,12 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
 });
 
 Route::get('/', function () {
-    if (Auth::check()) {
+    /*if (Auth::check()) {
         return redirect()->route('home');
     } else {
         return redirect()->route('login');
-    }
-    //return view('errors/maintenance');
+    }*/
+    return view('errors/maintenance');
 })->name('login');
 
 Route::get('/welcome', function () {
