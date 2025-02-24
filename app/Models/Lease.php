@@ -17,7 +17,7 @@ class Lease extends Model
 
     protected $fillable = ['lease', 'end_date', 'region_id'];
 
-    public function regions()
+    public function region()
     {
         return $this->belongsTo(Region::class, 'region_id');
     }

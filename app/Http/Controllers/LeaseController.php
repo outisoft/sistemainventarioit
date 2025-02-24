@@ -10,7 +10,7 @@ class LeaseController extends Controller
 {
     public function index()
     {
-        $leases = Lease::with(['regions'])
+        $leases = Lease::with(['region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {

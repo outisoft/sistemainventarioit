@@ -40,6 +40,7 @@
         }
 
         h3 {
+            text-align: center;
             font-size: 18px;
             margin-top: 15px;
             margin-bottom: 10px;
@@ -49,6 +50,7 @@
             font-size: 16px;
             line-height: 1.6;
             margin-bottom: 0;
+            margin-top: 5%;
             /* Cambiado a 0 para eliminar el margen inferior */
         }
 
@@ -59,10 +61,6 @@
         .folio {
             text-align: right;
             margin-bottom: 20px;
-        }
-
-        .employee-info {
-            margin-top: 20px;
         }
 
         table {
@@ -135,7 +133,7 @@
             </p>
         </div>
         <br>
-        <h1>CONDICIONES DEL RESGUARDO</h1>
+        <h3>CONDICIONES DEL RESGUARDO</h3>
         <p class="text-justify">
             A través de esta carta responsiva yo <strong>{{ $empleado->name }}</strong> declaro ser el único
             responsable
