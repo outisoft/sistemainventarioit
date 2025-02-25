@@ -115,7 +115,7 @@ class AssignmentController extends Controller
         return view('assignment.show', compact('licencias', 'empleado', 'hotel', 'departamento','equiposAsignados', 'complementosAsignados'));
     }
     
-    public function save_pdf($id)
+    public function save_pdf(Request $request, $uuid)
     {
         $users = auth()->id();
 
@@ -127,14 +127,14 @@ class AssignmentController extends Controller
         // Formatear la fecha como "día, mes y año"
         $date = $today->format('d \d\e M \d\e\l Y');
 
-        $empleado = Empleado::findOrFail($id);
-        $complements = collect();
+        $equipoIds = explode(',', $request->query('equipos'));
+        $complementoIds = explode(',', $request->query('complementos'));
+        $equipos = Equipo::whereIn('id', $equipoIds)->get();
+        $complements = Complement::whereIn('id', $complementoIds)->get();
 
-        foreach ($empleado->equipos as $equipo) {
-            $complements = $complements->merge($equipo->complements);
-        } // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
+        $empleado = Empleado::findOrFail($uuid);// Reemplaza 'Empleado' con el nombre de tu modelo de empleado
 
-        $pdf = FacadePdf::loadView('assignment.save-pdf', compact('empleado', 'date', 'complements', 'user'));
+        $pdf = FacadePdf::loadView('assignment.save-pdf', compact('empleado', 'date', 'complements', 'user', 'equipos'));
         
         // Asignar el nombre del empleado al archivo PDF
         $fileName = $empleado->name . '-.pdf';

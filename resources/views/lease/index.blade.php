@@ -15,12 +15,14 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-header">Leases List</h5>
                     <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
-                            <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                data-placement="top" title="Agregar Nuevo Registro">
-                                <i class='bx bx-add-to-queue icon-lg'></i>
-                            </a>
-                        </div>
+                        @can('lease.create')
+                            <div class="nav-item d-flex align-items-center">
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-placement="top" title="Agregar Nuevo Registro">
+                                    <i class='bx bx-add-to-queue icon-lg'></i>
+                                </a>
+                            </div>
+                        @endcan
                     </div>
                 </div>
                 <!-- Modal de creacion -->
@@ -50,24 +52,30 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('lease.show', $lease->id) }}"><i
-                                                                    class="bx bx-show-alt me-1"></i>Show
-                                                            </a>
+                                                            @can('lease.show')
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('lease.show', $lease->id) }}"><i
+                                                                        class="bx bx-show-alt me-1"></i>Show
+                                                                </a>
+                                                            @endcan
 
-                                                            <a href="#" data-bs-toggle="modal"
-                                                                data-bs-target="#editModal{{ $lease->id }}"
-                                                                class="dropdown-item"><i
-                                                                    class="bx bx-edit me-1"></i>Edit</a>
+                                                            @can('lease.edit')
+                                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal{{ $lease->id }}"
+                                                                    class="dropdown-item"><i
+                                                                        class="bx bx-edit me-1"></i>Edit</a>
+                                                            @endcan
 
-                                                            <form action="{{ route('lease.destroy', $lease->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="dropdown-item btn-danger"
-                                                                    onclick="return confirm('Are you sure to delete {{ $lease->lease }}?')"><i
-                                                                        class="bx bx-trash me-1"></i>Delete</button>
-                                                            </form>
+                                                            @can('lease.destroy')
+                                                                <form action="{{ route('lease.destroy', $lease->id) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="dropdown-item btn-danger"
+                                                                        onclick="return confirm('Are you sure to delete {{ $lease->lease }}?')"><i
+                                                                            class="bx bx-trash me-1"></i>Delete</button>
+                                                                </form>
+                                                            @endcan
 
                                                         </div>
                                                     </div>

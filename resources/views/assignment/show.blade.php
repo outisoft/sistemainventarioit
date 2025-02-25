@@ -23,21 +23,18 @@
                                 data-bs-html="true" title="" data-bs-original-title="<span>QR Code</span>">
                                 <i class='bx bx-qr-scan icon-lg'></i>
                             </a>
-                            @if ($empleado->hotel->name == 'TULUM COUNTRY CLUB')
-                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#equiposModal"
+                            <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#equiposModal"
+                                data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                data-bs-html="true" title=""
+                                data-bs-original-title="<span>Responsive sheet</span>">
+                                <i class='bx bxs-file-pdf icon-lg'></i>
+                            </a>
+                            <!--a href="{{ route('save-pdf', $empleado->id) }}" target="_blank" class="btn-ico"
                                     data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                     data-bs-html="true" title=""
                                     data-bs-original-title="<span>Responsive sheet</span>">
                                     <i class='bx bxs-file-pdf icon-lg'></i>
-                                </a>
-                            @else
-                                <a href="{{ route('save-pdf', $empleado->id) }}" target="_blank" class="btn-ico"
-                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                    data-bs-html="true" title=""
-                                    data-bs-original-title="<span>Responsive sheet</span>">
-                                    <i class='bx bxs-file-pdf icon-lg'></i>
-                                </a>
-                            @endif
+                                </a-->
                         </div>
                     </div>
                 </div>

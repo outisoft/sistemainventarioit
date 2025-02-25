@@ -18,7 +18,6 @@
                             </label>
                         </div>
                     @endforeach
-                    <h6>Complementos</h6>
                     @foreach ($complementosAsignados as $complemento)
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="{{ $complemento->id }}"
@@ -37,32 +36,62 @@
         </div>
     </div>
 </div>
+@if ($empleado->hotel->name == 'TULUM COUNTRY CLUB')
+    <script>
+        document.getElementById('generatePdf').addEventListener('click', function() {
+            const form = document.getElementById('equiposForm');
+            const selectedEquipos = [];
+            const selectedComplementos = [];
 
-<script>
-    document.getElementById('generatePdf').addEventListener('click', function() {
-        const form = document.getElementById('equiposForm');
-        const selectedEquipos = [];
-        const selectedComplementos = [];
+            form.querySelectorAll('input[name="equipos[]"]:checked').forEach(checkbox => {
+                selectedEquipos.push(checkbox.value);
+            });
 
-        form.querySelectorAll('input[name="equipos[]"]:checked').forEach(checkbox => {
-            selectedEquipos.push(checkbox.value);
+            form.querySelectorAll('input[name="complementos[]"]:checked').forEach(checkbox => {
+                selectedComplementos.push(checkbox.value);
+            });
+
+            console.log('Selected Equipos:', selectedEquipos);
+            console.log('Selected Complementos:', selectedComplementos);
+
+            if (selectedEquipos.length === 0 && selectedComplementos.length === 0) {
+                alert('Por favor, selecciona al menos un equipo o complemento.');
+                return;
+            }
+
+            const empleadoId = '{{ $empleado->id }}'; // Usar UUID en lugar de ID
+            const url =
+                `{{ route('save-pdf-tcc', ['id' => $empleado->id]) }}?equipos=${selectedEquipos.join(',')}&complementos=${selectedComplementos.join(',')}`;
+            window.open(url, '_blank');
         });
+    </script>
+@else
+    <script>
+        document.getElementById('generatePdf').addEventListener('click', function() {
+            const form = document.getElementById('equiposForm');
+            const selectedEquipos = [];
+            const selectedComplementos = [];
 
-        form.querySelectorAll('input[name="complementos[]"]:checked').forEach(checkbox => {
-            selectedComplementos.push(checkbox.value);
+            form.querySelectorAll('input[name="equipos[]"]:checked').forEach(checkbox => {
+                selectedEquipos.push(checkbox.value);
+            });
+
+            form.querySelectorAll('input[name="complementos[]"]:checked').forEach(checkbox => {
+                selectedComplementos.push(checkbox.value);
+            });
+
+            console.log('Selected Equipos:', selectedEquipos);
+            console.log('Selected Complementos:', selectedComplementos);
+
+            if (selectedEquipos.length === 0 && selectedComplementos.length === 0) {
+                alert('Por favor, selecciona al menos un equipo o complemento.');
+                return;
+            }
+
+            const empleadoId = '{{ $empleado->id }}'; // Usar UUID en lugar de ID
+            const url =
+                `{{ route('save-pdf', ['id' => $empleado->id]) }}?equipos=${selectedEquipos.join(',')}&complementos=${selectedComplementos.join(',')}`;
+            window.open(url, '_blank');
         });
-
-        console.log('Selected Equipos:', selectedEquipos);
-        console.log('Selected Complementos:', selectedComplementos);
-
-        if (selectedEquipos.length === 0 && selectedComplementos.length === 0) {
-            alert('Por favor, selecciona al menos un equipo o complemento.');
-            return;
-        }
-
-        const empleadoId = '{{ $empleado->id }}'; // Usar UUID en lugar de ID
-        const url =
-            `{{ route('save-pdf-tcc', ['id' => $empleado->id]) }}?equipos=${selectedEquipos.join(',')}&complementos=${selectedComplementos.join(',')}`;
-        window.open(url, '_blank');
-    });
-</script>
+    </script>
+@endif

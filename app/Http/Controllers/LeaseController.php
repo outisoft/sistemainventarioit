@@ -8,6 +8,16 @@ use Illuminate\Http\Request;
 
 class LeaseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:lease.index')->only('index');
+        $this->middleware('can:lease.create')->only('create', 'store');
+        $this->middleware('can:lease.edit')->only('edit', 'update');
+        $this->middleware('can:lease.show')->only('show');
+        $this->middleware('can:lease.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $leases = Lease::with(['region'])

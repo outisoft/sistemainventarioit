@@ -64,6 +64,12 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'laptops.edit', 'description' => 'Editar laptops'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'laptops.destroy', 'description' => 'Eliminar laptops'])->syncRoles($admin, $adminRegion, $support);
 
+        Permission::create(['name' => 'lease.index', 'description' => 'Ver listado de arrendamientos'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'lease.show', 'description' => 'Ver detalles de arrendamientos'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'lease.create', 'description' => 'Registrar arrendamientos'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'lease.edit', 'description' => 'Editar arrendamientos'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'lease.destroy', 'description' => 'Eliminar arrendamientos'])->syncRoles($admin, $adminRegion, $support);
+
         Permission::create(['name' => 'licenses.index', 'description' => 'Ver listado de licencias'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'licenses.show', 'description' => 'Ver detalles de licencias'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'licenses.create', 'description' => 'Registrar licencias'])->syncRoles($admin, $adminRegion, $support);

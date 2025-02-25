@@ -91,13 +91,9 @@
 </head>
 
 <body>
-    @foreach ($empleado->equipos as $equipo)
+    @foreach ($equipos as $equipo)
         <div class="header">
-            @if ($empleado->hotel->name == 'TULUM COUNTRY CLUB')
-                <img src="../public/images/Logo_TCC.png" alt="Tulum Country Club Logo" class="logo" />
-            @else
-                <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
-            @endif
+            <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
             <div class="title">ENTREGA DE
                 {{ $equipo->tipo->name }}<br>{{ $empleado->departments->name }}/{{ $empleado->hotel->name }}
             </div>
@@ -180,11 +176,7 @@
     @if ($complements->isNotEmpty())
         @foreach ($complements as $equipo)
             <div class="header">
-                @if ($empleado->hotel->name == 'TULUM COUNTRY CLUB')
-                    <img src="../public/images/Logo_TCC.png" alt="Tulum Country Club Logo" class="logo" />
-                @else
-                    <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
-                @endif
+                <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
                 <div class="title">ENTREGA DE
                     {{ $equipo->type->name }}<br>{{ $empleado->departments->name }}/{{ $empleado->hotel->name }}
                 </div>
