@@ -51,6 +51,37 @@
                                 </table>
                                 <br>
 
+                                @if ($switch->accessPoints->isEmpty())
+                                @else
+                                    <h4>Access Points</h4>
+                                    <table class="table" CELLPADDING=5 CELLSPACING=5>
+                                        <thead>
+                                            <tr>
+                                                <th class="bg-secondary">Name</th>
+                                                <th class="bg-secondary">Brand</th>
+                                                <th class="bg-secondary">Model</th>
+                                                <th class="bg-secondary">Serial</th>
+                                                <th class="bg-secondary">Mac Address</th>
+                                                <th class="bg-secondary">IP</th>
+                                                <th class="bg-secondary">Port</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($switch->accessPoints as $ap)
+                                                <tr>
+                                                    <td>{{ $ap->name }}</td>
+                                                    <td>{{ $ap->marca }}</td>
+                                                    <td>{{ $ap->model }}</td>
+                                                    <td>{{ $ap->serial }}</td>
+                                                    <td>{{ $ap->mac }}</td>
+                                                    <td>{{ $ap->ip }}</td>
+                                                    <td>{{ $ap->port_number }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                @endif
+
                                 <!-- BREACK ASIGNADO -->
                                 @if ($switch->breack->isNotEmpty())
                                     <div class="card">
@@ -121,39 +152,6 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                @endif
-                                <br>
-
-
-                                @if ($switch->accessPoints->isEmpty())
-                                @else
-                                    <h4>Access Points</h4>
-                                    <table class="table" CELLPADDING=5 CELLSPACING=5>
-                                        <thead>
-                                            <tr>
-                                                <th class="bg-secondary">Name</th>
-                                                <th class="bg-secondary">Brand</th>
-                                                <th class="bg-secondary">Model</th>
-                                                <th class="bg-secondary">Serial</th>
-                                                <th class="bg-secondary">Mac Address</th>
-                                                <th class="bg-secondary">IP</th>
-                                                <th class="bg-secondary">Port</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($switch->accessPoints as $ap)
-                                                <tr>
-                                                    <td>{{ $ap->name }}</td>
-                                                    <td>{{ $ap->marca }}</td>
-                                                    <td>{{ $ap->model }}</td>
-                                                    <td>{{ $ap->serial }}</td>
-                                                    <td>{{ $ap->mac }}</td>
-                                                    <td>{{ $ap->ip }}</td>
-                                                    <td>{{ $ap->port_number }}</td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
                                 @endif
                                 <br>
                                 <a href="{{ route('switches.index') }}" class="btn btn-secondary"><i

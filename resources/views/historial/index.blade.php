@@ -2,7 +2,11 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> History </h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item active fw-bold">HISTORY</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">

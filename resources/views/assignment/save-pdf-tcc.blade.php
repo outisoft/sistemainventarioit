@@ -41,13 +41,13 @@
 
         h3 {
             text-align: center;
-            font-size: 18px;
-            margin-top: 15px;
-            margin-bottom: 10px;
+            font-size: 16px;
+            margin-top: 5px;
+            margin-bottom: 0px;
         }
 
         p {
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.6;
             margin-bottom: 0;
             margin-top: 5%;
@@ -74,6 +74,7 @@
         table td {
             border: 1px solid #ddd;
             padding: 8px;
+            font-size: 14px;
             text-align: left;
         }
 
@@ -149,7 +150,7 @@
             Delegado de Protección de Datos, con el que puede contactar en: <a
                 href="dpd.privacy@grupo-pinero.com.">dpd.privacy@grupo-pinero.com.</a>
         </p>
-
+        <br>
         <h3>Recibí Equipo(s):</h3>
         <table>
             <thead>
@@ -194,6 +195,7 @@
                 <strong>DEPARTAMENTO: </strong> {{ $empleado->departments->name }}
             </p>
         </div>
+        <br>
 
         <div class="signature">
             <div class="signature-item left">
