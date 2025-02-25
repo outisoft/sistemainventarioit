@@ -30,7 +30,7 @@
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap" id="searchResults">
-                                <table id="tabletas" class="table">
+                                <table id="leases" class="table">
                                     <thead class="bg-primary">
                                         <tr>
                                             <th>LEASE</th>

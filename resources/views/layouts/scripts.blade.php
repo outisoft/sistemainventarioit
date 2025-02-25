@@ -19,7 +19,7 @@
 
 
 
-<!--new DataTable('#equipments');-->
+<!--new DataTable('#offices');-->
 <script>
     $('#officees').DataTable({
         "pageLength": 10,
@@ -52,6 +52,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
                 className: 'btn btn-ico',
+                filename: 'Equipos',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -60,6 +61,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to PDF</span>"></i>',
                 className: 'btn btn-ico',
+                filename: 'Equipos',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -110,6 +112,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
                 className: 'btn btn-ico',
+                filename: 'Empleados',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4]
                 }
@@ -118,6 +121,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to PDF</span>"></i>',
                 className: 'btn btn-ico',
+                filename: 'Empleados',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4]
                 }
@@ -146,6 +150,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Complementos',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -154,6 +159,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Complementos',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -182,6 +188,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Telefonos',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -190,6 +197,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Telefonos',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -200,7 +208,7 @@
     });
 </script>
 
-<!--new DataTable('#office');-->
+<!--new DataTable('#licenses');-->
 <script>
     $('#licenses').DataTable({
         "pageLength": 100,
@@ -218,6 +226,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Licencias',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -226,6 +235,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Licencias',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -290,6 +300,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Switchs',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -298,6 +309,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Switchs',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -326,6 +338,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Desktops',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -334,6 +347,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Desktops',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -362,6 +376,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Impresoras',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -370,6 +385,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Impresoras',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -398,6 +414,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Laptops',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -406,6 +423,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Laptops',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -434,6 +452,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Tabs',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -442,6 +461,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Tabs',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -473,6 +493,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
                 className: 'btn btn-ico',
+                filename: 'Historial',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -481,6 +502,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to PDF</span>"></i>',
                 className: 'btn btn-ico',
+                filename: 'Historial',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -509,6 +531,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Asignacion',
                 exportOptions: {
                     columns: [0, 1, 2] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -517,6 +540,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Asignacion',
                 exportOptions: {
                     columns: [0, 1, 2] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -545,6 +569,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'Tabletas',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
                         16
@@ -555,10 +580,49 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'Tabletas',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
                         16
                     ] // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+
+        ]
+
+    });
+</script>
+
+<!--new DataTable('#leases');-->
+<script>
+    $('#leases').DataTable({
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
+                className: 'btn btn-ico',
+                filename: 'Leases',
+                exportOptions: {
+                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
+                className: 'btn btn-ico',
+                filename: 'Leases',
+                exportOptions: {
+                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -585,6 +649,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
+                filename: 'TPVs',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Exporta solo las columnas 0, 1 y 2
                 }
@@ -593,6 +658,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
+                filename: 'TPVs',
                 exportOptions: {
                     columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Exporta solo las columnas 0, 1 y 2
                 }
