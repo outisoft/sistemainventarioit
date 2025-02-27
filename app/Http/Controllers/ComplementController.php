@@ -96,7 +96,7 @@ class ComplementController extends Controller
                 'model' => 'required',
                 'serial' => 'required|unique:complements,serial,' . $id,
                 'lease' => 'required|boolean',
-                'lease_id' => 'required_if:lease,1|exists:leases,id',
+                'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
