@@ -82,16 +82,6 @@
                                                 <td>{{ $equipo->so }}</td>
                                                 <td>{{ $equipo->orden }}</td>
                                                 <td>
-                                                    @if ($equipo->lease)
-                                                        Code: <span
-                                                            class="badge bg-label-dark">{{ $equipo->code }}</span><br>
-                                                        Date: <span
-                                                            class="badge bg-label-info">{{ $equipo->date }}</span>
-                                                    @else
-                                                        No lease
-                                                    @endif
-                                                </td>
-                                                <td>
                                                     @if ($equipo->lease_id && $equipo->lease)
                                                         <div>
                                                             Lease Code: <span
@@ -101,6 +91,15 @@
                                                         </div>
                                                     @else
                                                         <span class="badge bg-label-danger">No</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($equipo->estado === 'Libre')
+                                                        <span
+                                                            class="badge bg-label-success">{{ $equipo->estado }}</span>
+                                                    @elseif ($equipo->estado === 'En Uso')
+                                                        <span
+                                                            class="badge bg-label-danger">{{ $equipo->estado }}</span>
                                                     @endif
                                                 </td>
                                                 <td>
