@@ -8,7 +8,7 @@
                         <a href="{{ route('equipo.index') }}">EQUIPMENTS</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('complement.index') }}">COMPLEMENTS</a>
+                        <a href="{{ route('complements.index') }}">COMPLEMENTS</a>
                     </li>
                     <li class="breadcrumb-item active fw-bold">DETAILS</li>
                 </ol>
@@ -40,6 +40,18 @@
                                     <tr>
                                         <th class="bg-secondary">Numero de serie / CT</th>
                                         <td>{{ $complement->serial }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="bg-secondary">ASSIGNED TO...</th>
+                                        <td>
+                                            @if ($complement->equipments->count() > 0)
+                                                @foreach ($complement->equipments as $equipment)
+                                                    {{ $equipment->name }}
+                                                @endforeach
+                                            @else
+                                                To no assigned equipment
+                                            @endif
+                                        </td>
                                     </tr>
                                 </table>
                                 <br>
