@@ -108,7 +108,7 @@ class DesktopController extends Controller
                 'orden' => 'required',
                 'region_id' => 'required',
                 'lease' => 'required|boolean',
-                'lease_id' => 'required_if:lease,1|exists:leases,id',
+                'lease_id' => 'required_if:lease,1',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',
