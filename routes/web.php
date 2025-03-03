@@ -36,6 +36,8 @@ use App\Http\Controllers\OtherController;
 use App\Http\Controllers\EquipmentComplementController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\LeaseController;
+use App\Http\Controllers\VillaController;
+use App\Http\Controllers\RoomController;
 use App\Exports\EmpleadoExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -84,6 +86,8 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('adobe', AdobeController::class);//Rutas Adobe
     Route::resource('autocad', AutocadController::class);//Rutas Autocad
     Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
+    Route::resource('villas', VillaController::class);//Rutas Villas
+    Route::resource('rooms', RoomController::class);//Rutas Rooms
     Route::get('/hotels/{hotel}/switches', [SwitchController::class, 'showSwitches'])->name('hotels.switches');
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
     Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');
@@ -103,6 +107,10 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     //Asignar breack al sw
     Route::post('/switch/{switch}/asignar/', [SwitchController::class, 'asignarBreack'])->name('breack.asignar');
     Route::delete('/switch/{switch}/desasignar/{breack}', [SwitchController::class, 'desasignarBreack'])->name('breack.desasignar');
+
+
+    Route::get('/get-villas', [PhoneController::class, 'getVillas'])->name('getVillas');
+    Route::get('/get-rooms', [PhoneController::class, 'getRooms'])->name('getRooms');
     
     //Backup
     Route::prefix('backup')->group(function () {
@@ -128,7 +136,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
 
     Route::get('/qrcode/{id}', [AssignmentController::class, 'generateQRCode'])->name('generateQRCode');
     Route::get('/qrcode/{id}/download', [AssignmentController::class, 'downloadQRCode'])->name('downloadQRCode');
-    Route::get('/qrcode/{id}/details', [AssignmentController::class, 'employeeDetails'])->name('employeeDetails');
+    //Route::get('/qrcode/{id}/details', [AssignmentController::class, 'employeeDetails'])->name('employeeDetails');
 
     Route::get('empleados/{id}/equipos', [EmpleadoController::class, 'equipos'])->name('empleados.equipos');
 
@@ -177,6 +185,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     //CHARTS
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
 });
+Route::get('/qrcode/{id}/details', [AssignmentController::class, 'employeeDetails'])->name('employeeDetails');
 
 Route::get('/', function () {
     if (Auth::check()) {
