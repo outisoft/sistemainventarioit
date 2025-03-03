@@ -106,7 +106,7 @@ class PrinterController extends Controller
                 'serial' => 'required|unique:equipos,serial,' . $id,
                 'ip' => 'required|unique:equipos,ip,' . $id,
                 'lease' => 'required|boolean',
-                'lease_id' => 'required_if:lease,1|exists:leases,id',
+                'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
