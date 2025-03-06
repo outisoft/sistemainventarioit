@@ -18,7 +18,7 @@
                             </label>
                         </div>
                     @endforeach
-                    @foreach ($complementosAsignados as $complemento)
+                    @foreach ($equipo->complements as $complemento)
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="{{ $complemento->id }}"
                                 id="complemento{{ $complemento->id }}" name="complementos[]">
