@@ -33,29 +33,33 @@
             @if ($lease->equipments->isNotEmpty())
                 <div class="card">
                     <div class="content-wrapper">
-                        <ul class="list-group list-group-horizontal-md">
-                            @foreach ($lease->equipments as $equipo)
-                                <li class="list-group-item flex-fill p-6 text-body">
-                                    <h6 class="d-flex align-items-center gap-2"><i
-                                            class='icon-base bx bx-desktop'></i>{{ $equipo->name }}
-                                    </h6>
-                                    <address class="mb-0">
-                                        @if ($equipo->empleados->isNotEmpty())
-                                            {{ $equipo->empleados->first()->name }}
-                                        @else
-                                            SIN ASIGNAR
-                                        @endif <br>
-                                        @if ($equipo->empleados->isNotEmpty() && $equipo->empleados->first()->hotel)
-                                            {{ $equipo->empleados->first()->hotel->name }}-{{ $equipo->empleados->first()->departments->name }}<br>
-                                        @else
-                                            HOTEL NO ASIGNADO<br>
-                                        @endif
-                                        {{ $equipo->serial }},<br>
-                                        {{ $equipo->marca }}, {{ $equipo->model }},<br>
-                                    </address>
-                                </li>
-                            @endforeach
-                        </ul>
+                        @foreach ($lease->equipments->chunk(4) as $chunk)
+                            <div class="row">
+                                @foreach ($chunk as $equipo)
+                                    <div class="col-md-3">
+                                        <div class="list-group-item flex-fill p-6 text-body">
+                                            <h6 class="d-flex align-items-center gap-2">
+                                                <i class='icon-base bx bx-desktop'></i>{{ $equipo->name }}
+                                            </h6>
+                                            <address class="mb-0">
+                                                @if ($equipo->empleados->isNotEmpty())
+                                                    {{ $equipo->empleados->first()->name }}
+                                                @else
+                                                    SIN ASIGNAR
+                                                @endif <br>
+                                                @if ($equipo->empleados->isNotEmpty() && $equipo->empleados->first()->hotel)
+                                                    {{ $equipo->empleados->first()->hotel->name }}-{{ $equipo->empleados->first()->departments->name }}<br>
+                                                @else
+                                                    HOTEL NO ASIGNADO<br>
+                                                @endif
+                                                {{ $equipo->serial }},<br>
+                                                {{ $equipo->marca }}, {{ $equipo->model }},<br>
+                                            </address>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             @endif
