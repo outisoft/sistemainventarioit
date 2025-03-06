@@ -99,20 +99,9 @@ class AssignmentController extends Controller
 
     public function show($id)
     {
-        $empleado = Empleado::find($id);
-        $equiposAsignados = $empleado->equipos;
-        $complementosAsignados = collect();
-        $licencias = collect();
-
-        foreach ($equiposAsignados as $equipo) {
-            $complementosAsignados = $complementosAsignados->merge($equipo->complements);
-            $licencias = $licencias->merge($equipo->license);
-        } // Reemplaza 'Empleado' con el nombre de tu modelo de empleado
-
-        $hotel = Hotel::find($empleado->hotel_id); // Obtiene el hotel asociado al empleado
-        $departamento = Departamento::find($empleado->departamento_id);
+        $empleado = Empleado::findOrFail($id);
         
-        return view('assignment.show', compact('licencias', 'empleado', 'hotel', 'departamento','equiposAsignados', 'complementosAsignados'));
+        return view('assignment.show', compact('empleado'));
     }
     
     public function save_pdf(Request $request, $uuid)
