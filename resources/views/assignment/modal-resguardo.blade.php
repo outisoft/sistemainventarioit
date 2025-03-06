@@ -13,7 +13,8 @@
                             <input class="form-check-input" type="checkbox" value="{{ $equipo->id }}"
                                 id="equipo{{ $equipo->id }}" name="equipos[]">
                             <label class="form-check-label" for="equipo{{ $equipo->id }}">
-                                {{ $equipo->name }} / {{ $equipo->marca }} / {{ $equipo->model }} /
+                                {{ $equipo->tipo->name }} / {{ $equipo->name }} / {{ $equipo->marca }} /
+                                {{ $equipo->model }} /
                                 {{ $equipo->serial }}
                             </label>
                         </div>
@@ -23,7 +24,8 @@
                             <input class="form-check-input" type="checkbox" value="{{ $complemento->id }}"
                                 id="complemento{{ $complemento->id }}" name="complementos[]">
                             <label class="form-check-label" for="complemento{{ $complemento->id }}">
-                                {{ $complemento->brand }} / {{ $complemento->model }} / {{ $complemento->serial }}
+                                {{ $complemento->type->name }} / {{ $complemento->brand }} /
+                                {{ $complemento->model }} / {{ $complemento->serial }}
                             </label>
                         </div>
                     @endforeach
