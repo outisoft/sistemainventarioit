@@ -35,6 +35,7 @@
                                         <tr>
                                             <th>LEASE</th>
                                             <th>END DATE</th>
+                                            <th>TOTAL EQUIPMENT</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -44,6 +45,7 @@
                                             <tr>
                                                 <td>{{ $lease->lease }}</td>
                                                 <td>{{ $lease->end_date }}</td>
+                                                <td>{{ $lease->equipments->count() }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
