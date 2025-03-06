@@ -22,6 +22,11 @@ class Lease extends Model
         return $this->belongsTo(Region::class, 'region_id');
     }
 
+    public function equipments()
+    {
+        return $this->hasMany(Equipo::class);
+    }
+
     public function getStatus()
     {
         // Si no hay fecha de expiración, la licencia es permanente (Activa)
