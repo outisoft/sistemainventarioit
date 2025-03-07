@@ -115,6 +115,19 @@
                             <x-input-error :messages="$errors->get('lease')" class="mt-2" />
                         </div>
 
+                        <!-- af_code-->
+                        <div id="af_field_edit" style="display">
+                            <div class="mb-3">
+                                <x-input-label class="form-label" for="af_code{{ $equipo->af_code }}" :value="__('Fixed Asset Code')" />
+                                <div class="input-group input-group-merge">
+                                    <x-text-input id="af_code{{ $equipo->af_code }}" class="form-control" type="text"
+                                        name="af_code" placeholder="HP" value="{{ $equipo->af_code }}"
+                                        autocomplete="af_code" />
+                                </div>
+                                <x-input-error :messages="$errors->get('af_code')" class="mt-2" />
+                            </div>
+                        </div>
+
                         <!-- Campos adicionales para arrendamiento -->
                         <div id="lease_fields_edit" style="display: {{ $equipo->lease ? 'block' : 'none' }};">
                             <div class="mb-3">
@@ -151,10 +164,15 @@
                     if (modal.find('#lease_si').is(':checked')) {
                         modal.find('#lease_fields_edit').show();
                         modal.find('#lease_id').attr('required', true);
+
+                        modal.find('#af_field_edit').hide();
+                        modal.find('#af_code').val('');
                     } else {
                         modal.find('#lease_fields_edit').hide();
                         modal.find('#lease_id').removeAttr('required');
                         modal.find('#lease_id').val('');
+
+                        modal.find('#af_field_edit').show();
                     }
                 });
 

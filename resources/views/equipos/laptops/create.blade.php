@@ -142,6 +142,18 @@
                         <x-input-error :messages="$errors->get('lease')" class="mt-2" />
                     </div>
 
+                    <!-- af_code -->
+                    <div id="af_field" style="display">
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="af_code" :value="__('Fixed Asset Code')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="af_code" class="form-control" type="text" name="af_code"
+                                    placeholder="0X0X0X1" :value="old('af_code')" required autocomplete="af_code" />
+                            </div>
+                            <x-input-error :messages="$errors->get('af_code')" class="mt-2" />
+                        </div>
+                    </div>
+
                     <!-- Campos adicionales para arrendamiento -->
                     <div id="lease_fields" style="display: none;">
                         <div class="mb-3">
@@ -173,9 +185,13 @@
             if ($('#lease').is(':checked')) {
                 $('#lease_fields').show();
                 $('#lease_id').attr('required', true);
+                $('#af_field').hide();
+                $('#af_code').removeAttr('required');
             } else {
                 $('#lease_fields').hide();
                 $('#lease_id').removeAttr('required');
+                $('#af_field').show();
+                $('#af_code').attr('required', true);
             }
         });
 

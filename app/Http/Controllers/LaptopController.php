@@ -51,7 +51,7 @@ class LaptopController extends Controller
     public function store(Request $request)
     {
         $user = auth()->id();
-        //try {
+        try {
             $data = $request->validate([
                 'tipo_id' => 'required',
                 'marca' => 'required',
@@ -64,6 +64,7 @@ class LaptopController extends Controller
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
+                'af_code' => 'required_if:lease,0',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',
@@ -81,7 +82,7 @@ class LaptopController extends Controller
                 ->timeOut(3000) // 3 second
                 ->addSuccess("Se creo {$registro->name} correctamente.");
             return redirect()->route('laptops.index');
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
                 foreach ($errors as $error) {
                     toastr()
@@ -90,7 +91,7 @@ class LaptopController extends Controller
                 }
             }
             return back()->withErrors($e->errors())->withInput();
-        }*/
+        }
     }
 
     public function update(Request $request, string $id)
@@ -107,6 +108,7 @@ class LaptopController extends Controller
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
+                'af_code' => 'required_if:lease,0',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',

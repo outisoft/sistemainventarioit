@@ -234,7 +234,7 @@
         @endcan
 
         <!-- Radios y telefonos -->
-        <li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }}">
+        <!--li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon bx bx-phone-call'></i>
                 <div data-i18n="Layouts">Comunications</div>
@@ -255,7 +255,7 @@
                     </li>
                 @endcan
             </ul>
-        </li>
+        </li-->
 
         <!-- Empleados -->
         @can('empleados.index')

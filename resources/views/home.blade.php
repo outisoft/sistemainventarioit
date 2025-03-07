@@ -179,6 +179,53 @@
                                 @endcan
                             </div>
                         </div>
+
+                        <!--Phones / Radios -->
+                        <div class="swiper-slide">
+                            <div class="row">
+                                <!--Phones-->
+                                @can('phones.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-user-pin bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
+                                                    </div>
+                                                </div>
+                                                <span class="fw-semibold d-block mb-1">Phone</span>
+                                                <h3 class="card-title mb-2">{{ $totalPhones }}</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="{{ route('phones.index') }}">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endcan
+
+                                <!--Radios-->
+                                @can('phones.index')
+                                    <div class="col-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-title d-flex align-items-start justify-content-between">
+                                                    <div class="avatar flex-shrink-0">
+                                                        <i class='bx bx-user-pin bx-lg rounded'
+                                                            style="font-size: 2rem; color: #b5a160;"></i>
+                                                    </div>
+                                                </div>
+                                                <span class="fw-semibold d-block mb-1">Radios</span>
+                                                <h3 class="card-title mb-2">0</h3>
+                                                <small class="text-primary fw-semibold"> <a
+                                                        href="#">Show<i
+                                                            class='bx bx-right-arrow-alt'></i></a></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endcan
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -187,10 +234,9 @@
         </section>
         <!--/Property Section Here-->
 
-
-
         <div class="row">
             <!-- EQUIPMENTS TOTAL -->
+            @can('equipo.index')
             <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
                 <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between pb-0">
@@ -208,6 +254,7 @@
                             <div id="orderStatisticsChart"></div>
                         </div>
                         <ul class="p-0 m-0">
+                            @can('desktops.index')
                             <li class="d-flex mb-4 pb-1">
                                 <div class="avatar flex-shrink-0 me-3">
                                     <span class="avatar-initial rounded bg-label-primary">
@@ -224,7 +271,9 @@
                                     </div>
                                 </div>
                             </li>
+                            @endcan
 
+                            @can('laptops.index')
                             <li class="d-flex mb-4 pb-1">
                                 <div class="avatar flex-shrink-0 me-3">
                                     <span class="avatar-initial rounded bg-label-success">
@@ -241,7 +290,9 @@
                                     </div>
                                 </div>
                             </li>
+                            @endcan
 
+                            @can('other.index')
                             <li class="d-flex mb-4 pb-1">
                                 <div class="avatar flex-shrink-0 me-3">
                                     <span class="avatar-initial rounded bg-label-danger">
@@ -258,7 +309,9 @@
                                     </div>
                                 </div>
                             </li>
+                            @endcan
 
+                            @can('mobile.index')
                             <li class="d-flex mb-4 pb-1">
                                 <div class="avatar flex-shrink-0 me-3">
                                     <span class="avatar-initial rounded bg-label-warning">
@@ -267,7 +320,7 @@
                                 </div>
                                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                     <div class="me-2">
-                                        <h6 class="mb-0">Phone(s)</h6>
+                                        <h6 class="mb-0">Mobile(s)</h6>
                                         <small class="text-muted">Totals</small>
                                     </div>
                                     <div class="user-progress">
@@ -275,7 +328,9 @@
                                     </div>
                                 </div>
                             </li>
+                            @endcan
 
+                            @can('printers.index')
                             <li class="d-flex mb-4 pb-1">
                                 <div class="avatar flex-shrink-0 me-3">
                                     <span class="avatar-initial rounded bg-label-info">
@@ -292,7 +347,9 @@
                                     </div>
                                 </div>
                             </li>
+                            @endcan
 
+                            @can('tabs.index')
                             <li class="d-flex">
                                 <div class="avatar flex-shrink-0 me-3">
                                     <span class="avatar-initial rounded bg-label-secondary">
@@ -309,13 +366,16 @@
                                     </div>
                                 </div>
                             </li>
+                            @endcan
                         </ul>
                     </div>
                 </div>
                 <!--/ EQUIPMENTS TOTAL -->
             </div>
+            @endcan
 
             <!-- COMPLEMENTS -->
+            @can('complements.index')
             <div class="col-md-6 col-lg-4 order-2 mb-4">
                 <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -479,9 +539,11 @@
                     </div>
                 </div>
             </div>
+            @endcan
             <!--/ COMPLEMENTS -->
 
             <!-- LICENSES -->
+            @can('licenses.index')
             <div class="col-md-6 col-lg-4 order-1 mb-4">
                 <div class="card h-100">
                     <div class="card-header d-flex align-items-center justify-content-between">
@@ -502,6 +564,7 @@
                 </div>
                 <!--/ LICENSES -->
             </div>
+            @endcan
 
         </div>
     </div>

@@ -43,7 +43,7 @@ class ComplementController extends Controller
 
     public function store(Request $request)
     {
-        //try {
+        try {
             $tipo = $request->input('type_id');
             $user = auth()->id();
             $data = $request->validate([
@@ -54,6 +54,7 @@ class ComplementController extends Controller
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
+                'af_code' => 'nullable',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
             ]);
@@ -70,7 +71,7 @@ class ComplementController extends Controller
                 ->timeOut(3000) // 3 second
                 ->addSuccess("Se creo {$registro->type->name} ({$registro->serial}) correctamente.");
             return redirect()->route('complements.index');
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
                 foreach ($errors as $error) {
                     toastr()
@@ -79,7 +80,7 @@ class ComplementController extends Controller
                 }
             }
             return back()->withErrors($e->errors())->withInput();
-        }*/
+        }
     }
 
     public function show(Complement $complement)
@@ -98,6 +99,7 @@ class ComplementController extends Controller
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
+                'af_code' => 'nullable',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
             ]);

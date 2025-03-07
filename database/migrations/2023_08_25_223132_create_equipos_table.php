@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('equipos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('tipo_id')->references('id')->on('tipos')->cascadeOnDelete();
+            $table->string('af_code')->nullable();
             $table->string('marca')->nullable();
             $table->string('model')->nullable();
             $table->string('serial')->nullable()->unique();

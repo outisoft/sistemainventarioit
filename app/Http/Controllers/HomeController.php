@@ -13,6 +13,7 @@ use App\Models\Complement;
 use App\Models\Hotel;
 use App\Models\Swittch;
 use App\Models\AccessPoint;
+use App\Models\Phone;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use App\Models\License;
@@ -98,6 +99,7 @@ class HomeController extends Controller
         $totalTpvs = Tpv::count();
         $totalSw = Swittch::count();
         $totalAps = AccessPoint::count();
+        $totalPhones = Phone::count();
 
         $totalTablets = Equipo::whereHas('tipo', function ($query) {
             $query->where('name', 'TABLET');
@@ -242,7 +244,7 @@ class HomeController extends Controller
         $totalVencidas = $officeVencidas + $adobeVencidas + $autocadVencidas + $sketchupVencidas;
 
 
-        return view('home', compact('officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
+        return view('home', compact( 'totalPhones', 'officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
         'officeActivas', 'adobeActivas', 'autocadActivas', 'sketchupActivas',
         'officeVencidas', 'adobeVencidas', 'autocadVencidas', 'sketchupVencidas',
         'totalLicencias', 'totalActivas', 'totalVencidas', 'totalPhone', 'totalWacom', 'totalTicket', 'totalKeyboard', 'totalScanner', 'totalBreack', 'totalMouse', 'totalMonitor', 'totalCharger', 'totalOther', 'totalTablet', 'totalPrinter', 'totalDesktops', 'totalLaptops', 'userHotelsCount', 'officeCount', 'adobeCount', 'totalAps','totalSw','totalComing2','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));

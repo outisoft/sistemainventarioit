@@ -64,6 +64,7 @@ class DesktopController extends Controller
                 'orden' => 'required',
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
+                'af_code' => 'required_if:lease,0',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',
@@ -109,6 +110,7 @@ class DesktopController extends Controller
                 'region_id' => 'required',
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
+                'af_code' => 'required_if:lease,0',
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
                 'name.unique' => 'Este nombre de equipo ya existe.',

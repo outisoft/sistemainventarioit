@@ -11,7 +11,7 @@ class Complement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type_id', 'brand', 'model', 'serial', 'lease', 'lease_id', 'region_id'];
+    protected $fillable = ['type_id', 'brand', 'model', 'serial', 'lease', 'lease_id', 'af_code', 'region_id'];
 
     public function type()
     {

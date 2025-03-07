@@ -91,6 +91,7 @@
                                                         </div>
                                                     @else
                                                         <span class="badge bg-label-danger">No</span>
+                                                        <span class="badge bg-label-dark">{{ $equipo->af_code }}</span>
                                                     @endif
                                                 </td>
                                                 <td>
