@@ -9,7 +9,13 @@
         <span class="app-brand-logo demo">
             <div class="shrink-0 flex items-center">
                 <a href="{{ route('home') }}">
-                    <img id="logo" src="{{ asset('images/gp-lg-50.png') }}" alt="Logo Grupo Piñero" height="36" />
+                    @if ($user->region == 'TULUM COUNTRY CLUB')
+                        <img id="logo" src="{{ asset('images/TCC_LOGO.png') }}" alt="Logo Tulum Country Club"
+                            height="36" />
+                    @else
+                        <img id="logo" src="{{ asset('images/gp-lg-50.png') }}" alt="Logo Grupo Piñero"
+                            height="36" />
+                    @endif
                 </a>
             </div>
         </span>
@@ -114,11 +120,11 @@
 
                     @can('tablets.index')
                         <!--li disabled class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
-                                                                                                                                                                                                                                                                                                                            <a href="#" class="menu-link">
-                                                                                                                                                                                                                                                                                                                                <i class='menu-icon tf-icons bx bx-tab'></i>
-                                                                                                                                                                                                                                                                                                                                <div data-i18n="Analytics">Tablets Co2</div>
-                                                                                                                                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                                                                                                                                        </li-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <a href="#" class="menu-link">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class='menu-icon tf-icons bx bx-tab'></i>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div data-i18n="Analytics">Tablets Co2</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </li-->
                     @endcan
 
                     @can('tpvs.index')
@@ -141,11 +147,11 @@
                     @endcan
 
                     <!--li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
-                                                                                                                                                                        <a href="{{ route('licenses.index') }}" class="menu-link">
-                                                                                                                                                                            <i class='menu-icon tf-icons bx bxl-microsoft'></i>
-                                                                                                                                                                            <div data-i18n="Without navbar">Office 365</div>
-                                                                                                                                                                        </a>
-                                                                                                                                                                    </li-->
+                                                                                                                                                                                                                                                        <a href="{{ route('licenses.index') }}" class="menu-link">
+                                                                                                                                                                                                                                                            <i class='menu-icon tf-icons bx bxl-microsoft'></i>
+                                                                                                                                                                                                                                                            <div data-i18n="Without navbar">Office 365</div>
+                                                                                                                                                                                                                                                        </a>
+                                                                                                                                                                                                                                                    </li-->
                 </ul>
             </li>
         @endcan
@@ -227,33 +233,29 @@
             </li>
         @endcan
 
-        @can('phone.index')
-            <!-- Radios y telefonos -->
-            <li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class='menu-icon bx bx-podcast'></i>
-                    <div data-i18n="Layouts">Comunications</div>
-                </a>
+        <!-- Radios y telefonos -->
+        <li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon bx bx-phone-call'></i>
+                <div data-i18n="Layouts">Comunications</div>
+            </a>
 
-                <ul class="menu-sub">
-                    @can('phone.index')
-                        <li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }} ">
-                            <a href="{{ route('phones.index') }}" class="menu-link">
-                                <div data-i18n="Analytics">Phones</div>
-                            </a>
-                        </li>
-                    @endcan
+            <ul class="menu-sub">
+                <li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }} ">
+                    <a href="{{ route('phones.index') }}" class="menu-link">
+                        <div data-i18n="Analytics">Phones</div>
+                    </a>
+                </li>
 
-                    @can('radio.index')
-                        <li class="menu-item">
-                            <a href="#" class="menu-link">
-                                <div data-i18n="Without navbar">Radios</div>
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
+                @can('radio.index')
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <div data-i18n="Without navbar">Radios</div>
+                        </a>
+                    </li>
+                @endcan
+            </ul>
+        </li>
 
         <!-- Empleados -->
         @can('empleados.index')
@@ -367,26 +369,38 @@
         <!-- Hoteles y departamentos -->
         @can('hotels.index')
             <li
-                class="menu-item {{ Request::routeIs('hotels.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.create') ? 'active' : '' }} || {{ Request::routeIs('hotels.show') ? 'active' : '' }} || {{ Request::routeIs('hotels.edit') ? 'active' : '' }} || {{ Request::routeIs('departments.index') ? 'active' : '' }} || {{ Request::routeIs('departments.create') ? 'active' : '' }} || {{ Request::routeIs('departments.show') ? 'active' : '' }} || {{ Request::routeIs('departments.edit') ? 'active' : '' }}">
+                class="menu-item {{ Request::routeIs('rooms.index') ? 'active' : '' }} || {{ Request::routeIs('villas.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.create') ? 'active' : '' }} || {{ Request::routeIs('hotels.show') ? 'active' : '' }} || {{ Request::routeIs('hotels.edit') ? 'active' : '' }} || {{ Request::routeIs('departments.index') ? 'active' : '' }} || {{ Request::routeIs('departments.create') ? 'active' : '' }} || {{ Request::routeIs('departments.show') ? 'active' : '' }} || {{ Request::routeIs('departments.edit') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class='menu-icon tf-icons bx bx-building-house'></i>
-                    <div data-i18n="Layouts">Hotels & Departments</div>
+                    <div data-i18n="Layouts">Hotels & More</div>
                 </a>
 
                 <ul class="menu-sub">
-                    <li class="menu-item">
+                    <li class="menu-item {{ Request::routeIs('hotels.index') ? 'active' : '' }}">
                         <a href="{{ route('hotels.index') }}" class="menu-link">
                             <div data-i18n="Analytics">Hotels</div>
                         </a>
                     </li>
 
                     @can('departments.index')
-                        <li class="menu-item">
+                        <li class="menu-item {{ Request::routeIs('departments.index') ? 'active' : '' }}">
                             <a href="{{ route('departments.index') }}" class="menu-link">
                                 <div data-i18n="Analytics">Departments</div>
                             </a>
                         </li>
                     @endcan
+
+                    <li class="menu-item {{ Request::routeIs('villas.index') ? 'active' : '' }}">
+                        <a href="{{ route('villas.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Villas</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item {{ Request::routeIs('rooms.index') ? 'active' : '' }}">
+                        <a href="{{ route('rooms.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Rooms</div>
+                        </a>
+                    </li>
                 </ul>
             </li>
         @endcan

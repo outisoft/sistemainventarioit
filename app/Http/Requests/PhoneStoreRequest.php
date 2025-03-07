@@ -26,7 +26,8 @@ class PhoneStoreRequest extends FormRequest
             'service' => 'required',
             'model' => 'required',
             'serial' => 'required|unique:phones,serial',
-            'remarks' => 'required',
+            'room_id' => 'required|exists:rooms,id',
+            'region_id' => 'required|exists:regions,id',
         ];
     }
 }

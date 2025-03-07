@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Phone;
+use App\Models\Hotel;
+use App\Models\Villa;
+use App\Models\Room;
+use App\Models\Region;
 use App\Models\Historial;
 use Illuminate\Http\Request;
 use App\Http\Requests\PhoneStoreRequest;
@@ -20,12 +24,40 @@ class PhoneController extends Controller
     
     public function index()
     {
-        $phones = Phone::all();
-        return view('comunications.phone.index', compact('phones'));
+        $phones = Phone::with(['region', 'room.villa.hotel'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
+            })
+            ->orderBy('extension', 'asc')
+            ->get();
+
+        $hotels = Hotel::all();
+        $villas = Villa::all();
+        $rooms = Room::all();
+        $regions = Region::orderBy('name', 'asc')->get();
+        $userRegions = auth()->user()->regions;
+        return view('comunications.phone.index', compact('phones', 'hotels', 'villas', 'rooms', 'regions', 'userRegions'));
+    }
+
+    public function getVillas(Request $request)
+    {
+        $villas = Villa::where('hotel_id', $request->hotel_id)->get();
+        return response()->json($villas);
+    }
+
+    public function getRooms(Request $request)
+    {
+        $rooms = Room::where('villa_id', $request->villa_id)->get();
+        return response()->json($rooms);
     }
 
     public function store(PhoneStoreRequest $request)
-    {        
+    {
         $user = auth()->id();
 
         $registro = Phone::create($request->all());
@@ -34,7 +66,7 @@ class PhoneController extends Controller
             'accion' => 'Creacion',
             'descripcion' => "Se agrego un telefono con N/S: {$registro->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
         
         toastr()

@@ -26,7 +26,7 @@ class PhoneUpdateRequest extends FormRequest
             'service' => 'required',
             'model' => 'required',
             'serial' => 'required|unique:phones,serial',
-            'remarks' => 'required',
+            'room_id' => 'required|exists:rooms,id',
         ];
     }
 }
