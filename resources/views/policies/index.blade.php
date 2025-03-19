@@ -17,10 +17,12 @@
                     <h5 class="card-header">Policies List</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                data-placement="top" title="Agregar Nuevo Registro">
-                                <i class='bx bx-add-to-queue icon-lg'></i>
-                            </a>
+                            @can('policy.create')
+                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    data-placement="top" title="Agregar Nuevo Registro">
+                                    <i class='bx bx-add-to-queue icon-lg'></i>
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -51,21 +53,20 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            @can('leased.show')
-                                                                <a class="dropdown-item"
-                                                                    href="{{ route('policy.show', $policy->id) }}"><i
+                                                            @can('policy.show')
+                                                                <a class="dropdown-item" href="#"><i
                                                                         class="bx bx-show-alt me-1"></i>Show
                                                                 </a>
                                                             @endcan
 
-                                                            @can('lease.edit')
+                                                            @can('policy.edit')
                                                                 <a href="#" data-bs-toggle="modal"
                                                                     data-bs-target="#editModal{{ $policy->id }}"
                                                                     class="dropdown-item"><i
                                                                         class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 
-                                                            @can('lease.destroy')
+                                                            @can('policy.destroy')
                                                                 <form action="{{ route('policy.destroy', $policy->id) }}"
                                                                     method="POST">
                                                                     @csrf

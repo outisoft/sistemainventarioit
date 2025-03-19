@@ -118,7 +118,12 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'tpvs.edit', 'description' => 'Editar tpvs'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'tpvs.destroy', 'description' => 'Eliminar tpvs'])->syncRoles($admin, $adminRegion, $support);
 
-        //Admin Role
+        //Admin Roles
+        
+        Permission::create(['name' => 'policy.index', 'description' => 'Ver listado de politicas'])->syncRoles($admin, $adminRegion);
+        Permission::create(['name' => 'policy.create', 'description' => 'Registrar politicas'])->syncRoles($admin, $adminRegion);
+        Permission::create(['name' => 'policy.edit', 'description' => 'Editar politicas'])->syncRoles($admin, $adminRegion);
+        Permission::create(['name' => 'policy.destroy', 'description' => 'Eliminar politicas'])->syncRoles($admin, $adminRegion);
 
         Permission::create(['name' => 'region.index', 'description' => 'Ver listado de regiones'])->syncRoles($admin, $adminRegion);
         Permission::create(['name' => 'region.create', 'description' => 'Registrar regiones'])->syncRoles($admin, $adminRegion);

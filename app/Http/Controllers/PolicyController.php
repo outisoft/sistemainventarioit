@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class PolicyController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:policy.index')->only('index');
+        $this->middleware('can:policy.create')->only('create', 'store');
+        $this->middleware('can:policy.edit')->only('edit', 'update');
+        $this->middleware('can:policy.show')->only('show');
+        $this->middleware('can:policy.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $policies = Policy::with(['region'])
