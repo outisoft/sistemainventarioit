@@ -100,8 +100,9 @@ class AssignmentController extends Controller
     public function show($id)
     {
         $empleado = Empleado::findOrFail($id);
+        $equipo = $empleado->equipment()->with('complements')->first();
         
-        return view('assignment.show', compact('empleado'));
+        return view('assignment.show', compact('empleado', 'equipo'));
     }
     
     public function save_pdf(Request $request, $uuid)

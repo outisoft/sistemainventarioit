@@ -10,7 +10,12 @@ class Policy extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'region_id'];
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'region_id');
+    }
 
     public function coming2()
     {
@@ -24,6 +29,19 @@ class Policy extends Model
             if (auth()->check() && !auth()->user()->hasRole('Administrator')) {
                 $userRegions = auth()->user()->regions->pluck('id')->toArray();
                 $builder->whereIn('region_id', $userRegions);
+            }
+        });
+    }
+
+    protected static function boot() //guardar en mayusculas
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            foreach ($model->getAttributes() as $key => $value) {
+                if (is_string($value)) {
+                    $model->{$key} = strtoupper($value);
+                }
             }
         });
     }

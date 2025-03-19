@@ -149,6 +149,10 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                @else
+                                    <p>No equipment(s) assigned.<a href="{{ route('equipo.index') }}"> Add
+                                            equipment(s) -></a>
+                                    </p>
                                 @endif
                             </div>
                         </div>
@@ -169,31 +173,37 @@
                                 </div>
                             </div>
                             <div id="accordionDelivery" class="accordion">
-                                @if ($equipo->complements->isNotEmpty())
-                                    @foreach ($equipo->complements as $complemento)
-                                        <div class="card accordion-item">
-                                            <h2 class="accordion-header">
-                                                <button class="accordion-button" type="button"
-                                                    data-bs-toggle="collapse" aria-expanded="true"
-                                                    data-bs-target="#accordionDelivery-1"
-                                                    aria-controls="accordionDelivery-1">
-                                                    {{ $complemento->type->name }} -
-                                                    {{ $complemento->serial }}
-                                                </button>
-                                            </h2>
+                                @if ($equipo && $equipo->complements->isNotEmpty())
+                                    @if ($equipo->complements->isNotEmpty())
+                                        @foreach ($equipo->complements as $complemento)
+                                            <div class="card accordion-item">
+                                                <h2 class="accordion-header">
+                                                    <button class="accordion-button" type="button"
+                                                        data-bs-toggle="collapse" aria-expanded="true"
+                                                        data-bs-target="#accordionDelivery-1"
+                                                        aria-controls="accordionDelivery-1">
+                                                        {{ $complemento->type->name }} -
+                                                        {{ $complemento->serial }}
+                                                    </button>
+                                                </h2>
 
-                                            <div id="accordionDelivery-1" class="accordion-collapse collapse">
-                                                <div class="accordion-body">
-                                                    BRAND: {{ $complemento->brand }}<br>
+                                                <div id="accordionDelivery-1" class="accordion-collapse collapse">
+                                                    <div class="accordion-body">
+                                                        BRAND: {{ $complemento->brand }}<br>
 
-                                                    MODEL: {{ $complemento->model }} <br>
+                                                        MODEL: {{ $complemento->model }} <br>
 
-                                                    SERIAL: {{ $complemento->serial }}
+                                                        SERIAL: {{ $complemento->serial }}
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <p>No complement(s) assigned.<a href="{{ route('complements.index') }}"> Add
+                                                complement(s) -></a>
+                                        </p>
+                                    @endif
                                 @else
                                     <p>No complement(s) assigned.<a href="{{ route('complements.index') }}"> Add
                                             complement(s) -></a>
@@ -217,9 +227,7 @@
                                 </div>
                             </div>
                             <div id="accordionCancellation" class="accordion">
-                                @if ($equipo->license->isEmpty())
-                                    <p class="card-body">No licenses assigned.</p>
-                                @else
+                                @if ($equipo && $equipo->license->isNotEmpty())
                                     @foreach ($equipo->license as $licencia)
                                         @php
                                             $statusClass = [
@@ -251,6 +259,8 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                @else
+                                    <p class="card-body">No licenses assigned.</p>
                                 @endif
                             </div>
                         </div>

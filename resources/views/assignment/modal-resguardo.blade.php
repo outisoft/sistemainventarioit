@@ -19,16 +19,18 @@
                             </label>
                         </div>
                     @endforeach
-                    @foreach ($equipo->complements as $complemento)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="{{ $complemento->id }}"
-                                id="complemento{{ $complemento->id }}" name="complementos[]">
-                            <label class="form-check-label" for="complemento{{ $complemento->id }}">
-                                {{ $complemento->type->name }} / {{ $complemento->brand }} /
-                                {{ $complemento->model }} / {{ $complemento->serial }}
-                            </label>
-                        </div>
-                    @endforeach
+                    @if ($equipo && $equipo->complements->isNotEmpty())
+                        @foreach ($equipo->complements as $complemento)
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{ $complemento->id }}"
+                                    id="complemento{{ $complemento->id }}" name="complementos[]">
+                                <label class="form-check-label" for="complemento{{ $complemento->id }}">
+                                    {{ $complemento->type->name }} / {{ $complemento->brand }} /
+                                    {{ $complemento->model }} / {{ $complemento->serial }}
+                                </label>
+                            </div>
+                        @endforeach
+                    @endif
                 </form>
             </div>
             <div class="modal-footer">

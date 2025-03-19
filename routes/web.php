@@ -38,6 +38,7 @@ use App\Http\Controllers\BackupController;
 use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\VillaController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\PolicyController;
 use App\Exports\EmpleadoExport;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -88,6 +89,7 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
     Route::resource('villas', VillaController::class);//Rutas Villas
     Route::resource('rooms', RoomController::class);//Rutas Rooms
+    Route::resource('policy', PolicyController::class);//Rutas Policies
     Route::get('/hotels/{hotel}/switches', [SwitchController::class, 'showSwitches'])->name('hotels.switches');
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
     Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');
