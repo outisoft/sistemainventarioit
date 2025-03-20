@@ -6,6 +6,7 @@ use App\Models\Complement;
 use App\Models\Historial;
 use App\Models\Region;
 use App\Models\Lease;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class ComplementController extends Controller
@@ -54,9 +55,15 @@ class ComplementController extends Controller
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
-                'af_code' => 'nullable',
+                'af_code' => [
+                    'nullable',
+                    Rule::requiredIf(function () use ($request) {
+                        return $request->input('type_id') == $this->getMonitorTypeId() && !$request->input('lease');
+                    }),
+                ],
             ], [
                 'serial.unique' => 'Este No. de serie ya existe.',
+                'af_code.required' => 'Es necesario el codigo de Activo Fijo.',
             ]);
 
             $registro = Complement::create($data);
@@ -81,6 +88,12 @@ class ComplementController extends Controller
             }
             return back()->withErrors($e->errors())->withInput();
         }
+    }
+
+    private function getMonitorTypeId()
+    {
+        // Asumiendo que tienes un modelo Type y el nombre del tipo es 'MONITOR'
+        return \App\Models\Tipo::where('name', 'MONITOR')->first()->id;
     }
 
     public function show(Complement $complement)

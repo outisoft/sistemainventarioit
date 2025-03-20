@@ -108,7 +108,7 @@
                     </div>
 
                     <!-- af_code -->
-                    <div id="af_field" style="display">
+                    <div id="af_field" style="display: none;">
                         <div class="mb-3">
                             <x-input-label class="form-label" for="af_code" :value="__('Fixed Asset Code')" />
                             <div class="input-group input-group-merge">
@@ -162,4 +162,17 @@
         // Trigger change event on page load to set initial state
         $('input[name="lease"]:checked').trigger('change');
     });
+</script>
+<script>
+    document.getElementById('type_id').addEventListener('change', function() {
+        var afCodeDiv = document.getElementById('af_field');
+        if (this.options[this.selectedIndex].text === 'MONITOR') {
+            afCodeDiv.style.display = 'block';
+        } else {
+            afCodeDiv.style.display = 'none';
+        }
+    });
+
+    // Trigger change event on page load to handle pre-selected value
+    document.getElementById('type_id').dispatchEvent(new Event('change'));
 </script>

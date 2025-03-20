@@ -52,7 +52,7 @@
                                 <th>IP</th>
                                 <th>SO</th>
                                 <th>OC</th>
-                                <th>LEASE?</th>
+                                <th>LEASE? OR AF CODE</th>
                                 <th>STATUS</th>
                                 <th></th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
@@ -86,6 +86,7 @@
                                             </div>
                                         @else
                                             <span class="badge bg-label-danger">No</span>
+                                            <span class="badge bg-label-dark">{{ $equipo->af_code }}</span>
                                         @endif
                                     </td>
                                     <td>

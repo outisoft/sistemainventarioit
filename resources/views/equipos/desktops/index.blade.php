@@ -58,7 +58,7 @@
                                             <th>Ip</th>
                                             <th>SO</th>
                                             <th>OC</th>
-                                            <th>LEASE?</th>
+                                            <th>LEASE? OR AF CODE</th>
                                             <th>Status</th>
                                             <th></th>
                                         </tr>
