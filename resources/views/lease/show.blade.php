@@ -35,6 +35,7 @@
                                     <table id="lease_info" class="table">
                                         <thead class="bg-primary">
                                             <tr>
+                                                <th>TYPE</th>
                                                 <th>EMPLOYEE</th>
                                                 <th>LOCATION</th>
                                                 <th>BRAND</th>
@@ -44,10 +45,11 @@
                                             </tr>
                                         </thead>
                                         <tbody id="employeeList">
-                                            <!-- Aquí se mostrarán los empleados -->
+                                            <!-- Listado de equipos -->
                                             @foreach ($lease->equipments->chunk(4) as $equipos)
                                                 @foreach ($equipos as $equipo)
                                                     <tr>
+                                                        <td> {{ $equipo->tipo->name }} </td>
                                                         <td>
                                                             @if ($equipo->employees->isNotEmpty())
                                                                 @php
@@ -79,39 +81,22 @@
                                                                 <div class="dropdown-menu">
                                                                     @can('lease.show')
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('lease.show', $lease->id) }}"><i
+                                                                            href="{{ route('details', $equipo->id) }}"><i
                                                                                 class="bx bx-show-alt me-1"></i>Show
                                                                         </a>
                                                                     @endcan
-
-                                                                    @can('lease.edit')
-                                                                        <a href="#" data-bs-toggle="modal"
-                                                                            data-bs-target="#editModal{{ $lease->id }}"
-                                                                            class="dropdown-item"><i
-                                                                                class="bx bx-edit me-1"></i>Edit</a>
-                                                                    @endcan
-
-                                                                    @can('lease.destroy')
-                                                                        <form
-                                                                            action="{{ route('lease.destroy', $lease->id) }}"
-                                                                            method="POST">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit"
-                                                                                class="dropdown-item btn-danger"
-                                                                                onclick="return confirm('Are you sure to delete {{ $lease->lease }}?')"><i
-                                                                                    class="bx bx-trash me-1"></i>Delete</button>
-                                                                        </form>
-                                                                    @endcan
-
                                                                 </div>
                                                             </div>
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             @endforeach
+
+                                            <!-- Listado de complementos -->
                                             @foreach ($lease->complements as $complement)
                                                 <tr>
+                                                    <td> {{ $complement->type->name }} </td>
+
                                                     <td>
                                                         @if ($complement->equipments->isNotEmpty())
                                                             @php
@@ -152,32 +137,46 @@
                                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                                             </button>
                                                             <div class="dropdown-menu">
-                                                                @can('lease.show')
+                                                                @can('complements.show')
                                                                     <a class="dropdown-item"
-                                                                        href="{{ route('lease.show', $lease->id) }}"><i
+                                                                        href="{{ route('complements.show', $complement->id) }}"><i
                                                                             class="bx bx-show-alt me-1"></i>Show
                                                                     </a>
                                                                 @endcan
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
 
-                                                                @can('lease.edit')
-                                                                    <a href="#" data-bs-toggle="modal"
-                                                                        data-bs-target="#editModal{{ $lease->id }}"
-                                                                        class="dropdown-item"><i
-                                                                            class="bx bx-edit me-1"></i>Edit</a>
+                                            <!-- Listado de tpvs -->
+                                            @foreach ($lease->tpvs as $tpv)
+                                                <tr>
+                                                    <td>TPV</td>
+                                                    <td>
+                                                        SIN ASIGNAR
+                                                    </td>
+                                                    <td>
+                                                        {{ $tpv->departments->name }} /
+                                                        {{ $tpv->hotel->name }}
+                                                    </td>
+                                                    <td>{{ $tpv->brand }}</td>
+                                                    <td>{{ $tpv->model }}</td>
+                                                    <td>{{ $tpv->no_serial }}</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button type="button"
+                                                                class="btn p-0 dropdown-toggle hide-arrow"
+                                                                data-bs-toggle="dropdown">
+                                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                @can('tpvs.show')
+                                                                    <a class="dropdown-item"
+                                                                        href="{{ route('tpvs.show', $tpv->id) }}"><i
+                                                                            class="bx bx-show-alt me-1"></i>Show
+                                                                    </a>
                                                                 @endcan
-
-                                                                @can('lease.destroy')
-                                                                    <form action="{{ route('lease.destroy', $lease->id) }}"
-                                                                        method="POST">
-                                                                        @csrf
-                                                                        @method('DELETE')
-                                                                        <button type="submit"
-                                                                            class="dropdown-item btn-danger"
-                                                                            onclick="return confirm('Are you sure to delete {{ $lease->lease }}?')"><i
-                                                                                class="bx bx-trash me-1"></i>Delete</button>
-                                                                    </form>
-                                                                @endcan
-
                                                             </div>
                                                         </div>
                                                     </td>

@@ -32,6 +32,11 @@ class Lease extends Model
         return $this->hasMany(Complement::class);
     }
 
+    public function tpvs()
+    {
+        return $this->hasMany(Tpv::class);
+    }
+
     public function getStatus()
     {
         // Si no hay fecha de expiración, la licencia es permanente (Activa)
