@@ -45,7 +45,9 @@
                                             <tr>
                                                 <td>{{ $lease->lease }}</td>
                                                 <td>{{ $lease->end_date }}</td>
-                                                <td>{{ $totalRelations }}</td>
+                                                <td>{{ $lease->equipments->count() + $lease->complements->count() + $lease->tpvs->count() }}
+                                                </td>
+
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
