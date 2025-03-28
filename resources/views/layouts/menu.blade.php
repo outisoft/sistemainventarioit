@@ -120,11 +120,11 @@
 
                     @can('tablets.index')
                         <!--li disabled class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <a href="#" class="menu-link">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class='menu-icon tf-icons bx bx-tab'></i>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div data-i18n="Analytics">Tablets Co2</div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </li-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <a href="#" class="menu-link">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class='menu-icon tf-icons bx bx-tab'></i>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div data-i18n="Analytics">Tablets Co2</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </li-->
                     @endcan
 
                     @can('tpvs.index')
@@ -147,11 +147,11 @@
                     @endcan
 
                     <!--li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
-                                                                                                                                                                                                                                                                            <a href="{{ route('licenses.index') }}" class="menu-link">
-                                                                                                                                                                                                                                                                                <i class='menu-icon tf-icons bx bxl-microsoft'></i>
-                                                                                                                                                                                                                                                                                <div data-i18n="Without navbar">Office 365</div>
-                                                                                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                                                                                        </li-->
+                                                                                                                                                                                                                                                                                <a href="{{ route('licenses.index') }}" class="menu-link">
+                                                                                                                                                                                                                                                                                    <i class='menu-icon tf-icons bx bxl-microsoft'></i>
+                                                                                                                                                                                                                                                                                    <div data-i18n="Without navbar">Office 365</div>
+                                                                                                                                                                                                                                                                                </a>
+                                                                                                                                                                                                                                                                            </li-->
                 </ul>
             </li>
         @endcan
@@ -249,10 +249,10 @@
 
                 @can('radio.index')
     <li class="menu-item">
-                                            <a href="#" class="menu-link">
-                                                <div data-i18n="Without navbar">Radios</div>
-                                            </a>
-                                        </li>
+                                                <a href="#" class="menu-link">
+                                                    <div data-i18n="Without navbar">Radios</div>
+                                                </a>
+                                            </li>
 @endcan
             </ul>
         </li-->
@@ -296,21 +296,6 @@
                 <a href="{{ url('assignment') }}" class="menu-link">
                     <i class='menu-icon tf-icons bx bx-link'></i>
                     <div data-i18n="Without navbar">Assignment</div>
-                </a>
-            </li>
-        @endcan
-
-        <!-- coming2 -->
-        @can('coming2.index')
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">CO2</span>
-            </li>
-
-            <li
-                class="menu-item {{ Request::routeIs('co2.trashed') ? 'active' : '' }} || {{ Request::routeIs('coming2.edit') ? 'active' : '' }} || {{ Request::routeIs('coming2.index') ? 'active' : '' }} || {{ Request::routeIs('coming2.show') ? 'active' : '' }}">
-                <a href="{{ url('coming2') }}" class="menu-link">
-                    <i class='menu-icon bx bx-bus'></i>
-                    <div data-i18n="Without navbar">Coming2</div>
                 </a>
             </li>
         @endcan

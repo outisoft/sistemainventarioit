@@ -31,7 +31,6 @@ use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\SwitchController;
 use App\Http\Controllers\AccessPointController;
 use App\Http\Controllers\AssignmentController;
-use App\Http\Controllers\Coming2Controller;
 use App\Http\Controllers\OtherController;
 use App\Http\Controllers\EquipmentComplementController;
 use App\Http\Controllers\BackupController;
@@ -81,7 +80,6 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::resource('access-points', AccessPointController::class);//Rutas access points
     Route::resource('switches', SwitchController::class);//Rutas switches
     Route::resource('assignment', AssignmentController::class);//Rutas asignacion
-    Route::resource('coming2', Coming2Controller::class);//Rutas coming2
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::resource('office', OfficeController::class);//Rutas Office
     Route::resource('adobe', AdobeController::class);//Rutas Adobe
