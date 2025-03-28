@@ -35,7 +35,9 @@ class LeaseController extends Controller
         $regions = Region::orderBy('name', 'asc')->get();
         $userRegions = auth()->user()->regions;
 
-        return view('lease.index', compact('leases', 'regions', 'userRegions'));
+        $totalRelations = $lease->equipments->count() + $lease->complements->count() + $lease->tpvs->count();
+
+        return view('lease.index', compact('leases', 'regions', 'userRegions', 'totalRelations'));
     }
 
     public function store(Request $request)
