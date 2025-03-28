@@ -20,9 +20,7 @@
                                     <br>
                                     <P class="card-title"><strong>LEASE:</strong> {{ $lease->lease }}</P>
                                     <P class="card-title"><strong>END DATE:</strong> {{ $lease->end_date }}</P>
-                                    <p class="card-title"><strong>TOTAL EQUIPMENT:</strong>
-                                        {{ $lease->equipments->count() }}
-                                    </p>
+                                    <p class="card-title"><strong>TOTAL RELATIONS:</strong> {{ $totalRelations }}</p>
                                 </div>
                             </div>
                         </div>

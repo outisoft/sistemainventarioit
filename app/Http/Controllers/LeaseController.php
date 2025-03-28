@@ -80,7 +80,8 @@ class LeaseController extends Controller
 
     public function show (Lease $lease)
     {
-        return view('lease.show', compact('lease'));
+        $totalRelations = $lease->equipments->count() + $lease->complements->count() + $lease->tpvs->count();
+        return view('lease.show', compact('lease', 'totalRelations'));
     }
 
     public function update(Request $request, Lease $lease)
