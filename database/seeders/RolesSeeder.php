@@ -27,13 +27,7 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'access_points.show', 'description' => 'Ver detalles de Access Points'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'access_points.edit', 'description' => 'Editar Access Points'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'access_points.destroy', 'description' => 'Eliminar Access Points'])->syncRoles($admin, $adminRegion, $support);
-
-        Permission::create(['name' => 'coming2.index', 'description' => 'Ver listado de registros de coming2'])->syncRoles($admin, $adminRegion, $support);
-        Permission::create(['name' => 'coming2.show', 'description' => 'Ver detalles de regitros coming2'])->syncRoles($admin, $adminRegion, $support);
-        Permission::create(['name' => 'coming2.create', 'description' => 'Crear registros de coming2'])->syncRoles($admin, $adminRegion, $support);
-        Permission::create(['name' => 'coming2.edit', 'description' => 'Editar registros de coming2'])->syncRoles($admin, $adminRegion, $support);
-        Permission::create(['name' => 'coming2.destroy', 'description' => 'Eliminar registros de coming2'])->syncRoles($admin, $adminRegion, $support);
-
+        
         Permission::create(['name' => 'equipo.index', 'description' => 'Ver listado de equipos'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'equipo.show', 'description' => 'Asignar complemento a equipo'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'details', 'description' => 'Ver detalles de equipos'])->syncRoles($admin, $adminRegion, $support);
