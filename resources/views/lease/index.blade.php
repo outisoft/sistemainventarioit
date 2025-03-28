@@ -25,7 +25,7 @@
                         @endcan
                     </div>
                 </div>
-                <!-- Modal de creacion -->
+
                 <div class="content-wrapper">
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">

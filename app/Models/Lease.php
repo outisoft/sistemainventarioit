@@ -27,6 +27,11 @@ class Lease extends Model
         return $this->hasMany(Equipo::class);
     }
 
+    public function complements()
+    {
+        return $this->hasMany(Complement::class);
+    }
+
     public function getStatus()
     {
         // Si no hay fecha de expiración, la licencia es permanente (Activa)

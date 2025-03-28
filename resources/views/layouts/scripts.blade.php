@@ -15,10 +15,6 @@
     }
 </style>
 
-
-
-
-
 <!--new DataTable('#offices');-->
 <script>
     $('#officees').DataTable({
@@ -54,7 +50,7 @@
                 className: 'btn btn-ico',
                 filename: 'Equipos',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -63,7 +59,7 @@
                 className: 'btn btn-ico',
                 filename: 'Equipos',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -114,7 +110,7 @@
                 className: 'btn btn-ico',
                 filename: 'Empleados',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
+                    columns: ':not(:last-child)'
                 }
             },
             {
@@ -123,7 +119,7 @@
                 className: 'btn btn-ico',
                 filename: 'Empleados',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4]
+                    columns: ':not(:last-child)'
                 }
             }
 
@@ -152,7 +148,7 @@
                 className: 'btn btn-ico',
                 filename: 'Complementos',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -161,7 +157,7 @@
                 className: 'btn btn-ico',
                 filename: 'Complementos',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -190,7 +186,7 @@
                 className: 'btn btn-ico',
                 filename: 'Telefonos',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -199,7 +195,7 @@
                 className: 'btn btn-ico',
                 filename: 'Telefonos',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -228,7 +224,7 @@
                 className: 'btn btn-ico',
                 filename: 'Licencias',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -237,7 +233,7 @@
                 className: 'btn btn-ico',
                 filename: 'Licencias',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -265,7 +261,7 @@
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -273,7 +269,7 @@
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
                 className: 'btn btn-ico',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -302,7 +298,7 @@
                 className: 'btn btn-ico',
                 filename: 'Switchs',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -311,7 +307,7 @@
                 className: 'btn btn-ico',
                 filename: 'Switchs',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -340,7 +336,7 @@
                 className: 'btn btn-ico',
                 filename: 'Desktops',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -349,7 +345,7 @@
                 className: 'btn btn-ico',
                 filename: 'Desktops',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -378,7 +374,7 @@
                 className: 'btn btn-ico',
                 filename: 'Impresoras',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -387,7 +383,7 @@
                 className: 'btn btn-ico',
                 filename: 'Impresoras',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -416,7 +412,7 @@
                 className: 'btn btn-ico',
                 filename: 'Laptops',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -425,7 +421,7 @@
                 className: 'btn btn-ico',
                 filename: 'Laptops',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -454,7 +450,7 @@
                 className: 'btn btn-ico',
                 filename: 'Tabs',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -463,7 +459,7 @@
                 className: 'btn btn-ico',
                 filename: 'Tabs',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -533,7 +529,7 @@
                 className: 'btn btn-ico',
                 filename: 'Asignacion',
                 exportOptions: {
-                    columns: [0, 1, 2] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -542,7 +538,7 @@
                 className: 'btn btn-ico',
                 filename: 'Asignacion',
                 exportOptions: {
-                    columns: [0, 1, 2] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -571,9 +567,7 @@
                 className: 'btn btn-ico',
                 filename: 'Tabletas',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-                        16
-                    ] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -582,9 +576,7 @@
                 className: 'btn btn-ico',
                 filename: 'Tabletas',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-                        16
-                    ] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -613,7 +605,7 @@
                 className: 'btn btn-ico',
                 filename: 'Leases',
                 exportOptions: {
-                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -622,12 +614,98 @@
                 className: 'btn btn-ico',
                 filename: 'Leases',
                 exportOptions: {
-                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
         ]
 
+    });
+</script>
+
+<!--new DataTable('#lease_info');-->
+<script>
+    new DataTable('#lease_info', {
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
+                className: 'btn btn-ico',
+                filename: 'Lease_Info',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
+                className: 'btn btn-ico',
+                filename: 'Lease_Info',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            }
+        ],
+        columnDefs: [{
+            searchable: false,
+            targets: [-1] // Deshabilita el filtrado en la última columna
+        }],
+        initComplete: function() {
+            const api = this.api();
+
+            // Agregar una fila adicional para los filtros de búsqueda
+            $('#lease_info thead').append('<tr></tr>');
+            api.columns().every(function(index) {
+                let column = this;
+
+                // Verificar si la columna es filtrable
+                if (column.settings()[0].aoColumns[index].bSearchable === false) {
+                    // Si no es filtrable, agregar una celda vacía
+                    $('#lease_info thead tr:eq(1)').append('<th></th>');
+                    return;
+                }
+
+                // Crear el filtro de búsqueda
+                let header = $('#lease_info thead tr:eq(1)');
+                let container = document.createElement('div');
+                container.innerHTML = `
+                    <select id="smallSelect_${index}" class="form-select form-select-sm">
+                        <option value="">Select</option>
+                    </select>
+                `;
+                header.append(`<th>${container.innerHTML}</th>`);
+
+                let select = header.find(`#smallSelect_${index}`);
+
+                // Aplicar listener para cambios en el valor del select
+                select.on('change', function() {
+                    column
+                        .search($(this).val(), {
+                            exact: true
+                        })
+                        .draw();
+                });
+
+                // Agregar opciones al select
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function(d, j) {
+                        select.append(`<option value="${d}">${d}</option>`);
+                    });
+            });
+        }
     });
 </script>
 
@@ -651,7 +729,7 @@
                 className: 'btn btn-ico',
                 filename: 'Villas',
                 exportOptions: {
-                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -660,7 +738,7 @@
                 className: 'btn btn-ico',
                 filename: 'Villas',
                 exportOptions: {
-                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -689,7 +767,7 @@
                 className: 'btn btn-ico',
                 filename: 'Rooms',
                 exportOptions: {
-                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -698,7 +776,7 @@
                 className: 'btn btn-ico',
                 filename: 'Rooms',
                 exportOptions: {
-                    columns: [0, 1] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
@@ -727,7 +805,7 @@
                 className: 'btn btn-ico',
                 filename: 'TPVs',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             },
             {
@@ -736,7 +814,7 @@
                 className: 'btn btn-ico',
                 filename: 'TPVs',
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // Exporta solo las columnas 0, 1 y 2
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
                 }
             }
 
