@@ -155,8 +155,9 @@
                                                         SIN ASIGNAR
                                                     </td>
                                                     <td>
-                                                        {{ $tpv->departments->name }} /
-                                                        {{ $tpv->hotel->name }}
+
+                                                        {{ $tpv->hotel->name }} -
+                                                        {{ $tpv->departments->name }}
                                                     </td>
                                                     <td>{{ $tpv->brand }}</td>
                                                     <td>{{ $tpv->model }}</td>
