@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Empleado;
 use App\Models\Equipo;
-use App\Models\Coming2;
 use App\Models\User;
 use App\Models\Tipo;
 use App\Models\Tpv;
@@ -92,7 +91,6 @@ class HomeController extends Controller
         ];
 
         // Obtén el total de elementos
-        $totalComing2 = Coming2::count();
         $totalEmpleados = Empleado::count();
         $totalEquipos = Equipo::count();
         $totalUsuarios = User::count();
@@ -247,6 +245,6 @@ class HomeController extends Controller
         return view('home', compact( 'totalPhones', 'officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
         'officeActivas', 'adobeActivas', 'autocadActivas', 'sketchupActivas',
         'officeVencidas', 'adobeVencidas', 'autocadVencidas', 'sketchupVencidas',
-        'totalLicencias', 'totalActivas', 'totalVencidas', 'totalPhone', 'totalWacom', 'totalTicket', 'totalKeyboard', 'totalScanner', 'totalBreack', 'totalMouse', 'totalMonitor', 'totalCharger', 'totalOther', 'totalTablet', 'totalPrinter', 'totalDesktops', 'totalLaptops', 'userHotelsCount', 'officeCount', 'adobeCount', 'totalAps','totalSw','totalComing2','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
+        'totalLicencias', 'totalActivas', 'totalVencidas', 'totalPhone', 'totalWacom', 'totalTicket', 'totalKeyboard', 'totalScanner', 'totalBreack', 'totalMouse', 'totalMonitor', 'totalCharger', 'totalOther', 'totalTablet', 'totalPrinter', 'totalDesktops', 'totalLaptops', 'userHotelsCount', 'officeCount', 'adobeCount', 'totalAps','totalSw','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
     }
 }
