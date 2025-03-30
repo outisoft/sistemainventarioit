@@ -59,30 +59,9 @@
                             </div>
                         </div>
 
-                        <!-- coming2 / TPVS -->
+                        <!-- Users / tpv -->
                         <div class="swiper-slide">
                             <div class="row">
-                                <!-- coming2 -->
-                                @can('coming2.index')
-                                    <div class="col-6 mb-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="card-title d-flex align-items-start justify-content-between">
-                                                    <div class="avatar flex-shrink-0">
-                                                        <i class='bx bx-tab bx-lg rounded'
-                                                            style="font-size: 2rem; color: #b5a160;"></i>
-                                                    </div>
-                                                </div>
-                                                <span class="fw-semibold d-block mb-1">Coming2</span>
-                                                <h3 class="card-title text-nowrap mb-2">{{ $totalComing2 }}</h3>
-                                                <small class="text-primary fw-semibold"> <a
-                                                        href="{{ route('coming2.index') }}">Show<i
-                                                            class='bx bx-right-arrow-alt'></i></a></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endcan
-
                                 <!-- TPVS -->
                                 @can('tpvs.index')
                                     <div class="col-6 mb-4">
@@ -103,12 +82,7 @@
                                         </div>
                                     </div>
                                 @endcan
-                            </div>
-                        </div>
 
-                        <!-- Users / ** -->
-                        <div class="swiper-slide">
-                            <div class="row">
                                 <!-- Users -->
                                 @can('users.index')
                                     <div class="col-6 mb-4">
@@ -217,8 +191,7 @@
                                                 </div>
                                                 <span class="fw-semibold d-block mb-1">Radios</span>
                                                 <h3 class="card-title mb-2">0</h3>
-                                                <small class="text-primary fw-semibold"> <a
-                                                        href="#">Show<i
+                                                <small class="text-primary fw-semibold"> <a href="#">Show<i
                                                             class='bx bx-right-arrow-alt'></i></a></small>
                                             </div>
                                         </div>
@@ -237,333 +210,333 @@
         <div class="row">
             <!-- EQUIPMENTS TOTAL -->
             @can('equipo.index')
-            <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center justify-content-between pb-0">
-                        <div class="card-title mb-0">
-                            <h5 class="m-0 me-2">Total Equipments</h5>
-                            <small class="text-muted">{{ $totalEquipos }} Total Equipments</small>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div class="d-flex flex-column align-items-center gap-1">
-                                <h2 class="mb-2">{{ $totalEquipos }}</h2>
-                                <span>Total Equipments</span>
+                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center justify-content-between pb-0">
+                            <div class="card-title mb-0">
+                                <h5 class="m-0 me-2">Total Equipments</h5>
+                                <small class="text-muted">{{ $totalEquipos }} Total Equipments</small>
                             </div>
-                            <div id="orderStatisticsChart"></div>
                         </div>
-                        <ul class="p-0 m-0">
-                            @can('desktops.index')
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-primary">
-                                        <i class='bx bx-hdd'></i>
-                                    </span>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex flex-column align-items-center gap-1">
+                                    <h2 class="mb-2">{{ $totalEquipos }}</h2>
+                                    <span>Total Equipments</span>
                                 </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <h6 class="mb-0">Desktop(s)</h6>
-                                        <small class="text-muted">Totals</small>
-                                    </div>
-                                    <div class="user-progress">
-                                        <small class="fw-semibold">#{{ $totalDesktops }}</small>
-                                    </div>
-                                </div>
-                            </li>
-                            @endcan
+                                <div id="orderStatisticsChart"></div>
+                            </div>
+                            <ul class="p-0 m-0">
+                                @can('desktops.index')
+                                    <li class="d-flex mb-4 pb-1">
+                                        <div class="avatar flex-shrink-0 me-3">
+                                            <span class="avatar-initial rounded bg-label-primary">
+                                                <i class='bx bx-hdd'></i>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div class="me-2">
+                                                <h6 class="mb-0">Desktop(s)</h6>
+                                                <small class="text-muted">Totals</small>
+                                            </div>
+                                            <div class="user-progress">
+                                                <small class="fw-semibold">#{{ $totalDesktops }}</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endcan
 
-                            @can('laptops.index')
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-success">
-                                        <i class='bx bx-laptop'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <h6 class="mb-0">Laptop(s)</h6>
-                                        <small class="text-muted">Totals</small>
-                                    </div>
-                                    <div class="user-progress">
-                                        <small class="fw-semibold">#{{ $totalLaptops }}</small>
-                                    </div>
-                                </div>
-                            </li>
-                            @endcan
+                                @can('laptops.index')
+                                    <li class="d-flex mb-4 pb-1">
+                                        <div class="avatar flex-shrink-0 me-3">
+                                            <span class="avatar-initial rounded bg-label-success">
+                                                <i class='bx bx-laptop'></i>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div class="me-2">
+                                                <h6 class="mb-0">Laptop(s)</h6>
+                                                <small class="text-muted">Totals</small>
+                                            </div>
+                                            <div class="user-progress">
+                                                <small class="fw-semibold">#{{ $totalLaptops }}</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endcan
 
-                            @can('other.index')
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-danger">
-                                        <i class='bx bx-dots-horizontal-rounded'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <h6 class="mb-0">Other(s)</h6>
-                                        <small class="text-muted">Totals</small>
-                                    </div>
-                                    <div class="user-progress">
-                                        <small class="fw-semibold">#{{ $totalOther }}</small>
-                                    </div>
-                                </div>
-                            </li>
-                            @endcan
+                                @can('other.index')
+                                    <li class="d-flex mb-4 pb-1">
+                                        <div class="avatar flex-shrink-0 me-3">
+                                            <span class="avatar-initial rounded bg-label-danger">
+                                                <i class='bx bx-dots-horizontal-rounded'></i>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div class="me-2">
+                                                <h6 class="mb-0">Other(s)</h6>
+                                                <small class="text-muted">Totals</small>
+                                            </div>
+                                            <div class="user-progress">
+                                                <small class="fw-semibold">#{{ $totalOther }}</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endcan
 
-                            @can('mobile.index')
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-warning">
-                                        <i class="bx bx-mobile-alt"></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <h6 class="mb-0">Mobile(s)</h6>
-                                        <small class="text-muted">Totals</small>
-                                    </div>
-                                    <div class="user-progress">
-                                        <small class="fw-semibold">#{{ $totalPhone }}</small>
-                                    </div>
-                                </div>
-                            </li>
-                            @endcan
+                                @can('mobile.index')
+                                    <li class="d-flex mb-4 pb-1">
+                                        <div class="avatar flex-shrink-0 me-3">
+                                            <span class="avatar-initial rounded bg-label-warning">
+                                                <i class="bx bx-mobile-alt"></i>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div class="me-2">
+                                                <h6 class="mb-0">Mobile(s)</h6>
+                                                <small class="text-muted">Totals</small>
+                                            </div>
+                                            <div class="user-progress">
+                                                <small class="fw-semibold">#{{ $totalPhone }}</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endcan
 
-                            @can('printers.index')
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-info">
-                                        <i class='bx bx-printer'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <h6 class="mb-0">Printer(s)</h6>
-                                        <small class="text-muted">Totals</small>
-                                    </div>
-                                    <div class="user-progress">
-                                        <small class="fw-semibold">#{{ $totalPrinter }}</small>
-                                    </div>
-                                </div>
-                            </li>
-                            @endcan
+                                @can('printers.index')
+                                    <li class="d-flex mb-4 pb-1">
+                                        <div class="avatar flex-shrink-0 me-3">
+                                            <span class="avatar-initial rounded bg-label-info">
+                                                <i class='bx bx-printer'></i>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div class="me-2">
+                                                <h6 class="mb-0">Printer(s)</h6>
+                                                <small class="text-muted">Totals</small>
+                                            </div>
+                                            <div class="user-progress">
+                                                <small class="fw-semibold">#{{ $totalPrinter }}</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endcan
 
-                            @can('tabs.index')
-                            <li class="d-flex">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-secondary">
-                                        <i class='bx bx-tab'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <h6 class="mb-0">Tablet(s)</h6>
-                                        <small class="text-muted">Totals</small>
-                                    </div>
-                                    <div class="user-progress">
-                                        <small class="fw-semibold">#{{ $totalTablet }}</small>
-                                    </div>
-                                </div>
-                            </li>
-                            @endcan
-                        </ul>
+                                @can('tabs.index')
+                                    <li class="d-flex">
+                                        <div class="avatar flex-shrink-0 me-3">
+                                            <span class="avatar-initial rounded bg-label-secondary">
+                                                <i class='bx bx-tab'></i>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div class="me-2">
+                                                <h6 class="mb-0">Tablet(s)</h6>
+                                                <small class="text-muted">Totals</small>
+                                            </div>
+                                            <div class="user-progress">
+                                                <small class="fw-semibold">#{{ $totalTablet }}</small>
+                                            </div>
+                                        </div>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </div>
                     </div>
+                    <!--/ EQUIPMENTS TOTAL -->
                 </div>
-                <!--/ EQUIPMENTS TOTAL -->
-            </div>
             @endcan
 
             <!-- COMPLEMENTS -->
             @can('complements.index')
-            <div class="col-md-6 col-lg-4 order-2 mb-4">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="card-title m-0 me-2">Complement(s)</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="p-0 m-0">
+                <div class="col-md-6 col-lg-4 order-2 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5 class="card-title m-0 me-2">Complement(s)</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="p-0 m-0">
 
-                            <!--CHARGER-->
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-primary">
-                                        <i class='bx bx-plug'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Totals</small>
-                                        <h6 class="mb-0">Charger(s)</h6>
+                                <!--CHARGER-->
+                                <li class="d-flex mb-4 pb-1">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-primary">
+                                            <i class='bx bx-plug'></i>
+                                        </span>
                                     </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">#</h6>
-                                        <span class="text-muted">{{ $totalCharger }}</span>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <small class="text-muted d-block mb-1">Totals</small>
+                                            <h6 class="mb-0">Charger(s)</h6>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0">#</h6>
+                                            <span class="text-muted">{{ $totalCharger }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
 
-                            <!--MONITORS-->
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-info">
-                                        <i class='bx bx-desktop'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Totals</small>
-                                        <h6 class="mb-0">Monitor(s)</h6>
+                                <!--MONITORS-->
+                                <li class="d-flex mb-4 pb-1">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-info">
+                                            <i class='bx bx-desktop'></i>
+                                        </span>
                                     </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">#</h6>
-                                        <span class="text-muted">{{ $totalMonitor }}</span>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <small class="text-muted d-block mb-1">Totals</small>
+                                            <h6 class="mb-0">Monitor(s)</h6>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0">#</h6>
+                                            <span class="text-muted">{{ $totalMonitor }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
 
-                            <!--MOUSE-->
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-danger">
-                                        <i class='bx bx-mouse-alt'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Totals</small>
-                                        <h6 class="mb-0">Mouse(s)</h6>
+                                <!--MOUSE-->
+                                <li class="d-flex mb-4 pb-1">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-danger">
+                                            <i class='bx bx-mouse-alt'></i>
+                                        </span>
                                     </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">#</h6>
-                                        <span class="text-muted">{{ $totalMouse }}</span>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <small class="text-muted d-block mb-1">Totals</small>
+                                            <h6 class="mb-0">Mouse(s)</h6>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0">#</h6>
+                                            <span class="text-muted">{{ $totalMouse }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
 
-                            <!--NO BREACK-->
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-warning">
-                                        <i class='bx bxs-car-battery'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Totals</small>
-                                        <h6 class="mb-0">No breack</h6>
+                                <!--NO BREACK-->
+                                <li class="d-flex mb-4 pb-1">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-warning">
+                                            <i class='bx bxs-car-battery'></i>
+                                        </span>
                                     </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">#</h6>
-                                        <span class="text-muted">{{ $totalBreack }}</span>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <small class="text-muted d-block mb-1">Totals</small>
+                                            <h6 class="mb-0">No breack</h6>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0">#</h6>
+                                            <span class="text-muted">{{ $totalBreack }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
 
-                            <!--SCANNER-->
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-success">
-                                        <i class='bx bx-scan'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Totals</small>
-                                        <h6 class="mb-0">Scanner</h6>
+                                <!--SCANNER-->
+                                <li class="d-flex mb-4 pb-1">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-success">
+                                            <i class='bx bx-scan'></i>
+                                        </span>
                                     </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">#</h6>
-                                        <span class="text-muted">{{ $totalScanner }}</span>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <small class="text-muted d-block mb-1">Totals</small>
+                                            <h6 class="mb-0">Scanner</h6>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0">#</h6>
+                                            <span class="text-muted">{{ $totalScanner }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
 
-                            <!--KEYBOARD-->
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-secondary">
-                                        <i class='bx bxs-keyboard'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Totals</small>
-                                        <h6 class="mb-0">Keyboard</h6>
+                                <!--KEYBOARD-->
+                                <li class="d-flex mb-4 pb-1">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-secondary">
+                                            <i class='bx bxs-keyboard'></i>
+                                        </span>
                                     </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">#</h6>
-                                        <span class="text-muted">{{ $totalKeyboard }}</span>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <small class="text-muted d-block mb-1">Totals</small>
+                                            <h6 class="mb-0">Keyboard</h6>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0">#</h6>
+                                            <span class="text-muted">{{ $totalKeyboard }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
 
-                            <!--TICKET-->
-                            <li class="d-flex mb-4 pb-1">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-info">
-                                        <i class='bx bxs-printer'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Totals</small>
-                                        <h6 class="mb-0">Ticket</h6>
+                                <!--TICKET-->
+                                <li class="d-flex mb-4 pb-1">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-info">
+                                            <i class='bx bxs-printer'></i>
+                                        </span>
                                     </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">#</h6>
-                                        <span class="text-muted">{{ $totalTicket }}</span>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <small class="text-muted d-block mb-1">Totals</small>
+                                            <h6 class="mb-0">Ticket</h6>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0">#</h6>
+                                            <span class="text-muted">{{ $totalTicket }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
 
-                            <!--WACOM-->
-                            <li class="d-flex">
-                                <div class="avatar flex-shrink-0 me-3">
-                                    <span class="avatar-initial rounded bg-label-primary">
-                                        <i class='bx bx-edit'></i>
-                                    </span>
-                                </div>
-                                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                                    <div class="me-2">
-                                        <small class="text-muted d-block mb-1">Totals</small>
-                                        <h6 class="mb-0">Wacom</h6>
+                                <!--WACOM-->
+                                <li class="d-flex">
+                                    <div class="avatar flex-shrink-0 me-3">
+                                        <span class="avatar-initial rounded bg-label-primary">
+                                            <i class='bx bx-edit'></i>
+                                        </span>
                                     </div>
-                                    <div class="user-progress d-flex align-items-center gap-1">
-                                        <h6 class="mb-0">#</h6>
-                                        <span class="text-muted">{{ $totalWacom }}</span>
+                                    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                        <div class="me-2">
+                                            <small class="text-muted d-block mb-1">Totals</small>
+                                            <h6 class="mb-0">Wacom</h6>
+                                        </div>
+                                        <div class="user-progress d-flex align-items-center gap-1">
+                                            <h6 class="mb-0">#</h6>
+                                            <span class="text-muted">{{ $totalWacom }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
             @endcan
             <!--/ COMPLEMENTS -->
 
             <!-- LICENSES -->
             @can('licenses.index')
-            <div class="col-md-6 col-lg-4 order-1 mb-4">
-                <div class="card h-100">
-                    <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="card-title m-0 me-2">Licenses</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row justify-content-between mb-5">
-                            <div class="col-6">
-                                <p class="mb-0">Licenses by type and status</p>
-                            </div>
-                            <div class="col-6">
-                                <p class="mb-0 text-end">Totals: {{ $totalLicencias }}</p>
-                            </div>
+                <div class="col-md-6 col-lg-4 order-1 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header d-flex align-items-center justify-content-between">
+                            <h5 class="card-title m-0 me-2">Licenses</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-between mb-5">
+                                <div class="col-6">
+                                    <p class="mb-0">Licenses by type and status</p>
+                                </div>
+                                <div class="col-6">
+                                    <p class="mb-0 text-end">Totals: {{ $totalLicencias }}</p>
+                                </div>
 
-                            <canvas id="licenciasRadarChart" style="min-height: 325px;"></canvas>
+                                <canvas id="licenciasRadarChart" style="min-height: 325px;"></canvas>
+                            </div>
                         </div>
                     </div>
+                    <!--/ LICENSES -->
                 </div>
-                <!--/ LICENSES -->
-            </div>
             @endcan
 
         </div>
