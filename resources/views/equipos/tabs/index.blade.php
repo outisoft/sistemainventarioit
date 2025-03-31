@@ -47,6 +47,7 @@
                                 <th>BRAND</th>
                                 <th>MODEL</th>
                                 <th>SERIAL</th>
+                                <th>LOCATION</th>
                                 <th>POLICY</th>
                                 <th>LEASE?</th>
                                 <th>STATUS</th>
@@ -68,6 +69,14 @@
                                     <td>{{ $equipo->marca }}</td>
                                     <td>{{ $equipo->model }}</td>
                                     <td>{{ $equipo->serial }}</td>
+                                    <td>
+                                        @if ($equipo->empleados->isNotEmpty() && $equipo->empleados->first()->hotel)
+                                            {{ $equipo->empleados->first()->hotel->name }} -
+                                            {{ optional($equipo->empleados->first()->departments)->name }}
+                                        @else
+                                            HOTEL NO ASIGNADO
+                                        @endif
+                                    </td>
                                     <td>{{ $equipo->policy->name }}</td>
                                     <td>
                                         @if ($equipo->lease_id && $equipo->lease)
