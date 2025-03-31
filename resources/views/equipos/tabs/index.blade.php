@@ -74,7 +74,7 @@
                                             {{ $equipo->empleados->first()->hotel->name }} -
                                             {{ optional($equipo->empleados->first()->departments)->name }}
                                         @else
-                                            HOTEL NO ASIGNADO
+                                            NO ASIGNADO
                                         @endif
                                     </td>
                                     <td>{{ $equipo->policy->name }}</td>

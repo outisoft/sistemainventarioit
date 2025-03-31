@@ -49,6 +49,7 @@
                                 <th>Model</th>
                                 <th>Serial</th>
                                 <th>IP</th>
+                                <th>LOCATION</th>
                                 <th>LEASE?</th>
                                 <th>Status</th>
                                 <th>Actions</th>
@@ -70,6 +71,14 @@
                                     <td>{{ $equipo->model }}</td>
                                     <td>{{ $equipo->serial }}</td>
                                     <td>{{ $equipo->ip }}</td>
+                                    <td>
+                                        @if ($equipo->empleados->isNotEmpty() && $equipo->empleados->first()->hotel)
+                                            {{ $equipo->empleados->first()->hotel->name }} -
+                                            {{ optional($equipo->empleados->first()->departments)->name }}
+                                        @else
+                                            NO ASIGNADO
+                                        @endif
+                                    </td>
                                     <td>
                                         @if ($equipo->lease_id && $equipo->lease)
                                             <div>
