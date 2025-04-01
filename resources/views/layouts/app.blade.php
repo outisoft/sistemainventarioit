@@ -40,16 +40,16 @@
 
     <!--Charts-Graficas-->
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" nonce="{{ csp_nonce() }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" nonce="{{ csp_nonce() }}"></script>
 
     <!-- Helpers -->
-    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}" nonce="{{ csp_nonce() }}"></script>
 
     <!--Datatables-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('assets/js/config.js') }}"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" nonce="{{ csp_nonce() }}"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" nonce="{{ csp_nonce() }}"></script>
+    <script src="{{ asset('assets/js/config.js') }}" nonce="{{ csp_nonce() }}"></script>
 
     @livewireStyles
 
@@ -106,9 +106,10 @@
     <!-- / Layout wrapper -->
 
     <!-- Swiper JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js" nonce="{{ csp_nonce() }}"></script>
 
-    <script src="https://cdn.jsdelivr.net/gh/livewire/livewire@v3.x.x/dist/livewire.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/livewire/livewire@v3.x.x/dist/livewire.js" nonce="{{ csp_nonce() }}">
+    </script>
     @livewireScripts
 </body>
 @yield('js')
