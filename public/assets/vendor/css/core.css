@@ -466,6 +466,7 @@ th {
 
 label {
     display: inline-block;
+    margin-left: 1%;
 }
 
 button {

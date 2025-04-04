@@ -627,17 +627,22 @@
 <!--new DataTable('#lease_info');-->
 <script>
     new DataTable('#lease_info', {
-        "pageLength": 100,
+        "pageLength": 10, // Configuración de la cantidad de filas por página
         "lengthMenu": [
-            [10, 25, 50, -1],
-            [10, 25, 50, "Todos"]
+            [10, 25, 50, 100, -1], // Opciones de cantidad de filas
+            [10, 25, 50, 100, "Todos"]
         ],
         language: {
             search: '_INPUT_',
-            searchPlaceholder: 'Search...'
+            searchPlaceholder: 'Search...',
         },
         "info": false,
-        dom: 'Bfrtip',
+        dom: 'lBfrtip', // Incluye 'l' para mostrar el menú desplegable de longitud de página
+        layout: {
+            topStart: {
+                buttons: ['colvis'] // Agregar botón de visibilidad de columnas
+            }
+        },
         buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
