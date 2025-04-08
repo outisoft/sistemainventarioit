@@ -105,51 +105,6 @@ class HomeController extends Controller
 
         $hora_actual = Carbon::now()->format('H:i:s A');
 
-        $tpvPorDepartamento = Tpv::select('hotel_id', DB::raw('COUNT(*) as total_tpvs'))
-            ->groupBy('hotel_id')
-            ->get();
-
-        $tpvsPorDepartamento = DB::table('tpvs')
-            ->join('hotels', 'tpvs.hotel_id', '=', 'hotels.id')
-            ->select('hotels.name as hotel', DB::raw('count(*) as cantidad_tpvs'))
-            ->groupBy('hotels.name')
-            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $user = auth()->user();
-                $regionIds = $user->regions()->pluck('region_id');
-                $query->whereIn('hotels.region_id', $regionIds);
-            })
-            ->get();
-
-        $datosLap = DB::table('hotels')
-            ->select('hotels.name as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
-            ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
-            ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
-            ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
-            ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
-            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $user = auth()->user();
-                $regionIds = $user->regions()->pluck('region_id');
-                $query->whereIn('hotels.region_id', $regionIds);
-            })
-            ->whereIn('tipos.name', ['laptop'])
-            ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
-            ->get();
-        
-        $datosCPU = DB::table('hotels')
-            ->select('hotels.name as hotel', DB::raw('COUNT(empleados.id) as empleados'), 'tipos.name as tipo_equipo', DB::raw('COUNT(equipos.id) as cantidad_equipos'))
-            ->leftJoin('empleados', 'hotels.id', '=', 'empleados.hotel_id')
-            ->leftJoin('empleado_equipo', 'empleados.id', '=', 'empleado_equipo.empleado_id')
-            ->leftJoin('equipos', 'empleado_equipo.equipo_id', '=', 'equipos.id')
-            ->leftJoin('tipos', 'equipos.tipo_id', '=', 'tipos.id')
-            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
-                $user = auth()->user();
-                $regionIds = $user->regions()->pluck('region_id');
-                $query->whereIn('hotels.region_id', $regionIds);
-            })
-            ->whereIn('tipos.name', ['DESKTOP'])
-            ->groupBy('hotels.name', 'hotels.id', 'tipo_equipo')
-            ->get();
-
         $officeCount = License::where('type_id', 11)->count(); // Office
         $adobeCount = License::where('type_id', 15)->count(); // Adobe
         //$autocadCount = License::where('type_id', 3)->count(); // AutoCAD
@@ -241,10 +196,101 @@ class HomeController extends Controller
         $totalActivas = $officeActivas + $adobeActivas + $autocadActivas + $sketchupActivas;
         $totalVencidas = $officeVencidas + $adobeVencidas + $autocadVencidas + $sketchupVencidas;
 
+        // Verificar si el usuario tiene el rol "Administrator"
+        $isAdmin = auth()->user()->hasRole('Administrator'); // Suponiendo que usas un paquete como Spatie Roles & Permissions
+        $userRegions = auth()->user()->regions;
 
-        return view('home', compact( 'totalPhones', 'officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
+        if ($isAdmin) {
+            // Si es administrador, no filtrar por regiones
+            $hotels = DB::table('hotels')->pluck('id');
+        } else {
+            // Filtrar los hoteles según las regiones del usuario
+            $hotels = DB::table('hotels')
+                ->whereIn('region_id', $userRegions->pluck('id'))
+                ->pluck('id');
+        }
+
+        // Obtener el total de laptops asignadas por hotel
+        $laptopsPorHotel = DB::table('equipos')
+            ->join('empleado_equipo', 'equipos.id', '=', 'empleado_equipo.equipo_id')
+            ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
+            ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
+            ->where('equipos.tipo_id', '=', 4) // Suponiendo que el tipo_id = 4 es para laptops
+            ->whereIn('hotels.id', $hotels) // Filtrar por hoteles de las regiones del usuario o todos si es admin
+            ->select('hotels.name as hotel', DB::raw('COUNT(equipos.id) as total'))
+            ->groupBy('hotels.name')
+            ->get();
+
+        // Obtener el total de laptops en stock (no asignadas)
+        $laptopsEnStock = DB::table('equipos')
+            ->where('tipo_id', '=', 4) // Suponiendo que el tipo_id = 4 es para laptops
+            ->whereNotIn('id', function ($query) use ($hotels) {
+                $query->select('equipo_id')
+                    ->from('empleado_equipo')
+                    ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
+                    ->whereIn('empleados.hotel_id', $hotels); // Filtrar por hoteles de las regiones del usuario
+            })
+            ->count();
+
+        // Preparar datos para la gráfica
+        $laptopLabels = $laptopsPorHotel->pluck('hotel')->toArray();
+        $laptopData = $laptopsPorHotel->pluck('total')->toArray();
+
+        // Agregar la columna "Stock"
+        $laptopLabels[] = 'Stock';
+        $laptopData[] = $laptopsEnStock;
+
+        // Obtener el total de desktops asignadas por hotel
+        $desktopsPorHotel = DB::table('equipos')
+            ->join('empleado_equipo', 'equipos.id', '=', 'empleado_equipo.equipo_id')
+            ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
+            ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
+            ->where('equipos.tipo_id', '=', 3) // Suponiendo que el tipo_id = 3 es para desktops
+            ->whereIn('hotels.id', $hotels) // Filtrar por hoteles de las regiones del usuario o todos si es admin
+            ->select('hotels.name as hotel', DB::raw('COUNT(equipos.id) as total'))
+            ->groupBy('hotels.name')
+            ->get();
+
+        // Obtener el total de desktops en stock (no asignadas)
+        $desktopsEnStock = DB::table('equipos')
+            ->where('tipo_id', '=', 2) // Suponiendo que el tipo_id = 2 es para desktops
+            ->whereNotIn('id', function ($query) use ($hotels) {
+                $query->select('equipo_id')
+                    ->from('empleado_equipo')
+                    ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
+                    ->whereIn('empleados.hotel_id', $hotels); // Filtrar por hoteles de las regiones del usuario
+            })
+            ->count();
+
+        // Preparar datos para la gráfica de desktops
+        $desktopLabels = $desktopsPorHotel->pluck('hotel')->toArray();
+        $desktopData = $desktopsPorHotel->pluck('total')->toArray();
+
+        // Agregar la columna "Stock"
+        $desktopLabels[] = 'Stock';
+        $desktopData[] = $desktopsEnStock;
+
+        // Obtener las regiones asignadas al usuario
+        $userRegions = auth()->user()->regions;
+
+        // Contar el total de hoteles en todas las regiones del usuario
+        $totalHotels = DB::table('hotels')
+            ->whereIn('region_id', $userRegions->pluck('id'))
+            ->count();
+
+        // Determinar si se deben mostrar las gráficas
+        $showGraphs = $userRegions->count() > 1 || $totalHotels > 1;
+
+
+        return view('home', compact('showGraphs', 'desktopLabels', 'desktopData', 'laptopLabels', 'laptopData', 'totalPhones', 'officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
         'officeActivas', 'adobeActivas', 'autocadActivas', 'sketchupActivas',
         'officeVencidas', 'adobeVencidas', 'autocadVencidas', 'sketchupVencidas',
-        'totalLicencias', 'totalActivas', 'totalVencidas', 'totalPhone', 'totalWacom', 'totalTicket', 'totalKeyboard', 'totalScanner', 'totalBreack', 'totalMouse', 'totalMonitor', 'totalCharger', 'totalOther', 'totalTablet', 'totalPrinter', 'totalDesktops', 'totalLaptops', 'userHotelsCount', 'officeCount', 'adobeCount', 'totalAps','totalSw','datosLap', 'datosCPU', 'hora_actual', 'tpvsPorDepartamento', 'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 'labels', 'data', 'datos_grafica', 'total_laptops'));
+        'totalLicencias', 'totalActivas', 'totalVencidas', 'totalPhone', 'totalWacom', 
+        'totalTicket', 'totalKeyboard', 'totalScanner', 'totalBreack', 'totalMouse', 
+        'totalMonitor', 'totalCharger', 'totalOther', 'totalTablet', 'totalPrinter', 
+        'totalDesktops', 'totalLaptops', 'userHotelsCount', 'officeCount', 'adobeCount', 
+        'totalAps','totalSw', 'hora_actual', 
+        'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 
+        'labels', 'data', 'datos_grafica', 'total_laptops'));
     }
 }

@@ -5,7 +5,7 @@
             <h5 class="card-title mb-0">TOTAL DESKTOPS OF THE HOTELS {{ now()->format('Y') }}</h5>
         </div>
         <div class="card-body">
-            <div id="desktopsChart"></div>
+            <div id="desktopsBarChart"></div>
         </div>
     </div>
 </div>

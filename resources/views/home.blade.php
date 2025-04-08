@@ -3,7 +3,7 @@
     <div class="container-xxl flex-grow-1 container-p-y">
         <h5 class="mb-2">WELCOME BACK,<span class="h4"> {{ Auth::user()->name }}! 👋🏻</span></h5>
 
-        <!--Property Section Here-->
+        <!--Sliders-->
         <section id="property-section">
             <!--Property List Slider Her-->
             <div id="property-slider">
@@ -195,8 +195,9 @@
             <!--/Property List Slider Her-->
         </section>
         <br>
-        <!--/Property Section Here-->
+        <!--/sliders-->
 
+        <!--columns charts-->
         <div class="row">
             <!-- EQUIPMENTS TOTAL -->
             @can('equipo.index')
@@ -530,6 +531,14 @@
             @endcan
 
         </div>
+        <!--/columns charts-->
+
+        @if ($showGraphs)
+            <div class="row">
+                @include('partials-home.total_equipos_laptop')
+                @include('partials-home.total_equipos_cpu')
+            </div>
+        @endif
     </div>
 
 </x-app-layout>
@@ -605,7 +614,9 @@
     chart.render();
 </script>
 <!--/ EQUIPMENTS -->
-<!--/ LICENSES -->
+<!-- TOTAL DE QUIPOS POR OTEL DEL TIPO LAPTOP -->
+
+<!--/ TOTAL DE QUIPOS POR OTEL DEL TIPO LAPTOP -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -688,12 +699,12 @@
     var swiper = new Swiper('#property-slider .swiper', {
         // Optional parameters
         loop: true,
-        slidesPerView: 6, // Mostrar 6 tarjetas principales
+        slidesPerView: 1, // Mostrar 6 tarjetas principales
         spaceBetween: 30, // Espacio entre las tarjetas
         centeredSlides: false, // No centrar las tarjetas
         breakpoints: {
             640: {
-                slidesPerView: 2, // Mostrar 2 tarjetas en pantallas pequeñas
+                slidesPerView: 1, // Mostrar 2 tarjetas en pantallas pequeñas
                 spaceBetween: 10,
             },
             768: {
@@ -706,4 +717,120 @@
             },
         }
     });
+</script>
+
+<!-- Chart total de laptops por hotel -->
+<script>
+    // Datos para la gráfica
+    const laptopLabels = {!! json_encode($laptopLabels) !!}; // Hoteles + Stock
+    const laptopData = {!! json_encode($laptopData) !!}; // Totales por hotel + Stock
+
+    // Generar colores únicos para cada barra
+    const colors = ['#b5a160', '#604933', '#c5b87f', '#2f2119', '#dad3ae', '#8d7141'];
+
+    // Configuración de la gráfica
+    var options = {
+        series: [{
+            name: 'Total Laptops',
+            data: laptopData
+        }],
+        chart: {
+            type: 'bar',
+            height: 400
+        },
+        plotOptions: {
+            bar: {
+                distributed: true, // Colores diferentes para cada barra
+                horizontal: false, // Barras verticales
+                columnWidth: '50%' // Ancho de las barras
+            }
+        },
+        colors: colors, // Aplicar colores generados
+        dataLabels: {
+            enabled: true,
+            style: {
+                colors: ['#000'] // Color del texto de las etiquetas
+            }
+        },
+        xaxis: {
+            categories: laptopLabels, // Etiquetas de los hoteles + Stock
+            title: {
+                text: 'Hoteles'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Cantidad de Laptops'
+            }
+        },
+        title: {
+            text: 'Total de Laptops por Hotel y en Stock',
+            align: 'center'
+        },
+        legend: {
+            show: false // Ocultar leyenda ya que es una sola serie
+        }
+    };
+
+    // Renderizar la gráfica
+    var chart = new ApexCharts(document.querySelector("#laptopsBarChart"), options);
+    chart.render();
+</script>
+
+<!-- Chart total de desktops por hotel -->
+<script>
+    // Datos para la gráfica de desktops
+    const desktopLabels = {!! json_encode($desktopLabels) !!}; // Hoteles + Stock
+    const desktopData = {!! json_encode($desktopData) !!}; // Totales por hotel + Stock
+
+    // Generar colores únicos para cada barra
+    const desktopColors = ['#b5a160', '#604933', '#c5b87f', '#2f2119', '#dad3ae', '#8d7141'];
+
+    // Configuración de la gráfica de desktops
+    var desktopOptions = {
+        series: [{
+            name: 'Total Desktops',
+            data: desktopData
+        }],
+        chart: {
+            type: 'bar',
+            height: 400
+        },
+        plotOptions: {
+            bar: {
+                distributed: true, // Colores diferentes para cada barra
+                horizontal: false, // Barras verticales
+                columnWidth: '50%' // Ancho de las barras
+            }
+        },
+        colors: desktopColors, // Aplicar colores generados
+        dataLabels: {
+            enabled: true,
+            style: {
+                colors: ['#000'] // Color del texto de las etiquetas
+            }
+        },
+        xaxis: {
+            categories: desktopLabels, // Etiquetas de los hoteles + Stock
+            title: {
+                text: 'Hoteles'
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Cantidad de Desktops'
+            }
+        },
+        title: {
+            text: 'Total de Desktops por Hotel y en Stock',
+            align: 'center'
+        },
+        legend: {
+            show: false // Ocultar leyenda ya que es una sola serie
+        }
+    };
+
+    // Renderizar la gráfica de desktops
+    var desktopChart = new ApexCharts(document.querySelector("#desktopsBarChart"), desktopOptions);
+    desktopChart.render();
 </script>
