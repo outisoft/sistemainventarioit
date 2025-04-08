@@ -245,7 +245,7 @@ class HomeController extends Controller
             ->join('empleado_equipo', 'equipos.id', '=', 'empleado_equipo.equipo_id')
             ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
             ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
-            ->where('equipos.tipo_id', '=', 3) // Suponiendo que el tipo_id = 3 es para desktops
+            ->where('equipos.tipo_id', '=', 2) // Suponiendo que el tipo_id = 3 es para desktops
             ->whereIn('hotels.id', $hotels) // Filtrar por hoteles de las regiones del usuario o todos si es admin
             ->select('hotels.name as hotel', DB::raw('COUNT(equipos.id) as total'))
             ->groupBy('hotels.name')
