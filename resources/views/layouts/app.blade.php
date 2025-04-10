@@ -47,8 +47,7 @@
     <script src="{{ asset('assets/vendor/js/helpers.js') }}" nonce="{{ csp_nonce() }}"></script>
 
     <!--Datatables-->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" nonce="{{ csp_nonce() }}"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js" nonce="{{ csp_nonce() }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js" nonce="{{ csp_nonce() }}"></script>
     <script src="{{ asset('assets/js/config.js') }}" nonce="{{ csp_nonce() }}"></script>
 
     @livewireStyles
@@ -111,6 +110,19 @@
     <script src="https://cdn.jsdelivr.net/gh/livewire/livewire@v3.x.x/dist/livewire.js" nonce="{{ csp_nonce() }}">
     </script>
     @livewireScripts
+    <script nonce="{{ csp_nonce() }}">
+        $(document).ready(function() {
+            // Debug: Verifica que todo está cargado
+            console.log('jQuery version:', $.fn.jquery);
+            console.log('Bootstrap Modal:', typeof $.fn.modal !== 'undefined');
+
+            // Solución para modales con HTTPS
+            $(document).on('click', '[data-target="#modalCreate"]', function(e) {
+                e.preventDefault();
+                $('#modalCreate').modal('show');
+            });
+        });
+    </script>
 </body>
 @yield('js')
 @include('layouts.scripts')
