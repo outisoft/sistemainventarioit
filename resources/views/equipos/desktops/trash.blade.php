@@ -9,7 +9,7 @@
                         <a href="{{ route('equipo.index') }}">EQUIPMENTS</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="{{ route('laptops.index') }}">LAPTOP</a>
+                        <a href="{{ route('desktops.index') }}">DESKTOP</a>
                     </li>
                     <li class="breadcrumb-item active fw-bold">TRASH</li>
                 </ol>
@@ -84,7 +84,7 @@
                                                 <!--a-- href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#hojaBajaModal" data-id="{{ $equipment->id }}">
                                                     <i class='bx bx-spreadsheet'></i> Hoja de baja
                                                 </!--a-->
-                                                <form action="{{ route('laptops.restore', $equipment->id) }}" method="POST">
+                                                <form action="{{ route('desktops.restore', $equipment->id) }}" method="POST">
                                                     @csrf
                                                     <button type="submit" class="dropdown-item"><i class='bx bx-reset me-1'></i>Restaurar</button>
                                                 </form>

@@ -24,6 +24,11 @@
                     <h5 class="card-header">Desktops</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
+                            <a href="{{ url('desktops/trashes') }}" class="btn-ico">
+                                <i class="bx bx-trash icon-lg" data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                    data-bs-placement="top" class="assigned-item" aria-label="Trashes"
+                                    data-bs-original-title="Trashes"></i>
+                            </a>
                             @can('desktops.create')
                                 <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
                                     data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
@@ -122,7 +127,7 @@
                                                             @endcan
 
                                                             @can('desktops.destroy')
-                                                                <form action="{{ route('desktops.destroy', $equipo->id) }}"
+                                                                <form action="{{ route('desktops.trash', $equipo->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
