@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 
 class Equipo extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = ['tipo_id', 'marca', 'model', 'serial', 'name', 'ip', 'so', 'policy_id', 'email', 'key', 'nombre','orden', 'lease', 'lease_id', 'af_code', 'region_id'];
 

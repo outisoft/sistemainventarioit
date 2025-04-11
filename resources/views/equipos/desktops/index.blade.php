@@ -57,7 +57,6 @@
                                             <th>Name</th>
                                             <th>Ip</th>
                                             <th>SO</th>
-                                            <th>OC</th>
                                             <th>LEASE? OR AF CODE</th>
                                             <th>Status</th>
                                             <th></th>
@@ -80,7 +79,6 @@
                                                 <td>{{ $equipo->name }}</td>
                                                 <td>{{ $equipo->ip }}</td>
                                                 <td>{{ $equipo->so }}</td>
-                                                <td>{{ $equipo->orden }}</td>
                                                 <td>
                                                     @if ($equipo->lease_id && $equipo->lease)
                                                         <div>

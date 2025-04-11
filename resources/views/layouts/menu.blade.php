@@ -45,7 +45,7 @@
                 class="menu-item {{ Request::routeIs('mobiles.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.show') ? 'active' : '' }} || {{ Request::routeIs('other.index') ? 'active' : '' }} || {{ Request::routeIs('mobile.index') ? 'active' : '' }} || {{ Request::routeIs('tabs.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.index') ? 'active' : '' }} || {{ Request::routeIs('printers.index') ? 'active' : '' }} || {{ Request::routeIs('licenses.index') ? 'active' : '' }} || {{ Request::routeIs('equipo.index') ? 'active' : '' }} || 
             {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}
             {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.create') ? 'active' : '' }} || {{ Request::routeIs('tpvs.show') ? 'active' : '' }} || {{ Request::routeIs('tpvs.index') ? 'active' : '' }} || {{ Request::routeIs('tpvs.edit') ? 'active' : '' }}
-            {{ Request::routeIs('desktops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.show') ? 'active' : '' }} || {{ Request::routeIs('details') ? 'active' : '' }}">
+            {{ Request::routeIs('desktops.index') ? 'active' : '' }} || {{ Request::routeIs('complements.show') ? 'active' : '' }} || {{ Request::routeIs('details') ? 'active' : '' }} || {{ Request::routeIs('laptops.show') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class='menu-icon tf-icons bx bx-desktop'></i>
                     <div data-i18n="Layouts">Equipments</div>
@@ -83,7 +83,7 @@
                     @endcan
 
                     @can('laptops.index')
-                        <li class="menu-item {{ Request::routeIs('laptops.index') ? 'active' : '' }}">
+                        <li class="menu-item {{ Request::routeIs('laptops.index') ? 'active' : '' }} || {{ Request::routeIs('laptops.show') ? 'active' : '' }}">
                             <a href="{{ route('laptops.index') }}" class="menu-link">
                                 <i class='menu-icon tf-icons bx bx-laptop'></i>
                                 <div data-i18n="Without navbar">Laptops</div>
