@@ -29,6 +29,7 @@ return new class extends Migration
             $table->boolean('lease')->default(false);
             $table->uuid('lease_id')->nullable()->constrained('leases', 'id')->onDelete('cascade');
             $table->foreignId('region_id')->constrained();
+            $table->softDeletes(); 
             $table->timestamps();
         });
     }

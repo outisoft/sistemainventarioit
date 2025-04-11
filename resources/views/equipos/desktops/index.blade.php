@@ -24,6 +24,11 @@
                     <h5 class="card-header">Desktops</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
+                            <a href="{{ url('desktops/trashes') }}" class="btn-ico">
+                                <i class="bx bx-trash icon-lg" data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                    data-bs-placement="top" class="assigned-item" aria-label="Trashes"
+                                    data-bs-original-title="Trashes"></i>
+                            </a>
                             @can('desktops.create')
                                 <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
                                     data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
@@ -57,7 +62,6 @@
                                             <th>Name</th>
                                             <th>Ip</th>
                                             <th>SO</th>
-                                            <th>OC</th>
                                             <th>LEASE? OR AF CODE</th>
                                             <th>Status</th>
                                             <th></th>
@@ -80,7 +84,6 @@
                                                 <td>{{ $equipo->name }}</td>
                                                 <td>{{ $equipo->ip }}</td>
                                                 <td>{{ $equipo->so }}</td>
-                                                <td>{{ $equipo->orden }}</td>
                                                 <td>
                                                     @if ($equipo->lease_id && $equipo->lease)
                                                         <div>
@@ -124,7 +127,7 @@
                                                             @endcan
 
                                                             @can('desktops.destroy')
-                                                                <form action="{{ route('desktops.destroy', $equipo->id) }}"
+                                                                <form action="{{ route('desktops.trash', $equipo->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')

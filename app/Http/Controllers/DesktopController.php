@@ -16,7 +16,6 @@ class DesktopController extends Controller
         $this->middleware('can:desktops.index')->only('index');
         $this->middleware('can:desktops.create')->only('create', 'store');
         $this->middleware('can:desktops.edit')->only('edit', 'update');
-        $this->middleware('can:desktops.show')->only('show');
         $this->middleware('can:desktops.destroy')->only('destroy');
     }
 
@@ -61,7 +60,6 @@ class DesktopController extends Controller
                 'name' => 'required|unique:equipos,name',
                 'ip' => 'required|unique:equipos,ip',
                 'so' => 'required',
-                'orden' => 'required',
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
                 'af_code' => 'required_if:lease,0',
@@ -95,6 +93,29 @@ class DesktopController extends Controller
         }
     }
 
+    
+    public function show(Request $request)
+    {
+        $type = Tipo::where('name', 'DESKTOP')->first();
+
+        $equipments = Equipo::where('tipo_id', $type->id)
+            ->with(['region', 'leases'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
+            })
+            ->onlyTrashed()
+            ->get();
+
+        $userRegions = auth()->user()->regions;
+
+        return view('equipos.desktops.trash', compact('userRegions', 'equipments'));
+    }
+
     public function update(Request $request, $id)
     {
         $user = auth()->id();
@@ -106,7 +127,6 @@ class DesktopController extends Controller
                 'name' => 'required|unique:equipos,name,' . $id,
                 'ip' => 'required|unique:equipos,ip,' . $id,
                 'so' => 'required',
-                'orden' => 'required',
                 'region_id' => 'required',
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
@@ -153,24 +173,89 @@ class DesktopController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function trashes()
     {
-        $registro = Equipo::findOrFail($id);
-        $registro->delete();
+        $type = Tipo::where('name', 'DESKTOP')->first();
+
+        $equipments = Equipo::where('tipo_id', $type->id)
+            ->with(['region', 'leases'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
+            })
+            ->onlyTrashed()
+            ->get();
+
+        $userRegions = auth()->user()->regions;
+
+        return view('equipos.desktops.trash', compact('userRegions', 'equipments'));
+    }
+
+    public function trash($id)
+    {
+        $equipment = Equipo::findOrFail($id);
+        $equipment->delete();
 
         $user = auth()->id();
 
         Historial::create([
-            'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino el {$registro->tipo->name} ({$registro->name}) con S/N: {$registro->serial}",
+            'accion' => 'Trash',
+            'descripcion' => "Se envio la pc a la papelera con numero de serie {$equipment->serial}",
             'user_id' => $user,
-            'region_id' => $registro->region_id,
+            'region_id' => $equipment->region_id,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se elimino el {$registro->tipo->name}.");
-
+            ->addSuccess("Equipo eliminado.");
         return redirect()->route('desktops.index');
+    }
+
+    public function restore($id)
+    {
+        $equipment = Equipo::withTrashed()->findOrFail($id);
+        $equipment->restore();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Restore',
+            'descripcion' => "Se restauro de la papelera la pc con numero de serie {$equipment->serial}",
+            'user_id' => $user,
+            'region_id' => $equipment->region_id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Equipo restaurado correctamente.");
+        return redirect()->route('desktops.trashes');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $registro = Equipo::withTrashed()->findOrFail($id);
+            $registro->forceDelete();
+            $user = auth()->id();
+
+            Historial::create([
+                'accion' => 'Eliminacion',
+                'descripcion' => "Se elimino la pc de {$registro->name} con numero de serie {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
+
+            toastr()
+                ->timeOut(3000) // 3 segundos
+                ->addSuccess("Equipo {$registro->name} eliminado.");
+
+            return redirect()->route('desktops.trashes');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

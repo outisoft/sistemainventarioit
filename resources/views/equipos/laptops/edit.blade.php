@@ -116,17 +116,6 @@
                             <x-input-error :messages="$errors->get('so')" class="mt-2" />
                         </div>
 
-                        <!-- ORDEN DE COMPRA -->
-                        <div class="mb-3">
-                            <x-input-label class="form-label" for="orden{{ $equipo->orden }}" :value="__('ORDER')" />
-                            <div class="input-group input-group-merge">
-                                <x-text-input id="orden{{ $equipo->orden }}" class="form-control" type="text"
-                                    name="orden" placeholder="HP" value="{{ $equipo->orden }}" required
-                                    autocomplete="orden" />
-                            </div>
-                            <x-input-error :messages="$errors->get('orden')" class="mt-2" />
-                        </div>
-
                         <!-- lease -->
                         <div class="mb-3">
                             <x-input-label class="form-label" for="lease" :value="__('Is it lease?')" />

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Tipo;
 use App\Models\Equipo;
 use App\Models\Historial;
-use App\Models\Lease;
 use App\Models\Region;
+use App\Models\Lease;
 use Illuminate\Http\Request;
 
 class LaptopController extends Controller
@@ -16,7 +16,6 @@ class LaptopController extends Controller
         $this->middleware('can:laptops.index')->only('index');
         $this->middleware('can:laptops.create')->only('create', 'store');
         $this->middleware('can:laptops.edit')->only('edit', 'update');
-        $this->middleware('can:laptops.show')->only('show');
         $this->middleware('can:laptops.destroy')->only('destroy');
     }
 
@@ -60,7 +59,6 @@ class LaptopController extends Controller
                 'name' => 'required|unique:equipos,name',
                 'ip' => 'required|unique:equipos,ip',
                 'so' => 'required',
-                'orden' => 'required',
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
@@ -94,6 +92,28 @@ class LaptopController extends Controller
         }
     }
 
+    public function show(Request $request)
+    {
+        $type = Tipo::where('name', 'LAPTOP')->first();
+
+        $equipments = Equipo::where('tipo_id', $type->id)
+            ->with(['region', 'leases'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
+            })
+            ->onlyTrashed()
+            ->get();
+
+        $userRegions = auth()->user()->regions;
+
+        return view('equipos.laptops.trash', compact('userRegions', 'equipments'));
+    }
+
     public function update(Request $request, string $id)
     {
         try {
@@ -104,7 +124,6 @@ class LaptopController extends Controller
                 'name' => 'required|unique:equipos,name,' . $id,
                 'ip' => 'required|unique:equipos,ip,' . $id,
                 'so' => 'required',
-                'orden' => 'required',
                 'lease' => 'required|boolean',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
@@ -152,24 +171,89 @@ class LaptopController extends Controller
         }
     }
 
-    public function destroy(string $id)
+    public function trashes()
     {
-        $registro = Equipo::findOrFail($id);
-        $registro->delete();
+        $type = Tipo::where('name', 'LAPTOP')->first();
+
+        $equipments = Equipo::where('tipo_id', $type->id)
+            ->with(['region', 'leases'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
+            })
+            ->onlyTrashed()
+            ->get();
+
+        $userRegions = auth()->user()->regions;
+
+        return view('equipos.laptops.trash', compact('userRegions', 'equipments'));
+    }
+
+    public function trash($id)
+    {
+        $equipment = Equipo::findOrFail($id);
+        $equipment->delete();
 
         $user = auth()->id();
 
         Historial::create([
-            'accion' => 'Eliminacion',
-            'descripcion' => "Se elimino la {$registro->tipo->name} ({$registro->name}) con N/S: {$registro->serial}",
+            'accion' => 'Trash',
+            'descripcion' => "Se envio la laptop a la papelera con numero de serie {$equipment->serial}",
             'user_id' => $user,
-            'region_id' => $registro->region_id,
+            'region_id' => $equipment->region_id,
         ]);
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se elimino el {$registro->name}.");
-
+            ->addSuccess("Laptop eliminado.");
         return redirect()->route('laptops.index');
+    }
+
+    public function restore($id)
+    {
+        $equipment = Equipo::withTrashed()->findOrFail($id);
+        $equipment->restore();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Restore',
+            'descripcion' => "Se restauro de la papelera la laptop con numero de serie {$equipment->serial}",
+            'user_id' => $user,
+            'region_id' => $equipment->region_id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Equipo restaurado correctamente.");
+        return redirect()->route('laptops.trashes');
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $registro = Equipo::withTrashed()->findOrFail($id);
+            $registro->forceDelete();
+            $user = auth()->id();
+
+            Historial::create([
+                'accion' => 'Eliminacion',
+                'descripcion' => "Se elimino la laptop de {$registro->name} con numero de serie {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
+
+            toastr()
+                ->timeOut(3000) // 3 segundos
+                ->addSuccess("Tablet de {$registro->name} eliminado.");
+
+            return redirect()->route('laptop.trashes');
+        } catch (\Exception $e) {
+            return back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }

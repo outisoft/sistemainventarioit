@@ -18,6 +18,11 @@
                     <h5 class="card-header">Equipments list</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
+                            <a href="{{ url('laptops/trashes') }}" class="btn-ico">
+                                <i class="bx bx-trash icon-lg" data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                    data-bs-placement="top" class="assigned-item" aria-label="Trashes"
+                                    data-bs-original-title="Trashes"></i>
+                            </a>
                             @can('laptops.create')
                                 <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
                                     data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
@@ -51,7 +56,6 @@
                                 <th>NAME</th>
                                 <th>IP</th>
                                 <th>SO</th>
-                                <th>OC</th>
                                 <th>LEASE? OR AF CODE</th>
                                 <th>STATUS</th>
                                 <th></th>
@@ -75,7 +79,6 @@
                                     <td>{{ $equipo->name }}</td>
                                     <td>{{ $equipo->ip }}</td>
                                     <td>{{ $equipo->so }}</td>
-                                    <td>{{ $equipo->orden }}</td>
                                     <td>
                                         @if ($equipo->lease_id && $equipo->lease)
                                             <div>
@@ -114,7 +117,7 @@
                                                 @endcan
 
                                                 @can('laptops.destroy')
-                                                    <form action="{{ route('laptops.destroy', $equipo->id) }}"
+                                                    <form action="{{ route('laptops.trash', $equipo->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

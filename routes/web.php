@@ -121,10 +121,19 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
         Route::delete('/delete/{filename}', [BackupController::class, 'delete'])->name('backup.delete');
     });
 
-    //coming2
-    Route::get('/co2/trashed', [Coming2Controller::class, 'trashedEmpleados'])->name('co2.trashed');
-    Route::delete('/co2/{id}/trash', [Coming2Controller::class, 'trash'])->name('co2.trash');
-    Route::post('/co2/{id}/restore', [Coming2Controller::class, 'restore'])->name('co2.restore');
+    //Laptop trashes
+    Route::prefix('laptops')->group(function () {
+        Route::get('/trashes', [LaptopController::class, 'trashes'])->name('laptops.trashes');
+        Route::delete('/{id}/trash', [LaptopController::class, 'trash'])->name('laptops.trash');
+        Route::post('/{id}/restore', [LaptopController::class, 'restore'])->name('laptops.restore');
+    });
+
+    //Desktop trashes
+    Route::prefix('desktops')->group(function () {
+        Route::get('/trashes', [DesktopController::class, 'trashes'])->name('desktops.trashes');
+        Route::delete('/{id}/trash', [DesktopController::class, 'trash'])->name('desktops.trash');
+        Route::post('/{id}/restore', [DesktopController::class, 'restore'])->name('desktops.restore');
+    });
 
     // Asignar complementos a un equipo
     Route::post('/equipos/{equipo}/asignar-complementos', [EquipoController::class, 'asignarComplementos'])->name('equipos.asignar-complementos');
