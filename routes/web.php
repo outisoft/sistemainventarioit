@@ -40,9 +40,10 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PolicyController;
 use App\Exports\EmpleadoExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\Auth\PasswordController;
 
 
-Route::group(['middleware' => ['auth', 'check.country']], function ()  {
+Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']], function ()  {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
@@ -195,6 +196,9 @@ Route::group(['middleware' => ['auth', 'check.country']], function ()  {
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');
 });
 Route::get('/qrcode/{id}/details', [AssignmentController::class, 'employeeDetails'])->name('employeeDetails');
+
+Route::get('/password/change', [PasswordController::class, 'showChangeForm'])->name('password.change');
+Route::post('/password/change', [PasswordController::class, 'change'])->name('password.update');
 
 Route::get('/', function () {
     if (Auth::check()) {
