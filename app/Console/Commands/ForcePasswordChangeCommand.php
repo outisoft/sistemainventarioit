@@ -13,7 +13,7 @@ class ForcePasswordChangeCommand extends Command
     public function handle()
     {
         User::whereDoesntHave('roles', function($query) {
-            $query->where('name', 'admin');
+            $query->where('name', 'Administrat');
         })->update([
             'force_password_change' => true
         ]);

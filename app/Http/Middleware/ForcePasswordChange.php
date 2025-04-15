@@ -13,7 +13,7 @@ class ForcePasswordChange
         $user = $request->user();
         
         // Si el usuario no es admin y debe cambiar la contraseña
-        if ($user && !$user->hasRole('admin') && ($user->first_login || $user->force_password_change)) {
+        if ($user && !$user->hasRole('Administrat') && ($user->first_login || $user->force_password_change)) {
             if (!$request->is('password/change*') && !$request->is('logout')) {
                 return redirect()->route('password.change');
             }
