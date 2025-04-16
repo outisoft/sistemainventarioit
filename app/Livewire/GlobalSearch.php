@@ -10,6 +10,8 @@ use App\Models\Complement;
 use App\Models\AccessPoint;
 use App\Models\Swittch;
 use App\Models\Tpv;
+use App\Models\License;
+use App\Models\Lease;
 use Illuminate\Support\Collection;
 
 class GlobalSearch extends Component
@@ -111,6 +113,34 @@ class GlobalSearch extends Component
                 },
                 'limit' => 5,
                 'route' => 'tpvs.show'
+            ],
+            'licenses' => [
+                'model' => License::class,
+                'title' => 'Licenses',
+                'icon' => 'bx bx-key',
+                'searchFields' => ['type', 'key'],
+                'displayCallback' => function($item) {
+                    return [
+                        'title' => $item->type,
+                        'subtitle' => "Type: {$item->type} | Key: {$item->key} "
+                    ];
+                },
+                'limit' => 5,
+                'route' => 'tpvs.show'
+            ],
+            'lease' => [
+                'model' => Lease::class,
+                'title' => 'Leases',
+                'icon' => 'bx bx-clipboard',
+                'searchFields' => ['lease'],
+                'displayCallback' => function($item) {
+                    return [
+                        'title' => 'Lease',
+                        'subtitle' => "Lease: {$item->lease} | End Date: {$item->end_date} "
+                    ];
+                },
+                'limit' => 5,
+                'route' => 'lease.show'
             ]
         ];
     }
