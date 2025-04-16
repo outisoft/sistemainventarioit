@@ -100,7 +100,7 @@
                         </div>
 
                         <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
-                            <h6 class="text-body-secondary">Filled Pills</h6>
+                            <h6 class="text-body-secondary">Assignments</h6>
                             <div class="nav-align-top">
                                 <ul class="nav nav-pills mb-4 nav-fill" role="tablist">
                                     <li class="nav-item mb-1 mb-sm-0" role="presentation">
@@ -110,7 +110,7 @@
                                             <span class="d-none d-sm-inline-flex align-items-center">
                                                 <i class="icon-base bx bx-desktop icon-sm me-1_5"></i> Equipments
                                             </span>
-                                            <i class="icon-base bx bx-home icon-sm d-sm-none"></i>
+                                            <i class="icon-base bx bx-desktop icon-sm d-sm-none"></i>
                                         </button>
                                     </li>
                                     <li class="nav-item mb-1 mb-sm-0" role="presentation">
@@ -121,7 +121,7 @@
                                             <span class="d-none d-sm-inline-flex align-items-center"><i
                                                     class="icon-base bx bxs-keyboard icon-sm me-1_5"></i>
                                                 Complements</span>
-                                            <i class="icon-base bx bx-user icon-sm d-sm-none"></i>
+                                            <i class="icon-base bx bxs-keyboard icon-sm d-sm-none"></i>
                                         </button>
                                     </li>
                                     <li class="nav-item mb-1 mb-sm-0" role="presentation">
@@ -131,7 +131,7 @@
                                             tabindex="-1">
                                             <span class="d-none d-sm-inline-flex align-items-center"><i
                                                     class="icon-base bx bxl-adobe icon-sm me-1_5"></i> Licenses</span>
-                                            <i class="icon-base bx bx-user icon-sm d-sm-none"></i>
+                                            <i class="icon-base bx bxl-adobe icon-sm d-sm-none"></i>
                                         </button>
                                     </li>
                                 </ul>

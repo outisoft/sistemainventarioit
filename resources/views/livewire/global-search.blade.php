@@ -3,7 +3,8 @@
     <div class="navbar-nav align-items-center">
         <div class="nav-item d-flex align-items-center">
             <i class="bx bx-search fs-4 lh-0"></i>
-            <input wire:model.live.debounce.300ms="search" type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." @focus="$wire.showResults = true"/>
+            <input wire:model.live.debounce.300ms="search" type="text" class="form-control border-0 shadow-none"
+                placeholder="Search..." aria-label="Search..." @focus="$wire.showResults = true" />
         </div>
         <!-- Loading indicator -->
         <div wire:loading class="position-absolute top-50 end-0 translate-middle-y me-2">

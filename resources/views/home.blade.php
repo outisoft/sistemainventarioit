@@ -704,7 +704,7 @@
         centeredSlides: false, // No centrar las tarjetas
         breakpoints: {
             640: {
-                slidesPerView: 1, // Mostrar 2 tarjetas en pantallas pequeñas
+                slidesPerView: 2, // Mostrar 2 tarjetas en pantallas pequeñas
                 spaceBetween: 10,
             },
             768: {

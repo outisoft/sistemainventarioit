@@ -832,7 +832,7 @@ progress {
 
 .row {
     --bs-gutter-x: 1.625rem;
-    /*--bs-gutter-y: 2%;*/
+    --bs-gutter-y: 2%;
     display: flex;
     flex-wrap: wrap;
     margin-top: calc(-1 * var(--bs-gutter-y));
@@ -4121,6 +4121,27 @@ fieldset:disabled .btn {
         flex-grow: 0;
         padding: 0;
         overflow-y: visible;
+    }
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    .search-container {
+        width: 100%;
+    }
+
+    .search-results {
+        width: 100%;
+        left: 0;
+        transform: none;
+    }
+}
+
+@media (min-width: 768px) {
+    .search-results {
+        max-width: 600px;
+        left: 50%;
+        transform: translateX(-50%);
     }
 }
 
