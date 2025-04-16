@@ -1,6 +1,6 @@
 <!--Modal create-->
 <!--div class="modal fade" id="createAPModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"-->
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModal" aria-hidden="true">
+<div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="modalCreate" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="{{ route('access-points.store') }}" method="POST">
