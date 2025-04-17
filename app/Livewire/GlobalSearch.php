@@ -122,11 +122,11 @@ class GlobalSearch extends Component
                 'displayCallback' => function($item) {
                     return [
                         'title' => $item->type,
-                        'subtitle' => "Type: {$item->type} | Key: {$item->key} "
+                        'subtitle' => "Type: {$item->type} | Key/Email: {$item->key} "
                     ];
                 },
                 'limit' => 5,
-                'route' => 'tpvs.show'
+                'route' => 'licenses.show'
             ],
             'lease' => [
                 'model' => Lease::class,

@@ -22,6 +22,18 @@ class LicenseController extends Controller
         return view('licenses.index', compact('equipos'));
     }
 
+    public function show($licenciaId)
+    {
+        $licencia = License::findOrFail($licenciaId);
+        $equiposAsignados = $licencia->equipo->pluck('id')->toArray();
+
+        $equipos = Equipo::whereNotIn('id', $equiposAsignados)
+                 ->whereIn('tipo_id', [2, 4])
+                 ->get();
+
+        return view('licenses.show', compact('licencia', 'equipos'));
+    }
+
     public function create()
     {
         return view('licenses.create');
