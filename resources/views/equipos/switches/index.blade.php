@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="content-wrapper">
         <!-- Content -->
-        
+
         <div class="container-xxl flex-grow-1 container-p-y">
             <nav aria-label="b7 readcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
@@ -12,7 +12,7 @@
             <!-- Tarjeta de hoteles -->
             <!--div-- class="row g-6 mb-6">
                 @foreach ($hoteles as $hotel)
-                    <div class="col-xl-4-c col-lg-6 col-md-6">
+<div class="col-xl-4-c col-lg-6 col-md-6">
                         <div class="card card-border-shadow-primary h-100">
                             <div class="card-body">
                                 <div class="d-flex align-items-center mb-2">
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
+@endforeach
             </div--><br>
             <!-- Tarjeta de hoteles -->
 
