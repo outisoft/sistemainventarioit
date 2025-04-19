@@ -10,7 +10,7 @@ class Swittch extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['region_id', 'name', 'marca', 'model', 'serial', 'mac', 'ip', 'total_ports', 'hotel_id', 'observacion'];
+    protected $fillable = ['region_id', 'name', 'marca', 'model', 'serial', 'mac', 'ip', 'total_ports', 'hotel_id', 'observacion', 'usage_type'];
 
     public function hotel()
     {

@@ -6,8 +6,8 @@
             <form action="{{ route('access-points.store') }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">Access Points</h4>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                    <h4 class="modal-title" id="modalCreate">Access Points</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"></span>
                     </button>
                 </div>
@@ -89,6 +89,7 @@
                 </div>
 
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>

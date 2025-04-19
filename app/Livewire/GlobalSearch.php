@@ -32,7 +32,7 @@ class GlobalSearch extends Component
         $this->searchConfigs = [
             'equipment' => [
                 'model' => Equipo::class,
-                'title' => 'Equipos',
+                'title' => 'Equipments',
                 'icon' => 'bx bx-laptop',
                 'searchFields' => ['marca', 'model', 'serial', 'ip', 'name'],
                 'displayCallback' => function($item) {
@@ -46,7 +46,7 @@ class GlobalSearch extends Component
             ],
             'employees' => [
                 'model' => Empleado::class,
-                'title' => 'Empleados',
+                'title' => 'Employees',
                 'icon' => 'bx bx-user',
                 'searchFields' => ['no_empleado', 'name', 'email', 'puesto', 'ad'],
                 'displayCallback' => function($item) {
@@ -88,7 +88,7 @@ class GlobalSearch extends Component
             ],
             'switches' => [
                 'model' => Swittch::class,
-                'title' => 'Switchs',
+                'title' => 'Switch',
                 'icon' => 'bx bx-server',
                 'searchFields' => ['name', 'marca', 'model', 'serial', 'mac', 'ip'],
                 'displayCallback' => function($item) {

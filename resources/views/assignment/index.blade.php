@@ -233,7 +233,11 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                {{ $equipo->name }}
+                                                @foreach ($empleado->equipos as $equipo)
+                                                    @if (!empty($equipo->name))
+                                                        <div>{{ $equipo->name }}</div>
+                                                    @endif
+                                                @endforeach
                                             </td>
                                             <td>
                                                 <a href="{{ route('assignment.show', $empleado->id) }}"

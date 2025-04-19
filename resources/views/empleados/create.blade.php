@@ -3,13 +3,13 @@
     <form method="POST" action="{{ route('empleados.store') }}">
         @csrf
         <div class="mt-3">
-            <div class="modal fade" id="modalCreate" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none"
+            <div class="modal fade" id="modalCreate" aria-labelledby="modalCreate" tabindex="-1" style="display: none"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel">New employee</h4>
-                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
+                            <h4 class="modal-title" id="modalCreate">New employee</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
                                     aria-hidden="true"></span></button>
                         </div>
 
@@ -142,6 +142,7 @@
                         </div>
 
                         <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>

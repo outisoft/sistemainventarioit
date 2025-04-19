@@ -3,8 +3,11 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <nav aria-label="b7 readcrumb">
+            <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        REDES
+                    </li>
                     <li class="breadcrumb-item active fw-bold">ACCESS POINTS</li>
                 </ol>
             </nav>
@@ -17,7 +20,7 @@
                         <div class="nav-item d-flex align-items-center">
 
                             @can('access_points.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalCreate"
                                     data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                     data-bs-html="true" title=""
                                     data-bs-original-title="<span>Add new equipment</span>">

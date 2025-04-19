@@ -201,9 +201,8 @@
                                     <!-- Complements -->
                                     <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
                                         <div id="accordionComplementos" class="accordion">
-                                            @if ($empleado->equipos->isNotEmpty())
+                                            @if ($equipo->complements->isNotEmpty())
                                                 @foreach ($empleado->equipos as $index => $equipo)
-                                                    @if ($equipo->complements->isNotEmpty())
                                                         <div class="card accordion-item">
                                                             <h2 class="accordion-header">
                                                                 <button class="accordion-button collapsed"
@@ -235,7 +234,6 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    @endif
                                                 @endforeach
                                             @else
                                                 <p>No equipment(s) with complements assigned.</p>
@@ -246,9 +244,8 @@
                                     <!-- Licenses -->
                                     <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                                         <div id="accordionLicenses" class="accordion">
-                                            @if ($empleado->equipos->isNotEmpty())
+                                            @if ($equipo->license->isNotEmpty())
                                                 @foreach ($empleado->equipos as $index => $equipo)
-                                                    @if ($equipo->license->isNotEmpty())
                                                         <div class="card accordion-item">
                                                             <h2 class="accordion-header">
                                                                 <button class="accordion-button collapsed"
@@ -291,10 +288,9 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    @endif
                                                 @endforeach
                                             @else
-                                                <p class="card-body">No licenses assigned.</p>
+                                                <p>No licenses assigned.</p>
                                             @endif
                                         </div>
                                     </div>

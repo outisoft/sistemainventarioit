@@ -6,6 +6,9 @@
         <div class="container-xxl flex-grow-1 container-p-y">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        LICENSES
+                    </li>
                     <li class="breadcrumb-item active fw-bold">ADOBE</li>
                 </ol>
             </nav>
@@ -17,7 +20,7 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('licenses.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalCreate"
                                     data-placement="top" title="Agregar Nuevo Registro">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>

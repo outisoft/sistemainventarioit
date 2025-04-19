@@ -81,6 +81,7 @@ class SwitchController extends Controller
                 'hotel_id' => 'required|exists:hotels,id',
                 'observacion' => 'required',
                 'region_id' => 'required',
+                'usage_type' => 'required',
             ], [
                 'name.unique' => 'Este nombre ya está en uso por otro switch.',
                 'ip.unique' => 'Esta dirección IP ya está en uso por otro switch.',

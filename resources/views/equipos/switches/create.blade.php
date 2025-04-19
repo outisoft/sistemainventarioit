@@ -1,14 +1,12 @@
 <!--Modal create-->
-<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="modalCreate" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <form action="{{ route('switches.store') }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel">SWITCH</h4>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                    </button>
+                    <h4 class="modal-title" id="modalCreate">SWITCH</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
@@ -46,6 +44,16 @@
                             <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
                         @endif
                     @endif
+
+                    <!-- Type -->
+                    <div class="mb-3">
+                        <x-input-label class="form-label" for="usage_type" :value="__('Type')" />
+                        <select class="form-control" name="usage_type" id="usage_type">
+                            <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                            <option value="CUSTOMERS">CUSTOMERS</option>
+                        </select>
+                        <x-input-error :messages="$errors->get('usage_type')" class="mt-2" />
+                    </div>
                     
                     <!-- NOMBRE -->
                     <div class="mb-3">
@@ -146,6 +154,7 @@
                 </div>
 
                 <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>

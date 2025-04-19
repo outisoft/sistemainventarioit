@@ -22,7 +22,7 @@
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
                                 @can('tpvs.create')
-                                    <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                    <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalCreate"
                                         data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                         data-bs-html="true" title=""
                                         data-bs-original-title="<span>Add new equipment</span>">

@@ -315,7 +315,57 @@
                 }
             }
 
-        ]
+        ],
+        columnDefs: [{
+            searchable: false,
+            targets: [-1] // Deshabilita el filtrado en la última columna
+        }],
+        initComplete: function() {
+            const api = this.api();
+
+            // Agregar una fila adicional para los filtros de búsqueda
+            $('#switchs thead').append('<tr></tr>');
+            api.columns().every(function(index) {
+                let column = this;
+
+                // Verificar si la columna es filtrable
+                if (column.settings()[0].aoColumns[index].bSearchable === false) {
+                    // Si no es filtrable, agregar una celda vacía
+                    $('#switchs thead tr:eq(1)').append('<th></th>');
+                    return;
+                }
+
+                // Crear el filtro de búsqueda
+                let header = $('#switchs thead tr:eq(1)');
+                let container = document.createElement('div');
+                container.innerHTML = `
+                    <select id="smallSelect_${index}" class="form-select form-select-sm">
+                        <option value="">Select</option>
+                    </select>
+                `;
+                header.append(`<th>${container.innerHTML}</th>`);
+
+                let select = header.find(`#smallSelect_${index}`);
+
+                // Aplicar listener para cambios en el valor del select
+                select.on('change', function() {
+                    column
+                        .search($(this).val(), {
+                            exact: true
+                        })
+                        .draw();
+                });
+
+                // Agregar opciones al select
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function(d, j) {
+                        select.append(`<option value="${d}">${d}</option>`);
+                    });
+            });
+        }
 
     });
 </script>

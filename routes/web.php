@@ -59,36 +59,36 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::post('/profile/remove-avatar', [ProfileController::class, 'removeAvatar'])->name('profile.remove-avatar');
 
     //Rutas de CRUD
-    Route::resource('inventario', InventarioController::class); // Rutas Inventario
+    Route::resource('access-points', AccessPointController::class);//Rutas access points
+    Route::resource('adobe', AdobeController::class);//Rutas Adobe
+    Route::resource('assignment', AssignmentController::class);//Rutas asignacion
+    Route::resource('autocad', AutocadController::class);//Rutas Autocad
+    Route::resource('complements', ComplementController::class);//Rutas complements
+    Route::resource('departments', DepartamentoController::class); //Rutas departamentos
+    Route::resource('desktops', DesktopController::class); //Rutas PC
     Route::resource('empleados', EmpleadoController::class); // Rutas Empleados
     Route::resource('equipo', EquipoController::class); // Rutas Equipos
-    Route::resource('users', UserController::class); // Rutas Usuario
-    Route::resource('lease', LeaseController::class); // Rutas Lease
-    Route::resource('roles', RoleController::class); // Rutas roles
-    Route::resource('tpvs', TpvController::class);  //Rutas TPVS
-    Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
-    Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
-    Route::resource('desktops', DesktopController::class); //Rutas PC
-    Route::resource('regions', RegionController::class); //Rutas Region
     Route::resource('hotels', HotelController::class); //Rutas hoteles
-    Route::resource('departments', DepartamentoController::class); //Rutas departamentos
-    Route::resource('printers', PrinterController::class);//Rutas printers
-    Route::resource('complements', ComplementController::class);//Rutas complements
+    Route::resource('inventario', InventarioController::class); // Rutas Inventario
     Route::resource('laptops', LaptopController::class);//Rutas laptops
-    Route::resource('tabs', TabController::class);//Rutas tabs
+    Route::resource('lease', LeaseController::class); // Rutas Lease
+    Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
+    Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('mobiles', MobileController::class);//Rutas phones
-    Route::resource('phones', PhoneController::class);//Rutas phones
-    Route::resource('access-points', AccessPointController::class);//Rutas access points
-    Route::resource('switches', SwitchController::class);//Rutas switches
-    Route::resource('assignment', AssignmentController::class);//Rutas asignacion
-    Route::resource('other', OtherController::class);//Rutas Otros
     Route::resource('office', OfficeController::class);//Rutas Office
-    Route::resource('adobe', AdobeController::class);//Rutas Adobe
-    Route::resource('autocad', AutocadController::class);//Rutas Autocad
-    Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
-    Route::resource('villas', VillaController::class);//Rutas Villas
-    Route::resource('rooms', RoomController::class);//Rutas Rooms
+    Route::resource('other', OtherController::class);//Rutas Otros
+    Route::resource('phones', PhoneController::class);//Rutas phones
     Route::resource('policy', PolicyController::class);//Rutas Policies
+    Route::resource('printers', PrinterController::class);//Rutas printers
+    Route::resource('regions', RegionController::class); //Rutas Region
+    Route::resource('roles', RoleController::class); // Rutas roles
+    Route::resource('rooms', RoomController::class);//Rutas Rooms
+    Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
+    Route::resource('switches', SwitchController::class);//Rutas switches
+    Route::resource('tabs', TabController::class);//Rutas tabs
+    Route::resource('tpvs', TpvController::class);  //Rutas TPVS
+    Route::resource('users', UserController::class); // Rutas Usuario
+    Route::resource('villas', VillaController::class);//Rutas Villas
     Route::get('/hotels/{hotel}/switches', [SwitchController::class, 'showSwitches'])->name('hotels.switches');
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
     Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');

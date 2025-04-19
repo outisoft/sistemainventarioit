@@ -3,39 +3,14 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <nav aria-label="b7 readcrumb">
+            <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        REDES
+                    </li>
                     <li class="breadcrumb-item active fw-bold">SWITCHES</li>
                 </ol>
             </nav>
-
-            <!-- Tarjeta de hoteles -->
-            <!--div-- class="row g-6 mb-6">
-                @foreach ($hoteles as $hotel)
-<div class="col-xl-4-c col-lg-6 col-md-6">
-                        <div class="card card-border-shadow-primary h-100">
-                            <div class="card-body">
-                                <div class="d-flex align-items-center mb-2">
-                                    <div class="avatar me-4">
-                                        <span class="avatar-initial rounded bg-label-primary"><i class="icon-base bx bx-server icon-lg"></i> </span>
-                                    </div>
-                                    <h4 class="mb-0">{{ $hotel->total_sw }}</h4>
-                                </div>
-                                <p class="mb-2">{{ $hotel->hotel }}</p>
-                                <p class="mb-0">
-                                    <span class="text-heading fw-medium me-2">{{ $hotel->region }} </span>
-                                    <span class="text-body-secondary">
-                                        <a href="{{ route('hotels.switches', $hotel->id) }}">
-                                            Show<i class='bx bx-right-arrow-alt'></i>
-                                        </a>
-                                    </span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-@endforeach
-            </div--><br>
-            <!-- Tarjeta de hoteles -->
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -44,8 +19,8 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('switches.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                <a href="#" class="btn-ico" data-bs-target="#modalCreate" data-bs-toggle="modal"
+                                    data-bs-offset="0,4" data-bs-placement="top"
                                     data-bs-html="true" title=""
                                     data-bs-original-title="<span>Add new equipment</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
@@ -65,6 +40,7 @@
                     <table id="switchs" class="table">
                         <thead class="bg-primary">
                             <tr>
+                                <th>Type</th>
                                 <th>Name</th>
                                 <th>Details</th>
                                 <th>IP</th>
@@ -80,6 +56,7 @@
                         <tbody id="employeeList">
                             @foreach ($switches as $switch)
                                 <tr>
+                                    <td>{{ $switch->usage_type}} </td>
                                     <td>{{ $switch->name }} ({{ $switch->total_ports }} puertos)</td>
                                     <td>{{ $switch->marca }} / {{ $switch->model }} / {{ $switch->serial }}</td>
                                     <td>{{ $switch->ip }}</td>

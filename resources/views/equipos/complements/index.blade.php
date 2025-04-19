@@ -19,8 +19,8 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('complements.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
-                                    data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
+                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalCreate"
+                                    data-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                     data-bs-html="true" title=""
                                     data-bs-original-title="<span>Add new complement</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>

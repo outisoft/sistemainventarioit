@@ -6,7 +6,14 @@
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Equipments /</span> Mobiles </h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('equipo.index') }}">EQUIPMENTS</a>
+                    </li>
+                    <li class="breadcrumb-item active fw-bold">MOBILES</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
@@ -15,7 +22,7 @@
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             @can('mobile.create')
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalCreate"
                                     data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
                                     data-bs-html="true" title=""
                                     data-bs-original-title="<span>Add new equipment</span>">

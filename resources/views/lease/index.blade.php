@@ -17,7 +17,7 @@
                     <div class="navbar-nav align-items-center">
                         @can('lease.create')
                             <div class="nav-item d-flex align-items-center">
-                                <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                                <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalCreate"
                                     data-placement="top" title="Agregar Nuevo Registro">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
