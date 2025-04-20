@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Ramsey\Uuid\Uuid;
 
 class Room extends Model
 {
-    public $incrementing = false; // Indicar que no es autoincremental
-    protected $keyType = 'string';
+    use HasFactory, HasUuids;
 
-    use HasFactory;
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = ['number', 'villa_id', 'region_id'];
 

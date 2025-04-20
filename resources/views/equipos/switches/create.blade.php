@@ -132,6 +132,7 @@
                         <x-input-error :messages="$errors->get('total_ports')" class="mt-2" />
                     </div>
 
+                    <!-- Hotel -->
                     <div class="mb-3">
                         <x-input-label class="form-label" for="hotel_id" :value="__('Locations')" />
                         <select class="form-control" id="hotel_id" name="hotel_id" required>
@@ -139,6 +140,46 @@
                                 <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label>Tipo de Ubicación</label>
+                        <div>
+                            <input type="radio" name="location_type" value="villa" checked> Villa
+                            <input type="radio" name="location_type" value="specific"> Área Específica
+                        </div>
+                    </div>
+                    
+                    <div id="villa-section">
+                        <div class="mb-3">
+                            <label>Villa</label>
+                            <select name="villa_id" class="form-control">
+                            <option value="">Choose a villa</option>
+                            @foreach($hotels as $hotel)
+                                    @foreach($hotel->villas as $villa)
+                                        <option value="{{ $villa->id }}" data-hotel="{{ $hotel->id }}">
+                                            {{ $villa->name }}
+                                        </option>
+                                    @endforeach
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="specific-section" style="display:none;">
+                        <div class="mb-3">
+                            <label>Area Específica</label>
+                            <select name="specific_location_id" class="form-control">
+                            <option value="">Choose Area</option>
+                            @foreach($hotels as $hotel)
+                                    @foreach($hotel->specificLocations as $location)
+                                        <option value="{{ $location->id }}" data-hotel="{{ $hotel->id }}">
+                                            {{ $location->name }}
+                                        </option>
+                                    @endforeach
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     <!-- Observacion -->
@@ -184,5 +225,46 @@
 
         // Actualizar el campo de input con el valor formateado
         e.target.value = mac;
+    });
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const hotelSelect = document.querySelector('select[name="hotel_id"]');
+        const villaSection = document.getElementById('villa-section');
+        const specificSection = document.getElementById('specific-section');
+        const locationRadios = document.querySelectorAll('input[name="location_type"]');
+        
+        function toggleSections() {
+            const isVilla = document.querySelector('input[name="location_type"]:checked').value === 'villa';
+            villaSection.style.display = isVilla ? 'block' : 'none';
+            specificSection.style.display = isVilla ? 'none' : 'block';
+        }
+        
+        function filterOptions(select, hotelId) {
+            const options = select.querySelectorAll('option');
+            options.forEach(option => {
+                if (!option.value || option.dataset.hotel == hotelId) {
+                    option.style.display = 'block';
+                } else {
+                    option.style.display = 'none';
+                }
+            });
+            select.value = '';
+        }
+        
+        hotelSelect.addEventListener('change', function() {
+            const hotelId = this.value;
+            filterOptions(document.querySelector('select[name="villa_id"]'), hotelId);
+            filterOptions(document.querySelector('select[name="specific_location_id"]'), hotelId);
+        });
+        
+        locationRadios.forEach(radio => {
+            radio.addEventListener('change', toggleSections);
+        });
+        
+        // Inicializar
+        toggleSections();
+        hotelSelect.dispatchEvent(new Event('change'));
     });
 </script>

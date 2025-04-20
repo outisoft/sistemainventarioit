@@ -12,7 +12,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('swittches', function (Blueprint $table) {
-            $table->string('usage_type')->default('Administrative')->after('region_id');; // Valores: 'administrative' o 'client'
+            $table->string('usage_type')->default('Administrative')->after('region_id'); // Valores: 'administrative' o 'client'
         });
     }
 

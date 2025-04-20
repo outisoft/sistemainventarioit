@@ -5,20 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Ramsey\Uuid\Uuid;
 
 class Villa extends Model
 {
-    public $incrementing = false; // Indicar que no es autoincremental
-    protected $keyType = 'string';
+    use HasFactory, HasUuids;
 
-    use HasFactory;
+    protected $keyType = 'string';
+    public $incrementing = false;
 
     protected $fillable = ['name', 'hotel_id', 'region_id'];
 
     public function hotel()
     {
-        return $this->belongsTo(Hotel::class, 'hotel_id');
+        return $this->belongsTo(Hotel::class);
+    }
+    
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
     }
 
     public function region()

@@ -29,6 +29,8 @@ class DatabaseSeeder extends Seeder
             DepartamentoSeeder::class,
             TipoSeeder::class,
             PolicySeeder::class,
+            VillaSeeder::class,
+            SpecificLocation::class,
         ]);
 
         License::factory()->count(50)->create();

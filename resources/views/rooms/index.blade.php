@@ -65,7 +65,7 @@
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('¿Estás seguro de eliminar el registro de la habitacion {{ $room->number }} de la villa {{ $room->villa->name }} ?')"><i
+                                                                        onclick="return confirm('¿Estás seguro de eliminar el registro de la habitacion {{ $room->number }} de la villa {{ $room->villa }} ?')"><i
                                                                             class="bx bx-trash me-1"></i>Eliminar</button>
                                                                 </form>
                                                             @endcan

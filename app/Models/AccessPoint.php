@@ -14,7 +14,13 @@ class AccessPoint extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected $fillable = ['region_id', 'name', 'marca', 'model', 'serial', 'mac', 'ip', 'swittch_id', 'port_number'];
+    protected $fillable = ['region_id', 'name', 'marca', 'model', 'serial', 'mac', 'ip', 'swittch_id', 'port_number', 'hotel_id'];
+
+    // En ambos modelos:
+    public function location()
+    {
+        return $this->morphOne(DeviceLocation::class, 'locatable')->where('locatable_type', self::class);
+    }
 
     public function swittch()
     {

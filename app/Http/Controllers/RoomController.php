@@ -35,15 +35,37 @@ class RoomController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'number' => 'required|integer',
-            'villa_id' => 'required|exists:villas,id',
-            'region_id' => 'required|exists:regions,id',
-        ]);
+        try{
+            $request->validate([
+                'number' => 'required|integer',
+                'villa_id' => 'required|exists:villas,id',
+                'region_id' => 'required|exists:regions,id',
+            ]);
 
-        Room::create($request->all());
+            Room::create($request->all());
 
-        return redirect()->route('rooms.index');
+            return redirect()->route('rooms.index');
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+
+            return back()->withErrors($e->errors())->withInput();
+        }
     }
 
     /**

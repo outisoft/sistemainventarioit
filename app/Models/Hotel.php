@@ -27,6 +27,16 @@ class Hotel extends Model
         return $this->belongsToMany(Departamento::class, 'departamento_hotel');
     }
 
+    public function villas()
+    {
+        return $this->hasMany(Villa::class);
+    }
+    
+    public function specificLocations()
+    {
+        return $this->hasMany(SpecificLocation::class);
+    }
+
     // Modelo Hotel
     public function equiposCpu()
     {

@@ -17,6 +17,11 @@ class Swittch extends Model
         return $this->belongsTo(Hotel::class);
     }
 
+    public function location()
+    {
+        return $this->morphOne(DeviceLocation::class, 'locatable')->where('locatable_type', self::class);
+    }
+
     public function accessPoints()
     {
         return $this->hasMany(AccessPoint::class);

@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->integer('number');
-            $table->uuid('villa_id')->constrained('villas', 'id')->onDelete('cascade');
-            $table->foreignId('region_id')->constrained();
+            $table->uuid('villa_id')->constrained('villas')->cascadeOnDelete(); // Más claro
+            $table->foreignId('region_id')->constrained()->restrictOnDelete();
             $table->timestamps();
+            
+            $table->unique(['villa_id', 'number']); // Evitar números duplicados por villa
         });
     }
 

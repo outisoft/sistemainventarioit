@@ -6,6 +6,7 @@ use App\Models\Swittch;
 use App\Models\Historial;
 use App\Models\Hotel;
 use App\Models\Complement;
+use App\Models\DeviceLocation;
 use App\Models\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -36,22 +37,13 @@ class SwitchController extends Controller
             })
             ->orderBy('name', 'asc')
             ->get();
-        $hotels = Hotel::orderBy('name', 'asc')->get();
+        
+        $hotels = Hotel::with(['villas', 'specificLocations'])->orderBy('name', 'asc')->get();
         $regions = Region::orderBy('name', 'asc')->get();
 
         $userRegions = auth()->user()->regions->pluck('id')->toArray();
-
-        $hoteles = DB::table('hotels')
-            ->select('hotels.id', 'regions.name as region', 'hotels.name as hotel', DB::raw('COUNT(swittches.id) as total_sw'))
-            ->leftJoin('regions', 'hotels.region_id', '=', 'regions.id')
-            ->leftJoin('swittches', 'hotels.id', '=', 'swittches.hotel_id')
-            ->groupBy('hotels.id', 'regions.name', 'hotels.name')
-            ->when(!auth()->user()->hasRole('Administrator'), function ($query) use ($userRegions) {
-                $query->whereIn('hotels.region_id', $userRegions);
-            })
-            ->get();
         
-        return view('equipos.switches.index', compact('switches', 'hotels', 'regions', 'hoteles'));
+        return view('equipos.switches.index', compact('switches', 'hotels', 'regions'));
     }
 
     public function store(Request $request)
@@ -82,6 +74,17 @@ class SwitchController extends Controller
                 'observacion' => 'required',
                 'region_id' => 'required',
                 'usage_type' => 'required',
+                'location_type' => 'required|in:villa,specific',
+                'villa_id' => [
+                    'required_if:location_type,villa',
+                    'nullable',
+                    Rule::exists('villas', 'id')->where('hotel_id', $request->hotel_id)
+                ],
+                'specific_location_id' => [
+                    'required_if:location_type,specific',
+                    'nullable',
+                    'exists:specific_locations,id,hotel_id,'.$request->hotel_id
+                ]
             ], [
                 'name.unique' => 'Este nombre ya está en uso por otro switch.',
                 'ip.unique' => 'Esta dirección IP ya está en uso por otro switch.',
@@ -94,6 +97,20 @@ class SwitchController extends Controller
 
             $registro = Swittch::create($validated);
             $registro->save();
+
+            $locationData = [
+                'locatable_id' => $registro->id,
+                'locatable_type' => Swittch::class
+            ];
+            
+            if ($request->location_type === 'villa') {
+                $locationData['villa_id'] = $request->villa_id;
+            } else {
+                $locationData['specific_location_id'] = $request->specific_location_id;
+            }
+            
+            DeviceLocation::create($locationData);
+
             $user = auth()->user();
             $regionId = null;
 

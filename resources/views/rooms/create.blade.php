@@ -56,7 +56,7 @@
 
                     <!-- villa -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="villa_id" :value="__('Locations')" />
+                        <x-input-label class="form-label" for="villa_id" :value="__('Villa')" />
                         <select class="form-control" id="villa_id" name="villa_id" required>
                             @foreach ($villas as $villa)
                                 <option value="{{ $villa->id }}">{{ $villa->name }}</option>

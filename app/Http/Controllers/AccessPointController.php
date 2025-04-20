@@ -6,6 +6,8 @@ use App\Models\AccessPoint;
 use App\Models\Historial;
 use App\Models\Swittch;
 use App\Models\Region;
+use App\Models\Hotel;
+use App\Models\DeviceLocation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
@@ -42,14 +44,14 @@ class AccessPointController extends Controller
 
         $userRegions = auth()->user()->regions->pluck('id')->toArray();
 
-        $userRegions = auth()->user()->regions;
+        $hotels = Hotel::with(['villas.rooms', 'specificLocations'])->get();
         
-        return view('equipos.access_points.index', compact('userRegions', 'accessPoints', 'switches', 'regions'));
+        return view('equipos.access_points.index', compact('userRegions', 'accessPoints', 'switches', 'regions', 'hotels'));
     }
 
     public function store(Request $request)
     {        
-        try {
+        //try {
             $user = auth()->user();
     
             $data = $request->validate([
@@ -75,6 +77,22 @@ class AccessPointController extends Controller
                 ],
                 'swittch_id' => 'required|exists:swittches,id',
                 'port_number' => 'required|integer',
+                'hotel_id' => 'required|exists:hotels,id',
+                'location_type' => 'required|in:villa,specific',
+                'villa_id' => [
+                    'required_if:location_type,villa',
+                    'nullable',
+                    Rule::exists('villas', 'id')->where('hotel_id', $request->hotel_id)
+                ],
+                'room_id' => [
+                    'nullable',
+                    Rule::exists('rooms', 'id')->where('villa_id', $request->villa_id)
+                ],
+                'specific_location_id' => [
+                    'required_if:location_type,specific',
+                    'nullable',
+                    Rule::exists('specific_locations', 'id')->where('hotel_id', $request->hotel_id)
+                ]
             ], [
                 'name.unique' => 'Este nombre ya está en uso por otro AP.',
                 'ip.unique' => 'Esta dirección IP ya está en uso por otro AP.',
@@ -95,8 +113,24 @@ class AccessPointController extends Controller
                 'swittch_id' => $data['swittch_id'],
                 'port_number' => $data['port_number'],
                 'region_id' => $swittch->region_id,
+                'hotel_id' => $data['hotel_id'],
                 // Otros campos
             ]);
+        
+            // Crear la ubicación
+            $locationData = [
+                'locatable_id' => $accessPoint->id,
+                'locatable_type' => AccessPoint::class
+            ];
+            
+            if ($data['location_type'] === 'villa') {
+                $locationData['villa_id'] = $data['villa_id'];
+                $locationData['room_id'] = $data['room_id'];
+            } else {
+                $locationData['specific_location_id'] = $data['specific_location_id'];
+            }
+            
+            DeviceLocation::create($locationData);
 
             Historial::create([
                 'accion' => 'Creacion',
@@ -111,7 +145,7 @@ class AccessPointController extends Controller
 
             return redirect()->route('access-points.index');
 
-        } catch (\Exception $e) {
+        /*} catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
                 foreach ($errors as $error) {
                     toastr()
@@ -120,7 +154,7 @@ class AccessPointController extends Controller
                 }
             }
             return back()->withErrors($e->errors())->withInput();
-        }
+        }*/
     }
 
     public function getAvailablePort(Swittch $switch)
