@@ -32,8 +32,8 @@
                                 <table id="villas" class="table">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th>No. Villa</th>
                                             <th>Hotel</th>
+                                            <th>No. Villa</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -41,8 +41,8 @@
                                         <!-- Aquí se mostrarán los empleados -->
                                         @foreach ($villas as $villa)
                                             <tr>
-                                                <td>{{ $villa->name }}</td>
                                                 <td>{{ $villa->hotel->name }}</td>
+                                                <td>{{ $villa->name }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"

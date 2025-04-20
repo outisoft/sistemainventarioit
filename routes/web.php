@@ -38,6 +38,7 @@ use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\VillaController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\SpecificLocationController;
 use App\Exports\EmpleadoExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Auth\PasswordController;
@@ -84,6 +85,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('roles', RoleController::class); // Rutas roles
     Route::resource('rooms', RoomController::class);//Rutas Rooms
     Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
+    Route::resource('locations', SpecificLocationController::class);//Rutas locations
     Route::resource('switches', SwitchController::class);//Rutas switches
     Route::resource('tabs', TabController::class);//Rutas tabs
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS

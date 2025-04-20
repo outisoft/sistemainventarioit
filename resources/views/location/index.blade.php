@@ -1,20 +1,20 @@
 <x-app-layout>
-    @include('rooms.create')
-    @include('rooms.edit')
+@include('location.create')
+@include('location.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
 
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-style1">
-                    <li class="breadcrumb-item active fw-bold">ROOMS</li>
+                    <li class="breadcrumb-item active fw-bold">LOCATIONS</li>
                 </ol>
             </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">Rooms</h5>
+                    <h5 class="card-header">Specific Locations </h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
                             <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalCreate"
@@ -29,22 +29,20 @@
                     <div class="table-responsive text-nowrap">
                         <div class="card-datatable table-responsive pt-0">
                             <div class="table-responsive text-nowrap" id="searchResults">
-                                <table id="rooms" class="table">
+                                <table id="villas" class="table">
                                     <thead class="bg-primary">
                                         <tr>
+                                            <th>Name</th>
                                             <th>Hotel</th>
-                                            <th>Villa</th>
-                                            <th>No. Room</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody id="employeeList">
                                         <!-- Aquí se mostrarán los empleados -->
-                                        @foreach ($rooms as $room)
+                                        @foreach ($locations as $location)
                                             <tr>
-                                                <td>{{ $room->villa->hotel->name }}</td>
-                                                <td>{{ $room->villa->name }}</td>
-                                                <td>{{ $room->number }}</td>
+                                                <td>{{ $location->name }}</td>
+                                                <td>{{ $location->hotel->name }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
@@ -56,19 +54,19 @@
 
                                                             @can('hotels.edit')
                                                                 <a href="#" data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal{{ $room->id }}"
+                                                                    data-bs-target="#editModal{{ $location->id }}"
                                                                     class="dropdown-item"><i
-                                                                        class="bx bx-edit me-1"></i>Editar</a>
+                                                                        class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 
                                                             @can('hotels.destroy')
-                                                                <form action="{{ route('rooms.destroy', $room->id) }}"
+                                                                <form action="{{ route('locations.destroy', $location->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="submit" class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('¿Estás seguro de eliminar el registro de la habitacion {{ $room->number }} de la villa {{ $room->villa }} ?')"><i
-                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                        onclick="return confirm('¿Estás seguro de eliminar el registro de la locacion {{ $location->name }}?')"><i
+                                                                            class="bx bx-trash me-1"></i>Delete</button>
                                                                 </form>
                                                             @endcan
                                                         </div>

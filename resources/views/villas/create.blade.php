@@ -56,7 +56,7 @@
 
                     <!-- Hotel -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="hotel_id" :value="__('Locations')" />
+                        <x-input-label class="form-label" for="hotel_id" :value="__('Hotel')" />
                         <select class="form-control" id="hotel_id" name="hotel_id" required>
                             @foreach ($hotels as $hotel)
                                 <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>

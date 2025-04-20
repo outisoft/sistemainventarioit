@@ -367,7 +367,7 @@
         <!-- Hoteles y departamentos -->
         @can('hotels.index')
             <li
-                class="menu-item {{ Request::routeIs('rooms.index') ? 'active' : '' }} || {{ Request::routeIs('villas.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.create') ? 'active' : '' }} || {{ Request::routeIs('hotels.show') ? 'active' : '' }} || {{ Request::routeIs('hotels.edit') ? 'active' : '' }} || {{ Request::routeIs('departments.index') ? 'active' : '' }} || {{ Request::routeIs('departments.create') ? 'active' : '' }} || {{ Request::routeIs('departments.show') ? 'active' : '' }} || {{ Request::routeIs('departments.edit') ? 'active' : '' }}">
+                class="menu-item {{ Request::routeIs('locations.index') ? 'active' : '' }} || {{ Request::routeIs('rooms.index') ? 'active' : '' }} || {{ Request::routeIs('villas.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.index') ? 'active' : '' }} || {{ Request::routeIs('hotels.create') ? 'active' : '' }} || {{ Request::routeIs('hotels.show') ? 'active' : '' }} || {{ Request::routeIs('hotels.edit') ? 'active' : '' }} || {{ Request::routeIs('departments.index') ? 'active' : '' }} || {{ Request::routeIs('departments.create') ? 'active' : '' }} || {{ Request::routeIs('departments.show') ? 'active' : '' }} || {{ Request::routeIs('departments.edit') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class='menu-icon tf-icons bx bx-building-house'></i>
                     <div data-i18n="Layouts">Hotels & More</div>
@@ -397,6 +397,12 @@
                     <li class="menu-item {{ Request::routeIs('rooms.index') ? 'active' : '' }}">
                         <a href="{{ route('rooms.index') }}" class="menu-link">
                             <div data-i18n="Analytics">Rooms</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item {{ Request::routeIs('locations.index') ? 'active' : '' }}">
+                        <a href="{{ route('locations.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Locations</div>
                         </a>
                     </li>
                 </ul>
