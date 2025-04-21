@@ -1,6 +1,6 @@
 <x-app-layout>
-@include('location.create')
-@include('location.edit')
+    @include('location.create')
+    @include('location.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -32,8 +32,8 @@
                                 <table id="villas" class="table">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th>Name</th>
                                             <th>Hotel</th>
+                                            <th>Name</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -41,8 +41,8 @@
                                         <!-- Aquí se mostrarán los empleados -->
                                         @foreach ($locations as $location)
                                             <tr>
-                                                <td>{{ $location->name }}</td>
                                                 <td>{{ $location->hotel->name }}</td>
+                                                <td>{{ $location->name }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
@@ -60,7 +60,8 @@
                                                             @endcan
 
                                                             @can('hotels.destroy')
-                                                                <form action="{{ route('locations.destroy', $location->id) }}"
+                                                                <form
+                                                                    action="{{ route('locations.destroy', $location->id) }}"
                                                                     method="POST">
                                                                     @csrf
                                                                     @method('DELETE')
