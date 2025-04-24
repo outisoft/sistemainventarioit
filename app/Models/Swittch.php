@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 class Swittch extends Model
 {
@@ -17,9 +18,9 @@ class Swittch extends Model
         return $this->belongsTo(Hotel::class);
     }
 
-    public function location()
+    public function location(): MorphOne
     {
-        return $this->morphOne(DeviceLocation::class, 'locatable')->where('locatable_type', self::class);
+        return $this->morphOne(DeviceLocation::class, 'locatable');
     }
 
     public function accessPoints()

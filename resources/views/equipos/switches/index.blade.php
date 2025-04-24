@@ -20,8 +20,7 @@
                         <div class="nav-item d-flex align-items-center">
                             @can('switches.create')
                                 <a href="#" class="btn-ico" data-bs-target="#modalCreate" data-bs-toggle="modal"
-                                    data-bs-offset="0,4" data-bs-placement="top"
-                                    data-bs-html="true" title=""
+                                    data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title=""
                                     data-bs-original-title="<span>Add new equipment</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
                                 </a>
@@ -34,7 +33,6 @@
                     $userRegions = $user->regions;
                 @endphp
                 @include('equipos.switches.create')
-                @include('equipos.switches.edit')
 
                 <div class="table-responsive text-nowrap" id="searchResults">
                     <table id="switchs" class="table">
@@ -56,7 +54,7 @@
                         <tbody id="employeeList">
                             @foreach ($switches as $switch)
                                 <tr>
-                                    <td>{{ $switch->usage_type}} </td>
+                                    <td>{{ $switch->usage_type }} </td>
                                     <td>{{ $switch->name }} ({{ $switch->total_ports }} puertos)</td>
                                     <td>{{ $switch->marca }} / {{ $switch->model }} / {{ $switch->serial }}</td>
                                     <td>{{ $switch->ip }}</td>
@@ -81,9 +79,10 @@
                                                 @endcan
 
                                                 @can('switches.edit')
-                                                    <a href="#" data-bs-toggle="modal"
-                                                        data-bs-target="#editModal{{ $switch->id }}"
-                                                        class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('switches.edit', $switch->id) }}"><i
+                                                            class="bx bx bx-edit me-1"></i>Edit
+                                                    </a>
                                                 @endcan
 
                                                 @can('switches.destroy')

@@ -239,6 +239,9 @@
                             departamentoSelect.append('<option value="' + departamento.id +
                                 '" ' + selected + '>' + departamento.name + '</option>');
                         });
+                    },
+                    error: function() {
+                        console.error('Error al cargar los departamentos.');
                     }
                 });
             } else {
@@ -247,19 +250,25 @@
             }
         }
 
+        // Evento para cambiar de hotel
         $(document).on('change', '[id^=hotel_id]', function() {
             var hotelId = $(this).val();
             var tpvId = $(this).attr('id').replace('hotel_id', '');
-            loadDepartamentos(hotelId, null, tpvId);
+            loadDepartamentos(hotelId, null, tpvId); // Cargar departamentos sin seleccionar ninguno
         });
 
-        // Cargar los departamentos del hotel seleccionado al cargar el modal
+        // Evento al abrir el modal
         $('[id^=editModal]').on('show.bs.modal', function(event) {
+            var button = $(event.relatedTarget); // Botón que abrió el modal
             var modal = $(this);
             var tpvId = modal.attr('id').replace('editModal', '');
-            var hotelId = modal.find('#hotel_id' + tpvId).val();
-            var departamentoId = modal.find('#departamento_id' + tpvId).val();
+            var hotelId = button.data('hotel-id'); // Obtener hotel_id del botón
+            var departamentoId = button.data('departamento-id'); // Obtener departamento_id del botón
 
+            // Establecer el valor del hotel en el select
+            modal.find('#hotel_id' + tpvId).val(hotelId);
+
+            // Cargar departamentos con el seleccionado
             loadDepartamentos(hotelId, departamentoId, tpvId);
         });
     });
