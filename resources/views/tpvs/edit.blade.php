@@ -48,11 +48,16 @@
                         <div class="mb-3">
                             <x-input-label class="form-label" for="area{{ $tpv->id }}" :value="__('Area')" />
                             <div class="input-group input-group-merge">
-                                <x-text-input id="area{{ $tpv->id }}" class="form-control" type="text"
-                                    name="area" placeholder="COCINA CALIENTE" value="{{ $tpv->area }}"
-                                    required />
+                                <select class="form-control" name="area" id="area">
+                                    <option value="{{ $tpv->id }}">{{ $tpv->area }}</option>
+                                    <option value="BAR">BAR</option>
+                                    <option value="COCINA CALIENTE">COCINA CALIENTE</option>
+                                    <option value="COCINA FRIA">COCINA FRIA</option>
+                                    <option value="PASTELERIA">PASTELERIA</option>
+                                    <option value="TOTEM CLIENTES">TOTEM CLIENTES</option>
+                                </select>
                             </div>
-                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('area')" class="mt-2" />
                         </div>
 
                         <!-- hotel -->
