@@ -137,7 +137,7 @@ class TpvController extends Controller
                 'ip' => 'required|unique:tpvs,ip,' . $id,
                 'link' => 'required',
                 'lease' => 'required|boolean',
-                'lease_id' => 'required_if:lease,1|exists:leases,id',
+                'lease_id' => 'required_if:lease,1',
             ]);
 
             $registro = Tpv::findOrFail($id);

@@ -2,20 +2,19 @@
 <div class="modal fade" id="modalCreate" tabindex="-1" aria-labelledby="modalCreate" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="{{ route('switches.store') }}" method="POST">
+            <form action="{{ route('ont.store') }}" method="POST">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title" id="modalCreate">SWITCH</h4>
+                    <h4 class="modal-title" id="modalCreate">ONT</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
                 <div class="modal-body">
                     <!-- Region -->
-                    {{-- Región (solo visible para administradores) --}}
                     @role('Administrator')
                         <div class="mb-3">
                             <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
-                            <select class="form-control" id="region_id" name="region_id">
+                            <select class="form-control" id="region_id" name="region_id" required>
                                 <option value="">Choose a region</option>
                                 @foreach ($regions as $region)
                                     <option value="{{ $region->id }}"
@@ -32,7 +31,7 @@
                             <div class="mb-3">
 
                                 <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
-                                <select name="region_id" id="region_id" class="form-control">
+                                <select name="region_id" id="region_id" class="form-control" required>
                                     @foreach ($userRegions as $region)
                                         <option value="{{ $region->id }}">{{ $region->name }}</option>
                                     @endforeach
@@ -42,37 +41,26 @@
                             <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
                             <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
                         @endif
-                        @endif
                     @endrole
-
-                    <!-- Type -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="usage_type" :value="__('Type')" />
-                        <select class="form-control" name="usage_type" id="usage_type">
-                            <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
-                            <option value="CUSTOMERS">CUSTOMERS</option>
-                        </select>
-                        <x-input-error :messages="$errors->get('usage_type')" class="mt-2" />
-                    </div>
 
                     <!-- NOMBRE -->
                     <div class="mb-3">
                         <x-input-label class="form-label" for="name" :value="__('Equipment name')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="name" class="form-control" type="text" name="name"
-                                placeholder="SW-123" :value="old('name')" required autocomplete="name" />
+                                placeholder="ONT-123" :value="old('name')" required autocomplete="name" />
                         </div>
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
-                    <!-- MARCa -->
+                    <!-- Brand -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="marca" :value="__('Brand')" />
+                        <x-input-label class="form-label" for="brand" :value="__('Brand')" />
                         <div class="input-group input-group-merge">
-                            <x-text-input id="marca" class="form-control" type="text" name="marca"
-                                placeholder="CISCO" :value="old('marca')" required autocomplete="marca" />
+                            <x-text-input id="brand" class="form-control" type="text" name="brand"
+                                placeholder="HUAWEI" :value="old('brand')" required autocomplete="marca" />
                         </div>
-                        <x-input-error :messages="$errors->get('marca')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('brand')" class="mt-2" />
                     </div>
 
                     <!-- Modelo -->
@@ -80,7 +68,7 @@
                         <x-input-label class="form-label" for="model" :value="__('Model')" />
                         <div class="input-group input-group-merge">
                             <x-text-input id="model" class="form-control" type="text" name="model"
-                                placeholder="SWPOUYI7" :value="old('model')" required autocomplete="model" />
+                                placeholder="ONTOUYI7" :value="old('model')" required autocomplete="model" />
                         </div>
                         <x-input-error :messages="$errors->get('model')" class="mt-2" />
                     </div>
@@ -116,75 +104,31 @@
                         <x-input-error :messages="$errors->get('ip')" class="mt-2" />
                     </div>
 
-                    <!-- Puertos -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="total_ports" :value="__('Total ports')" />
-                        <div class="input-group input-group-merge">
-                            <x-text-input id="total_ports" class="form-control" type="number" name="total_ports"
-                                placeholder="24" :value="old('total_ports')" required autocomplete="total_ports" />
-                        </div>
-                        <x-input-error :messages="$errors->get('total_ports')" class="mt-2" />
-                    </div>
-
                     <!-- Hotel -->
                     <div class="mb-3">
-                        <x-input-label class="form-label" for="hotel_id" :value="__('Locations')" />
-                        <select class="form-control" id="hotel_id" name="hotel_id" required>
+                        <label for="hotel_id">Hotel</label>
+                        <select name="hotel_id" id="hotel_id" class="form-control" required>
+                            <option value="">Seleccione un hotel</option>
                             @foreach ($hotels as $hotel)
                                 <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
                             @endforeach
                         </select>
                     </div>
 
+                    <!-- Villa -->
                     <div class="mb-3">
-                        <label>Tipo de Ubicación</label>
-                        <div>
-                            <input type="radio" name="location_type" value="villa" checked> Villa
-                            <input type="radio" name="location_type" value="specific"> Área Específica
-                        </div>
+                        <label for="villa_id">Villa</label>
+                        <select name="villa_id" id="villa_id" class="form-control" disabled required>
+                            <option value="">Seleccione un hotel primero</option>
+                        </select>
                     </div>
 
-                    <div id="villa-section">
-                        <div class="mb-3">
-                            <label>Villa</label>
-                            <select name="villa_id" class="form-control">
-                                <option value="">Choose a villa</option>
-                                @foreach ($hotels as $hotel)
-                                    @foreach ($hotel->villas as $villa)
-                                        <option value="{{ $villa->id }}" data-hotel="{{ $hotel->id }}">
-                                            {{ $villa->name }}
-                                        </option>
-                                    @endforeach
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div id="specific-section" style="display:none;">
-                        <div class="mb-3">
-                            <label>Area Específica</label>
-                            <select name="specific_location_id" class="form-control">
-                                <option value="">Choose Area</option>
-                                @foreach ($hotels as $hotel)
-                                    @foreach ($hotel->specificLocations as $location)
-                                        <option value="{{ $location->id }}" data-hotel="{{ $hotel->id }}">
-                                            {{ $location->name }}
-                                        </option>
-                                    @endforeach
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Observacion -->
-                    <div class="form-group">
-                        <x-input-label class="form-label" for="observacion" :value="__('Observations')" />
-                        <div class="input-group input-group-merge">
-                            <textarea id="observacion" class="form-control" type="textarea" name="observacion"
-                                placeholder="Escribe tus observaciones..." :value="old('observacion')" required autocomplete="observacion"
-                                rows="4"></textarea>
-                        </div>
-                        <x-input-error :messages="$errors->get('observacion')" class="mt-2" />
+                    <!-- Room -->
+                    <div class="mb-3">
+                        <label for="room_id">Habitación</label>
+                        <select name="room_id" id="room_id" class="form-control" disabled required>
+                            <option value="">Seleccione una villa primero</option>
+                        </select>
                     </div>
                 </div>
 
@@ -232,41 +176,106 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const hotelSelect = document.querySelector('select[name="hotel_id"]');
-        const villaSection = document.getElementById('villa-section');
-        const specificSection = document.getElementById('specific-section');
-        const locationRadios = document.querySelectorAll('input[name="location_type"]');
+        const hotelSelect = document.getElementById('hotel_id');
+        const villaSelect = document.getElementById('villa_id');
+        const roomSelect = document.getElementById('room_id');
 
-        function toggleSections() {
-            const isVilla = document.querySelector('input[name="location_type"]:checked').value === 'villa';
-            villaSection.style.display = isVilla ? 'block' : 'none';
-            specificSection.style.display = isVilla ? 'none' : 'block';
+        // Cargar villas basadas en hotel seleccionado
+        function loadVillas(hotelId) {
+            if (!hotelId) {
+                villaSelect.innerHTML = '<option value="">Seleccione un hotel primero</option>';
+                villaSelect.disabled = true;
+                roomSelect.innerHTML = '<option value="">Seleccione una villa primero</option>';
+                roomSelect.disabled = true;
+                return;
+            }
+
+            villaSelect.innerHTML = '<option value="">Cargando villas...</option>';
+            villaSelect.disabled = true;
+
+            fetch(`/api/hotels/${hotelId}/villas`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Error al cargar villas');
+                    return response.json();
+                })
+                .then(villas => {
+                    villas.sort((a, b) => a.name.localeCompare(b.name));
+
+                    villaSelect.innerHTML = '<option value="">Seleccione una villa</option>';
+                    villas.forEach(villa => {
+                        const option = document.createElement('option');
+                        option.value = villa.id;
+                        option.textContent = villa.name;
+                        villaSelect.appendChild(option);
+                    });
+                    villaSelect.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error al cargar villas:', error);
+                    villaSelect.innerHTML = '<option value="">Error al cargar villas</option>';
+                });
         }
 
-        function filterOptions(select, hotelId) {
-            const options = select.querySelectorAll('option');
-            options.forEach(option => {
-                if (!option.value || option.dataset.hotel == hotelId) {
-                    option.style.display = 'block';
-                } else {
-                    option.style.display = 'none';
-                }
-            });
-            select.value = '';
+        // Cargar habitaciones basadas en villa seleccionada
+        function loadRooms(villaId) {
+            if (!villaId) {
+                roomSelect.innerHTML = '<option value="">Seleccione una villa primero</option>';
+                roomSelect.disabled = true;
+                return;
+            }
+
+            roomSelect.innerHTML = '<option value="">Cargando habitaciones...</option>';
+            roomSelect.disabled = true;
+
+            fetch(`/api/villas/${villaId}/rooms`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Error al cargar habitaciones');
+                    return response.json();
+                })
+                .then(data => {
+                    // Verificar si la respuesta tiene un error
+                    if (data.error) {
+                        throw new Error(data.details || data.error);
+                    }
+
+                    roomSelect.innerHTML = '<option value="">N/A</option>';
+
+                    // Verificar que data sea un array
+                    if (Array.isArray(data)) {
+                        data.forEach(room => {
+                            const option = document.createElement('option');
+                            option.value = room.id;
+                            // Mostrar número y región si está disponible
+                            const regionInfo = room.region ? ` (${room.region.name})` : '';
+                            option.textContent = `Habitación ${room.number}${regionInfo}`;
+                            option.dataset.region = room.region_id; // Si necesitas esta info
+                            roomSelect.appendChild(option);
+                        });
+                    } else {
+                        throw new Error('Formato de datos inválido');
+                    }
+
+                    roomSelect.disabled = false;
+                })
+                .catch(error => {
+                    console.error('Error al cargar habitaciones:', error);
+                    roomSelect.innerHTML = '<option value="">Error al cargar habitaciones</option>';
+                });
         }
 
+        // Event listeners
         hotelSelect.addEventListener('change', function() {
             const hotelId = this.value;
-            filterOptions(document.querySelector('select[name="villa_id"]'), hotelId);
-            filterOptions(document.querySelector('select[name="specific_location_id"]'), hotelId);
+            loadVillas(hotelId);
         });
 
-        locationRadios.forEach(radio => {
-            radio.addEventListener('change', toggleSections);
+        villaSelect.addEventListener('change', function() {
+            const villaId = this.value;
+            loadRooms(villaId);
         });
 
         // Inicializar
-        toggleSections();
-        hotelSelect.dispatchEvent(new Event('change'));
+        villaSelect.disabled = true;
+        roomSelect.disabled = true;
     });
 </script>

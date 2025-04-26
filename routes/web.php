@@ -38,6 +38,7 @@ use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\VillaController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\OntController;
 use App\Http\Controllers\SpecificLocationController;
 use App\Exports\EmpleadoExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -77,6 +78,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('mobiles', MobileController::class);//Rutas phones
     Route::resource('office', OfficeController::class);//Rutas Office
+    Route::resource('ont', OntController::class);//Rutas ONT
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::resource('phones', PhoneController::class);//Rutas phones
     Route::resource('policy', PolicyController::class);//Rutas Policies

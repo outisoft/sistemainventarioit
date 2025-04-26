@@ -51,3 +51,13 @@ Route::get('/hotels/{hotel}/specific-locations', function ($hotelId) {
             ->get()
     );
 });
+
+Route::get('/villas', function(Request $request) {
+    $request->validate(['hotel_id' => 'required|exists:hotels,id']);
+    return Villa::where('hotel_id', $request->hotel_id)->get(['id', 'name']);
+});
+
+Route::get('/rooms', function(Request $request) {
+    $request->validate(['villa_id' => 'required|exists:villas,id']);
+    return Room::where('villa_id', $request->villa_id)->get(['id', 'room_number as name']);
+});

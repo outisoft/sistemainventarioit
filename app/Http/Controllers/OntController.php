@@ -1,0 +1,134 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Ont;
+use App\Models\Hotel;
+use App\Models\Villa;
+use App\Models\Room;
+use App\Models\Region;
+use App\Models\Historial;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
+
+class OntController extends Controller
+{
+    public function index()
+    {
+        $onts = Ont::with(['room', 'villa', 'hotel', 'region'])
+            ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
+                $regionIds = auth()->user()->regions->pluck('id');
+                if ($regionIds->isNotEmpty()) {
+                    $query->whereHas('region', function ($q) use ($regionIds) {
+                        $q->whereIn('regions.id', $regionIds);
+                    });
+                }
+            })
+            ->orderBy('name', 'asc')
+            ->get();
+
+        $hotels = Hotel::with(['villas.rooms', 'villas'])->get();
+
+        $regions = Region::orderBy('name', 'asc')->get();
+
+        $userRegions = auth()->user()->regions->pluck('id')->toArray();
+
+        return view('redes.ont.index', compact('onts', 'hotels', 'regions', 'userRegions'));
+    }
+
+    public function edit($id)
+    {
+        $ont = ont::with(['hotel', 'villa', 'room'])->findOrFail($id);
+        $hotels = Hotel::all();
+        $villas = Villa::where('hotel_id', $ont->hotel_id)->get();
+        $rooms = Room::where('villa_id', $ont->villa_id)->get();
+        
+        return view('redes.ont.edit', compact('ont', 'hotels', 'villas', 'rooms'));
+    }
+
+    public function store(Request $request)
+    {
+        $user = auth()->id();
+        
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255|unique:onts',
+                'brand' => 'required',
+                'model' => 'required',
+                'serial' => [
+                    'required',
+                    'unique:onts',
+                ],
+                'mac' => [
+                    'required',
+                    'regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
+                    'unique:onts',
+                ],
+                'ip' => [
+                    'required',
+                    'ip',
+                    Rule::unique('onts'),
+                ],
+                'hotel_id' => 'required|exists:hotels,id',
+                'region_id' => 'required',
+                'villa_id' => [
+                    'required_if:location_type,villa',
+                    'nullable',
+                    Rule::exists('villas', 'id')->where('hotel_id', $request->hotel_id)
+                ],
+                'room_id' => [
+                    'nullable',
+                    Rule::exists('rooms', 'id')->where('villa_id', $request->villa_id)
+                ],
+            ], [
+                'name.unique' => 'Este nombre ya está en uso por otro switch.',
+                'ip.unique' => 'Esta dirección IP ya está en uso por otro switch.',
+                'mac.regex' => 'El formato de la dirección MAC no es válido.',
+                'mac.unique' => 'Esta dirección MAC ya está registrada.',
+                'serial.unique' => 'Este número de serie ya está registrado.',
+                'total_ports.min' => 'El switch debe tener al menos 1 puerto.',
+                'total_ports.max' => 'El número máximo de puertos permitido es 128.',
+            ]);
+
+            $registro = Ont::create($validated);
+            $registro->save();
+
+            $user = auth()->user();
+
+            Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se agregó Ont con el nombre: {$registro->name} y con N/S: {$registro->serial}",
+                'user_id' => $user->id,
+                'region_id' => $registro->region_id,
+            ]);
+
+            toastr()
+                ->timeOut(3000)
+                ->addSuccess("Se creó {$registro->name} ({$registro->serial}) correctamente.");
+
+            return redirect()->route('ont.index');
+
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+
+            return back()->withErrors($e->errors())->withInput();
+        }
+    }
+}

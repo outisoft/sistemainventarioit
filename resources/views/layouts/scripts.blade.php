@@ -282,6 +282,42 @@
     });
 </script>
 
+<!--new DataTable('#aps');-->
+<script>
+    $('#onts').DataTable({
+        "pageLength": 100,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
+                className: 'btn btn-ico',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+
+        ]
+
+    });
+</script>
+
 <!--new DataTable('#switch');-->
 <script>
     $('#switchs').DataTable({

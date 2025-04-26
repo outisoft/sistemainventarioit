@@ -44,7 +44,15 @@ class AccessPointController extends Controller
 
         $userRegions = auth()->user()->regions->pluck('id')->toArray();
 
-        $hotels = Hotel::with(['villas.rooms', 'specificLocations'])->get();
+        $hotels = Hotel::with([
+            'villas' => function ($query) {
+                $query->orderBy('name', 'asc'); // Ordenar las villas por nombre
+            },
+            'villas.rooms' => function ($query) {
+                $query->orderBy('number', 'asc'); // Ordenar las habitaciones por número
+            },
+            'specificLocations'
+        ])->get();
         
         return view('equipos.access_points.index', compact('userRegions', 'accessPoints', 'switches', 'regions', 'hotels'));
     }
