@@ -52,12 +52,8 @@ Route::get('/hotels/{hotel}/specific-locations', function ($hotelId) {
     );
 });
 
-Route::get('/villas', function(Request $request) {
-    $request->validate(['hotel_id' => 'required|exists:hotels,id']);
-    return Villa::where('hotel_id', $request->hotel_id)->get(['id', 'name']);
-});
+use App\Http\Controllers\Api\VillaController;
+use App\Http\Controllers\Api\RoomController;
 
-Route::get('/rooms', function(Request $request) {
-    $request->validate(['villa_id' => 'required|exists:villas,id']);
-    return Room::where('villa_id', $request->villa_id)->get(['id', 'room_number as name']);
-});
+Route::get('/villas', [VillaController::class, 'index']);
+Route::get('/rooms', [RoomController::class, 'index']);

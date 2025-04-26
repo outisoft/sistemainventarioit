@@ -29,22 +29,14 @@ class OntController extends Controller
             ->get();
 
         $hotels = Hotel::with(['villas.rooms', 'villas'])->get();
+        $villas = Villa::orderBy('name', 'asc')->get();
+        $rooms = Room::orderBy('number', 'asc')->get();
 
         $regions = Region::orderBy('name', 'asc')->get();
 
         $userRegions = auth()->user()->regions->pluck('id')->toArray();
 
-        return view('redes.ont.index', compact('onts', 'hotels', 'regions', 'userRegions'));
-    }
-
-    public function edit($id)
-    {
-        $ont = ont::with(['hotel', 'villa', 'room'])->findOrFail($id);
-        $hotels = Hotel::all();
-        $villas = Villa::where('hotel_id', $ont->hotel_id)->get();
-        $rooms = Room::where('villa_id', $ont->villa_id)->get();
-        
-        return view('redes.ont.edit', compact('ont', 'hotels', 'villas', 'rooms'));
+        return view('redes.ont.index', compact('onts', 'hotels', 'regions', 'userRegions', 'villas', 'rooms'));
     }
 
     public function store(Request $request)

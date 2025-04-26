@@ -1,5 +1,6 @@
 <x-app-layout>
     @include('redes.ont.create')
+    @include('redes.ont.edit')
 
     <div class="content-wrapper">
         <!-- Content -->
@@ -74,7 +75,9 @@
                                                     </a>
                                                 @endcan
 
-                                                <a class="dropdown-item" href="{{ route('ont.edit', $ont->id) }}"><i
+                                                <a href="#" data-bs-toggle="modal"
+                                                                    data-bs-target="#editModal{{ $ont->id }}"
+                                                                    class="dropdown-item"><i
                                                         class="bx bx bx-edit me-1"></i>Edit
                                                 </a>
 
