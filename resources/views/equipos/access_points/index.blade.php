@@ -45,10 +45,11 @@
                                     @else
                                     @endif
                                 @endrole
-                                <th>Name</th>
+                                <th>NAME</th>
                                 <th>IP</th>
                                 <th>MAC</th>
                                 <th>SW</th>
+                                <th>LOCATION</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -60,13 +61,23 @@
                                     @else
                                         @if ($userRegions->count() > 1)
                                             <td>{{ $ap->region->name }} </td>
-                                        @else
                                         @endif
                                     @endrole
                                     <td>{{ $ap->name }}</td>
                                     <td>{{ $ap->ip }}</td>
                                     <td>{{ $ap->mac }}</td>
                                     <td>{{ $ap->swittch->name }} (Pto: {{ $ap->port_number }})</td>
+                                    <td>
+                                        {{ $ap->hotel->name ?? 'N/A' }}
+                                        @if ($ap->deviceLocation)
+                                            @if ($ap->deviceLocation->villa || $ap->deviceLocation->room)
+                                                / {{ $ap->deviceLocation->villa->name ?? 'N/A' }}
+                                                / {{ $ap->deviceLocation->room->number ?? 'N/A' }}
+                                            @elseif ($ap->deviceLocation->specificLocation)
+                                                / {{ $ap->deviceLocation->specificLocation->name ?? 'N/A' }}
+                                            @endif
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="dropdown">
 

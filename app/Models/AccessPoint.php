@@ -27,6 +27,11 @@ class AccessPoint extends Model
         return $this->belongsTo(Swittch::class);
     }
 
+    public function deviceLocation()
+    {
+        return $this->hasOne(DeviceLocation::class, 'locatable_id')->where('locatable_type', self::class);
+    }
+
     protected static function boot() //guardar en mayusculas
     {
         parent::boot();
@@ -49,6 +54,11 @@ class AccessPoint extends Model
     public function region()
     {
         return $this->belongsTo(Region::class, 'region_id');
+    }
+
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class, 'hotel_id');
     }
 
     // Scope global para filtrar por región automáticamente

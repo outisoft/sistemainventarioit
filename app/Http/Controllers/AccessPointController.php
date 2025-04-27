@@ -28,7 +28,7 @@ class AccessPointController extends Controller
     {
         $user = auth()->user();
 
-        $accessPoints = AccessPoint::with(['region', 'swittch'])
+        $accessPoints = AccessPoint::with(['region', 'swittch', 'hotel'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -44,15 +44,7 @@ class AccessPointController extends Controller
 
         $userRegions = auth()->user()->regions->pluck('id')->toArray();
 
-        $hotels = Hotel::with([
-            'villas' => function ($query) {
-                $query->orderBy('name', 'asc'); // Ordenar las villas por nombre
-            },
-            'villas.rooms' => function ($query) {
-                $query->orderBy('number', 'asc'); // Ordenar las habitaciones por número
-            },
-            'specificLocations'
-        ])->get();
+        $hotels = Hotel::with(['villas.rooms', 'villas'])->get();
         
         return view('equipos.access_points.index', compact('userRegions', 'accessPoints', 'switches', 'regions', 'hotels'));
     }

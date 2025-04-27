@@ -264,6 +264,8 @@
                 })
                 .then(villas => {
                     villaSelect.innerHTML = '<option value="">Seleccione una villa</option>';
+                    // Ordenar las villas por nombre
+                    villas.sort((a, b) => a.name.localeCompare(b.name));
                     villas.forEach(villa => {
                         const option = document.createElement('option');
                         option.value = villa.id;
@@ -306,8 +308,9 @@
                     
                     roomSelect.innerHTML = '<option value="">N/A</option>';
                     
-                    // Verificar que data sea un array
+                    // Ordenar las habitaciones por número
                     if (Array.isArray(data)) {
+                        data.sort((a, b) => a.number - b.number);
                         data.forEach(room => {
                             const option = document.createElement('option');
                             option.value = room.id;

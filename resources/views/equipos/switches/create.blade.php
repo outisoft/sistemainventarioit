@@ -42,7 +42,6 @@
                             <!-- Si el usuario tiene solo una región, asigna automáticamente esa región -->
                             <input type="hidden" name="region_id" value="{{ $userRegions->first()->id }}">
                         @endif
-                        @endif
                     @endrole
 
                     <!-- Type -->
