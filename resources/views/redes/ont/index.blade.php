@@ -69,11 +69,6 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                @can('ontes.show')
-                                                    <a class="dropdown-item" href="{{ route('ontes.show', $ont->id) }}"><i
-                                                            class="bx bx-show-alt me-1"></i>Show
-                                                    </a>
-                                                @endcan
 
                                                 <a href="#" data-bs-toggle="modal"
                                                                     data-bs-target="#editModal{{ $ont->id }}"
@@ -81,15 +76,13 @@
                                                         class="bx bx bx-edit me-1"></i>Edit
                                                 </a>
 
-                                                @can('ontes.destroy')
-                                                    <form action="{{ route('ontes.destroy', $ont->id) }}" method="POST">
+                                                    <form action="{{ route('ont.destroy', $ont->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="dropdown-item btn-danger"
-                                                            onclick="return confirm('Are you sure to delete this equipment?')"><i
+                                                            onclick="return confirm('Are you sure to delete this ONT?')"><i
                                                                 class="bx bx-trash me-1"></i>Delete</button>
                                                     </form>
-                                                @endcan
                                             </div>
                                         </div>
                                     </td>

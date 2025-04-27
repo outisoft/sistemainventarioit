@@ -123,4 +123,79 @@ class OntController extends Controller
             return back()->withErrors($e->errors())->withInput();
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $user = auth()->id();
+        try{
+            $ont = Ont::findOrFail($id);
+
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'brand' => 'nullable|string|max:100',
+                'model' => 'nullable|string|max:100',
+                'serial' => 'nullable|string|max:100',
+                'mac' => 'nullable|string|max:17|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
+                'ip' => 'nullable|ipv4',
+                'hotel_id' => 'required|exists:hotels,id',
+                'villa_id' => 'required|exists:villas,id',
+                'room_id' => 'required|exists:rooms,id',
+                'region_id' => 'required|exists:regions,id',
+            ]);
+
+            $user = auth()->user();
+            $ont->update($validated);
+
+            Historial::create([
+                'accion' => 'Actualización',
+                'descripcion' => "Se actualizó ONT con el nombre: {$ont->name} y con N/S: {$ont->serial}",
+                'user_id' => $user->id,
+                'region_id' => $ont->region_id,
+            ]);
+
+            toastr()
+                ->timeOut(3000)
+                ->addSuccess("Se actualizó {$ont->name} ({$ont->serial}) correctamente.");
+
+            return redirect()->route('ont.index');
+
+        } catch (ValidationException $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
+            }
+            return back()->withErrors($e->errors())->withInput();
+        }
+    }
+
+    public function destroy($id)
+    {
+        $ont = Ont::findOrFail($id);
+        $user = auth()->user();
+
+        Historial::create([
+            'accion' => 'Eliminación',
+            'descripcion' => "Se eliminó ONT con el nombre: {$ont->name} y con N/S: {$ont->serial}",
+            'user_id' => $user->id,
+            'region_id' => $ont->region_id,
+        ]);
+        $ont->delete();
+        toastr()
+            ->timeOut(3000)
+            ->addSuccess("Se eliminó {$ont->name} ({$ont->serial}) correctamente.");
+        return redirect()->route('ont.index');
+    }
 }

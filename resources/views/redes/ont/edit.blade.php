@@ -11,6 +11,8 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <form action="{{ route('ont.update', $ont) }}" method="POST">
+                    @csrf
+                    @method('PUT')
 
                     <div class="modal-header">
                         <h5 class="modal-title" id="editModal{{ $ont->id }}">Editar ont: {{ $ont->name }}</h5>
@@ -131,7 +133,7 @@
                             <x-input-error :messages="$errors->get('hotel_id')" class="mt-2" />
                         </div>
 
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label for="villa_id_edit">Villa</label>
                             <select name="villa_id" id="villa_id_edit" class="form-control" required>
                                 <option value="">Seleccione una villa</option>
@@ -144,7 +146,7 @@
                             </select>
                         </div>
                         
-                        <div class="form-group">
+                        <div class="mb-3">
                             <label for="room_id_edit">Habitación</label>
                             <select name="room_id" id="room_id_edit" class="form-control" required>
                                 <option value="">Seleccione una habitación</option>
@@ -201,6 +203,9 @@
                     .then(villas => {
                         villaSelect.innerHTML = '<option value="">Seleccione una villa</option>';
                         
+                        // Ordenar las villas por nombre
+                        villas.sort((a, b) => a.name.localeCompare(b.name));
+                        
                         villas.forEach(villa => {
                             const option = new Option(villa.name, villa.id);
                             villaSelect.appendChild(option);
@@ -239,6 +244,9 @@
                     })
                     .then(rooms => {
                         roomSelect.innerHTML = '<option value="">Seleccione una habitación</option>';
+                        
+                        // Ordenar las habitaciones por número
+                        rooms.sort((a, b) => a.number - b.number);
                         
                         rooms.forEach(room => {
                             const option = new Option(room.number, room.id);
