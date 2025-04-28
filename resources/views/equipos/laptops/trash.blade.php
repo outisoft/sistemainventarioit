@@ -84,10 +84,23 @@
                                                 <!--a-- href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#hojaBajaModal" data-id="{{ $equipment->id }}">
                                                     <i class='bx bx-spreadsheet'></i> Hoja de baja
                                                 </!--a-->
-                                                <form action="{{ route('laptops.restore', $equipment->id) }}" method="POST">
+                                                <form action="{{ route('laptops.restore', $equipment->id) }}"
+                                                    method="POST">
                                                     @csrf
-                                                    <button type="submit" class="dropdown-item"><i class='bx bx-reset me-1'></i>Restaurar</button>
+                                                    <button type="submit" class="dropdown-item"><i
+                                                            class='bx bx-reset me-1'></i>Restaurar</button>
                                                 </form>
+
+                                                @can('laptops.destroy')
+                                                    <form action="{{ route('laptops.destroy', $equipment->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="dropdown-item btn-danger"
+                                                            onclick="return confirm('Are you sure to delete?')"><i
+                                                                class="bx bx-trash me-1"></i>Delete</button>
+                                                    </form>
+                                                @endcan
                                             </div>
                                         </div>
                                     </td>
@@ -213,9 +226,11 @@
 
                         <div class="mb-3">
                             <label for="foto" class="form-label">Subir Foto</label>
-                            <input type="file" class="form-control" id="foto" name="foto" accept="image/*" onchange="previewImage(event)">
+                            <input type="file" class="form-control" id="foto" name="foto"
+                                accept="image/*" onchange="previewImage(event)">
                             <div class="mt-3">
-                                <img id="preview" src="#" alt="Vista previa de la imagen" style="max-width: 100%; display: none;" />
+                                <img id="preview" src="#" alt="Vista previa de la imagen"
+                                    style="max-width: 100%; display: none;" />
                             </div>
                         </div>
                     </div>
@@ -231,7 +246,7 @@
     <script>
         // Pasar el ID del laptop al modal
         document.querySelectorAll('[data-bs-target="#hojaBajaModal"]').forEach(button => {
-            button.addEventListener('click', function () {
+            button.addEventListener('click', function() {
                 const laptopId = this.getAttribute('data-id');
                 document.getElementById('laptopId').value = laptopId;
             });

@@ -52,69 +52,49 @@ class LaptopController extends Controller
 
     public function store(Request $request)
     {
-        // Validar los datos del formulario de equipo
-        $validatedData = $request->validate([
-            'region_id' => 'required|exists:regions,id',
-            'tipo_id' => 'required|integer',
-            'marca' => 'required|string|max:255',
-            'model' => 'required|string|max:255',
-            'serial' => 'required|string|max:255|unique:equipos,serial',
-            'name' => 'required|string|max:255',
-            'ip' => 'required|ip',
-            'so' => 'required|string|max:255',
-            'lease' => 'required|boolean',
-            'af_code' => 'nullable|string|max:255',
-            'lease_id' => 'nullable|exists:leases,id',
-        ]);
-
-        // Crear el equipo
-        $equipo = Equipo::create([
-            'region_id' => $validatedData['region_id'],
-            'tipo_id' => $validatedData['tipo_id'],
-            'marca' => $validatedData['marca'],
-            'model' => $validatedData['model'],
-            'serial' => $validatedData['serial'],
-            'name' => $validatedData['name'],
-            'ip' => $validatedData['ip'],
-            'so' => $validatedData['so'],
-            'lease' => $validatedData['lease'],
-            'af_code' => $validatedData['lease'] ? null : $validatedData['af_code'],
-            'lease_id' => $validatedData['lease'] ? $validatedData['lease_id'] : null,
-        ]);
-
-        // Verificar si se agregaron complementos
-        if ($request->has('complements')) {
-            // Validar los datos de los complementos
-            $complements = $request->validate([
-                'complements.*.type_id' => 'required|exists:tipos,id',
-                'complements.*.brand' => 'required|string|max:255',
-                'complements.*.model' => 'required|string|max:255',
-                'complements.*.serial' => 'required|string|max:255|unique:complements,serial',
-                'complements.*.lease' => 'required|boolean',
-                'complements.*.af_code' => 'nullable|string|max:255',
-                'complements.*.lease_id' => 'nullable|exists:leases,id',
+        $user = auth()->id();
+        try {
+            $data = $request->validate([
+                'region_id' => 'required',
+                'tipo_id' => 'required',
+                'marca' => 'required',
+                'model' => 'required',
+                'serial' => 'required|unique:equipos,serial',
+                'name' => 'required|unique:equipos,name',
+                'ip' => 'required|unique:equipos,ip',
+                'so' => 'required',
+                'lease' => 'required|boolean',
+                'lease_id' => 'required_if:lease,1',
+                'af_code' => 'required_if:lease,0',
+            ], [
+                'serial.unique' => 'Este No. de serie ya existe.',
+                'name.unique' => 'Este nombre de equipo ya existe.',
+                'ip.unique' => 'Esta IP ya esta en uso.',
             ]);
-
-            foreach ($request->input('complements') as $complementData) {
-                // Crear el complemento
-                $complement = Complement::create([
-                    'region_id' => $validatedData['region_id'], // Usar la misma región que el equipo
-                    'type_id' => $complementData['type_id'],
-                    'brand' => $complementData['brand'],
-                    'model' => $complementData['model'],
-                    'serial' => $complementData['serial'],
-                    'lease' => $complementData['lease'],
-                    'af_code' => $complementData['lease'] ? null : $complementData['af_code'],
-                    'lease_id' => $complementData['lease'] ? $complementData['lease_id'] : null,
-                ]);
-
-                // Crear la relación en la tabla pivote
-                $equipo->complements()->attach($complement->id);
+            
+            $registro = Equipo::create($data);
+            $registro->save();
+            Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se agrego el {$registro->tipo->name} ({$registro->name}) con S/N: {$registro->serial}",
+                'user_id' => $user,
+                'region_id' => $registro->region_id,
+            ]);
+            toastr()
+                ->timeOut(3000) // 3 second
+                ->addSuccess("Se creo {$registro->name} correctamente.");
+            return redirect()->route('laptops.index');
+            
+        } catch (\Exception $e) {
+            foreach ($e->errors() as $field => $errors) {
+                foreach ($errors as $error) {
+                    toastr()
+                        ->timeOut(5000)
+                        ->addError($error);
+                }
             }
+            return back()->withErrors($e->errors())->withInput();
         }
-
-        // Redirigir con un mensaje de éxito
-        return redirect()->route('laptops.index')->with('success', 'Laptop and its complements have been saved successfully.');
     }
 
     public function show(Request $request)
@@ -274,7 +254,7 @@ class LaptopController extends Controller
 
             toastr()
                 ->timeOut(3000) // 3 segundos
-                ->addSuccess("Tablet de {$registro->name} eliminado.");
+                ->addSuccess("Laptop {$registro->name} eliminado.");
 
             return redirect()->route('laptop.trashes');
         } catch (\Exception $e) {
