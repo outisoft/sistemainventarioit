@@ -1,79 +1,29 @@
-<x-app-layout>
-    <div class="container">
-        <br>
+<!-- Modales de Edición -->
+@foreach ($switches as $equipo)
+    <div class="modal fade" id="editModal{{ $equipo->id }}" tabindex="-1" aria-labelledby="editModal{{ $equipo->id }}"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('switches.update', $equipo) }}" method="POST">
+                    @csrf
+                    @method('PUT')
 
-        <form method="POST" action="{{ route('switches.update', $switch->id) }}" id="editSwitchForm">
-            @csrf
-            @method('PUT')
-
-            <!-- Datos del Switch -->
-            <div class="card mb-4">
-                <div class="card-header">Información del Dispositivo</div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="name" class="form-label">Nombre*</label>
-                            <input type="text" class="form-control" id="name" name="name"
-                                value="{{ old('name', $switch->name) }}" required>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="hotel_id" class="form-label">Hotel*</label>
-                            <select class="form-control" id="hotel_id" name="hotel_id" required disabled>
-                                @foreach ($hotels as $hotel)
-                                    <option value="{{ $hotel->id }}"
-                                        {{ $switch->hotel_id == $hotel->id ? 'selected' : '' }}>
-                                        {{ $hotel->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModal{{ $equipo->id }}">Edit equipment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
-                    <!-- Más campos (marca, modelo, serial, etc.) -->
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label for="marca" class="form-label">Marca</label>
-                            <input type="text" class="form-control" id="marca" name="marca"
-                                value="{{ old('marca', $switch->marca) }}">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="model" class="form-label">Modelo</label>
-                            <input type="text" class="form-control" id="model" name="model"
-                                value="{{ old('model', $switch->model) }}">
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="serial" class="form-label">Serial</label>
-                            <input type="text" class="form-control" id="serial" name="serial"
-                                value="{{ old('serial', $switch->serial) }}">
-                        </div>
-                    </div>
-
-                    <!-- Campos de red -->
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="mac" class="form-label">MAC</label>
-                            <input type="text" class="form-control" id="mac" name="mac"
-                                value="{{ old('mac', $switch->mac) }}" placeholder="Formato: 00:1A:2B:3C:4D:5E">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="ip" class="form-label">IP</label>
-                            <input type="text" class="form-control" id="ip" name="ip"
-                                value="{{ old('ip', $switch->ip) }}">
-                        </div>
-                    </div>
-
-                    <!-- Región y puertos -->
-                    <div class="row">
-
+                    <div class="modal-body">
+                        <!-- Region -->
                         {{-- Región (solo visible para administradores) --}}
                         @role('Administrator')
-                            <div class="col-md-6 mb-3">
+                            <div class="mb-3">
                                 <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
                                 <select class="form-control" id="region_id" name="region_id"
                                     aria-label="Default select example">
                                     @foreach ($regions as $region)
                                         <option value="{{ $region->id }}"
-                                            {{ $switch->region_id == $region->id ? 'selected' : '' }}>
+                                            {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
                                             {{ $region->name }}</option>
                                     @endforeach
                                 </select>
@@ -82,13 +32,13 @@
                         @else
                             @if ($userRegions->count() > 1)
                                 <!-- Si el usuario tiene múltiples regiones, muestra un campo de selección -->
-                                <div class="col-md-6 mb-3">
+                                <div class="mb-3">
                                     <x-input-label class="form-label" for="region_id" :value="__('REGION')" />
                                     <select class="form-control" id="region_id" name="region_id"
                                         aria-label="Default select example">
                                         @foreach ($userRegions as $region)
                                             <option value="{{ $region->id }}"
-                                                {{ $switch->region_id == $region->id ? 'selected' : '' }}>
+                                                {{ $equipo->region_id == $region->id ? 'selected' : '' }}>
                                                 {{ $region->name }}
                                             </option>
                                         @endforeach
@@ -101,195 +51,155 @@
                             @endif
                         @endrole
 
-                        <div class="col-md-6 mb-3">
-                            <label for="total_ports" class="form-label">Puertos Totales</label>
-                            <input type="number" class="form-control" id="total_ports" name="total_ports"
-                                value="{{ old('total_ports', $switch->total_ports) }}" min="1">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- En la sección de ubicación -->
-            <div class="card mb-4">
-                <div class="card-header">Ubicación</div>
-                <div class="card-body">
-                    @if (!$hasLocation)
-                        <div class="alert alert-warning">
-                            Este switch no tiene ubicación asignada. Por favor seleccione una.
-                        </div>
-                    @endif
-
-                    <div class="mb-3">
-                        <label class="form-label">Tipo de Ubicación*</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="location_type" id="location_villa"
-                                value="villa"
-                                {{ old('location_type', $currentLocation['type']) == 'villa' ? 'checked' : '' }}
-                                disabled>
-                            <label class="form-check-label" for="location_villa">Villa</label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="location_type"
-                                id="location_specific" value="specific"
-                                {{ old('location_type', $currentLocation['type']) == 'specific' ? 'checked' : '' }}
-                                disabled>
-                            <label class="form-check-label" for="location_specific">Área Específica</label>
-                        </div>
-                    </div>
-
-                    <!-- Sección Villa -->
-                    <div id="villa-section"
-                        style="{{ old('location_type', $currentLocation['type']) == 'villa' ? '' : 'display:none;' }}">
+                        <!-- Type -->
                         <div class="mb-3">
-                            <label for="villa_id" class="form-label">Villa*</label>
-                            <select class="form-control" id="villa_id" name="villa_id"
-                                {{ old('location_type', $currentLocation['type']) == 'villa' ? '' : 'disabled' }}
-                                disabled>
-                                <option value="">Seleccione una villa</option>
-                                @if (isset($villasByHotel[$switch->hotel_id]))
-                                    @foreach ($villasByHotel[$switch->hotel_id] as $villa)
-                                        <option value="{{ $villa['id'] }}"
-                                            {{ old('villa_id', $currentLocation['villa_id']) == $villa['id'] ? 'selected' : '' }}>
-                                            {{ $villa['name'] }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
+                            <x-input-label class="form-label" for="usage_type{{ $equipo->id }}" :value="__('Type')" />
+                            <div class="input-group input-group-merge">
+                                <select class="form-control" name="usage_type" id="usage_type">
+                                    <option value="{{ $equipo->id }}">{{ $equipo->usage_type }}</option>
+                                    <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                                    <option value="CUSTOMERS">CUSTOMERS</option>
+                                </select>
+                            </div>
+                            <x-input-error :messages="$errors->get('usage_type')" class="mt-2" />
                         </div>
-                    </div>
 
-                    <!-- Sección Área Específica -->
-                    <div id="specific-section"
-                        style="{{ old('location_type', $currentLocation['type']) == 'specific' ? '' : 'display:none;' }}">
+                        <!-- Name -->
                         <div class="mb-3">
-                            <label for="specific_location_id" class="form-label">Área Específica*</label>
-                            <select class="form-control" id="specific_location_id" name="specific_location_id"
-                                {{ old('location_type', $currentLocation['type']) == 'specific' ? '' : 'disabled' }}
-                                disabled>
-                                <option value="">Seleccione un área</option>
-                                @if (isset($locationsByHotel[$switch->hotel_id]))
-                                    @foreach ($locationsByHotel[$switch->hotel_id] as $location)
-                                        <option value="{{ $location['id'] }}"
-                                            {{ old('specific_location_id', $currentLocation['specific_location_id']) == $location['id'] ? 'selected' : '' }}>
-                                            {{ $location['name'] }}
-                                        </option>
-                                    @endforeach
-                                @endif
-                            </select>
+                            <x-input-label class="form-label" for="name" :value="__('Equipment name')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="name{{ $equipo->name }}" class="form-control" type="text"
+                                    name="name" placeholder="SW-123" value="{{ $equipo->name }}" required
+                                    autocomplete="name" />
+                            </div>
+                            <x-input-error :messages="$errors->get('marca')" class="mt-2" />
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Observaciones -->
-            <div class="card mb-4">
-                <div class="card-header">Observaciones</div>
-                <div class="card-body">
-                    <div class="mb-3">
-                        <label for="observacion" class="form-label">Notas</label>
-                        <textarea class="form-control" id="observacion" name="observacion" rows="3">{{ old('observacion', $switch->observacion) }}</textarea>
-                    </div>
-                </div>
-            </div>
+                        <!-- Marca -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="marca" :value="__('Brand')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="marca{{ $equipo->marca }}" class="form-control" type="text"
+                                    name="marca" placeholder="CISCO" value="{{ $equipo->marca }}" required
+                                    autocomplete="marca" />
+                            </div>
+                            <x-input-error :messages="$errors->get('marca')" class="mt-2" />
+                        </div>
 
-            <div class="d-flex justify-content-between">
-                <a href="{{ route('switches.index') }}" class="btn btn-secondary">Cancelar</a>
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        <!-- Modelo -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="model{{ $equipo->model }}" :value="__('Model')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="model{{ $equipo->model }}" class="form-control" type="text"
+                                    name="model" placeholder="45RT7" value="{{ $equipo->model }}" required
+                                    autocomplete="model" />
+                            </div>
+                            <x-input-error :messages="$errors->get('model')" class="mt-2" />
+                        </div>
+
+                        <!-- Serial -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="serial{{ $equipo->serial }}" :value="__('Serial')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="serial{{ $equipo->serial }}" class="form-control" type="text"
+                                    name="serial" placeholder="52RSCF78N93" value="{{ $equipo->serial }}" required
+                                    autocomplete="serial" />
+                            </div>
+                            <x-input-error :messages="$errors->get('serial')" class="mt-2" />
+                        </div>
+
+                        <!-- MAC -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="mac{{ $equipo->mac }}" :value="__('MAC address')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="mac-edit" class="form-control" type="text" name="mac"
+                                    placeholder="12:C0:96:24:00" value="{{ $equipo->mac }}" required
+                                    autocomplete="mac" />
+                            </div>
+                            <x-input-error :messages="$errors->get('mac')" class="mt-2" />
+                        </div>
+
+                        <!-- IP -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="ip{{ $equipo->ip }}" :value="__('IP')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="ip{{ $equipo->ip }}" class="form-control" type="text"
+                                    name="ip" placeholder="10.01.2.31" value="{{ $equipo->ip }}" required
+                                    autocomplete="ip" />
+                            </div>
+                            <x-input-error :messages="$errors->get('ip')" class="mt-2" />
+                        </div>
+
+                        <!-- Total Ports -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="total_ports{{ $equipo->total_ports }}"
+                                :value="__('Total ports')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="total_ports{{ $equipo->total_ports }}" class="form-control"
+                                    type="text" name="total_ports" placeholder="24"
+                                    value="{{ $equipo->total_ports }}" required autocomplete="total_ports" />
+                            </div>
+                            <x-input-error :messages="$errors->get('total_ports')" class="mt-2" />
+                        </div>
+
+                        <!-- Locations -->
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="hotel_id" :value="__('Locations')" />
+                            <select class="form-control" id="hotel_id" name="hotel_id"
+                                aria-label="Default select example">
+                                @foreach ($hotels as $location)
+                                    <option value="{{ $location->id }}"
+                                        {{ $equipo->hotel_id == $location->id ? 'selected' : '' }}>
+                                        {{ $location->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('hotel_id')" class="mt-2" />
+                        </div>
+
+                        <!-- Observacion -->
+                        <div class="form-group">
+                            <x-input-label class="form-label" for="observacion{{ $equipo->observacion }}"
+                                :value="__('Observations')" />
+                            <div class="input-group input-group-merge">
+                                <textarea id="observacion{{ $equipo->observacion }}" class="form-control" type="textarea" name="observacion"
+                                    placeholder="Escribe tus observaciones..." value="{{ $equipo->observacion }}" required
+                                    autocomplete="observacion" rows="4">{{ $equipo->observacion }}</textarea>
+                            </div>
+                            <x-input-error :messages="$errors->get('observacion')" class="mt-2" />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
             </div>
-        </form>
+        </div>
     </div>
+@endforeach
 
-    @push('scripts')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Elementos del DOM
-                const hotelSelect = document.getElementById('hotel_id');
-                const villaSelect = document.getElementById('villa_id');
-                const specificLocationSelect = document.getElementById('specific_location_id');
-                const locationTypeRadios = document.querySelectorAll('input[name="location_type"]');
+<script>
+    document.getElementById('mac-edit').addEventListener('input', function(e) {
+        let mac = e.target.value;
 
-                // Datos precargados desde Laravel
-                const villasByHotel = @json($villasByHotel);
-                const locationsByHotel = @json($locationsByHotel);
+        // Eliminar cualquier carácter no válido (que no sea 0-9, A-F o ":")
+        mac = mac.replace(/[^A-Fa-f0-9]/g, '');
 
-                // Valores actuales
-                const currentValues = {
-                    locationType: @json($currentLocation['type']),
-                    villaId: @json($currentLocation['villa_id']),
-                    specificLocationId: @json($currentLocation['specific_location_id'])
-                };
+        // Insertar dos puntos después de cada dos caracteres
+        if (mac.length > 2) {
+            mac = mac.match(/.{1,2}/g).join(':');
+        }
 
-                // Actualizar opciones basado en hotel seleccionado
-                function updateLocationOptions() {
-                    const hotelId = hotelSelect.value;
+        // Limitar la longitud a 17 caracteres (por ejemplo: 00:11:22:33:44:55)
+        if (mac.length > 17) {
+            mac = mac.substring(0, 17);
+        }
 
-                    // Actualizar villas
-                    updateSelectOptions(villaSelect, villasByHotel[hotelId]);
+        // Convertir a mayúsculas
+        mac = mac.toUpperCase();
 
-                    // Actualizar ubicaciones específicas
-                    updateSelectOptions(specificLocationSelect, locationsByHotel[hotelId]);
-
-                    // Restaurar selección actual si existe
-                    restoreCurrentSelection();
-                }
-
-                // Función genérica para actualizar opciones de un select
-                function updateSelectOptions(selectElement, items) {
-                    selectElement.innerHTML = '<option value="">Seleccione...</option>';
-
-                    if (items && items.length > 0) {
-                        items.forEach(item => {
-                            const option = document.createElement('option');
-                            option.value = item.id;
-                            option.textContent = item.name;
-                            selectElement.appendChild(option);
-                        });
-                    }
-                }
-
-                // Restaurar selección guardada
-                function restoreCurrentSelection() {
-                    if (currentValues.locationType === 'villa' && currentValues.villaId) {
-                        const optionExists = Array.from(villaSelect.options).some(opt => opt.value == currentValues
-                            .villaId);
-                        if (optionExists) villaSelect.value = currentValues.villaId;
-                    } else if (currentValues.locationType === 'specific' && currentValues.specificLocationId) {
-                        const optionExists = Array.from(specificLocationSelect.options).some(opt => opt.value ==
-                            currentValues.specificLocationId);
-                        if (optionExists) specificLocationSelect.value = currentValues.specificLocationId;
-                    }
-                }
-
-                // Cambiar entre tipos de ubicación
-                function toggleLocationSections() {
-                    const isVilla = document.querySelector('input[name="location_type"]:checked').value === 'villa';
-
-                    document.getElementById('villa-section').style.display = isVilla ? 'block' : 'none';
-                    document.getElementById('specific-section').style.display = isVilla ? 'none' : 'block';
-
-                    villaSelect.disabled = !isVilla;
-                    specificLocationSelect.disabled = isVilla;
-                }
-
-                // Event listeners
-                hotelSelect.addEventListener('change', updateLocationOptions);
-
-                locationTypeRadios.forEach(radio => {
-                    radio.addEventListener('change', toggleLocationSections);
-                });
-
-                // Inicialización
-                updateLocationOptions();
-                toggleLocationSections();
-
-                // Debug: Verificar datos en consola
-                console.log('Datos iniciales:', {
-                    currentValues,
-                    villasByHotel,
-                    locationsByHotel
-                });
-            });
-        </script>
-    @endpush
-</x-app-layout>
+        // Actualizar el campo de input con el valor formateado
+        e.target.value = mac;
+    });
+</script>

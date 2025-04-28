@@ -243,7 +243,9 @@ class SwitchController extends Controller
         $switch = Swittch::with(['location', 'hotel', 'region'])->findOrFail($id);
         
         $hotels = Hotel::with(['villas', 'specificLocations'])->get();
-        $regions = Region::all();
+        $regions = Region::orderBy('name', 'asc')->get();
+
+        $userRegions = auth()->user()->regions->pluck('id')->toArray();
 
         // Obtener todas las villas y ubicaciones agrupadas por hotel
         $villasByHotel = Villa::all()->groupBy('hotel_id')->map(function($villas) {
@@ -254,7 +256,7 @@ class SwitchController extends Controller
             return $locations->map->only(['id', 'name']);
         });
 
-        return view('equipos.switches.edit', [
+        return view('equipos.switches.edit', compact('userRegions'), [
             'switch' => $switch,
             'hotels' => $hotels,
             'regions' => $regions,
@@ -269,96 +271,7 @@ class SwitchController extends Controller
         ]);
     }
 
-    public function update(Request $request, $id)
-    {
-        $user = auth()->id();
-        try{
-            $switch = Swittch::findOrFail($id);
-
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'marca' => 'nullable|string|max:100',
-                'model' => 'nullable|string|max:100',
-                'serial' => 'nullable|string|max:100',
-                'mac' => 'nullable|string|max:17|regex:/^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/',
-                'ip' => 'nullable|ipv4',
-                'total_ports' => 'nullable|integer|min:1',
-                //'hotel_id' => 'required|exists:hotels,id',
-                'observacion' => 'nullable|string',
-                'region_id' => 'required|exists:regions,id',
-                /*'location_type' => [
-                    'required',
-                    'in:villa,specific',
-                    function ($attribute, $value, $fail) {
-                        if ($value === 'villa' && empty($this->villa_id)) {
-                            $fail('Debe seleccionar una villa cuando el tipo es "Villa"');
-                        }
-                        if ($value === 'specific' && empty($this->specific_location_id)) {
-                            $fail('Debe seleccionar un área específica cuando el tipo es "Área Específica"');
-                        }
-                    }
-                ],
-                'villa_id' => [
-                    'required_if:location_type,villa',
-                    'nullable',
-                    Rule::exists('villas', 'id')->where('hotel_id', $request->hotel_id)
-                ],
-                'specific_location_id' => [
-                    'required_if:location_type,specific',
-                    'nullable',
-                    Rule::exists('specific_locations', 'id')->where('hotel_id', $request->hotel_id)
-                ]*/
-            ]);
-
-            // Actualizar datos del switch
-            $user = auth()->user();
-            $switch->update($validated);
-
-            // Actualizar ubicación
-            /*$locationData = [
-                'villa_id' => $request->location_type === 'villa' ? $request->villa_id : null,
-                'room_id' => null,
-                'specific_location_id' => $request->location_type === 'specific' ? $request->specific_location_id : null
-            ];
-
-            $switch->location()->update($locationData);*/
-
-            Historial::create([
-                'accion' => 'Actualización',
-                'descripcion' => "Se actualizó SW con el nombre: {$switch->name} y con N/S: {$switch->serial}",
-                'user_id' => $user->id,
-                'region_id' => $switch->region_id,
-            ]);
-
-            toastr()
-                ->timeOut(3000)
-                ->addSuccess("Se actualizó {$switch->name} ({$switch->serial}) correctamente.");
-
-            return redirect()->route('switches.index');
-
-        } catch (ValidationException $e) {
-            foreach ($e->errors() as $field => $errors) {
-                foreach ($errors as $error) {
-                    toastr()
-                        ->timeOut(5000)
-                        ->addError($error);
-                }
-            }
-            
-            return back()->withErrors($e->errors())->withInput();
-        } catch (\Exception $e) {
-            foreach ($e->errors() as $field => $errors) {
-                foreach ($errors as $error) {
-                    toastr()
-                        ->timeOut(5000)
-                        ->addError($error);
-                }
-            }
-            return back()->withErrors($e->errors())->withInput();
-        }
-    }
-
-    /*public function update(Request $request, Swittch $switch)
+    public function update(Request $request, Swittch $switch)
     {
         $user = auth()->id();
         
@@ -390,6 +303,7 @@ class SwitchController extends Controller
                 'total_ports' => 'required|integer|min:1|max:128',
                 'hotel_id' => 'required|exists:hotels,id',
                 'observacion' => 'required',
+                'usage_type' => 'required',
             ], [
                 'name.unique' => 'Este nombre ya está en uso por otro switch.',
                 'ip.unique' => 'Esta dirección IP ya está en uso por otro switch.',
@@ -446,7 +360,7 @@ class SwitchController extends Controller
             }
             return back()->withErrors($e->errors())->withInput();
         }
-    }*/
+    }
 
     public function showSwitches($hotelId)
     {
