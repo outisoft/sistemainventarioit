@@ -34,7 +34,7 @@ class OntController extends Controller
 
         $regions = Region::orderBy('name', 'asc')->get();
 
-        $userRegions = auth()->user()->regions->pluck('id')->toArray();
+        $userRegions = auth()->user()->regions;
 
         return view('redes.ont.index', compact('onts', 'hotels', 'regions', 'userRegions', 'villas', 'rooms'));
     }

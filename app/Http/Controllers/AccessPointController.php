@@ -42,7 +42,7 @@ class AccessPointController extends Controller
         $regions = Region::orderBy('name', 'asc')->get();
         $switches = Swittch::orderBy('name', 'asc')->get();
 
-        $userRegions = auth()->user()->regions->pluck('id')->toArray();
+        $userRegions = auth()->user()->regions;
 
         $hotels = Hotel::with(['villas.rooms', 'villas'])->get();
         
