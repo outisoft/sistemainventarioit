@@ -51,7 +51,7 @@ class AccessPointController extends Controller
 
     public function store(Request $request)
     {        
-        //try {
+        try {
             $user = auth()->user();
     
             $data = $request->validate([
@@ -145,7 +145,7 @@ class AccessPointController extends Controller
 
             return redirect()->route('access-points.index');
 
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
                 foreach ($errors as $error) {
                     toastr()
@@ -154,7 +154,7 @@ class AccessPointController extends Controller
                 }
             }
             return back()->withErrors($e->errors())->withInput();
-        }*/
+        }
     }
 
     public function getAvailablePort(Swittch $switch)
