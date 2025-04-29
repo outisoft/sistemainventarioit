@@ -201,8 +201,10 @@
                                     <!-- Complements -->
                                     <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
                                         <div id="accordionComplementos" class="accordion">
-                                            @if ($equipo->complements->isNotEmpty())
-                                                @foreach ($empleado->equipos as $index => $equipo)
+                                            @if ($empleado->equipos->isNotEmpty())
+
+                                                @if ($equipo->complements->isNotEmpty())
+                                                    @foreach ($empleado->equipos as $index => $equipo)
                                                         <div class="card accordion-item">
                                                             <h2 class="accordion-header">
                                                                 <button class="accordion-button collapsed"
@@ -234,9 +236,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                @endforeach
+                                                    @endforeach
+                                                @else
+                                                    <p>No equipment(s) with complements assigned.</p>
+                                                @endif
                                             @else
-                                                <p>No equipment(s) with complements assigned.</p>
+                                                <p>No equipment(s) assigned.<a href="{{ route('equipo.index') }}"> Add
+                                                        equipment(s) -></a>
+                                                </p>
                                             @endif
                                         </div>
                                     </div>
@@ -244,8 +251,10 @@
                                     <!-- Licenses -->
                                     <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                                         <div id="accordionLicenses" class="accordion">
-                                            @if ($equipo->license->isNotEmpty())
-                                                @foreach ($empleado->equipos as $index => $equipo)
+                                            @if ($empleado->equipos->isNotEmpty())
+
+                                                @if ($equipo->license->isNotEmpty())
+                                                    @foreach ($empleado->equipos as $index => $equipo)
                                                         <div class="card accordion-item">
                                                             <h2 class="accordion-header">
                                                                 <button class="accordion-button collapsed"
@@ -288,9 +297,14 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                @endforeach
+                                                    @endforeach
+                                                @else
+                                                    <p>No licenses assigned.</p>
+                                                @endif
                                             @else
-                                                <p>No licenses assigned.</p>
+                                                <p>No equipment(s) assigned.<a href="{{ route('equipo.index') }}"> Add
+                                                        equipment(s) -></a>
+                                                </p>
                                             @endif
                                         </div>
                                     </div>
