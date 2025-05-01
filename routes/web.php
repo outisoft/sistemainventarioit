@@ -174,15 +174,6 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
 
     Route::post('/asignar-rol/{usuarioId}/{rol}', [EmpleadoController::class, 'asignarRol'])->name('asignar.rol');
 
-    //serachs
-    Route::post('/empleados/search', [EmpleadoController::class, 'search'])->name('empleados.search'); //buscador de empleados
-    Route::post('/inventario/search', [InventarioController::class, 'search'])->name('inventario.search'); //buscador de inventario
-    Route::post('/users/search', [UserController::class, 'search'])->name('users.search'); //buscador de usuarios
-    Route::post('/equipo/search', [EquipoController::class, 'search'])->name('equipo.search'); //buscador de usuarios
-    Route::post('/tablet/search', [TabletController::class, 'search'])->name('tablet.search'); //buscador de usuarios
-    Route::get('/empleados/buscar', [EmpleadoController::class, 'buscar'])->name('empleados.buscar'); //buscador de usuarios
-    Route::post('/tpvs/search', [TpvController::class, 'search'])->name('tpvs.search');
-
     //Rutas asignacion   Route::resource('assignment', AssignmentController::class);
     //asignacion de equipo a empleado 
     //Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');

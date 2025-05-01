@@ -119,7 +119,7 @@ class OfficeController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se desvinculo la licencia correctamente.");
 
-        return redirect()->route('office.show', $licenciaId);
+        return redirect()->back();
     }
 
     public function store(Request $request)

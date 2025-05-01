@@ -121,7 +121,7 @@ class EquipoController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Complemento {$equipo->name} desvinculado.");
         
-        return redirect()->route('equipo.show', $equipo);
+        return redirect()->back();
     }
 
     public function getEquipo($serial)

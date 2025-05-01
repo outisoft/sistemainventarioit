@@ -94,7 +94,7 @@ class AssignmentController extends Controller
             ->addSuccess("Empleado {$empleado->name} desvinculado.");
 
 
-        return redirect()->route('assignment.index');
+        return redirect()->back();
     }
 
     public function show($id)

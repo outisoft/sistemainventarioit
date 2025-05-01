@@ -228,6 +228,20 @@
                                                                     {{ $complemento->model }} <br>
                                                                     <span class="h6 me-1"> SERIAL NUMBER </span>:
                                                                     {{ $complemento->serial }} <br>
+                                                                    <form
+                                                                        action="{{ route('equipos.complementos.destroy', [$equipo, $complemento]) }}"
+                                                                        method="POST" class="d-inline">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="btn btn-danger btn-sm"
+                                                                            data-bs-toggle="tooltip"
+                                                                            data-popup="tooltip-custom"
+                                                                            data-bs-placement="top"
+                                                                            class="assigned-item" aria-label="Delete"
+                                                                            data-bs-original-title="Desvincular equipo"><i
+                                                                                class='bx bx-trash'></i></button>
+                                                                    </form>
                                                                     <hr>
                                                                 @endforeach
                                                             @else
@@ -280,6 +294,16 @@
                                                                         <span class="{{ $statusClass }}">
                                                                             {{ $licencia->getStatus() }}
                                                                         </span>
+                                                                        <form
+                                                                            action="{{ route('licencias.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
+                                                                            method="POST">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="submit"
+                                                                                class="btn btn-danger d-grid"><i
+                                                                                    class='bx bx-trash'></i>
+                                                                            </button>
+                                                                        </form>
                                                                     </div>
                                                                     <hr>
                                                                 @endforeach
