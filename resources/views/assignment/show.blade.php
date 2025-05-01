@@ -201,111 +201,95 @@
                                     <!-- Complements -->
                                     <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
                                         <div id="accordionComplementos" class="accordion">
-                                            @if ($empleado->equipos->isNotEmpty())
+                                            @foreach ($empleado->equipos as $index => $equipo)
+                                                <div class="card accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" aria-expanded="false"
+                                                            data-bs-target="#accordionComplementos-{{ $index }}"
+                                                            aria-controls="accordionComplementos-{{ $index }}">
+                                                            {{ $equipo->tipo->name }}
+                                                            @if (!empty($equipo->name))
+                                                                <span> - {{ $equipo->name }} </span>
+                                                            @endif
+                                                        </button>
+                                                    </h2>
 
-                                                @if ($equipo->complements->isNotEmpty())
-                                                    @foreach ($empleado->equipos as $index => $equipo)
-                                                        <div class="card accordion-item">
-                                                            <h2 class="accordion-header">
-                                                                <button class="accordion-button collapsed"
-                                                                    type="button" data-bs-toggle="collapse"
-                                                                    aria-expanded="false"
-                                                                    data-bs-target="#accordionComplementos-{{ $index }}"
-                                                                    aria-controls="accordionComplementos-{{ $index }}">
-                                                                    {{ $equipo->tipo->name }}
-                                                                    @if (!empty($equipo->name))
-                                                                        <span> - {{ $equipo->name }} </span>
-                                                                    @endif
-                                                                </button>
-                                                            </h2>
-
-                                                            <div id="accordionComplementos-{{ $index }}"
-                                                                class="accordion-collapse collapse">
-                                                                <div class="accordion-body">
-                                                                    @foreach ($equipo->complements as $complemento)
-                                                                        <span class="h6 me-1"> TYPE </span>:
-                                                                        {{ $complemento->type->name }} <br>
-                                                                        <span class="h6 me-1"> BRAND </span>:
-                                                                        {{ $complemento->brand }} <br>
-                                                                        <span class="h6 me-1"> MODEL </span>:
-                                                                        {{ $complemento->model }} <br>
-                                                                        <span class="h6 me-1"> SERIAL NUMBER </span>:
-                                                                        {{ $complemento->serial }} <br>
-                                                                        <hr>
-                                                                    @endforeach
-                                                                </div>
-                                                            </div>
+                                                    <div id="accordionComplementos-{{ $index }}"
+                                                        class="accordion-collapse collapse">
+                                                        <div class="accordion-body">
+                                                            @if ($equipo->complements->isNotEmpty())
+                                                                @foreach ($equipo->complements as $complemento)
+                                                                    <span class="h6 me-1"> TYPE </span>:
+                                                                    {{ $complemento->type->name }} <br>
+                                                                    <span class="h6 me-1"> BRAND </span>:
+                                                                    {{ $complemento->brand }} <br>
+                                                                    <span class="h6 me-1"> MODEL </span>:
+                                                                    {{ $complemento->model }} <br>
+                                                                    <span class="h6 me-1"> SERIAL NUMBER </span>:
+                                                                    {{ $complemento->serial }} <br>
+                                                                    <hr>
+                                                                @endforeach
+                                                            @else
+                                                                <p>No complements assigned for this equipment.</p>
+                                                            @endif
                                                         </div>
-                                                    @endforeach
-                                                @else
-                                                    <p>No equipment(s) with complements assigned.</p>
-                                                @endif
-                                            @else
-                                                <p>No equipment(s) assigned.<a href="{{ route('equipo.index') }}"> Add
-                                                        equipment(s) -></a>
-                                                </p>
-                                            @endif
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
 
                                     <!-- Licenses -->
                                     <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                                         <div id="accordionLicenses" class="accordion">
-                                            @if ($empleado->equipos->isNotEmpty())
+                                            @foreach ($empleado->equipos as $index => $equipo)
+                                                <div class="card accordion-item">
+                                                    <h2 class="accordion-header">
+                                                        <button class="accordion-button collapsed" type="button"
+                                                            data-bs-toggle="collapse" aria-expanded="false"
+                                                            data-bs-target="#accordionLicenses-{{ $index }}"
+                                                            aria-controls="accordionLicenses-{{ $index }}">
+                                                            {{ $equipo->tipo->name }}
+                                                            @if (!empty($equipo->name))
+                                                                <span> - {{ $equipo->name }} </span>
+                                                            @endif
+                                                        </button>
+                                                    </h2>
 
-                                                @if ($equipo->license->isNotEmpty())
-                                                    @foreach ($empleado->equipos as $index => $equipo)
-                                                        <div class="card accordion-item">
-                                                            <h2 class="accordion-header">
-                                                                <button class="accordion-button collapsed"
-                                                                    type="button" data-bs-toggle="collapse"
-                                                                    aria-expanded="false"
-                                                                    data-bs-target="#accordionLicenses-{{ $index }}"
-                                                                    aria-controls="accordionLicenses-{{ $index }}">
-                                                                    {{ $equipo->tipo->name }}
-                                                                    @if (!empty($equipo->name))
-                                                                        <span> - {{ $equipo->name }} </span>
-                                                                    @endif
-                                                                </button>
-                                                            </h2>
-
-                                                            <div id="accordionLicenses-{{ $index }}"
-                                                                class="accordion-collapse collapse">
-                                                                <div class="accordion-body">
-                                                                    @foreach ($equipo->license as $licencia)
-                                                                        @php
-                                                                            $statusClass = [
-                                                                                'Active' => 'badge bg-label-success',
-                                                                                'Near expiration' =>
-                                                                                    'badge bg-label-warning',
-                                                                                'Expired' => 'badge bg-label-danger',
-                                                                            ][$licencia->getStatus()];
-                                                                        @endphp
-                                                                        <div class="mb-3">
-                                                                            <strong>APPLICATION:</strong>
-                                                                            {{ $licencia->type }} <br>
-                                                                            <strong>EMAIL/KEY:</strong>
-                                                                            {{ $licencia->key }} <br>
-                                                                            <strong>END DATE:</strong>
-                                                                            {{ $licencia->end_date ?? 'N/A' }} <br>
-                                                                            <span class="{{ $statusClass }}">
-                                                                                {{ $licencia->getStatus() }}
-                                                                            </span>
-                                                                        </div>
-                                                                        <hr>
-                                                                    @endforeach
-                                                                </div>
-                                                            </div>
+                                                    <div id="accordionLicenses-{{ $index }}"
+                                                        class="accordion-collapse collapse">
+                                                        <div class="accordion-body">
+                                                            @if ($equipo->license->isNotEmpty())
+                                                                @foreach ($equipo->license as $licencia)
+                                                                    @php
+                                                                        $statusClass = [
+                                                                            'Active' => 'badge bg-label-success',
+                                                                            'Near expiration' =>
+                                                                                'badge bg-label-warning',
+                                                                            'Expired' => 'badge bg-label-danger',
+                                                                        ][$licencia->getStatus()];
+                                                                    @endphp
+                                                                    <div class="mb-3">
+                                                                        <strong>APPLICATION:</strong>
+                                                                        {{ $licencia->type }} <br>
+                                                                        <strong>EMAIL/KEY:</strong>
+                                                                        {{ $licencia->key }} <br>
+                                                                        <strong>END DATE:</strong>
+                                                                        {{ $licencia->end_date ?? 'N/A' }} <br>
+                                                                        <span class="{{ $statusClass }}">
+                                                                            {{ $licencia->getStatus() }}
+                                                                        </span>
+                                                                    </div>
+                                                                    <hr>
+                                                                @endforeach
+                                                            @else
+                                                                <p>No licenses assigned for this equipment.</p>
+                                                            @endif
                                                         </div>
-                                                    @endforeach
-                                                @else
-                                                    <p>No licenses assigned.</p>
-                                                @endif
-                                            @else
-                                                <p>No equipment(s) assigned.<a href="{{ route('equipo.index') }}"> Add
-                                                        equipment(s) -></a>
-                                                </p>
-                                            @endif
+                                                    </div>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
