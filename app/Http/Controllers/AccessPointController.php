@@ -143,7 +143,7 @@ class AccessPointController extends Controller
                 ->timeOut(3000)
                 ->addSuccess("Se creó {$data['name']} ({$data['serial']}) correctamente.");
 
-            return redirect()->route('access-points.index');
+            return redirect()->back();
 
         } catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -241,7 +241,7 @@ class AccessPointController extends Controller
                 ->addSuccess("Se actualizó {$accessPoint->name} ({$accessPoint->serial}) correctamente.");
 
 
-            return redirect()->route('access-points.index');
+            return redirect()->back();
 
         } catch (ValidationException $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -265,6 +265,17 @@ class AccessPointController extends Controller
         }
     }
 
+    public function details(Hotel $hotel)
+    {
+        $switches = Swittch::orderBy('name', 'asc')->get();
+        $regions = Region::orderBy('name', 'asc')->get();
+        $hotels = Hotel::orderBy('name', 'asc')->get();
+        $userRegions = auth()->user()->regions;
+
+        $accessPoints = $hotel->accessPoints()->orderBy('name')->get();
+        return view('equipos.access_points.details', compact('accessPoints', 'hotel', 'regions', 'userRegions', 'hotels', 'switches'));
+    }
+
     public function destroy(String $id)
     {
         $registro = AccessPoint::findOrFail($id);
@@ -283,7 +294,7 @@ class AccessPointController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se elimino el {$registro->name} correctamente.");
 
-        return redirect()->route('access-points.index');
+        return redirect()->back();
     }
 }
 

@@ -2,15 +2,17 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">
-                    <a href="{{ route('access-points.index') }}" class="btn-ico" data-toggle="tooltip" data-placement="top"
-                        title="Regresar">
-                        <span>
-                            <i class='bx bx-arrow-back'></i>
-                        </span>
-                    </a>
-                    / Access Point /</span> Details
-            </h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1">
+                    <li class="breadcrumb-item">
+                        REDES
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('access-points.index') }}">ACCESS POINTS</a>
+                    </li>
+                    <li class="breadcrumb-item active fw-bold">DETAILS</li>
+                </ol>
+            </nav>
 
             <!-- Basic Bootstrap Table -->
             <div class="card">

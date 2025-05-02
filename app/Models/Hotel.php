@@ -16,6 +16,11 @@ class Hotel extends Model
     {
         return $this->hasMany(Empleado::class, 'hotel_id');
     }
+
+    public function accessPoints()
+    {
+        return $this->hasMany(AccessPoint::class);
+    }
     
     public function switches()
     {
