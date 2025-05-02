@@ -17,9 +17,9 @@
                         <x-input-label class="form-label" for="tipo_id" :value="__('Tipo de equipo')" />
                         <div class="input-group input-group-merge">
                             <x-text-input readonly='readonly' id="tipo_id" class="form-control" type="text"
-                                name="tipo_id" placeholder="laptop" :value="4" required autocomplete="tipo_id" />
+                                name="tipo_id" placeholder="laptop" :value="4" autocomplete="tipo_id" />
                         </div>
-                        <x-input-error :messages="$errors->get('marca')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('tipo_id')" class="mt-2" />
                     </div>
 
                     {{-- Región (solo visible para administradores) --}}
@@ -134,7 +134,7 @@
                     </div>
 
                     <!-- af_code -->
-                    <div id="af_field" style="display">
+                    <div id="af_field" style="display: none;">
                         <div class="mb-3">
                             <x-input-label class="form-label" for="af_code" :value="__('Fixed Asset Code')" />
                             <div class="input-group input-group-merge">
@@ -149,7 +149,7 @@
                     <div id="lease_fields" style="display: none;">
                         <div class="mb-3">
                             <x-input-label class="form-label" for="lease_id" :value="__('LEASE')" />
-                            <select class="form-control" id="lease_id" name="lease_id" required>
+                            <select class="form-control" id="lease_id" name="lease_id">
                                 <option value="">Choose a lease</option>
                                 @foreach ($leases as $lease)
                                     <option value="{{ $lease->id }}"
@@ -172,22 +172,40 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $('input[name="lease"]').on('change', function() {
-            if ($('#lease').is(':checked')) {
-                $('#lease_fields').show();
-                $('#lease_id').attr('required', true);
-                $('#af_field').hide();
-                $('#af_code').removeAttr('required');
+    document.addEventListener('DOMContentLoaded', function() {
+        const leaseRadios = document.querySelectorAll('input[name="lease"]');
+        const leaseFields = document.getElementById('lease_fields');
+        const afField = document.getElementById('af_field');
+        const leaseId = document.getElementById('lease_id');
+        const afCode = document.getElementById('af_code');
+
+        // Función para manejar el cambio de estado
+        function toggleFields() {
+            const isLease = document.querySelector('input[name="lease"]:checked').value === '1';
+
+            if (isLease) {
+                leaseFields.style.display = 'block';
+                afField.style.display = 'none';
+                leaseId.setAttribute('required', 'required');
+                leaseId.removeAttribute('disabled');
+                afCode.removeAttribute('required');
+                afCode.setAttribute('disabled', 'disabled');
             } else {
-                $('#lease_fields').hide();
-                $('#lease_id').removeAttr('required');
-                $('#af_field').show();
-                $('#af_code').attr('required', true);
+                leaseFields.style.display = 'none';
+                afField.style.display = 'block';
+                afCode.setAttribute('required', 'required');
+                afCode.removeAttribute('disabled');
+                leaseId.removeAttribute('required');
+                leaseId.setAttribute('disabled', 'disabled');
             }
+        }
+
+        // Agregar eventos a los radios
+        leaseRadios.forEach(radio => {
+            radio.addEventListener('change', toggleFields);
         });
 
-        // Trigger change event on page load to set initial state
-        $('input[name="lease"]:checked').trigger('change');
+        // Ejecutar al cargar la página para establecer el estado inicial
+        toggleFields();
     });
 </script>
