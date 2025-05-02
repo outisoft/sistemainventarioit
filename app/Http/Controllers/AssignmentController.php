@@ -113,9 +113,22 @@ class AssignmentController extends Controller
 
         // Obtener la fecha actual
         $today = Carbon::now();
+        $months = [
+            'January' => 'Enero',
+            'February' => 'Febrero',
+            'March' => 'Marzo',
+            'April' => 'Abril',
+            'May' => 'Mayo',
+            'June' => 'Junio',
+            'July' => 'Julio',
+            'August' => 'Agosto',
+            'September' => 'Septiembre',
+            'October' => 'Octubre',
+            'November' => 'Noviembre',
+            'December' => 'Diciembre',
+        ];
 
-        // Formatear la fecha como "día, mes y año"
-        $date = $today->format('d \d\e M \d\e\l Y');
+        $date = $today->format('j') . ' de ' . $months[$today->format('F')] . ' del ' . $today->format('Y');
 
         $equipoIds = explode(',', $request->query('equipos'));
         $complementoIds = explode(',', $request->query('complementos'));

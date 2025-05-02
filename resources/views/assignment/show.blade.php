@@ -79,6 +79,12 @@
                                                     <span class="badge bg-label-danger">Inactive</span>
                                                 @endif
                                             </li>
+
+                                            <li class="mb-2">
+                                                <span class="h6 me-1">Position:</span>
+                                                <span>{{ $empleado->puesto }}</span>
+                                            </li>
+
                                             <li class="mb-2">
                                                 <span class="h6 me-1">Department:</span>
                                                 <span>{{ $empleado->departments->name }}</span>
