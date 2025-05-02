@@ -56,7 +56,7 @@
                             <x-input-label class="form-label" for="usage_type{{ $equipo->id }}" :value="__('Type')" />
                             <div class="input-group input-group-merge">
                                 <select class="form-control" name="usage_type" id="usage_type">
-                                    <option value="{{ $equipo->id }}">{{ $equipo->usage_type }}</option>
+                                    <option value="{{ $equipo->usage_type }}">{{ $equipo->usage_type }}</option>
                                     <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
                                     <option value="CUSTOMERS">CUSTOMERS</option>
                                 </select>

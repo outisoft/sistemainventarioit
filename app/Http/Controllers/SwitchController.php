@@ -138,7 +138,7 @@ class SwitchController extends Controller
                 ->timeOut(3000)
                 ->addSuccess("Se creó {$registro->name} ({$registro->serial}) correctamente.");
 
-            return redirect()->route('switches.index');
+            return redirect()->back();
 
         } catch (ValidationException $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -338,7 +338,7 @@ class SwitchController extends Controller
                 ->timeOut(3000)
                 ->addSuccess("Se actualizó {$switch->name} ({$switch->serial}) correctamente.");
 
-            return redirect()->route('switches.index');
+            return redirect()->back();
 
         } catch (ValidationException $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -362,12 +362,14 @@ class SwitchController extends Controller
         }
     }
 
-    public function showSwitches($hotelId)
+    public function details(Hotel $hotel)
     {
-        $hotel = Hotel::findOrFail($hotelId);
-        $switches = $hotel->switches; // Asumiendo que tienes una relación definida en el modelo Hotel
+        $regions = Region::orderBy('name', 'asc')->get();
+        $hotels = Hotel::orderBy('name', 'asc')->get();
+        $userRegions = auth()->user()->regions;
 
-        return view('equipos.switches.details', compact('hotel', 'switches'));
+        $switches = $hotel->switches()->orderBy('name')->get();
+        return view('equipos.switches.details', compact('hotel', 'switches', 'regions', 'userRegions', 'hotels'));
     }
 
     public function destroy(String $id)
@@ -388,7 +390,7 @@ class SwitchController extends Controller
             ->timeOut(3000) // 3 second
             ->addSuccess("Se elimino el {$registro->name} correctamente.");
 
-        return redirect()->route('switches.index');
+        return redirect()->back();
     }
 
 }

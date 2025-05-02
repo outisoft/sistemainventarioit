@@ -78,6 +78,10 @@ class VillaController extends Controller
     {
         $villa->delete();
 
-        return redirect()->route('villas.index');
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Villa {$villa->name} deleted successfully");
+
+        return redirect()->back();
     }
 }
