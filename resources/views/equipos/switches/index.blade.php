@@ -112,7 +112,7 @@
                         <div class="col-md-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $hotel->name }}</h5>
+                                    <h5 class="card-title">{{ $hotel->name }} ({{ $hotel->switches_count }})</h5>
                                     <p class="card-text">{{ $hotel->type }}</p>
                                     <a href="{{ route('switch.details', ['hotel' => $hotel->id]) }}"
                                         class="btn btn-primary">

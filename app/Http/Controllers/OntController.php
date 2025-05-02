@@ -28,7 +28,7 @@ class OntController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        $hotels = Hotel::with(['villas.rooms', 'villas'])->get();
+        $hotels = Hotel::with(['villas.rooms', 'villas'])->withCount('onts')->get();
         $villas = Villa::orderBy('name', 'asc')->get();
         $rooms = Room::orderBy('number', 'asc')->get();
 

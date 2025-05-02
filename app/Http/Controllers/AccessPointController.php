@@ -44,7 +44,7 @@ class AccessPointController extends Controller
 
         $userRegions = auth()->user()->regions;
 
-        $hotels = Hotel::with(['villas.rooms', 'villas'])->get();
+        $hotels = Hotel::with(['villas.rooms', 'villas'])->withCount('accessPoints')->get();
         
         return view('equipos.access_points.index', compact('userRegions', 'accessPoints', 'switches', 'regions', 'hotels'));
     }

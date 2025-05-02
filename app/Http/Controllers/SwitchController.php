@@ -42,7 +42,7 @@ class SwitchController extends Controller
         
         $hotels = Hotel::with(['villas' => function ($query) {
             $query->orderBy('name', 'asc'); // Ordenar las villas por nombre
-        }])->get();
+        }])->withCount('switches')->get();
         $regions = Region::orderBy('name', 'asc')->get();
 
         $userRegions = auth()->user()->regions->pluck('id')->toArray();
