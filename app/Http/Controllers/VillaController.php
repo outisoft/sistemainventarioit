@@ -40,7 +40,11 @@ class VillaController extends Controller
 
         Villa::create($request->all());
 
-        return redirect()->route('villas.index');
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Villa {$request->name} created successfully");
+
+        return redirect()->back();
     }
 
     public function update(Request $request, Villa $villa)
@@ -53,7 +57,21 @@ class VillaController extends Controller
 
         $villa->update($request->all());
 
-        return redirect()->route('villas.index');
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Villa {$request->name} updated successfully");
+
+        return redirect()->back();
+    }
+
+    public function show(Hotel $hotel)
+    {
+        $regions = Region::orderBy('name', 'asc')->get();
+        $hotels = Hotel::orderBy('name', 'asc')->get();
+        $userRegions = auth()->user()->regions;
+
+        $villas = $hotel->villas()->orderBy('name')->get();
+        return view('villas.show', compact('villas', 'hotel', 'regions', 'userRegions', 'hotels'));
     }
 
     public function destroy(Villa $villa)

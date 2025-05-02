@@ -97,6 +97,8 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
     Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');
 
+    Route::get('/hotels/{hotel}/villas', [VillaController::class, 'show'])->name('villas.show');
+
     Route::post('/licencias/{licenciaId}/asignar/{equipoId}', [OfficeController::class, 'asignarLicencia'])->name('licencias.asignar.post');
     Route::delete('/licencias/{licenciaId}/desasignar/{equipoId}', [OfficeController::class, 'desasignarLicencia'])->name('licencias.desasignar');
 
