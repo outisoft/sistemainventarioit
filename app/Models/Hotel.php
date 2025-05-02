@@ -21,6 +21,11 @@ class Hotel extends Model
     {
         return $this->hasMany(AccessPoint::class);
     }
+
+    public function onts()
+    {
+        return $this->hasMany(Ont::class);
+    }
     
     public function switches()
     {

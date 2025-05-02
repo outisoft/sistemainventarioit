@@ -99,7 +99,7 @@ class OntController extends Controller
                 ->timeOut(3000)
                 ->addSuccess("Se creó {$registro->name} ({$registro->serial}) correctamente.");
 
-            return redirect()->route('ont.index');
+            return redirect()->back();
 
         } catch (ValidationException $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -157,7 +157,7 @@ class OntController extends Controller
                 ->timeOut(3000)
                 ->addSuccess("Se actualizó {$ont->name} ({$ont->serial}) correctamente.");
 
-            return redirect()->route('ont.index');
+            return redirect()->back();
 
         } catch (ValidationException $e) {
             foreach ($e->errors() as $field => $errors) {
@@ -181,6 +181,16 @@ class OntController extends Controller
         }
     }
 
+    public function details(Hotel $hotel)
+    {
+        $regions = Region::orderBy('name', 'asc')->get();
+        $hotels = Hotel::orderBy('name', 'asc')->get();
+        $userRegions = auth()->user()->regions;
+
+        $onts = $hotel->onts()->orderBy('name')->get();
+        return view('redes.ont.details', compact('hotel', 'onts', 'regions', 'userRegions', 'hotels'));
+    }
+
     public function destroy($id)
     {
         $ont = Ont::findOrFail($id);
@@ -196,6 +206,7 @@ class OntController extends Controller
         toastr()
             ->timeOut(3000)
             ->addSuccess("Se eliminó {$ont->name} ({$ont->serial}) correctamente.");
-        return redirect()->route('ont.index');
+            
+        return redirect()->back();
     }
 }
