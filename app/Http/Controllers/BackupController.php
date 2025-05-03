@@ -152,7 +152,6 @@ class BackupController extends Controller
 
                     // Limpiar archivos extraídos
                     array_map('unlink', $files);
-                    // Eliminar cualquier archivo restante, incluyendo archivos ocultos
                     $this->deleteDirectory($extractPath);
                 } else {
                     throw new \Exception('No se pudo abrir el archivo ZIP.');
@@ -166,7 +165,9 @@ class BackupController extends Controller
 
             // Crear archivo temporal para las sentencias validadas
             $tempFile = storage_path('app/temp_' . uniqid() . '.sql');
-            $validStatements = [];
+            $createStatements = [];
+            $alterStatements = [];
+            $insertStatements = [];
 
             foreach ($sqlContents as $sqlContent) {
                 // Obtener todas las sentencias SQL
@@ -176,49 +177,22 @@ class BackupController extends Controller
 
                 foreach ($statements as $statement) {
                     $statement = trim($statement);
-                    
-                    // Procesar sentencias CREATE TABLE y INSERT INTO
-                    if (stripos($statement, 'CREATE TABLE') === 0 || stripos($statement, 'INSERT INTO') === 0) {
-                        // Extraer nombre de la tabla
-                        preg_match('/(?:CREATE TABLE|INSERT INTO) [`]?(\w+)[`]?/i', $statement, $matches);
-                        
-                        if (!empty($matches[1])) {
-                            $tableName = $matches[1];
-                            
-                            // Validar que la tabla existe o es una sentencia CREATE TABLE
-                            if (DB::getSchemaBuilder()->hasTable($tableName) || stripos($statement, 'CREATE TABLE') === 0) {
-                                // Añadir sentencias de desactivación/activación de claves para INSERT INTO
-                                if (stripos($statement, 'INSERT INTO') === 0) {
-                                    if (!in_array("/*!40000 ALTER TABLE `{$tableName}` DISABLE KEYS */", $validStatements)) {
-                                        $validStatements[] = "/*!40000 ALTER TABLE `{$tableName}` DISABLE KEYS */";
-                                    }
-                                    
-                                    $validStatements[] = $statement;
-                                    
-                                    if (!in_array("/*!40000 ALTER TABLE `{$tableName}` ENABLE KEYS */", $validStatements)) {
-                                        $validStatements[] = "/*!40000 ALTER TABLE `{$tableName}` ENABLE KEYS */";
-                                    }
-                                } else {
-                                    // Añadir IF NOT EXISTS para evitar errores si la tabla ya existe
-                                    $statement = preg_replace('/CREATE TABLE/i', 'CREATE TABLE IF NOT EXISTS', $statement);
-                                    $validStatements[] = $statement;
-                                }
-                            } else {
-                                Log::warning("Tabla no encontrada: {$tableName}");
-                            }
-                        }
-                    } else {
-                        Log::info("Sentencia no válida encontrada: {$statement}");
+
+                    // Clasificar las sentencias
+                    if (stripos($statement, 'CREATE TABLE') === 0) {
+                        $createStatements[] = $statement;
+                    } elseif (stripos($statement, 'ALTER TABLE') === 0) {
+                        $alterStatements[] = $statement;
+                    } elseif (stripos($statement, 'INSERT INTO') === 0) {
+                        $insertStatements[] = $statement;
                     }
                 }
             }
 
-            if (empty($validStatements)) {
-                throw new \Exception('No se encontraron sentencias válidas en el archivo.');
-            }
-
-            // Guardar sentencias validadas en archivo temporal
-            file_put_contents($tempFile, implode(";\n", $validStatements) . ';');
+            // Guardar sentencias en orden jerárquico
+            file_put_contents($tempFile, implode(";\n", $createStatements) . ";\n");
+            file_put_contents($tempFile, implode(";\n", $alterStatements) . ";\n", FILE_APPEND);
+            file_put_contents($tempFile, implode(";\n", $insertStatements) . ";\n", FILE_APPEND);
 
             // Desactivar verificaciones de claves foráneas
             DB::statement('SET FOREIGN_KEY_CHECKS=0');

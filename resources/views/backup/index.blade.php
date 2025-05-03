@@ -62,7 +62,7 @@
                                                             <tr>
                                                                 <th>Nombre</th>
                                                                 <th>Fecha</th>
-                                                                <th></th>
+                                                                <th>Acciones</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -75,24 +75,24 @@
                                                                     <td class="d-flex align-items-center">
                                                                         <a href="{{ route('backup.download', ['filename' => basename($file)]) }}"
                                                                             class="btn btn-ico" data-bs-toggle="tooltip"
-                                                                            data-bs-placement="top" data-bs-html="true"
-                                                                            title=""
-                                                                            data-bs-original-title="<span>Download Backup</span>">
+                                                                            data-bs-placement="top" title="Descargar Respaldo"
+                                                                            aria-label="Descargar Respaldo">
                                                                             <i class='bx bxs-download'></i>
                                                                         </a>
 
                                                                         <form
                                                                             action="{{ route('backup.delete', ['filename' => basename($file)]) }}"
-                                                                            method="POST">
+                                                                            method="POST"
+                                                                            onsubmit="return confirm('¿Estás seguro de que deseas eliminar este respaldo: {{ basename($file) }}?')">
                                                                             @csrf
                                                                             @method('DELETE')
                                                                             <button type="submit" class="btn btn-ico"
                                                                                 data-bs-toggle="tooltip"
                                                                                 data-bs-placement="top"
-                                                                                data-bs-html="true" title=""
-                                                                                data-bs-original-title="<span>Delete Backup</span>"
-                                                                                onclick="return confirm('Are you sure to delete this backup?')">
-                                                                                <i class='bx bx-trash'></i></button>
+                                                                                title="Eliminar Respaldo"
+                                                                                aria-label="Eliminar Respaldo">
+                                                                                <i class='bx bx-trash'></i>
+                                                                            </button>
                                                                         </form>
                                                                     </td>
                                                                 </tr>
@@ -125,7 +125,7 @@
                                                         </label>
                                                         <input type="file" name="backup_file" id="backup_file"
                                                             class="form-control @error('backup_file') is-invalid @enderror"
-                                                            required>
+                                                            accept=".zip,.sql" required>
 
                                                         @error('backup_file')
                                                             <div class="invalid-feedback">
