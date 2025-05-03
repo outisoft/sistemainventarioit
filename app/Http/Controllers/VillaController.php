@@ -24,7 +24,7 @@ class VillaController extends Controller
             ->get();
 
         $regions = Region::orderBy('name', 'asc')->get();
-        $hotels = Hotel::orderBy('name', 'asc')->get();
+        $hotels = Hotel::orderBy('name', 'asc')->withCount('villas')->get();
         $userRegions = auth()->user()->regions;
 
         return view('villas.index', compact('villas', 'regions', 'userRegions', 'hotels'));
