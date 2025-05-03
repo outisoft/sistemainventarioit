@@ -102,6 +102,8 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::get('/hotels/{hotel}/access-points', [AccessPointController::class, 'details'])->name('access-points.details');
     Route::get('/hotels/{hotel}/ont', [OntController::class, 'details'])->name('ont.details');
 
+    Route::get('/exportar-excel', [HomeController::class, 'exportarExcel'])->name('download.excel');
+
     Route::post('/licencias/{licenciaId}/asignar/{equipoId}', [OfficeController::class, 'asignarLicencia'])->name('licencias.asignar.post');
     Route::delete('/licencias/{licenciaId}/desasignar/{equipoId}', [OfficeController::class, 'desasignarLicencia'])->name('licencias.desasignar');
 

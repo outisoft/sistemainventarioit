@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Exports\EmpleadosExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Empleado;
 use App\Models\Equipo;
 use App\Models\User;
@@ -292,5 +294,10 @@ class HomeController extends Controller
         'totalAps','totalSw', 'hora_actual', 
         'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 
         'labels', 'data', 'datos_grafica', 'total_laptops'));
+    }
+
+    public function exportarExcel()
+    {
+        return Excel::download(new EmpleadosExport, 'InventarioIT.xlsx');
     }
 }

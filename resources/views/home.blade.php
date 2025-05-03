@@ -1,7 +1,12 @@
 <x-app-layout>
 
     <div class="container-xxl flex-grow-1 container-p-y">
-        <h5 class="mb-2">WELCOME BACK,<span class="h4"> {{ Auth::user()->name }}! 👋🏻</span></h5>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="mb-0">WELCOME BACK,<span class="h4"> {{ Auth::user()->name }}! 👋🏻</span></h5>
+            <a href="{{ route('download.excel') }}" class="btn btn-icon btn-primary">
+                <span class="icon-base bx bxs-download icon-md"></span>
+            </a>
+        </div>
 
         <!--Sliders-->
         <section id="property-section">
