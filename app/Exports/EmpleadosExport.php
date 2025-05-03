@@ -10,7 +10,7 @@ class EmpleadosExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        return Empleado::with('hotel', 'departments', 'equipos.tipo', 'equipos.complements.tipo', 'equipos.license')->get()->flatMap(function ($empleado) {
+        return Empleado::with('hotel', 'departments', 'equipos.tipo', 'equipos.complements.type', 'equipos.license')->get()->flatMap(function ($empleado) {
             // Manejar casos en los que no haya equipos, complementos o licencias
             if ($empleado->equipos->isEmpty()) {
                 return [
