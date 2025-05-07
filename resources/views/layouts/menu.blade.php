@@ -278,6 +278,15 @@
         @endcan
 
         <!-- Lease -->
+        <li
+            class="menu-item {{ Request::routeIs('schedules.index') ? 'active' : '' }} ">
+            <a href="{{ route('schedules.index') }}" class="menu-link">
+                <i class='menu-icon tf-icons bx bx-calendar-week'></i>
+                <div data-i18n="Analytics">Schedules</div>
+            </a>
+        </li>
+
+        <!-- Lease -->
         @can('lease.index')
             <li
                 class="menu-item {{ Request::routeIs('lease.index') ? 'active' : '' }} || {{ Request::routeIs('lease.show') ? 'active' : '' }}">

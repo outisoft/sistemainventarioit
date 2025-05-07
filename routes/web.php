@@ -40,6 +40,8 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\OntController;
 use App\Http\Controllers\SpecificLocationController;
+use App\Http\Controllers\TimeLogController;
+use App\Http\Controllers\ScheduleController;
 use App\Exports\EmpleadoExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Auth\PasswordController;
@@ -75,6 +77,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('laptops', LaptopController::class);//Rutas laptops
     Route::resource('lease', LeaseController::class); // Rutas Lease
     Route::resource('licenses', LicenseController::class); //Rutas Mantenimiento
+    Route::resource('locations', SpecificLocationController::class);//Rutas locations
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('mobiles', MobileController::class);//Rutas phones
     Route::resource('office', OfficeController::class);//Rutas Office
@@ -86,8 +89,8 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('regions', RegionController::class); //Rutas Region
     Route::resource('roles', RoleController::class); // Rutas roles
     Route::resource('rooms', RoomController::class);//Rutas Rooms
+    Route::resource('schedules', ScheduleController::class);//Rutas switches
     Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
-    Route::resource('locations', SpecificLocationController::class);//Rutas locations
     Route::resource('switches', SwitchController::class);//Rutas switches
     Route::resource('tabs', TabController::class);//Rutas tabs
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS
@@ -123,6 +126,23 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
 
     Route::get('/get-villas', [PhoneController::class, 'getVillas'])->name('getVillas');
     Route::get('/get-rooms', [PhoneController::class, 'getRooms'])->name('getRooms');
+
+    // Time logs (for employees or external systems)
+    Route::post('/check-in', [TimeLogController::class, 'checkIn']);
+    Route::post('/check-out', [TimeLogController::class, 'checkOut']);
+
+    // Schedules (for admins)
+    Route::post('/assign-schedule', [ScheduleController::class, 'assignSchedule'])->middleware('auth');
+
+    // Para empleados
+    Route::prefix('time-logs')->group(function () {
+        Route::post('/check-in', [TimeLogController::class, 'checkIn'])->name('time-logs.check-in');
+        Route::post('/check-out', [TimeLogController::class, 'checkOut'])->name('time-logs.check-out');
+    });
+
+    Route::patch('/schedules/{id}/toggle', [ScheduleController::class, 'toggle'])->name('schedules.toggle');
+    Route::get('/schedules/{id}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
+    Route::put('/schedules/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
     
     //Backup
     Route::prefix('backup')->group(function () {

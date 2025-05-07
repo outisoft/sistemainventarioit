@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Builder;
 use Ramsey\Uuid\Uuid;
 
@@ -25,9 +26,9 @@ class Empleado extends Model
         return $this->belongsTo(Departamento::class, 'departamento_id');
     }
 
-    public function pcs()
+    public function schedules(): HasMany
     {
-        return $this->hasMany(Pc::class);
+        return $this->hasMany(Schedule::class, 'employee_id');
     }
 
     public function equipos()
