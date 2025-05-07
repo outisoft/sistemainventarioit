@@ -140,9 +140,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
         Route::post('/check-out', [TimeLogController::class, 'checkOut'])->name('time-logs.check-out');
     });
 
-    Route::patch('/schedules/{id}/toggle', [ScheduleController::class, 'toggle'])->name('schedules.toggle');
-    Route::get('/schedules/{id}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
-    Route::put('/schedules/{id}', [ScheduleController::class, 'update'])->name('schedules.update');
+    /*Route::patch('/schedules/{id}/toggle', [ScheduleController::class, 'toggle'])->name('schedules.toggle');*/
     
     //Backup
     Route::prefix('backup')->group(function () {
