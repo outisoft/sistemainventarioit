@@ -243,7 +243,7 @@
         @endcan
 
         <!-- Radios y telefonos -->
-        <!--li class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }}">
+        <!--li-- class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon bx bx-phone-call'></i>
                 <div data-i18n="Layouts">Comunications</div>
@@ -257,14 +257,14 @@
                 </li>
 
                 @can('radio.index')
-    <li class="menu-item">
-                                                                                                                                                                                                                        <a href="#" class="menu-link">
-                                                                                                                                                                                                                            <div data-i18n="Without navbar">Radios</div>
-                                                                                                                                                                                                                        </a>
-                                                                                                                                                                                                                    </li>
-@endcan
+                    <li class="menu-item">
+                        <a href="#" class="menu-link">
+                            <div data-i18n="Without navbar">Radios</div>
+                        </a>                                                                                                                                                                                                                
+                    </li>
+                @endcan
             </ul>
-        </li-->
+        </!--li-->
 
         <!-- Empleados -->
         @can('empleados.index')
@@ -277,7 +277,8 @@
             </li>
         @endcan
 
-        <!-- Lease -->
+        <!-- Schedules -->
+        @can('Schedules.index')
         <li
             class="menu-item {{ Request::routeIs('schedules.index') ? 'active' : '' }} ">
             <a href="{{ route('schedules.index') }}" class="menu-link">
@@ -285,6 +286,7 @@
                 <div data-i18n="Analytics">Schedules</div>
             </a>
         </li>
+        @endcan
 
         <!-- Lease -->
         @can('lease.index')
