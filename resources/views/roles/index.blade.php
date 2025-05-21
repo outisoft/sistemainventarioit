@@ -202,24 +202,5 @@
                 "paging": false
             });
         </script>
-        <script>
-            $(document).ready(function() {
-                $('#searchInput').on('input', function() {
-                    var query = $(this).val();
-
-                    $.ajax({
-                        url: "{{ route('users.search') }}",
-                        type: "POST",
-                        data: {
-                            query: query,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function(response) {
-                            $('#searchResults').html(response);
-                        }
-                    });
-                });
-            });
-        </script>
     @endsection
 </x-app-layout>
