@@ -24,7 +24,7 @@ class PhoneController extends Controller
     
     public function index()
     {
-        $phones = Phone::with(['region', 'room.villa.hotel'])
+        $phones = Phone::with(['region'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -36,24 +36,9 @@ class PhoneController extends Controller
             ->orderBy('extension', 'asc')
             ->get();
 
-        $hotels = Hotel::all();
-        $villas = Villa::all();
-        $rooms = Room::all();
         $regions = Region::orderBy('name', 'asc')->get();
         $userRegions = auth()->user()->regions;
-        return view('comunications.phone.index', compact('phones', 'hotels', 'villas', 'rooms', 'regions', 'userRegions'));
-    }
-
-    public function getVillas(Request $request)
-    {
-        $villas = Villa::where('hotel_id', $request->hotel_id)->get();
-        return response()->json($villas);
-    }
-
-    public function getRooms(Request $request)
-    {
-        $rooms = Room::where('villa_id', $request->villa_id)->get();
-        return response()->json($rooms);
+        return view('comunications.phone.index', compact('phones', 'regions', 'userRegions'));
     }
 
     public function store(PhoneStoreRequest $request)
@@ -75,12 +60,41 @@ class PhoneController extends Controller
         return redirect()->route('phones.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(PhoneUpdateRequest $request, string $id)
+    public function update(Request $request, string $id)
     {
-        
+        $request->validate([
+            'extension' => 'required|unique:phones,extension,' . $id,
+            'service' => 'required',
+            'model' => 'required',
+            'serial' => 'required|unique:phones,serial,' . $id,
+            'region_id' => 'required|exists:regions,id',
+        ]);
+
+        $registro = Phone::findOrFail($id);
+        $registro->update($request->all());
+        $registro->save();
+
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Actualizacion',
+            'descripcion' => "Se actualizo el telefono ({$registro->extension}) con N/S: {$registro->serial}",
+            'user_id' => $user,
+            'region_id' => $registro->region_id,
+        ]);
+
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se actualizo el {$registro->extension} correctamente.");
+        return redirect()->route('phones.index');        
+    }
+
+    public function show(string $id)
+    {
+        $phone = Phone::with(['region'])->findOrFail($id);
+        $userRegions = auth()->user()->regions;
+
+        return view('comunications.phone.show', compact('phone', 'userRegions'));
     }
 
     public function destroy(string $id)
@@ -94,7 +108,7 @@ class PhoneController extends Controller
             'accion' => 'Eliminacion',
             'descripcion' => "Se elimino el telefono ({$registro->extension}) con N/S: {$registro->serial}",
             'user_id' => $user,
-            'region_id' => auth()->user()->region_id,
+            'region_id' => $registro->region_id,
         ]);
 
         toastr()

@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('service');
             $table->string('model');
             $table->string('serial')->unique();
-            $table->uuid('room_id')->constrained('rooms', 'id')->onDelete('cascade');
             $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });

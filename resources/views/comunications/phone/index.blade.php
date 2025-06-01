@@ -1,5 +1,6 @@
 <x-app-layout>
     @include('comunications.phone.create')
+    @include('comunications.phone.edit')
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -15,9 +16,10 @@
                     <h5 class="card-header">Phones List</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="#" class="btn-ico" data-toggle="modal" data-target="#modalCreate"
+                            <a href="#" class="btn-ico" data-bs-toggle="modal" data-bs-target="#modalCreate"
                                 data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top"
-                                data-bs-html="true" title="" data-bs-original-title="<span>Add new phone</span>">
+                                data-bs-html="true" title=""
+                                data-bs-original-title="<span>Add new equipment</span>">
                                 <i class='bx bx-add-to-queue icon-lg'></i>
                             </a>
                         </div>
@@ -35,9 +37,6 @@
                                             <th>Service</th>
                                             <th>Model</th>
                                             <th>Serial number</th>
-                                            <th>Hotel</th>
-                                            <th>Villa</th>
-                                            <th>Room</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -49,9 +48,6 @@
                                                 <td>{{ $phone->service }}</td>
                                                 <td>{{ $phone->model }}</td>
                                                 <td>{{ $phone->serial }}</td>
-                                                <td>{{ $phone->room->villa->hotel->name }}</td>
-                                                <td>{{ $phone->room->villa->name }}</td>
-                                                <td>{{ $phone->room->number }}</td>
                                                 <td>
                                                     <div class="dropdown">
                                                         <button type="button"
@@ -60,12 +56,16 @@
                                                             <i class="bx bx-dots-vertical-rounded"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('phones.show', $phone->id) }}"><i
+                                                                    class="bx bx-show-alt me-1"></i>Show
+                                                            </a>
 
                                                             <a href="#" data-bs-toggle="modal"
                                                                 data-bs-target="#editModal{{ $phone->id }}"
                                                                 class="dropdown-item"><i
-                                                                    class="bx bx-edit me-1"></i>Editar</a>
-
+                                                                    class="bx bx-edit me-1"></i>Editar
+                                                            </a>
 
                                                             <form action="{{ route('phones.destroy', $phone->id) }}"
                                                                 method="POST">

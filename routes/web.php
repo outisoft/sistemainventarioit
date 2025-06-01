@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -219,6 +220,9 @@ Route::get('/qrcode/{id}/details', [AssignmentController::class, 'employeeDetail
 
 Route::get('/password/change', [PasswordController::class, 'showChangeForm'])->name('password.change');
 Route::post('/password/change', [PasswordController::class, 'change'])->name('password.update');
+
+Route::resource('agenda', AgendaController::class);
+Route::get('/agenda/buscar', [AgendaController::class, 'buscar'])->name('agenda.buscar');
 
 Route::get('/', function () {
     if (Auth::check()) {

@@ -11,7 +11,7 @@ class Phone extends Model
 {
     use HasFactory, HasUuids;
 
-    protected $fillable = ['extension', 'service', 'model', 'serial', 'room_id', 'region_id'];
+    protected $fillable = ['extension', 'service', 'model', 'serial', 'region_id'];
 
     public function room(): BelongsTo
     {

@@ -1,5 +1,5 @@
 <!--Modal create-->
-<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="modalCreate">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
@@ -7,8 +7,9 @@
                 @csrf
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel">New Phone</h4>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true"></span></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true"></span>
+                    </button>
                 </div>
 
                 <div class="modal-body">
@@ -83,98 +84,13 @@
                         </div>
                         <x-input-error :messages="$errors->get('serial')" class="mt-2" />
                     </div>
-
-                    <!-- Hotel -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="hotel_id" :value="__('Hotel')" />
-                        <select class="form-control" id="hotel_id_create" name="hotel_id" required>
-                            @foreach ($hotels as $hotel)
-                                <option value="{{ $hotel->id }}">{{ $hotel->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Villa -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="villa_id" :value="__('Villa')" />
-                        <select class="form-control" id="villa_id_create" name="villa_id" required>
-                            <option value="">Seleccione una villa</option>
-                        </select>
-                    </div>
-
-                    <!-- Room -->
-                    <div class="mb-3">
-                        <x-input-label class="form-label" for="room_id" :value="__('Rooms')" />
-                        <select class="form-control" id="room_id_create" name="room_id" required>
-                            <option value="">Seleccione una villa</option>
-                        </select>
-                    </div>
                 </div>
 
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        // Cargar villas al cambiar el hotel en el modal de creación
-        $('#hotel_id_create').change(function() {
-            var hotelId = $(this).val();
-            if (hotelId) {
-                $.ajax({
-                    url: "{{ route('getVillas') }}",
-                    type: "GET",
-                    data: {
-                        hotel_id: hotelId
-                    },
-                    success: function(data) {
-                        $('#villa_id_create').empty();
-                        $('#villa_id_create').append(
-                            '<option value="">Seleccione una villa</option>');
-                        $.each(data, function(key, value) {
-                            $('#villa_id_create').append('<option value="' + value
-                                .id + '">' + value.name + '</option>');
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error al cargar villas:", error);
-                    }
-                });
-            } else {
-                $('#villa_id_create').empty();
-                $('#room_id_create').empty();
-            }
-        });
-
-        // Cargar habitaciones al cambiar la villa en el modal de creación
-        $('#villa_id_create').change(function() {
-            var villaId = $(this).val();
-            if (villaId) {
-                $.ajax({
-                    url: "{{ route('getRooms') }}",
-                    type: "GET",
-                    data: {
-                        villa_id: villaId
-                    },
-                    success: function(data) {
-                        $('#room_id_create').empty();
-                        $('#room_id_create').append(
-                            '<option value="">Seleccione una habitación</option>');
-                        $.each(data, function(key, value) {
-                            $('#room_id_create').append('<option value="' + value
-                                .id + '">' + value.number + '</option>');
-                        });
-                    },
-                    error: function(xhr, status, error) {
-                        console.error("Error al cargar habitaciones:", error);
-                    }
-                });
-            } else {
-                $('#room_id_create').empty();
-            }
-        });
-    });
-</script>
