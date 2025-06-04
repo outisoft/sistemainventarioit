@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Phone;
 use App\Models\Hotel;
 use App\Models\Villa;
-use App\Models\Room;
+use App\Models\Empleado;
 use App\Models\Region;
 use App\Models\Historial;
 use Illuminate\Http\Request;
@@ -92,10 +92,59 @@ class PhoneController extends Controller
     public function show(string $id)
     {
         $phone = Phone::with(['region'])->findOrFail($id);
+        $employees = Empleado::get();
         $userRegions = auth()->user()->regions;
 
-        return view('comunications.phone.show', compact('phone', 'userRegions'));
+        return view('comunications.phone.show', compact('phone', 'userRegions', 'employees'));
     }
+
+    public function asignarPhone(Request $request, $phoneId, $employeeId)
+    {
+        $phone = Phone::findOrFail($phoneId);
+        $employee = Empleado::findOrFail($employeeId);
+        
+
+        // Asignar la licencia al equipo
+        $phone->employees()->attach($employeeId);
+        $user = auth()->id();
+
+        Historial::create([
+            'accion' => 'Asignacion',
+            'descripcion' => "Se asigno el telefono de {$phone->extension} (SN: {$phone->serial}) al empleado {$employee->name}",
+            'user_id' => $user,
+            'region_id' => $phone->region_id,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se asigno telefono correctamente.");
+
+        return redirect()->route('phones.show', $phoneId);
+    }
+
+    public function desasignarPhone($phoneId, $employeeId)
+    {
+        // Obtener la licencia por su ID
+        $phone = Phone::findOrFail($phoneId);
+
+        // Desasignar la licencia del equipo
+        $phone->employees()->detach($employeeId);
+
+        $user = auth()->id();
+        $employee = Empleado::findOrFail($employeeId);
+
+        Historial::create([
+            'accion' => 'Desvinculacion',
+            'descripcion' => "Se desvinculo el telefono de {$phone->extension} (SN: {$phone->serial}) al empleado {$employee->name}",
+            'user_id' => $user,
+            'region_id' => $phone->region_id,
+        ]);
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Se desvinculo telefono correctamente.");
+
+        return redirect()->route('phones.show', $phoneId);
+    }
+
 
     public function destroy(string $id)
     {

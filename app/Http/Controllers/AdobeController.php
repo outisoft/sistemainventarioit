@@ -197,7 +197,7 @@ class AdobeController extends Controller
         $user = auth()->id();
 
         Historial::create([
-            'accion' => 'Creacion',
+            'accion' => 'Asignacion',
             'descripcion' => "Se asigno una licencia de {$licencia->type} ({$licencia->key}) al equipo {$equipo->name}",
             'user_id' => $user,
             'region_id' => $licencia->region_id,
@@ -221,7 +221,7 @@ class AdobeController extends Controller
         $equipo = Equipo::findOrFail($equipoId);
 
         Historial::create([
-            'accion' => 'Creacion',
+            'accion' => 'Desvinculacion',
             'descripcion' => "Se desvinculo una licencia de {$licencia->type} ({$licencia->key}) al equipo {$equipo->name}",
             'user_id' => $user,
             'region_id' => $licencia->region_id,

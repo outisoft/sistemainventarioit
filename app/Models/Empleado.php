@@ -31,6 +31,11 @@ class Empleado extends Model
         return $this->hasMany(Schedule::class, 'employee_id');
     }
 
+    public function phone()
+    {
+        return $this->belongsToMany(Phone::class);
+    }
+
     public function equipos()
     {
         return $this->belongsToMany(Equipo::class, 'empleado_equipo', 'empleado_id', 'equipo_id');

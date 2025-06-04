@@ -83,7 +83,7 @@ class AssignmentController extends Controller
         //dd($equipo->tipo->name);
         $user = auth()->id();
         Historial::create([
-            'accion' => 'Desvinculó',
+            'accion' => 'Desvinculacion',
             'descripcion' => "Se desvinculó al empleado {$empleado->name} el equipo tipo {$equipo->tipo->name} con S/N: {$equipo->serial}",
             'user_id' => $user,
             'region_id' => $equipo->region_id,
