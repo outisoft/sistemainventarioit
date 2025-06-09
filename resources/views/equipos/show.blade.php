@@ -51,7 +51,7 @@
                                         <td>
                                             @if ($equipo->positions->count() > 0)
                                                 @foreach ($equipo->positions as $position)
-                                                    {{ $position->employee->name }} -
+                                                    {{ $position->employee->name ?? 'N/A' }} -
                                                     ({{ $position->position }})
                                                 @endforeach
                                             @else
