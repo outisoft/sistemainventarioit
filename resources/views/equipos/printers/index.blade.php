@@ -70,7 +70,11 @@
                                     <td>{{ $equipo->marca }}</td>
                                     <td>{{ $equipo->model }}</td>
                                     <td>{{ $equipo->serial }}</td>
-                                    <td>{{ $equipo->ip }}</td>
+                                    <td>
+                                        <a href="http://{{ $equipo->ip }}" target="_blank">
+                                            {{ $equipo->ip }}
+                                        </a>
+                                    </td>
                                     <td>
                                         @if ($equipo->positions->isNotEmpty() && $equipo->positions->first()->hotel)
                                             {{ $equipo->positions->first()->hotel->name }} -
