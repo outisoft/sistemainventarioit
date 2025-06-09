@@ -210,8 +210,8 @@
                                                     <img src="{{ asset('uploads/gp-Logo.png') }}" alt="user-avatar"
                                                         class="employee-image" />
                                                     <span class="employee-name"
-                                                        style="margin-left: 15px;">{{ Str::limit($position->employees->name, 20, '...') }}
-                                                        (#{{ $position->employees->no_employee }})
+                                                        style="margin-left: 15px;">{{ Str::limit($position->employee->name, 20, '...') }}
+                                                        (#{{ $position->employee->no_employee }})
                                                     </span>
                                                 </div>
                                             </td>
