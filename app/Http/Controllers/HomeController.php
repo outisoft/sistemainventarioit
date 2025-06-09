@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Exports\EmpleadosExport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Empleado;
+use App\Models\Employee;
 use App\Models\Equipo;
 use App\Models\User;
 use App\Models\Tipo;
@@ -93,7 +94,7 @@ class HomeController extends Controller
         ];
 
         // Obtén el total de elementos
-        $totalEmpleados = Empleado::count();
+        $totalEmpleados = Employee::count();
         $totalEquipos = Equipo::count();
         $totalUsuarios = User::count();
         $totalTpvs = Tpv::count();

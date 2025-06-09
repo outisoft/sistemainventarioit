@@ -46,7 +46,7 @@
                                 </div>
                             @endcan
 
-                            @can('empleados.index')
+                            @can('employees.index')
                                 <div class="swiper-slide">
                                     <div class="card">
                                         <div class="card-body">
@@ -59,7 +59,7 @@
                                             <span class="fw-semibold d-block mb-1">Employes</span>
                                             <h3 class="card-title text-nowrap mb-2">{{ $totalEmpleados }}</h3>
                                             <small class="text-primary fw-semibold">
-                                                <a href="{{ route('empleados.index') }}">Show<i
+                                                <a href="{{ route('employees.index') }}">Show<i
                                                         class='bx bx-right-arrow-alt'></i></a>
                                             </small>
                                         </div>
@@ -537,13 +537,6 @@
 
         </div>
         <!--/columns charts-->
-
-        @if ($showGraphs)
-            <div class="row">
-                @include('partials-home.total_equipos_laptop')
-                @include('partials-home.total_equipos_cpu')
-            </div>
-        @endif
     </div>
 
 </x-app-layout>
