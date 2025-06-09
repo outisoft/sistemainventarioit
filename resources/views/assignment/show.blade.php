@@ -235,7 +235,7 @@
                                                                     <span class="h6 me-1"> SERIAL NUMBER </span>:
                                                                     {{ $complemento->serial }} <br>
                                                                     <form
-                                                                        action="{{ route('equipments.complementos.destroy', [$equipment, $complemento]) }}"
+                                                                        action="{{ route('equipos.complementos.destroy', [$equipment, $complemento]) }}"
                                                                         method="POST" class="d-inline">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -301,7 +301,7 @@
                                                                             {{ $licencia->getStatus() }}
                                                                         </span>
                                                                         <form
-                                                                            action="{{ route('licencias.desasignar', ['licenciaId' => $licencia->id, 'equipmentId' => $equipment->id]) }}"
+                                                                            action="{{ route('licencias.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipment->id]) }}"
                                                                             method="POST">
                                                                             @csrf
                                                                             @method('DELETE')
