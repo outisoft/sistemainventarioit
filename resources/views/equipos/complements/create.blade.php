@@ -52,11 +52,51 @@
                         <select class="form-control" id="type_id" name="type_id" required>
                             <option value="">Choose a type</option>
                             @foreach ($tipos as $tipo)
-                                <option value="{{ $tipo->id }}" {{ old('type_id') == $tipo->id ? 'selected' : '' }}>
+                                <option value="{{ $tipo->id }}" data-nombre="{{ strtolower($tipo->name) }}">
                                     {{ $tipo->name }}
                                 </option>
                             @endforeach
                         </select>
+                    </div>
+
+                    <div id="opcionesAdicionales" style="display: none;">
+                        <hr>
+
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="tipo_conexion" :value="__('¿Es alámbrico o inalámbrico?')" />
+                            <div class="col-md">
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="tipo_conexion"
+                                        id="tipo_conexion" value="ALAMBRICO" checked />
+                                    <label class="form-check-label" for="tipo_conexion">ALAMBRICO</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipo_conexion"
+                                        id="tipo_conexion" value="INALAMBRICO" />
+                                    <label class="form-check-label" for="tipo_conexion">INALAMBRICO</label>
+                                </div>
+                            </div>
+                            <x-input-error :messages="$errors->get('tipo_conexion')" class="mt-2" />
+                        </div>
+
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="tipo_presentacion" :value="__('¿Es un kit o es único?')" />
+                            <div class="col-md">
+                                <div class="form-check form-check-inline mt-3">
+                                    <input class="form-check-input" type="radio" name="tipo_presentacion"
+                                        id="tipo_presentacion" value="KIT (T&M)" checked />
+                                    <label class="form-check-label" for="tipo_presentacion">KIT (TECLADO Y
+                                        MOUSE)</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tipo_presentacion"
+                                        id="tipo_presentacion" value="UNICO" />
+                                    <label class="form-check-label" for="tipo_presentacion">UNICO</label>
+                                </div>
+                            </div>
+                            <x-input-error :messages="$errors->get('tipo_presentacion')" class="mt-2" />
+                        </div>
+                        <hr>
                     </div>
 
                     <!-- Marca -->
@@ -146,6 +186,27 @@
         </div>
     </div>
 </div>
+<script>
+    const selectComplemento = document.getElementById('type_id');
+    const divOpcionesAdicionales = document.getElementById('opcionesAdicionales');
+
+    selectComplemento.addEventListener('change', function() {
+
+        // Obtenemos la etiqueta <option> que está seleccionada, no solo su valor
+        const opcionSeleccionada = this.options[this.selectedIndex];
+
+        // Leemos el atributo 'data-nombre' que definimos en Blade
+        const nombreDelTipo = opcionSeleccionada.dataset.nombre;
+
+        // La condición ahora usa el nombre que pusimos en el data-attribute
+        // Esto funciona sin importar cuál sea el ID en la base de datos
+        if (nombreDelTipo === 'teclado' || nombreDelTipo === 'mouse') {
+            divOpcionesAdicionales.style.display = 'block';
+        } else {
+            divOpcionesAdicionales.style.display = 'none';
+        }
+    });
+</script>
 <script>
     $(document).ready(function() {
         $('input[name="lease"]').on('change', function() {

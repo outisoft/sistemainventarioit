@@ -29,6 +29,21 @@
                                         <th class="bg-secondary">Type</th>
                                         <td>{{ $complement->type->name }}</td>
                                     </tr>
+
+                                    @if (!empty($complement->tipo_conexion))
+                                        <tr>
+                                            <th class="bg-secondary">Tipo de conexión</th>
+                                            <td>{{ $complement->tipo_conexion }}</td>
+                                        </tr>
+                                    @endif
+
+                                    @if (!empty($complement->tipo_presentacion))
+                                        <tr>
+                                            <th class="bg-secondary">Tipo de presentacion</th>
+                                            <td>{{ $complement->tipo_presentacion }}</td>
+                                        </tr>
+                                    @endif
+
                                     <tr>
                                         <th class="bg-secondary">Brand</th>
                                         <td>{{ $complement->brand }}</td>
