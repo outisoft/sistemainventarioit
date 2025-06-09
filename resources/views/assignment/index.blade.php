@@ -39,13 +39,13 @@
                                     </style>
                                     <div class="mb-3">
                                         @if ($positions->isEmpty())
-                                            <label class="form-label" for="empleado">No available employees
-                                                found.</label> <a href="{{ route('employees.index') }}">Add employee
+                                            <label class="form-label" for="empleado">No available positions
+                                                found.</label> <a href="{{ route('positions.index') }}">Add Position
                                                 -></a>
                                         @else
                                             <!-- Buscador de Colaborador -->
                                             <div class="form-group">
-                                                <label class="form-label" for="search_employee">Search employee</label>
+                                                <label class="form-label" for="search_employee">Search position</label>
                                                 <div class="input-group input-group-merge">
 
                                                     <x-text-input id="search_employee" class="form-control"
