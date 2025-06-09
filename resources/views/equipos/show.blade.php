@@ -49,9 +49,10 @@
                                     <tr>
                                         <th class="bg-secondary">ASSIGNED TO...</th>
                                         <td>
-                                            @if ($equipo->employees->count() > 0)
-                                                @foreach ($equipo->employees as $empleado)
-                                                    {{ $empleado->name }}
+                                            @if ($equipo->positions->count() > 0)
+                                                @foreach ($equipo->positions as $position)
+                                                    {{ $position->employee->name }} -
+                                                    ({{ $position->position }})
                                                 @endforeach
                                             @else
                                                 To no assigned equipment

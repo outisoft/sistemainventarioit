@@ -5,6 +5,8 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Empleado;
+use App\Models\Employee;
+use App\Models\Position;
 use App\Models\Equipo;
 use App\Models\Complement;
 use App\Models\AccessPoint;
@@ -45,18 +47,32 @@ class GlobalSearch extends Component
                 'route' => 'details'
             ],
             'employees' => [
-                'model' => Empleado::class,
+                'model' => Employee::class,
                 'title' => 'Employees',
                 'icon' => 'bx bx-user',
-                'searchFields' => ['no_empleado', 'name', 'email', 'puesto', 'ad'],
+                'searchFields' => ['no_employee', 'name'],
                 'displayCallback' => function($item) {
                     return [
                         'title' => $item->name,
-                        'subtitle' => "No. Empleado: {$item->no_empleado} | Email: {$item->email}"
+                        'subtitle' => "No. Employee: {$item->no_employee}"
                     ];
                 },
                 'limit' => 5,
-                'route' => 'assignment.show'
+                'route' => 'employees.show'
+            ],
+            'positions' => [
+                'model' => Position::class,
+                'title' => 'Positions',
+                'icon' => 'bx bx-briefcase',
+                'searchFields' => ['position', 'email', 'ad'],
+                'displayCallback' => function($item) {
+                    return [
+                        'title' => $item->position,
+                        'subtitle' => "Email: {$item->email} | AD: {$item->ad}"
+                    ];
+                },
+                'limit' => 5,
+                'route' => 'positions.show'
             ],
             'complements' => [
                 'model' => Complement::class,
