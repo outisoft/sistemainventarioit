@@ -1,51 +1,49 @@
 <?php
-
-use App\Http\Controllers\AgendaController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InventarioController;
-use App\Http\Controllers\HistorialController;
-use App\Http\Controllers\EmpleadoController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\EquipoController;
-use App\Http\Controllers\ChartController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\TabletController;
-use App\Http\Controllers\TpvController;
-use App\Http\Controllers\MaintenanceController;
-use App\Http\Controllers\LicenseController;
-use App\Http\Controllers\OfficeController;
-use App\Http\Controllers\AdobeController;
-use App\Http\Controllers\AutocadController;
-use App\Http\Controllers\SketchupController;
-use App\Http\Controllers\DesktopController;
-use App\Http\Controllers\RegionController;
-use App\Http\Controllers\HotelController;
-use App\Http\Controllers\DepartamentoController;
-use App\Http\Controllers\PrinterController;
-use App\Http\Controllers\ComplementController;
-use App\Http\Controllers\LaptopController;
-use App\Http\Controllers\TabController;
-use App\Http\Controllers\MobileController;
-use App\Http\Controllers\PhoneController;
-use App\Http\Controllers\SwitchController;
-use App\Http\Controllers\AccessPointController;
-use App\Http\Controllers\AssignmentController;
-use App\Http\Controllers\OtherController;
-use App\Http\Controllers\EquipmentComplementController;
-use App\Http\Controllers\BackupController;
-use App\Http\Controllers\LeaseController;
-use App\Http\Controllers\VillaController;
-use App\Http\Controllers\RoomController;
-use App\Http\Controllers\PolicyController;
-use App\Http\Controllers\OntController;
-use App\Http\Controllers\SpecificLocationController;
-use App\Http\Controllers\TimeLogController;
-use App\Http\Controllers\ScheduleController;
+
 use App\Exports\EmpleadoExport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Http\Controllers\AccessPointController;
+use App\Http\Controllers\AdobeController;
+use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Auth\PasswordController;
+use App\Http\Controllers\AutocadController;
+use App\Http\Controllers\BackupController;
+use App\Http\Controllers\ChartController;
+use App\Http\Controllers\ComplementController;
+use App\Http\Controllers\DepartamentoController;
+use App\Http\Controllers\DesktopController;
+use App\Http\Controllers\EmpleadoController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\HistorialController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\HotelController;
+use App\Http\Controllers\InventarioController;
+use App\Http\Controllers\LaptopController;
+use App\Http\Controllers\LeaseController;
+use App\Http\Controllers\LicenseController;
+use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\MobileController;
+use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\OntController;
+use App\Http\Controllers\OtherController;
+use App\Http\Controllers\PhoneController;
+use App\Http\Controllers\PolicyController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\PrinterController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegionController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SketchupController;
+use App\Http\Controllers\SpecificLocationController;
+use App\Http\Controllers\SwitchController;
+use App\Http\Controllers\TabController;
+use App\Http\Controllers\TpvController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VillaController;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']], function ()  {
@@ -55,8 +53,6 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::get('/exportar-grafica', function () {
         return Excel::download(new EmpleadoExport, 'datos-grafica.xlsx');
     });
-
-    Route::get('/microsoft', [GraphController::class, 'index'])->name('graph.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -72,6 +68,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('departments', DepartamentoController::class); //Rutas departamentos
     Route::resource('desktops', DesktopController::class); //Rutas PC
     Route::resource('empleados', EmpleadoController::class); // Rutas Empleados
+    Route::resource('employees', EmployeeController::class); // Rutas Empleados
     Route::resource('equipo', EquipoController::class); // Rutas Equipos
     Route::resource('hotels', HotelController::class); //Rutas hoteles
     Route::resource('inventario', InventarioController::class); // Rutas Inventario
@@ -86,11 +83,11 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('other', OtherController::class);//Rutas Otros
     Route::resource('phones', PhoneController::class);//Rutas phones
     Route::resource('policy', PolicyController::class);//Rutas Policies
+    Route::resource('positions', PositionController::class);//Rutas Positions
     Route::resource('printers', PrinterController::class);//Rutas printers
     Route::resource('regions', RegionController::class); //Rutas Region
     Route::resource('roles', RoleController::class); // Rutas roles
     Route::resource('rooms', RoomController::class);//Rutas Rooms
-    Route::resource('schedules', ScheduleController::class);//Rutas switches
     Route::resource('sketchup', SketchupController::class);//Rutas SketchUp
     Route::resource('switches', SwitchController::class);//Rutas switches
     Route::resource('tabs', TabController::class);//Rutas tabs
@@ -131,21 +128,6 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::get('/get-villas', [PhoneController::class, 'getVillas'])->name('getVillas');
     Route::get('/get-rooms', [PhoneController::class, 'getRooms'])->name('getRooms');
 
-    // Time logs (for employees or external systems)
-    Route::post('/check-in', [TimeLogController::class, 'checkIn']);
-    Route::post('/check-out', [TimeLogController::class, 'checkOut']);
-
-    // Schedules (for admins)
-    Route::post('/assign-schedule', [ScheduleController::class, 'assignSchedule'])->middleware('auth');
-
-    // Para empleados
-    Route::prefix('time-logs')->group(function () {
-        Route::post('/check-in', [TimeLogController::class, 'checkIn'])->name('time-logs.check-in');
-        Route::post('/check-out', [TimeLogController::class, 'checkOut'])->name('time-logs.check-out');
-    });
-
-    /*Route::patch('/schedules/{id}/toggle', [ScheduleController::class, 'toggle'])->name('schedules.toggle');*/
-    
     //Backup
     Route::prefix('backup')->group(function () {
         Route::get('/', [BackupController::class, 'index'])->name('backup.index');
@@ -174,6 +156,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::delete('/equipos/{equipo}/complementos/{complemento}', [EquipoController::class, 'eliminarComplemento'])->name('equipos.complementos.destroy');
 
     Route::get('/empleado/{no_empleado}', [EmpleadoController::class, 'getEmpleado']);
+    Route::get('/position/{position}', [PositionController::class, 'getPosition']);
     Route::get('/equipos/{serial}', [EquipoController::class, 'getEquipo']);
 
 
@@ -207,14 +190,10 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     //asignacion de equipo a empleado 
     //Route::get('/asignacion', [EmpleadoController::class, 'agregar'])->name('asignacion.index');
     Route::post('/asignar', [AssignmentController::class, 'asignar'])->name('asignar');
-    Route::get('/desvincular/{empleado_id}/{equipo_id}', [AssignmentController::class, 'desvincular'])->name('desvincular');
+    Route::get('/desvincular/{position_id}/{equipment_id}', [AssignmentController::class, 'desvincular'])->name('desvincular');
     Route::get('/save-pdf/{id}', [AssignmentController::class, 'save_pdf'])->name('save-pdf');
     Route::get('/save-pdf-tcc/{id}', [AssignmentController::class, 'save_pdf_tcc'])->name('save-pdf-tcc');
     //Route::get('/detalles/{id}', [AssignmentController::class, 'detalles'])->name('detalles');
-
-    //Generacion de hojas de resguardo
-    Route::get('/coming2/{id}/save-pdf', [Coming2Controller::class, 'save_pdf'])->name('coming2.save-pdf');
-    //Route::get('/empleado/save-pdf/{id}', [EmpleadoController::class, 'save_pdf'])->name('empleado.save-pdf');
 
     //CHARTS
     Route::get('/grafica-usuarios', [ChartController::class, 'userChart'])->name('usuarios.chart');

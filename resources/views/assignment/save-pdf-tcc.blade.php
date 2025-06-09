@@ -129,14 +129,14 @@
         <img src="../public/images/Logo_TCC.png" alt="Tulum Country Club Logo" class="logo" />
         <div class="folio">
             <p>
-                <strong>{{ $empleado->hotel->name }}</strong>/ {{ $empleado->departments->name }} <br>
+                <strong>{{ $position->hotel->name }}</strong> / {{ $position->departments->name }} <br>
                 <strong>FECHA:</strong> {{ $date }}
             </p>
         </div>
         <br>
         <h3>CONDICIONES DEL RESGUARDO</h3>
         <p class="text-justify">
-            A través de esta carta responsiva yo <strong>{{ $empleado->name }}</strong> declaro ser el único
+            A través de esta carta responsiva yo <strong>{{ $position->employee->name }}</strong> declaro ser el único
             responsable
             y agrego tener bajo mi resguardo el equipo que me ha sido asignado por la empresa
             <strong>Grupo Piñero</strong>, exclusivamente para la utilidad que a la empresa convenga. Del
@@ -189,10 +189,10 @@
         </p>
 
         <div class="employee-info">
-            <p><strong>N° EMPLEADO: </strong>{{ $empleado->no_empleado }} <br>
-                <strong>NOMBRE: </strong>{{ $empleado->name }} <br>
-                <strong>PUESTO: </strong>{{ $empleado->puesto }} <br>
-                <strong>DEPARTAMENTO: </strong> {{ $empleado->departments->name }}
+            <p><strong>N° EMPLEADO: </strong>{{ $position->employee->no_employee }} <br>
+                <strong>NOMBRE: </strong>{{ $position->employee->name }} <br>
+                <strong>PUESTO: </strong>{{ $position->position }} <br>
+                <strong>DEPARTAMENTO: </strong> {{ $position->departments->name }}
             </p>
         </div>
         <br>
@@ -200,7 +200,7 @@
         <div class="signature">
             <div class="signature-item left">
                 <p><strong>Recibió:</strong></p>
-                <p class="signature-line">{{ $empleado->name }}</p>
+                <p class="signature-line">{{ $position->employee->name }}</p>
             </div>
             <div class="signature-item right">
                 <p><strong>Entregó:</strong></p>

@@ -95,7 +95,7 @@
         <div class="header">
             <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
             <div class="title">ENTREGA DE
-                {{ $equipo->tipo->name }}<br>{{ $empleado->departments->name }}/{{ $empleado->hotel->name }}
+                {{ $equipo->tipo->name }}<br>{{ $position->departments->name }}/{{ $position->hotel->name }}
             </div>
         </div>
         <br><br>
@@ -106,7 +106,7 @@
         <p class="date">Tulum, {{ $date }}</p>
 
         <div class="content">
-            <p>Con esta fecha se le hace entrega a <strong>{{ $empleado->name }}</strong> (en adelante, EL
+            <p>Con esta fecha se le hace entrega a <strong>{{ $position->employee->name }}</strong> (en adelante, EL
                 TRABAJADOR),
                 de un equipo marca <strong>{{ $equipo->marca }} ({{ $equipo->model }})</strong>, con número de
                 serie
@@ -178,7 +178,7 @@
             <div class="header">
                 <img src="../public/images/logo_gp.png" alt="Logo GP" class="logo" />
                 <div class="title">ENTREGA DE
-                    {{ $equipo->type->name }}<br>{{ $empleado->departments->name }}/{{ $empleado->hotel->name }}
+                    {{ $equipo->type->name }}<br>{{ $position->departments->name }}/{{ $position->hotel->name }}
                 </div>
             </div>
             <br><br>
@@ -189,7 +189,7 @@
             <p class="date">Tulum, {{ $date }}</p>
 
             <div class="content">
-                <p>Con esta fecha se le hace entrega a <strong>{{ $empleado->name }}</strong> (en adelante, EL
+                <p>Con esta fecha se le hace entrega a <strong>{{ $position->employee->name }}</strong> (en adelante, EL
                     TRABAJADOR),
                     de un equipo marca <strong>{{ $equipo->brand }} ({{ $equipo->model }})</strong>, con número de
                     serie

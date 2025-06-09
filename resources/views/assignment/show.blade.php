@@ -19,8 +19,8 @@
                     <div
                         class="d-flex flex-column flex-sm-row align-items-center justify-content-sm-between mb-6 text-center text-sm-start gap-2">
                         <div class="mb-2 mb-sm-0">
-                            <h4 class="mb-1">Employee ID #{{ $empleado->no_empleado }}</h4>
-                            <p class="mb-0">{{ $empleado->created_at }}</p>
+                            <h4 class="mb-1">Employee ID #{{ $position->employee->no_employee ?? 'N/A' }}</h4>
+                            <p class="mb-0">{{ $position->created_at }}</p>
                         </div>
                     </div>
                     <br>
@@ -36,13 +36,13 @@
                                             <img class="img-fluid rounded mb-4" src="{{ asset('images/gp-Logo.png') }}"
                                                 height="120" width="120" alt="User avatar">
                                             <div class="customer-info text-center mb-6">
-                                                <h5 class="mb-0">{{ $empleado->name }}</h5>
-                                                <span>Employee ID #{{ $empleado->no_empleado }}</span>
+                                                <h5 class="mb-0">{{ $position->employee->name ?? 'N/A' }}</h5>
+                                                <span>Employee ID #{{ $position->employee->no_employee ?? 'N/A' }}</span>
                                             </div>
                                         </div>
                                         <div class="d-flex flex-column align-items-center">
                                             <div class="d-flex align-items-center mb-2">
-                                                <a href="{{ route('generateQRCode', $empleado->id) }}" target="_blank"
+                                                <a href="{{ route('generateQRCode', $position->id) }}" target="_blank"
                                                     class="btn-ico me-2" data-bs-toggle="tooltip" data-bs-offset="0,4"
                                                     data-bs-placement="top" data-bs-html="true" title=""
                                                     data-bs-original-title="<span>QR Code</span>">
@@ -65,15 +65,15 @@
                                         <ul class="list-unstyled mb-6">
                                             <li class="mb-2">
                                                 <span class="h6 me-1">Username:</span>
-                                                <span>{{ $empleado->ad }}</span>
+                                                <span>{{ $position->ad }}</span>
                                             </li>
                                             <li class="mb-2">
                                                 <span class="h6 me-1">Email:</span>
-                                                <span>{{ $empleado->email }}</span>
+                                                <span>{{ $position->email }}</span>
                                             </li>
                                             <li class="mb-2">
                                                 <span class="h6 me-1">Status:</span>
-                                                @if ($empleado->equipos->isNotEmpty())
+                                                @if ($position->equipments->isNotEmpty())
                                                     <span class="badge bg-label-success">Active</span>
                                                 @else
                                                     <span class="badge bg-label-danger">Inactive</span>
@@ -82,17 +82,17 @@
 
                                             <li class="mb-2">
                                                 <span class="h6 me-1">Position:</span>
-                                                <span>{{ $empleado->puesto }}</span>
+                                                <span>{{ $position->position }}</span>
                                             </li>
 
                                             <li class="mb-2">
                                                 <span class="h6 me-1">Department:</span>
-                                                <span>{{ $empleado->departments->name }}</span>
+                                                <span>{{ $position->departments->name }}</span>
                                             </li>
 
                                             <li class="mb-2">
                                                 <span class="h6 me-1">Locations:</span>
-                                                <span>{{ $empleado->hotel->name }}</span>
+                                                <span>{{ $position->hotel->name }}</span>
                                             </li>
                                         </ul>
                                         <div class="d-flex justify-content-center">
@@ -146,17 +146,17 @@
                                     <div class="tab-pane fade active show" id="navs-pills-justified-home"
                                         role="tabpanel">
                                         <div id="accordionPayment" class="accordion">
-                                            @if ($empleado->equipos->isNotEmpty())
-                                                @foreach ($empleado->equipos as $index => $equipo)
+                                            @if ($position->equipments->isNotEmpty())
+                                                @foreach ($position->equipments as $index => $equipment)
                                                     <div class="card accordion-item">
                                                         <h2 class="accordion-header">
                                                             <button class="accordion-button collapsed" type="button"
                                                                 data-bs-toggle="collapse" aria-expanded="false"
                                                                 data-bs-target="#accordionPayment-{{ $index }}"
                                                                 aria-controls="accordionPayment-{{ $index }}">
-                                                                {{ $equipo->tipo->name }}
-                                                                @if (!empty($equipo->name))
-                                                                    <span> - {{ $equipo->name }} </span>
+                                                                {{ $equipment->tipo->name }}
+                                                                @if (!empty($equipment->name))
+                                                                    <span> - {{ $equipment->name }} </span>
                                                                 @endif
                                                             </button>
                                                         </h2>
@@ -165,26 +165,26 @@
                                                             class="accordion-collapse collapse">
                                                             <div class="accordion-body">
                                                                 <span class="h6 me-1"> BRAND </span>:
-                                                                {{ $equipo->marca }} <br>
+                                                                {{ $equipment->marca }} <br>
                                                                 <span class="h6 me-1"> MODEL </span>:
-                                                                {{ $equipo->model }} <br>
+                                                                {{ $equipment->model }} <br>
                                                                 <span class="h6 me-1"> SERIAL NUMBER </span>:
-                                                                {{ $equipo->serial }}
+                                                                {{ $equipment->serial }}
                                                                 <br>
-                                                                @if (!empty($equipo->ip))
+                                                                @if (!empty($equipment->ip))
                                                                     <span class="h6 me-1"> IP </span>:
-                                                                    {{ $equipo->ip }}
+                                                                    {{ $equipment->ip }}
                                                                     <br>
                                                                 @endif
 
-                                                                @if (!empty($equipo->so))
+                                                                @if (!empty($equipment->so))
                                                                     <span class="h6 me-1"> SO </span>:
-                                                                    {{ $equipo->so }}
+                                                                    {{ $equipment->so }}
                                                                     <br>
                                                                 @endif
 
 
-                                                                <a href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}"
+                                                                <a href="{{ route('desvincular', ['position_id' => $position->id, 'equipment_id' => $equipment->id]) }}"
                                                                     data-bs-toggle="tooltip" data-bs-offset="0,4"
                                                                     data-bs-placement="top" data-bs-html="true"
                                                                     title=""
@@ -207,16 +207,16 @@
                                     <!-- Complements -->
                                     <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
                                         <div id="accordionComplementos" class="accordion">
-                                            @foreach ($empleado->equipos as $index => $equipo)
+                                            @foreach ($position->equipments as $index => $equipment)
                                                 <div class="card accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button collapsed" type="button"
                                                             data-bs-toggle="collapse" aria-expanded="false"
                                                             data-bs-target="#accordionComplementos-{{ $index }}"
                                                             aria-controls="accordionComplementos-{{ $index }}">
-                                                            {{ $equipo->tipo->name }}
-                                                            @if (!empty($equipo->name))
-                                                                <span> - {{ $equipo->name }} </span>
+                                                            {{ $equipment->tipo->name }}
+                                                            @if (!empty($equipment->name))
+                                                                <span> - {{ $equipment->name }} </span>
                                                             @endif
                                                         </button>
                                                     </h2>
@@ -224,8 +224,8 @@
                                                     <div id="accordionComplementos-{{ $index }}"
                                                         class="accordion-collapse collapse">
                                                         <div class="accordion-body">
-                                                            @if ($equipo->complements->isNotEmpty())
-                                                                @foreach ($equipo->complements as $complemento)
+                                                            @if ($equipment->complements->isNotEmpty())
+                                                                @foreach ($equipment->complements as $complemento)
                                                                     <span class="h6 me-1"> TYPE </span>:
                                                                     {{ $complemento->type->name }} <br>
                                                                     <span class="h6 me-1"> BRAND </span>:
@@ -235,7 +235,7 @@
                                                                     <span class="h6 me-1"> SERIAL NUMBER </span>:
                                                                     {{ $complemento->serial }} <br>
                                                                     <form
-                                                                        action="{{ route('equipos.complementos.destroy', [$equipo, $complemento]) }}"
+                                                                        action="{{ route('equipments.complementos.destroy', [$equipment, $complemento]) }}"
                                                                         method="POST" class="d-inline">
                                                                         @csrf
                                                                         @method('DELETE')
@@ -245,7 +245,7 @@
                                                                             data-popup="tooltip-custom"
                                                                             data-bs-placement="top"
                                                                             class="assigned-item" aria-label="Delete"
-                                                                            data-bs-original-title="Desvincular equipo"><i
+                                                                            data-bs-original-title="Desvincular equipment"><i
                                                                                 class='bx bx-trash'></i></button>
                                                                     </form>
                                                                     <hr>
@@ -263,16 +263,16 @@
                                     <!-- Licenses -->
                                     <div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
                                         <div id="accordionLicenses" class="accordion">
-                                            @foreach ($empleado->equipos as $index => $equipo)
+                                            @foreach ($position->equipments as $index => $equipment)
                                                 <div class="card accordion-item">
                                                     <h2 class="accordion-header">
                                                         <button class="accordion-button collapsed" type="button"
                                                             data-bs-toggle="collapse" aria-expanded="false"
                                                             data-bs-target="#accordionLicenses-{{ $index }}"
                                                             aria-controls="accordionLicenses-{{ $index }}">
-                                                            {{ $equipo->tipo->name }}
-                                                            @if (!empty($equipo->name))
-                                                                <span> - {{ $equipo->name }} </span>
+                                                            {{ $equipment->tipo->name }}
+                                                            @if (!empty($equipment->name))
+                                                                <span> - {{ $equipment->name }} </span>
                                                             @endif
                                                         </button>
                                                     </h2>
@@ -280,8 +280,8 @@
                                                     <div id="accordionLicenses-{{ $index }}"
                                                         class="accordion-collapse collapse">
                                                         <div class="accordion-body">
-                                                            @if ($equipo->license->isNotEmpty())
-                                                                @foreach ($equipo->license as $licencia)
+                                                            @if ($equipment->license->isNotEmpty())
+                                                                @foreach ($equipment->license as $licencia)
                                                                     @php
                                                                         $statusClass = [
                                                                             'Active' => 'badge bg-label-success',
@@ -301,7 +301,7 @@
                                                                             {{ $licencia->getStatus() }}
                                                                         </span>
                                                                         <form
-                                                                            action="{{ route('licencias.desasignar', ['licenciaId' => $licencia->id, 'equipoId' => $equipo->id]) }}"
+                                                                            action="{{ route('licencias.desasignar', ['licenciaId' => $licencia->id, 'equipmentId' => $equipment->id]) }}"
                                                                             method="POST">
                                                                             @csrf
                                                                             @method('DELETE')

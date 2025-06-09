@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('positions', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('email')->unique(); // Asumiendo que cada configuración de puesto tiene un email único
-            $table->string('puesto');
-            $table->foreignId('departamento_id')->nullable()->constrained('departamentos')->onDelete('set null');
+            $table->string('position');
+            $table->foreignId('department_id')->nullable()->constrained('departamentos')->onDelete('set null');
             $table->foreignId('hotel_id')->nullable()->constrained('hotels')->onDelete('set null');
             $table->string('ad')->nullable();
+            $table->foreignId('region_id')->nullable()->constrained('regions')->onDelete('set null');
             $table->timestamps();
         });
     }

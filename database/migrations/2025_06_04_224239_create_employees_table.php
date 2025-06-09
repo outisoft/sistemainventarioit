@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('numero_empleado')->unique();
-            $table->string('nombre');
-            $table->uuid('puesto_id')->nullable()->constrained('positions', 'id')->onDelete('set null'); // Puede ser nulo
+            $table->string('no_employee')->unique();
+            $table->string('name');
+            $table->uuid('position_id')->nullable()->constrained('positions', 'id')->onDelete('set null'); // Puede ser nulo
+            $table->foreignId('region_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

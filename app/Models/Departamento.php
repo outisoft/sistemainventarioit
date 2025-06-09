@@ -16,6 +16,11 @@ class Departamento extends Model
         return $this->hasMany(Empleado::class);
     }
 
+    public function positions()
+    {
+        return $this->hasMany(Position::class);
+    }
+
     //new
     public function hotels()
     {

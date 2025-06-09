@@ -26,11 +26,6 @@ class Empleado extends Model
         return $this->belongsTo(Departamento::class, 'departamento_id');
     }
 
-    public function schedules(): HasMany
-    {
-        return $this->hasMany(Schedule::class, 'employee_id');
-    }
-
     public function phone()
     {
         return $this->belongsToMany(Phone::class);

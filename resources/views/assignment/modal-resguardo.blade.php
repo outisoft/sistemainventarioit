@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <form id="equiposForm">
                     <h6>Equipos</h6>
-                    @foreach ($empleado->equipos as $equipo)
+                    @foreach ($position->equipments as $equipo)
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="{{ $equipo->id }}"
                                 id="equipo{{ $equipo->id }}" name="equipos[]">
@@ -19,8 +19,8 @@
                             </label>
                         </div>
                     @endforeach
-                    @if ($equipo && $equipo->complements->isNotEmpty())
-                        @foreach ($equipo->complements as $complemento)
+                    @if ($equipments && $equipments->complements->isNotEmpty())
+                        @foreach ($equipments->complements as $complemento)
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="{{ $complemento->id }}"
                                     id="complemento{{ $complemento->id }}" name="complementos[]">
@@ -40,7 +40,7 @@
         </div>
     </div>
 </div>
-@if ($empleado->hotel->name == 'TULUM COUNTRY CLUB')
+@if ($position->hotel->name == 'TULUM COUNTRY CLUB')
     <script>
         document.getElementById('generatePdf').addEventListener('click', function() {
             const form = document.getElementById('equiposForm');
@@ -63,9 +63,9 @@
                 return;
             }
 
-            const empleadoId = '{{ $empleado->id }}'; // Usar UUID en lugar de ID
+            const positionId = '{{ $position->id }}'; // Usar UUID en lugar de ID
             const url =
-                `{{ route('save-pdf-tcc', ['id' => $empleado->id]) }}?equipos=${selectedEquipos.join(',')}&complementos=${selectedComplementos.join(',')}`;
+                `{{ route('save-pdf-tcc', ['id' => $position->id]) }}?equipos=${selectedEquipos.join(',')}&complementos=${selectedComplementos.join(',')}`;
             window.open(url, '_blank');
         });
     </script>
@@ -92,9 +92,9 @@
                 return;
             }
 
-            const empleadoId = '{{ $empleado->id }}'; // Usar UUID en lugar de ID
+            const positionId = '{{ $position->id }}'; // Usar UUID en lugar de ID
             const url =
-                `{{ route('save-pdf', ['id' => $empleado->id]) }}?equipos=${selectedEquipos.join(',')}&complementos=${selectedComplementos.join(',')}`;
+                `{{ route('save-pdf', ['id' => $position->id]) }}?equipos=${selectedEquipos.join(',')}&complementos=${selectedComplementos.join(',')}`;
             window.open(url, '_blank');
         });
     </script>

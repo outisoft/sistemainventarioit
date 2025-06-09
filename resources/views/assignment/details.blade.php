@@ -40,13 +40,13 @@
                                                                     alt="Imagen de ejemplo" width="36"
                                                                     height="36" />
                                                             </a>
-                                                            #{{ $employee->no_empleado }} / {{ $employee->ad }}
+                                                            #{{ $position->employee->no_employee }} / {{ $position->ad }}
                                                         </p>
-                                                        <h3 class="name">{{ $employee->name }}</h3>
-                                                        <h6>{{ $employee->puesto }} /
-                                                            {{ $employee->departments->name }} /
-                                                            {{ $employee->hotel->name }}</h6>
-                                                        <h6 class="email">{{ $employee->email }} <i
+                                                        <h3 class="name">{{ $position->employee->name }}</h3>
+                                                        <h6>{{ $position->position }} /
+                                                            {{ $position->departments->name }} /
+                                                            {{ $position->hotel->name }}</h6>
+                                                        <h6 class="email">{{ $position->email }} <i
                                                                 class="fas fa-chevron-right"></i></h6>
                                                     </div>
                                                 </div>
@@ -56,7 +56,7 @@
                                 </div>
                                 <br>
 
-                                @foreach ($employee->equipos as $equipo)
+                                @foreach ($position->equipments as $equipo)
                                     <div class="card">
                                         <div class="content-wrapper">
                                             <div class="table-responsive text-nowrap">

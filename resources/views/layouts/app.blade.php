@@ -123,6 +123,7 @@
             });
         });
     </script>
+    @stack('scripts')
 </body>
 @yield('js')
 @include('layouts.scripts')

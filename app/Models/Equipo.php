@@ -21,7 +21,20 @@ class Equipo extends Model
 
     public function employees()
     {
-        return $this->belongsToMany(Empleado::class, 'empleado_equipo');
+        return $this->belongsToMany(Employee::class, 'empleado_equipo');
+    }
+
+    /*public function positions()
+    {
+        return $this->belongsToMany(Position::class, 'equipment_position', 'position_id', 'equipo_id');
+    }*/
+
+    // app/Models/Equipment.php
+    public function positions()
+    {
+        return $this->belongsToMany(Position::class, 'equipment_position')
+                    ->using(EquipmentPosition::class)
+                    ->withPivot(['id', 'created_at', 'updated_at']);
     }
 
     public function tipo()

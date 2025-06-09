@@ -39,6 +39,28 @@
             </a>
         </li>
 
+        <!-- Positions -->
+        @can('positions.index')
+            <li
+                class="menu-item {{ Request::routeIs('positions.index') ? 'active' : '' }}">
+                <a href="{{ route('positions.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-briefcase'></i>
+                    <div data-i18n="Without menu">Positions</div>
+                </a>
+            </li>
+        @endcan
+
+        <!-- Employees -->
+        @can('employees.index')
+            <li
+                class="menu-item {{ Request::routeIs('employees.index') ? 'active' : '' }}" >
+                <a href="{{ route('employees.index') }}" class="menu-link">
+                    <i class='menu-icon tf-icons bx bx-user-pin'></i>
+                    <div data-i18n="Without menu">Employees</div>
+                </a>
+            </li>
+        @endcan
+
         <!-- Equipos -->
         @can('equipo.index')
             <li
@@ -281,16 +303,6 @@
             </li>
         @endcan
 
-        <!-- Schedules -->
-        @can('Schedules.index')
-            <li class="menu-item {{ Request::routeIs('schedules.index') ? 'active' : '' }} ">
-                <a href="{{ route('schedules.index') }}" class="menu-link">
-                    <i class='menu-icon tf-icons bx bx-calendar-week'></i>
-                    <div data-i18n="Analytics">Schedules</div>
-                </a>
-            </li>
-        @endcan
-
         <!-- Lease -->
         @can('lease.index')
             <li
@@ -315,7 +327,7 @@
         <!-- Asignacion -->
         @can('empleados.asignacion')
             <li
-                class="menu-item {{ Request::routeIs('assignment.index') ? 'active' : '' }} || {{ Request::routeIs('assignment.show') ? 'active' : '' }}">
+                class="menu-item {{ Request::routeIs('assignment.index') ? 'active' : '' }} || {{ Request::routeIs('positions.show') ? 'active' : '' }} || {{ Request::routeIs('employees.show') ? 'active' : '' }} || {{ Request::routeIs('assignment.show') ? 'active' : '' }}">
                 <a href="{{ url('assignment') }}" class="menu-link">
                     <i class='menu-icon tf-icons bx bx-link'></i>
                     <div data-i18n="Without navbar">Assignment</div>

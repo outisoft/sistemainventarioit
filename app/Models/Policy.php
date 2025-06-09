@@ -17,11 +17,6 @@ class Policy extends Model
         return $this->belongsTo(Region::class, 'region_id');
     }
 
-    public function coming2()
-    {
-        return $this->hasMany(Coming2::class, 'policy_id');
-    }
-
     // Scope global para filtrar por región automáticamente
     protected static function booted()
     {

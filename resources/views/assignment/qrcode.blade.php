@@ -121,21 +121,21 @@
 <body>
 <div class="card">
     <div class="card_form">
-        <span>{{ $employee->ad }}</span>
+        <span>{{ $position->ad }}</span>
         <img src="data:image/png;base64,{{ base64_encode($qrcode) }}" alt="QR Code">
     </div>
     <div class="card_data">
         <div style="display: flex" class="data">
             <div class="text">
-                <label class="text_m">{{ $employee->name}}</label>
+                <label class="text_m">{{ $position->employee->name}}</label>
                 <div class="cube text_s">
-                <label class="side front"> {{ $employee->email }} </label>
-                <label class="side top">{{ $employee->puesto }} </label>
+                <label class="side front"> {{ $position->email }} </label>
+                <label class="side top">{{ $position->position }} </label>
                 </div>
             </div>
         </div>
         <span title="Descargar codigo QR">
-            <a href="{{ route('downloadQRCode', $employee->id) }}" download="qrcode_employee_{{ $employee->id }}.png">Descargar QR</a>
+            <a href="{{ route('downloadQRCode', $position->id) }}" download="qrcode_employee_{{ $position->id }}.png">Descargar QR</a>
         </span>
     </div>
 </div>

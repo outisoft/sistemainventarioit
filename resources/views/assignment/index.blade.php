@@ -38,9 +38,9 @@
                                         }
                                     </style>
                                     <div class="mb-3">
-                                        @if ($empleados->isEmpty())
+                                        @if ($positions->isEmpty())
                                             <label class="form-label" for="empleado">No available employees
-                                                found.</label> <a href="{{ route('empleados.index') }}">Add employee
+                                                found.</label> <a href="{{ route('employees.index') }}">Add employee
                                                 -></a>
                                         @else
                                             <!-- Buscador de Colaborador -->
@@ -49,15 +49,15 @@
                                                 <div class="input-group input-group-merge">
 
                                                     <x-text-input id="search_employee" class="form-control"
-                                                        type="text" placeholder="Search by No. employee, AD o email"
+                                                        type="text" placeholder="Search by AD o email"
                                                         name="search_employee" />
                                                 </div>
                                             </div>
                                             <div class="form-row">
                                                 <div class="form-group" style="display: none;">
-                                                    <label for="id_empleado">id</label>
-                                                    <input type="text" id="empleado_id" class="form-control"
-                                                        name="empleado_id">
+                                                    <label for="position_id">id</label>
+                                                    <input type="text" id="position_id" class="form-control"
+                                                        name="position_id">
                                                 </div>
 
                                                 <!-- Numero de Colaborador -->
@@ -127,7 +127,7 @@
                                             <div class="form-row">
                                                 <div class="form-group" style="display: none;">
                                                     <label for="equipo_id">id</label>
-                                                    <input type="text" id="equipo_id" class="form-control"
+                                                    <input type="text" id="id_equipo" class="form-control"
                                                         name="equipo_id">
                                                 </div>
 
@@ -203,44 +203,44 @@
                                 </thead>
                                 <tbody id="employeeList">
                                     <!-- Aquí se mostrarán los empleados -->
-                                    @foreach ($empleadosConEquipos as $empleado)
+                                    @foreach ($empleadosConEquipos as $position)
                                         <tr>
                                             <td>
                                                 <div style="display: flex; align-items: center;">
                                                     <img src="{{ asset('uploads/gp-Logo.png') }}" alt="user-avatar"
                                                         class="employee-image" />
                                                     <span class="employee-name"
-                                                        style="margin-left: 15px;">{{ Str::limit($empleado->name, 20, '...') }}
-                                                        (#{{ $empleado->no_empleado }})
+                                                        style="margin-left: 15px;">{{ Str::limit($position->employee->name, 20, '...') }}
+                                                        (#{{ $position->employee->no_employee }})
                                                     </span>
                                                 </div>
                                             </td>
 
                                             <td class="employee-position">
-                                                {{ $empleado->hotel->name }} / {{ $empleado->departments->name }}
+                                                {{ $position->hotel->name }} / {{ $position->departments->name }}
                                             </td>
                                             <td>
                                                 <div class="assigned-items">
-                                                    @foreach ($empleado->equipos as $equipo)
+                                                    @foreach ($position->equipments as $equipo)
                                                         <span data-bs-toggle="tooltip" data-popup="tooltip-custom"
                                                             data-bs-placement="top" class="assigned-item"
                                                             aria-label="{{ $equipo->name }}/{{ $equipo->serial }}"
                                                             data-bs-original-title="{{ $equipo->name }}/{{ $equipo->serial }}">{{ $equipo->tipo->name }}
                                                             <a data-placement="top" title="Unlink employee equipment"
-                                                                href="{{ route('desvincular', ['empleado_id' => $empleado->id, 'equipo_id' => $equipo->id]) }}">X</a>
+                                                                href="{{ route('desvincular', ['position_id' => $position->id, 'equipment_id' => $equipo->id]) }}">X</a>
                                                         </span>
                                                     @endforeach
                                                 </div>
                                             </td>
                                             <td>
-                                                @foreach ($empleado->equipos as $equipo)
+                                                @foreach ($position->equipments as $equipo)
                                                     @if (!empty($equipo->name))
                                                         <div>{{ $equipo->name }}</div>
                                                     @endif
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <a href="{{ route('assignment.show', $empleado->id) }}"
+                                                <a href="{{ route('assignment.show', $position->id) }}"
                                                     class="btn-ico" data-bs-toggle="tooltip"
                                                     data-popup="tooltip-custom" data-bs-placement="top"
                                                     class="assigned-item" aria-label="Show details"
@@ -276,7 +276,7 @@
                     if (data.error) {
                         alert(data.error);
                     } else {
-                        document.getElementById('equipo_id').value = data.id;
+                        document.getElementById('id_equipo').value = data.id;
                         document.getElementById('serial').value = data.serial;
                         document.getElementById('nameE').value = data.name;
                         document.getElementById('marca').value = data.marca;
@@ -291,18 +291,18 @@
 
 <script>
     document.getElementById('search_employee').addEventListener('input', function() {
-        let numeroColaborador = this.value;
+        let position = this.value;
 
-        if (numeroColaborador.length > 0) {
-            fetch(`/empleado/${numeroColaborador}`)
+        if (position.length > 0) {
+            fetch(`/position/${position}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.error) {
                         alert(data.error);
                     } else {
-                        document.getElementById('empleado_id').value = data.id;
-                        document.getElementById('no_empleado').value = data.no_empleado;
-                        document.getElementById('name').value = data.name;
+                        document.getElementById('position_id').value = data.id;
+                        document.getElementById('no_empleado').value = data.employee.no_employee;
+                        document.getElementById('name').value = data.employee.name;
                         document.getElementById('email').value = data.email;
                         document.getElementById('ad').value = data.ad;
                         // Rellena otros campos según los datos obtenidos

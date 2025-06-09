@@ -96,6 +96,44 @@
 
 <!--new DataTable('#employees');-->
 <script>
+    new DataTable('#positions', {
+        order: [
+            [1, 'asc']
+        ],
+        pageLength: 200,
+        lengthMenu: [10, 25, 50, 75, 100],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        info: false,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
+                className: 'btn btn-ico',
+                filename: 'Positions',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to PDF</span>"></i>',
+                className: 'btn btn-ico',
+                filename: 'Positions',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            }
+
+        ]
+
+    });
+</script>
+
+<!--new DataTable('#employees');-->
+<script>
     new DataTable('#employees', {
         order: [
             [1, 'asc']
@@ -112,7 +150,7 @@
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
                 className: 'btn btn-ico',
-                filename: 'Empleados',
+                filename: 'Employees',
                 exportOptions: {
                     columns: ':not(:last-child)'
                 }
@@ -121,7 +159,7 @@
                 extend: 'pdfHtml5',
                 text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to PDF</span>"></i>',
                 className: 'btn btn-ico',
-                filename: 'Empleados',
+                filename: 'Employees',
                 exportOptions: {
                     columns: ':not(:last-child)'
                 }
