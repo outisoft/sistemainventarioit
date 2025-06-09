@@ -40,7 +40,7 @@ class EquipoController extends Controller
             ->get();
 
         foreach ($equipos as $equipo) {
-            $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
+            $equipo->estado = $equipo->positions->isEmpty() ? 'Libre' : 'En Uso';
         }
 
         return view('equipos.index', compact('equipos'));

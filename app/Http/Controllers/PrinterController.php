@@ -41,7 +41,7 @@ class PrinterController extends Controller
         $regions = Region::orderBy('name', 'asc')->get();
         // Iterar sobre los equipos y verificar si están asignados a un empleado
         foreach ($equipos as $equipo) {
-            $equipo->estado = $equipo->empleados->isEmpty() ? 'Libre' : 'En Uso';
+            $equipo->estado = $equipo->positions->isEmpty() ? 'Libre' : 'En Uso';
         }
         $userRegions = auth()->user()->regions;
 

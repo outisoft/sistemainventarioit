@@ -70,9 +70,9 @@
                                     <td>{{ $equipo->model }}</td>
                                     <td>{{ $equipo->serial }}</td>
                                     <td>
-                                        @if ($equipo->empleados->isNotEmpty() && $equipo->empleados->first()->hotel)
-                                            {{ $equipo->empleados->first()->hotel->name }} -
-                                            {{ optional($equipo->empleados->first()->departments)->name }}
+                                        @if ($equipo->positions->isNotEmpty() && $equipo->positions->first()->hotel)
+                                            {{ $equipo->positions->first()->hotel->name }} -
+                                            {{ optional($equipo->positions->first()->departments)->name }}
                                         @else
                                             NO ASIGNADO
                                         @endif

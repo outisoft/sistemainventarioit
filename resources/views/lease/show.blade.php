@@ -49,19 +49,19 @@
                                                     <tr>
                                                         <td> {{ $equipo->tipo->name }} </td>
                                                         <td>
-                                                            @if ($equipo->employees->isNotEmpty())
+                                                            @if ($equipo->positions->isNotEmpty())
                                                                 @php
-                                                                    $empleado = $equipo->employees->first();
+                                                                    $position = $equipo->positions->first();
                                                                 @endphp
-                                                                {{ $empleado ? $empleado->name : 'SIN ASIGNAR' }}
+                                                                {{ $position ? $position->employee->name : 'SIN ASIGNAR' }}
                                                             @else
                                                                 SIN ASIGNAR
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            @if ($equipo->empleados->isNotEmpty() && $equipo->empleados->first()->hotel)
-                                                                {{ $equipo->empleados->first()->hotel->name }} -
-                                                                {{ optional($equipo->empleados->first()->departments)->name }}
+                                                            @if ($equipo->positions->isNotEmpty() && $equipo->positions->first()->hotel)
+                                                                {{ $equipo->positions->first()->hotel->name }} -
+                                                                {{ optional($equipo->positions->first()->departments)->name }}
                                                             @else
                                                                 HOTEL NO ASIGNADO
                                                             @endif
@@ -98,11 +98,11 @@
                                                     <td>
                                                         @if ($complement->equipments->isNotEmpty())
                                                             @php
-                                                                $empleado = $complement->equipments
+                                                                $position = $complement->equipments
                                                                     ->first()
-                                                                    ->empleados->first();
+                                                                    ->positions->first();
                                                             @endphp
-                                                            {{ $empleado ? $empleado->name : 'SIN ASIGNAR' }}
+                                                            {{ $position ? $position->employee->name : 'SIN ASIGNAR' }}
                                                         @else
                                                             SIN ASIGNAR
                                                         @endif
@@ -110,13 +110,13 @@
                                                     <td>
                                                         @if ($complement->equipments->isNotEmpty())
                                                             @php
-                                                                $empleado = $complement->equipments
+                                                                $position = $complement->equipments
                                                                     ->first()
-                                                                    ->empleados->first();
+                                                                    ->positions->first();
                                                             @endphp
-                                                            @if ($empleado && $empleado->hotel)
-                                                                {{ $empleado->hotel->name }} -
-                                                                {{ $empleado->departments->name }}
+                                                            @if ($position && $position->hotel)
+                                                                {{ $position->hotel->name }} -
+                                                                {{ $position->departments->name }}
                                                             @else
                                                                 HOTEL NO ASIGNADO
                                                             @endif

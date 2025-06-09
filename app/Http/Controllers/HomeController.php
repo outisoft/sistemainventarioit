@@ -44,7 +44,7 @@ class HomeController extends Controller
         $equipos_libres = 0;
 
         foreach ($equiposCPU as $equipo) {
-            if ($equipo->empleados->isEmpty()) {
+            if ($equipo->positions->isEmpty()) {
                 $equipos_libres++;
             } else {
                 $equipos_en_uso++;
@@ -74,7 +74,7 @@ class HomeController extends Controller
         $laptops_libres = 0;
 
         foreach ($equiposLap as $lap) {
-            if ($lap->empleados->isEmpty()) {
+            if ($lap->positions->isEmpty()) {
                 $laptops_libres++;
             } else {
                 $laptops_en_uso++;
@@ -213,66 +213,6 @@ class HomeController extends Controller
                 ->pluck('id');
         }
 
-        // Obtener el total de laptops asignadas por hotel
-        $laptopsPorHotel = DB::table('equipos')
-            ->join('empleado_equipo', 'equipos.id', '=', 'empleado_equipo.equipo_id')
-            ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
-            ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
-            ->where('equipos.tipo_id', '=', 4) // Suponiendo que el tipo_id = 4 es para laptops
-            ->whereIn('hotels.id', $hotels) // Filtrar por hoteles de las regiones del usuario o todos si es admin
-            ->select('hotels.name as hotel', DB::raw('COUNT(equipos.id) as total'))
-            ->groupBy('hotels.name')
-            ->get();
-
-        // Obtener el total de laptops en stock (no asignadas)
-        $laptopsEnStock = DB::table('equipos')
-            ->where('tipo_id', '=', 4) // Suponiendo que el tipo_id = 4 es para laptops
-            ->whereNotIn('id', function ($query) use ($hotels) {
-                $query->select('equipo_id')
-                    ->from('empleado_equipo')
-                    ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
-                    ->whereIn('empleados.hotel_id', $hotels); // Filtrar por hoteles de las regiones del usuario
-            })
-            ->count();
-
-        // Preparar datos para la gráfica
-        $laptopLabels = $laptopsPorHotel->pluck('hotel')->toArray();
-        $laptopData = $laptopsPorHotel->pluck('total')->toArray();
-
-        // Agregar la columna "Stock"
-        $laptopLabels[] = 'Stock';
-        $laptopData[] = $laptopsEnStock;
-
-        // Obtener el total de desktops asignadas por hotel
-        $desktopsPorHotel = DB::table('equipos')
-            ->join('empleado_equipo', 'equipos.id', '=', 'empleado_equipo.equipo_id')
-            ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
-            ->join('hotels', 'empleados.hotel_id', '=', 'hotels.id')
-            ->where('equipos.tipo_id', '=', 2) // Suponiendo que el tipo_id = 3 es para desktops
-            ->whereIn('hotels.id', $hotels) // Filtrar por hoteles de las regiones del usuario o todos si es admin
-            ->select('hotels.name as hotel', DB::raw('COUNT(equipos.id) as total'))
-            ->groupBy('hotels.name')
-            ->get();
-
-        // Obtener el total de desktops en stock (no asignadas)
-        $desktopsEnStock = DB::table('equipos')
-            ->where('tipo_id', '=', 2) // Suponiendo que el tipo_id = 2 es para desktops
-            ->whereNotIn('id', function ($query) use ($hotels) {
-                $query->select('equipo_id')
-                    ->from('empleado_equipo')
-                    ->join('empleados', 'empleado_equipo.empleado_id', '=', 'empleados.id')
-                    ->whereIn('empleados.hotel_id', $hotels); // Filtrar por hoteles de las regiones del usuario
-            })
-            ->count();
-
-        // Preparar datos para la gráfica de desktops
-        $desktopLabels = $desktopsPorHotel->pluck('hotel')->toArray();
-        $desktopData = $desktopsPorHotel->pluck('total')->toArray();
-
-        // Agregar la columna "Stock"
-        $desktopLabels[] = 'Stock';
-        $desktopData[] = $desktopsEnStock;
-
         // Obtener las regiones asignadas al usuario
         $userRegions = auth()->user()->regions;
 
@@ -285,7 +225,7 @@ class HomeController extends Controller
         $showGraphs = $userRegions->count() > 1 || $totalHotels > 1;
 
 
-        return view('home', compact('showGraphs', 'desktopLabels', 'desktopData', 'laptopLabels', 'laptopData', 'totalPhones', 'officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
+        return view('home', compact('showGraphs', 'totalPhones', 'officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
         'officeActivas', 'adobeActivas', 'autocadActivas', 'sketchupActivas',
         'officeVencidas', 'adobeVencidas', 'autocadVencidas', 'sketchupVencidas',
         'totalLicencias', 'totalActivas', 'totalVencidas', 'totalPhone', 'totalWacom', 
