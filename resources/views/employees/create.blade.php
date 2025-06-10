@@ -14,7 +14,6 @@
                         </div>
 
                         <div class="modal-body">
-                            <hr>
                             <div class="row mb-3">
                                 <div class="col-md-6">
                                     <label for="no_employee" class="form-label">Número de Empleado</label>
