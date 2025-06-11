@@ -104,10 +104,13 @@
                                                         {{ $equipo->serial }}
                                                     </td>
                                                     <td>
-                                                        @if ($equipo->empleados->isNotEmpty())
-                                                            {{ $equipo->empleados->first()->name }}
+                                                        @if ($equipo->positions->isNotEmpty())
+                                                            @foreach ($equipo->positions as $position)
+                                                                {{ $position->employee->name ?? 'N/A' }} -
+                                                                ({{ $position->position }})
+                                                            @endforeach
                                                         @else
-                                                            Sin asignar
+                                                            SIN ASIGNAR
                                                         @endif
                                                     </td>
                                                     <td>
