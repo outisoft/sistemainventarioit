@@ -37,13 +37,12 @@
                                         class='icon-base bx bx-desktop'></i>{{ $equipo->name }}
                                 </h6>
                                 <address class="mb-0">
-                                    @if ($equipo->empleados->isNotEmpty())
-                                        {{ $equipo->empleados->first()->name }}
-                                    @else
-                                        SIN ASIGNAR
-                                    @endif <br>
-                                    @if ($equipo->empleados->isNotEmpty() && $equipo->empleados->first()->hotel)
-                                        {{ $equipo->empleados->first()->hotel->name }}-{{ $equipo->empleados->first()->departments->name }}<br>
+                                    @foreach ($equipo->positions as $position)
+                                        {{ $position->employee->name ?? 'N/A' }} -
+                                        ({{ $position->position }})
+                                    @endforeach <br>
+                                    @if ($equipo->positions->isNotEmpty() && $equipo->positions->first()->hotel)
+                                        {{ $equipo->positions->first()->hotel->name }}-{{ $equipo->positions->first()->departments->name }}<br>
                                     @else
                                         HOTEL NO ASIGNADO<br>
                                     @endif
@@ -96,11 +95,10 @@
                                                         {{ $equipo->serial }}
                                                     </td>
                                                     <td>
-                                                        @if ($equipo->empleados->isNotEmpty())
-                                                            {{ $equipo->empleados->first()->name }}
-                                                        @else
-                                                            Sin asignar
-                                                        @endif
+                                                        @foreach ($equipo->positions as $position)
+                                                            {{ $position->employee->name ?? 'N/A' }} -
+                                                            ({{ $position->position }})
+                                                        @endforeach
                                                     </td>
                                                     <td>
                                                         @if ($equipo->license->where('type_id', $licencia->type_id)->isEmpty())
