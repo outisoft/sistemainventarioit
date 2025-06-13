@@ -49,7 +49,7 @@
                             <x-input-label class="form-label" for="area{{ $tpv->id }}" :value="__('Area')" />
                             <div class="input-group input-group-merge">
                                 <select class="form-control" name="area" id="area">
-                                    <option value="{{ $tpv->id }}">{{ $tpv->area }}</option>
+                                    <option value="{{ $tpv->area }}">{{ $tpv->area }}</option>
                                     <option value="BAR">BAR</option>
                                     <option value="COCINA CALIENTE">COCINA CALIENTE</option>
                                     <option value="COCINA FRIA">COCINA FRIA</option>
