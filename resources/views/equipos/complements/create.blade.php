@@ -60,8 +60,6 @@
                     </div>
 
                     <div id="opcionesAdicionales" style="display: none;">
-                        <hr>
-
                         <div class="mb-3">
                             <x-input-label class="form-label" for="tipo_conexion" :value="__('¿Es alámbrico o inalámbrico?')" />
                             <div class="col-md">
@@ -96,7 +94,6 @@
                             </div>
                             <x-input-error :messages="$errors->get('tipo_presentacion')" class="mt-2" />
                         </div>
-                        <hr>
                     </div>
 
                     <!-- Marca -->
