@@ -239,6 +239,6 @@ class HomeController extends Controller
 
     public function exportarExcel()
     {
-        return Excel::download(new EmpleadosExport, 'InventarioIT.xlsx');
+        return Excel::download(new EmpleadosExport, date('Y-m-d') . '_InventarioIT.xlsx');
     }
 }
