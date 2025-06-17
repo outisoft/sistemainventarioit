@@ -29,7 +29,6 @@ class BackupController extends Controller
 
             // Buscar en diferentes rutas posibles
             $possiblePaths = [
-                'Laravel/',  // Ruta con L mayúscula
                 'laravel/',  // Ruta con l minúscula
                 '',         // Directorio raíz
             ];
@@ -45,17 +44,23 @@ class BackupController extends Controller
                 }
             }
 
+            // Calcular el tamaño total de los archivos
+            $totalSize = $files->reduce(function ($carry, $file) use ($disk) {
+                return $carry + $disk->size($file);
+            }, 0);
+
             // Log para debugging
             \Log::info('Archivos encontrados:', [
                 'files' => $files->toArray(),
                 'disk_path' => $disk->path(''),
-                'storage_path' => storage_path('app')
+                'storage_path' => storage_path('app'),
+                'total_size' => $totalSize
             ]);
 
-            return view('backup.index', compact('files'));
+            return view('backup.index', compact('files', 'totalSize'));
         } catch (\Exception $e) {
             \Log::error('Error al listar backup: ' . $e->getMessage());
-            return view('backup.index', ['files' => collect()])
+            return view('backup.index', ['files' => collect(), 'totalSize' => 0])
                 ->with('error', 'Error al listar los respaldos: ' . $e->getMessage());
         }
     }

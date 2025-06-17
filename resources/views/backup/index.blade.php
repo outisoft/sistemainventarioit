@@ -1,163 +1,440 @@
 <x-app-layout>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #666666;
+            font-weight: 300;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px 20px;
+            border: 1px solid #e5e5e5;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #000000;
+        }
+
+        .stat-card h3 {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 15px;
+        }
+
+        .stat-card .number {
+            font-size: 2.2rem;
+            font-weight: 200;
+            color: #000000;
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .btn {
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            background-color: #333333;
+        }
+
+        .btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .btn-outline {
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #000000;
+        }
+
+        .btn-outline:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .btn-outline:disabled {
+            background-color: #ffffff;
+            color: #cccccc;
+            border-color: #cccccc;
+        }
+
+        .btn-small {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+
+        .backup-section {
+            margin-bottom: 40px;
+        }
+
+        .backup-section h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .backup-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #e5e5e5;
+        }
+
+        .backup-table th {
+            background-color: #f8f8f8;
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 400;
+            color: #000000;
+            border-bottom: 1px solid #e5e5e5;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+
+        .backup-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+
+        .backup-table tr:hover {
+            background-color: #fafafa;
+        }
+
+        .backup-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: 1px solid;
+            display: inline-block;
+        }
+
+        .status-completed {
+            background-color: #ffffff;
+            color: #000000;
+            border-color: #000000;
+        }
+
+        .status-failed {
+            background-color: #000000;
+            color: #ffffff;
+            border-color: #000000;
+        }
+
+        .status-progress {
+            background-color: #f0f0f0;
+            color: #666666;
+            border-color: #cccccc;
+        }
+
+        .type-badge {
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background-color: #f8f8f8;
+            color: #000000;
+            border: 1px solid #e5e5e5;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666666;
+        }
+
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            color: #000000;
+        }
+
+        .empty-state p {
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px 25px;
+            font-size: 0.9rem;
+            font-weight: 400;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            border: 1px solid #000000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.error {
+            background-color: #ffffff;
+            color: #000000;
+            border: 2px solid #000000;
+        }
+
+        .backup-name {
+            font-weight: 500;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .backup-date {
+            color: #666666;
+            font-size: 0.9rem;
+        }
+
+        .backup-size {
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .backup-table {
+                font-size: 0.9rem;
+            }
+
+            .backup-table th,
+            .backup-table td {
+                padding: 15px 10px;
+            }
+
+            .actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .btn-small {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .backup-table th:nth-child(3),
+            .backup-table td:nth-child(3),
+            .backup-table th:nth-child(4),
+            .backup-table td:nth-child(4) {
+                display: none;
+            }
+        }
+    </style>
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
 
             <!-- Basic Bootstrap Table -->
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="card-header">BACKUP</h5>
-                </div>
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="container">
 
-                                @if (session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
+                <div class="container">
+                    <div class="header">
+                        <h1>Gestión de Backups</h1>
+                        <p>Sistema de copias de seguridad</p>
+                    </div>
+
+                    <div class="stats">
+                        <div class="stat-card">
+                            <h3>Total</h3>
+                            <div class="number" id="totalBackups">
+                                {{ count($files) }}
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Espacio</h3>
+                            <div class="number" id="totalSize">
+                                <!--sumar todos los archivos y mostrar el peso de total-->
+                                {{ number_format($totalSize / 1024 / 1024, 2) }} MB
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Último</h3>
+                            <div class="number" id="lastBackup">
+                                @if ($files->isEmpty())
+                                    No disponible
+                                @else
+                                    {{ \Carbon\Carbon::createFromTimestamp(Storage::lastModified($files->last()))->diffForHumans() }}
                                 @endif
-
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="card mb-4">
-                                            <div class="card-header">
-                                                Crear Nuevo Respaldo
-                                            </div>
-                                            <div class="card-body">
-                                                <form action="{{ route('backup.create') }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-primary">
-                                                        <i class="fas fa-database"></i> Crear Respaldo
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-
-                                        <div class="card">
-                                            <div class="card-header">
-                                                Listado de Respaldos
-                                            </div>
-
-                                            @if ($files->isEmpty())
-                                                <div class="alert alert-info">
-                                                    No se encontraron archivos de respaldo.
-                                                    @if (config('app.debug'))
-                                                        <br>
-                                                        <small>Ruta de búsqueda:
-                                                            {{ storage_path('app/Laravel') }}</small>
-                                                    @endif
-                                                </div>
-                                            @else
-                                                <div class="content-wrapper card-datatable table-responsive pt-0">
-                                                    <table id="backup" class="table table-striped">
-                                                        <thead class="bg-primary">
-                                                            <tr>
-                                                                <th>Nombre</th>
-                                                                <th>Fecha</th>
-                                                                <th>Acciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @forelse($files as $file)
-                                                                <tr>
-                                                                    <td>{{ basename($file) }}</td>
-                                                                    <td>
-                                                                        {{ \Carbon\Carbon::createFromTimestamp(Storage::lastModified($file))->diffForHumans() }}
-                                                                    </td>
-                                                                    <td class="d-flex align-items-center">
-                                                                        <a href="{{ route('backup.download', ['filename' => basename($file)]) }}"
-                                                                            class="btn btn-ico" data-bs-toggle="tooltip"
-                                                                            data-bs-placement="top" title="Descargar Respaldo"
-                                                                            aria-label="Descargar Respaldo">
-                                                                            <i class='bx bxs-download'></i>
-                                                                        </a>
-
-                                                                        <form
-                                                                            action="{{ route('backup.delete', ['filename' => basename($file)]) }}"
-                                                                            method="POST"
-                                                                            onsubmit="return confirm('¿Estás seguro de que deseas eliminar este respaldo: {{ basename($file) }}?')">
-                                                                            @csrf
-                                                                            @method('DELETE')
-                                                                            <button type="submit" class="btn btn-ico"
-                                                                                data-bs-toggle="tooltip"
-                                                                                data-bs-placement="top"
-                                                                                title="Eliminar Respaldo"
-                                                                                aria-label="Eliminar Respaldo">
-                                                                                <i class='bx bx-trash'></i>
-                                                                            </button>
-                                                                        </form>
-                                                                    </td>
-                                                                </tr>
-                                                            @empty
-                                                                <tr>
-                                                                    <td colspan="3" class="text-center">
-                                                                        No hay respaldos disponibles
-                                                                    </td>
-                                                                </tr>
-                                                            @endforelse
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            @endif
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                Importar Datos
-                                            </div>
-                                            <div class="card-body">
-                                                <form action="{{ route('backup.restore') }}" method="POST"
-                                                    enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="form-group">
-                                                        <label for="backup_file">
-                                                            Seleccionar archivo ZIP o SQL con datos
-                                                        </label>
-                                                        <input type="file" name="backup_file" id="backup_file"
-                                                            class="form-control @error('backup_file') is-invalid @enderror"
-                                                            accept=".zip,.sql" required>
-
-                                                        @error('backup_file')
-                                                            <div class="invalid-feedback">
-                                                                {{ $message }}
-                                                            </div>
-                                                        @enderror
-                                                    </div>
-                                                    <br>
-
-                                                    <div class="alert alert-info">
-                                                        <strong>Notas:</strong>
-                                                        <ul>
-                                                            <li>Se procesarán archivos ZIP que contengan archivos SQL o
-                                                                archivos SQL individuales.</li>
-                                                            <li>Las tablas deben existir en la base de datos.</li>
-                                                            <li>La estructura de las tablas debe coincidir con los datos
-                                                                a importar.</li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <button type="submit" class="btn btn-primary">
-                                                        <i class="fas fa-upload"></i> Importar Datos
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="controls">
+                        <form action="{{ route('backup.create') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-database"></i><span id="btnText">Generar Backup</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="backup-section">
+                        <h2>Backups Disponibles</h2>
+                        <div id="backupContainer">
+                            <table id="backup" class="backup-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Size</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($files as $file)
+                                        <tr>
+                                            <td>{{ basename($file) }}</td>
+                                            <td>
+                                                {{ \Carbon\Carbon::createFromTimestamp(Storage::lastModified($file))->diffForHumans() }}
+                                            </td>
+                                            <td>
+                                                {{ number_format(Storage::size($file) / 1024 / 1024, 2) }} MB
+                                            </td>
+                                            <td class="d-flex align-items-center">
+                                                <a href="{{ route('backup.download', ['filename' => basename($file)]) }}"
+                                                    class="btn btn-outline btn-ico" data-bs-toggle="tooltip"
+                                                    data-bs-placement="top" title="Descargar Respaldo"
+                                                    aria-label="Descargar Respaldo">
+                                                    <i class='bx bxs-download'></i>
+                                                </a>
+                                                -
+                                                <form
+                                                    action="{{ route('backup.delete', ['filename' => basename($file)]) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('¿Estás seguro de que deseas eliminar este respaldo: {{ basename($file) }}?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-ico" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Eliminar Respaldo"
+                                                        aria-label="Eliminar Respaldo">
+                                                        <i class='bx bx-trash'></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center">
+                                                No hay respaldos disponibles
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+
                 <br>
             </div>
             <!--/ Basic Bootstrap Table -->
