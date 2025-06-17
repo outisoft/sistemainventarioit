@@ -62,12 +62,15 @@ class BackupController extends Controller
 
     public function create()
     {
-        try {            
-            Artisan::call('backup:run', ['--only-db' => true]);
-            
+        try {
+            // Dispatch the backup process to a queue
+            dispatch(function () {
+                Artisan::call('backup:run', ['--only-db' => true]);
+            });
+
             toastr()
                 ->timeOut(3000)
-                ->addSuccess("Se creó respaldo correctamente.");
+                ->addSuccess("El respaldo se está creando en segundo plano.");
 
             return redirect()->route('backup.index');
         } catch (\Exception $e) {
