@@ -13,8 +13,8 @@ class SpecificLocation extends Model
         return $this->belongsTo(Hotel::class);
     }
 
-    public function regions()
+    public function region()
     {
-        return $this->hasMany(Region::class);
+        return $this->belongsTo(Region::class);
     }
 }
