@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SpecificLocation extends Model
 {
-    protected $fillable = ['name', 'hotel_id'];
+    protected $fillable = ['name', 'hotel_id', 'region_id'];
     
     public function hotel()
     {

@@ -24,8 +24,10 @@ class SpecificLocationController extends Controller
             ->get();
 
         $hotels = Hotel::orderBy('name', 'asc')->get();
+        $regions = Region::orderBy('name', 'asc')->get();
+        $userRegions = auth()->user()->regions;
 
-        return view('location.index', compact('locations', 'hotels'));        
+        return view('location.index', compact('locations', 'hotels', 'regions', 'userRegions'));        
     }
     
     public function store(Request $request)
@@ -34,6 +36,7 @@ class SpecificLocationController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'hotel_id' => 'nullable|exists:hotels,id',
+                'region_id' => 'nullable|exists:regions,id',
             ]);
 
             SpecificLocation::create($request->all());
@@ -72,6 +75,7 @@ class SpecificLocationController extends Controller
             $request->validate([
                 'name' => 'required|string|max:255',
                 'hotel_id' => 'nullable|exists:hotels,id',
+                'region_id' => 'nullable|exists:regions,id',
             ]);
 
             $location->update($request->all());
