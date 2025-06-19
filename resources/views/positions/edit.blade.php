@@ -43,6 +43,20 @@
                         @endif
                     @endrole
 
+                    <!-- company -->
+                    @if ($userRegions->first()->id == 1)
+                        <div class="mb-3">
+                            <x-input-label class="form-label" for="company_id" :value="__('Company')" />
+                            <select class="form-control" id="company" name="company_id">
+                                <option value="">Seleccione una empresa</option>
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}">{{ $company->name }}</option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
+                        </div>
+                    @endif
+
                     <!-- Email -->
                     <div class="mb-3">
                         <x-input-label class="form-label" for="email" :value="__('Email')" />
@@ -160,6 +174,9 @@
                     $('#hotel_id').val(data.position.hotel_id);
                     $('#adi').val(data.position.ad);
                     $('#region').val(data.position.region_id);
+
+                    // Seleccionar la compañía actual
+                    $('#company').val(data.position.company_id);
 
                     // Cargar departamentos del hotel y seleccionar el actual
                     cargarDepartamentos(data.position.hotel_id, data.position

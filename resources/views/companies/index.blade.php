@@ -22,7 +22,7 @@
                                     data-bs-html="true" title=""
                                     data-bs-original-title="<span>Add new position</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
-                                </a>                                    
+                                </a>
                             @endcan
                         </div>
                     </div>
@@ -35,9 +35,16 @@
                                 <table id="companies" class="table footer">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th>Region</th>
+                                            @role('Administrator')
+                                                <th>Region</th>
+                                            @else
+                                                @if ($userRegions->count() > 1)
+                                                    <th>Region</th>
+                                                @else
+                                                @endif
+                                            @endrole
                                             <th>Name</th>
-                                            <th>Description</th>                                         
+                                            <th>Description</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -45,7 +52,14 @@
                                         <!-- Aquí se mostrarán los empleados -->
                                         @foreach ($companies as $company)
                                             <tr>
-                                                <td>{{ $company->region ? $company->region->name : 'Sin región asignada' }}</td>
+                                                @role('Administrator')
+                                                    <td>{{ $company->region->name }} </td>
+                                                @else
+                                                    @if ($userRegions->count() > 1)
+                                                        <td>{{ $company->region->name }} </td>
+                                                    @else
+                                                    @endif
+                                                @endrole
                                                 <td>{{ $company->name }}</td>
                                                 <td>{{ Str::limit($company->description, 50, ' ...') }}</td>
                                                 <td>
@@ -98,3 +112,39 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
+<script>
+    new DataTable('#companies', {
+        order: [
+            [1, 'asc']
+        ],
+        pageLength: 200,
+        lengthMenu: [10, 25, 50, 75, 100],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        info: false,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
+                className: 'btn btn-ico',
+                filename: 'Companies',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to PDF</span>"></i>',
+                className: 'btn btn-ico',
+                filename: 'Companies',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            }
+
+        ]
+
+    });
+</script>

@@ -139,7 +139,7 @@
             A través de esta carta responsiva yo <strong>{{ $position->employee->name }}</strong> declaro ser el único
             responsable
             y agrego tener bajo mi resguardo el equipo que me ha sido asignado por la empresa
-            <strong>Grupo Piñero</strong>, exclusivamente para la utilidad que a la empresa convenga. Del
+            <strong>Tulum Country Club</strong>, exclusivamente para la utilidad que a la empresa convenga. Del
             mismo modo acepto la responsabilidad de mantener en condiciones óptimas para su
             buen desempeño y notificar inmediatamente a la empresa de cualquier desperfecto
             o cualquier siniestro que sufra el equipo.

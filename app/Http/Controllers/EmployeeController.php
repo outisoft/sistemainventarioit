@@ -9,6 +9,7 @@ use App\Models\Departamento;
 use App\Models\Hotel;
 use App\Models\Position;
 use App\Models\Historial;
+use App\Models\Company;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use App\Http\Requests\StoreEmployeeRequest;
@@ -36,6 +37,7 @@ class EmployeeController extends Controller
         $regions = Region::orderBy('name')->get();
         $departamentos = Departamento::orderBy('name')->get();
         $hotels = Hotel::orderBy('name')->get();
+        $companies = Company::orderBy('name')->get();
 
         $unassignedPositions = Position::whereDoesntHave('employees')
             ->with('region', 'departments', 'hotel') // Cargar relaciones para mostrarlas en el select
@@ -55,7 +57,7 @@ class EmployeeController extends Controller
         
         $userRegions = auth()->user()->regions;
 
-        return view('employees.index', compact('employees', 'userRegions', 'regions', 'departamentos', 'hotels', 'unassignedPositions'));
+        return view('employees.index', compact('employees', 'userRegions', 'regions', 'departamentos', 'hotels', 'unassignedPositions', 'companies'));
     }
 
     /**
@@ -89,6 +91,7 @@ class EmployeeController extends Controller
                     'max:255',
                     'unique:positions,email'
                 ],
+                'company_id' => 'nullable|exists:companies,id',
                 'puesto' => 'required_if:position_choice,new|nullable|string|max:255',
                 'departamento_id' => 'required_if:position_choice,new|nullable|exists:departamentos,id',
                 'hotel_id' => 'required_if:position_choice,new|nullable|exists:hotels,id',
@@ -115,6 +118,7 @@ class EmployeeController extends Controller
                         'hotel_id' => $request->input('hotel_id'),
                         'region_id' => $request->input('region_id'),
                         'ad' => $request->input('ad'),
+                        'company_id' => $request->input('company_id', null),
                     ]);
                     $positionId = $newPosition->id;
 

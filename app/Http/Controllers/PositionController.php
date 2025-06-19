@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Hotel;
 use App\Models\Region;
 use App\Models\Historial;
+use App\Models\Company;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -27,8 +28,9 @@ class PositionController extends Controller
     {
         $hoteles = Hotel::orderBy('name', 'asc')->get();
         $regions = Region::orderBy('name', 'asc')->get();
+        $companies = Company::orderBy('name', 'asc')->get();
 
-        $positions = Position::with(['region', 'hotel', 'departments'])
+        $positions = Position::with(['region', 'hotel', 'departments', 'company'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
                 if ($regionIds->isNotEmpty()) {
@@ -42,7 +44,7 @@ class PositionController extends Controller
         
         $userRegions = auth()->user()->regions;
 
-        return view('positions.index', compact('positions', 'hoteles', 'regions', 'userRegions'));
+        return view('positions.index', compact('positions', 'hoteles', 'regions', 'userRegions', 'companies'));
     }
 
     public function store(Request $request)
@@ -63,6 +65,7 @@ class PositionController extends Controller
                     'required',
                     'unique:positions'
                 ],
+                'company_id' => 'nullable|exists:companies,id',
                 'region_id' => 'required',
             ], [
                 'email.unique' => 'Este email ya está en uso por otro puesto.',
@@ -124,6 +127,7 @@ class PositionController extends Controller
                     'required',
                     Rule::unique('positions')->ignore($position->id),
                 ],
+                'company_id' => 'nullable|exists:companies,id',
                 'region_id' => 'required',
             ], [
                 'email.unique' => 'Este email ya está en uso por otro puesto.',

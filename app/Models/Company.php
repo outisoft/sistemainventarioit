@@ -24,6 +24,13 @@ class Company extends Model
         return $this->belongsTo(Region::class);
     }
 
+    
+    public function positions()
+    {
+        return $this->hasMany(Position::class, 'company_id', 'id');
+    }
+
+
     protected static function boot()
     {
         parent::boot();

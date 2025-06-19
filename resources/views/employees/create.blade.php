@@ -169,6 +169,23 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
+
+                                        <!-- Company -->
+                                        @if ($userRegions->first()->id == 1)
+                                            <div class="mb-3">
+                                                <x-input-label class="form-label" for="company_id" :value="__('Company')" />
+                                                <select class="form-control" id="company_id" name="company_id">
+                                                    <option value="">Choose a company</option>
+                                                    @foreach ($companies as $company)
+                                                        <option value="{{ $company->id }}"
+                                                            {{ old('company_id') == $company->id ? 'selected' : '' }}>
+                                                            {{ $company->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Ramsey\Uuid\Uuid; // Asegúrate de tener instalado ramsey/uuid
+use Illuminate\Support\Str;
 
 class Position extends Model
 {
@@ -13,7 +14,7 @@ class Position extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
-    protected $fillable = ['email', 'position', 'department_id', 'hotel_id', 'ad', 'region_id'];
+    protected $fillable = ['email', 'position', 'department_id', 'hotel_id', 'ad', 'region_id', 'company_id'];
 
     public function employees()
     {
@@ -39,6 +40,12 @@ class Position extends Model
     {
         return $this->belongsTo(Region::class, 'region_id');
     }
+    
+    public function company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
 
     /*public function equipments()
     {
@@ -57,22 +64,24 @@ class Position extends Model
     {
         parent::boot();
 
-        static::saving(function ($model) {
-            foreach ($model->getAttributes() as $key => $value) {
-                // Excluir el campo 'id' y otros campos que no deben ser mayúsculas
-                if (is_string($value) && $key !== 'id') {
-                    $model->{$key} = strtoupper($value);
-                }
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) { // Si el ID no está ya seteado
+                $model->{$model->getKeyName()} = Str::uuid()->toString(); // Genera y asigna un UUID
             }
         });
 
-        static::creating(function ($model) {
-            $model->id = strtolower(Uuid::uuid4()->toString()); // Guardar UUID en minúsculas
+        // Convertir a mayúsculas los campos deseados antes de guardar (excepto UUIDs)
+        static::saving(function ($model) {
+            // Lista de campos a convertir a mayúsculas (ajusta según tus necesidades)
+            $fieldsToUpper = ['email', 'position', 'ad'];
+            foreach ($fieldsToUpper as $field) {
+                if (!is_null($model->{$field})) {
+                    $model->{$field} = mb_strtoupper($model->{$field}, 'UTF-8');
+                }
+            }
+            // No tocar 'id' ni 'position_id'
         });
-    }
 
-    protected static function booted()
-    {
         static::addGlobalScope('region', function (Builder $builder) {
             if (auth()->check() && !auth()->user()->hasRole('Administrator')) {
                 $userRegions = auth()->user()->regions->pluck('id')->toArray();
