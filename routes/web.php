@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\AutocadController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ComplementController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\DesktopController;
@@ -64,6 +65,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('adobe', AdobeController::class);//Rutas Adobe
     Route::resource('assignment', AssignmentController::class);//Rutas asignacion
     Route::resource('autocad', AutocadController::class);//Rutas Autocad
+    Route::resource('companies', CompanyController::class);//Rutas companies
     Route::resource('complements', ComplementController::class);//Rutas complements
     Route::resource('departments', DepartamentoController::class); //Rutas departamentos
     Route::resource('desktops', DesktopController::class); //Rutas PC

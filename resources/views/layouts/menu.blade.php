@@ -397,6 +397,16 @@
             </li>
         @endcan
 
+        <!-- Companias -->
+        @can('companies.index')
+            <li class="menu-item {{ Request::routeIs('companies.index') ? 'active' : '' }} ">
+                <a href="{{ route('companies.index') }}" class="menu-link">
+                    <i class='menu-icon bx bxs-business'></i>
+                    <div data-i18n="Without navbar">Companies</div>
+                </a>
+            </li>
+        @endcan
+
         <!-- Hoteles y departamentos -->
         @can('hotels.index')
             <li

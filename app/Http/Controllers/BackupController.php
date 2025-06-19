@@ -30,7 +30,6 @@ class BackupController extends Controller
             // Buscar en diferentes rutas posibles
             $possiblePaths = [
                 'Laravel/',
-                'laravel/',  // Ruta con l minúscula
                 '',         // Directorio raíz
             ];
 
@@ -89,7 +88,7 @@ class BackupController extends Controller
             // Posibles rutas donde podría estar el archivo
             $possiblePaths = [
                 'Laravel/' . $filename,
-                'laravel/' . $filename,
+                //'laravel/' . $filename,
                 $filename
             ];
 

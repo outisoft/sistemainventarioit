@@ -1,18 +1,18 @@
 <!-- Modales de Edición -->
-@foreach ($leases as $lease)
-    <div class="modal fade" id="editModal{{ $lease->id }}" tabindex="-1" aria-labelledby="editModal{{ $lease->id }}"
+@foreach ($companies as $company)
+    <div class="modal fade" id="editModal{{ $company->id }}" tabindex="-1" aria-labelledby="editModal{{ $company->id }}"
         aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('lease.update', $lease) }}" method="POST">
+                <form action="{{ route('companies.update', $company) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModal{{ $lease->id }}">Edit Lease</h5>
+                        <h5 class="modal-title" id="editModal{{ $company->id }}">Edit: {{ $company->serial }}</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
 
+                    <div class="modal-body">
                         <!-- Region -->
                         {{-- Región (solo visible para administradores) --}}
                         @role('Administrator')
@@ -22,7 +22,7 @@
                                     aria-label="Default select example">
                                     @foreach ($regions as $region)
                                         <option value="{{ $region->id }}"
-                                            {{ $lease->region_id == $region->id ? 'selected' : '' }}>
+                                            {{ $company->region_id == $region->id ? 'selected' : '' }}>
                                             {{ $region->name }}</option>
                                     @endforeach
                                 </select>
@@ -37,7 +37,7 @@
                                         aria-label="Default select example">
                                         @foreach ($userRegions as $region)
                                             <option value="{{ $region->id }}"
-                                                {{ $lease->region_id == $region->id ? 'selected' : '' }}>
+                                                {{ $company->region_id == $region->id ? 'selected' : '' }}>
                                                 {{ $region->name }}
                                             </option>
                                         @endforeach
@@ -50,25 +50,27 @@
                             @endif
                         @endrole
 
-                        <!-- Campo: Lease -->
+                        <!-- name -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="lease{{ $lease->lease }}" :value="__('Lease')" />
+                            <x-input-label class="form-label" for="name{{ $company->name }}"
+                                :value="__('Company Name')" />
                             <div class="input-group input-group-merge">
-                                <x-text-input id="lease{{ $lease->lease }}" class="form-control" type="text"
-                                    name="lease" placeholder="HP" value="{{ $lease->lease }}" required
-                                    autocomplete="lease" />
+                                <x-text-input id="name{{ $company->name }}" class="form-control"
+                                    type="text" name="name" placeholder="HP" value="{{ $company->name }}"
+                                    required autocomplete="name" />
                             </div>
-                            <x-input-error :messages="$errors->get('lease')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
-                        <!-- Campo: End Date -->
+                        <!-- description -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="end_date{{ $lease->end_date }}" :value="__('End Date')" />
+                            <x-input-label class="form-label" for="description{{ $company->description }}" :value="__('Company Description')" />
                             <div class="input-group input-group-merge">
-                                <x-text-input id="end_date{{ $lease->end_date }}" class="form-control" type="date"
-                                    name="end_date" value="{{ $lease->end_date }}" required autocomplete="end_date" />
+                                <x-text-input id="description{{ $company->description }}" class="form-control" type="text"
+                                    name="description" placeholder="HP" value="{{ $company->description }}" required
+                                    autocomplete="description" />
                             </div>
-                            <x-input-error :messages="$errors->get('end_date')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
                     </div>
 
