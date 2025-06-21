@@ -20,6 +20,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Shared\Html;
+use PhpOffice\PhpWord\IOFactory;
+
 class AssignmentController extends Controller
 {
     public function index()
@@ -105,6 +109,61 @@ class AssignmentController extends Controller
         return view('assignment.show', compact('position', 'equipments'));
     }
     
+    public function save_word(Request $request, $uuid) // Renombramos la función
+    {
+        // 1. OBTENCIÓN DE DATOS (Esta lógica se mantiene igual)
+        $users = auth()->id();
+        $user = User::findOrFail($users);
+
+        $today = Carbon::now();
+        $months = [
+            'January' => 'Enero', 'February' => 'Febrero', 'March' => 'Marzo',
+            'April' => 'Abril', 'May' => 'Mayo', 'June' => 'Junio',
+            'July' => 'Julio', 'August' => 'Agosto', 'September' => 'Septiembre',
+            'October' => 'Octubre', 'November' => 'Noviembre', 'December' => 'Diciembre',
+        ];
+        $date = $today->format('j') . ' de ' . $months[$today->format('F')] . ' del ' . $today->format('Y');
+
+        $equipoIds = explode(',', $request->query('equipos'));
+        $complementoIds = explode(',', $request->query('complementos'));
+        $equipos = Equipo::whereIn('id', $equipoIds)->get();
+        $complements = Complement::whereIn('id', $complementoIds)->get();   
+        
+        // Asumo que la relación es position->employee, si no, ajústalo.
+        $position = Position::with('employee')->findOrFail($uuid);
+        
+        // 2. CREACIÓN DEL DOCUMENTO WORD
+        $phpWord = new PhpWord();
+        
+        // Añadir una sección al documento
+        $section = $phpWord->addSection();
+
+        // Renderizar la vista de Blade a una variable de HTML
+        // Pasamos los mismos datos que antes
+        $html = view('assignment.save-word', compact('position', 'date', 'complements', 'user', 'equipos'))->render();
+
+        //dd($html);
+
+        // Añadir el contenido HTML a la sección de Word
+        // OJO: La conversión de HTML a Word tiene limitaciones. HTML simple funciona mejor.
+        // Línea CORREGIDA Y DEFINITIVA:
+        //Html::addHtml($section, htmlspecialchars($html, ENT_QUOTES, 'UTF-8'), false, false);
+        Html::addHtml($section, $html, false, false);
+        
+        // 3. GENERAR Y ENVIAR LA RESPUESTA
+        $fileName = $position->employee->name . '-responsiva.docx'; // Cambiamos la extensión a .docx
+
+        // Necesitamos crear los headers correctos para forzar la descarga
+        // Usaremos un closure para escribir directamente en el stream de salida
+        return response()->stream(function() use ($phpWord) {
+            $writer = IOFactory::createWriter($phpWord, 'Word2007');
+            $writer->save('php://output');
+        }, 200, [
+            "Content-Type" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "Content-Disposition" => "attachment; filename=\"{$fileName}\""
+        ]);
+    }
+
     public function save_pdf(Request $request, $uuid)
     {
         $users = auth()->id();

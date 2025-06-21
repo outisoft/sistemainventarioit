@@ -36,10 +36,43 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" id="generatePdf">Generar PDF</button>
+                <button type="button" class="btn btn-primary" id="generateWord">Generar WORD</button>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<script>
+    document.getElementById('generateWord').addEventListener('click', function() {
+        const form = document.getElementById('equiposForm');
+        const selectedEquipos = [];
+        const selectedComplementos = [];
+
+        form.querySelectorAll('input[name="equipos[]"]:checked').forEach(checkbox => {
+            selectedEquipos.push(checkbox.value);
+        });
+
+        form.querySelectorAll('input[name="complementos[]"]:checked').forEach(checkbox => {
+            selectedComplementos.push(checkbox.value);
+        });
+
+        console.log('Selected Equipos:', selectedEquipos);
+        console.log('Selected Complementos:', selectedComplementos);
+
+        if (selectedEquipos.length === 0 && selectedComplementos.length === 0) {
+            alert('Por favor, selecciona al menos un equipo o complemento.');
+            return;
+        }
+
+        const positionId = '{{ $position->id }}'; // Usar UUID en lugar de ID
+        const url =
+            `{{ route('save-word', ['id' => $position->id]) }}?equipos=${selectedEquipos.join(',')}&complementos=${selectedComplementos.join(',')}`;
+        window.open(url, '_blank');
+    });
+</script>
+
 @if ($position->hotel->name == 'TULUM COUNTRY CLUB')
     <script>
         document.getElementById('generatePdf').addEventListener('click', function() {

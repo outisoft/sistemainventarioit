@@ -48,13 +48,15 @@
                                                     data-bs-original-title="<span>QR Code</span>">
                                                     <i class='bx bx-qr-scan icon-lg'></i>
                                                 </a>
-                                                <a href="#" class="btn-ico" data-bs-toggle="modal"
-                                                    data-bs-target="#equiposModal" data-bs-toggle="tooltip"
-                                                    data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
-                                                    title=""
-                                                    data-bs-original-title="<span>Responsive sheet</span>">
-                                                    <i class='bx bxs-file-pdf icon-lg'></i>
-                                                </a>
+                                                @if ($position->employees()->exists())
+                                                    <a href="#" class="btn-ico" data-bs-toggle="modal"
+                                                        data-bs-target="#equiposModal" data-bs-toggle="tooltip"
+                                                        data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true"
+                                                        title=""
+                                                        data-bs-original-title="<span>Responsive sheet</span>">
+                                                        <i class='bx bxs-file icon-lg'></i>
+                                                    </a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>

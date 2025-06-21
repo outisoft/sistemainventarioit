@@ -194,6 +194,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::post('/asignar', [AssignmentController::class, 'asignar'])->name('asignar');
     Route::get('/desvincular/{position_id}/{equipment_id}', [AssignmentController::class, 'desvincular'])->name('desvincular');
     Route::get('/save-pdf/{id}', [AssignmentController::class, 'save_pdf'])->name('save-pdf');
+    Route::get('/save-word/{id}', [AssignmentController::class, 'save_word'])->name('save-word');
     Route::get('/save-pdf-tcc/{id}', [AssignmentController::class, 'save_pdf_tcc'])->name('save-pdf-tcc');
     //Route::get('/detalles/{id}', [AssignmentController::class, 'detalles'])->name('detalles');
 
