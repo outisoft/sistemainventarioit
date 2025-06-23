@@ -87,7 +87,11 @@
                                                     class="badge bg-label-info">{{ $equipo->leases->end_date }}</span>
                                             </div>
                                         @else
-                                            <span class="badge bg-label-danger">No</span>
+                                            @if (!empty($equipo->af_code))
+                                                <span class="badge bg-label-success">{{ $equipo->af_code }}</span>
+                                            @else
+                                                <span class="badge bg-label-danger">No</span>
+                                            @endif
                                         @endif
                                     </td>
                                     <td>

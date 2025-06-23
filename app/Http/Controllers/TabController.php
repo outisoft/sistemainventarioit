@@ -64,6 +64,7 @@ class TabController extends Controller
                 'serial' => 'required|unique:equipos,serial',
                 'policy_id' => 'required',
                 'lease' => 'required|boolean',
+                'af_code' => 'required_if:lease,0',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [
@@ -106,6 +107,7 @@ class TabController extends Controller
                 'serial' => 'required|unique:equipos,serial,' . $id,
                 'policy_id' => 'required',
                 'lease' => 'required|boolean',
+                'af_code' => 'required_if:lease,0',
                 'lease_id' => 'required_if:lease,1',
                 'region_id' => 'required',
             ], [

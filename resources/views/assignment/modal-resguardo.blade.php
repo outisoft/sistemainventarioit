@@ -36,7 +36,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" id="generatePdf">Generar PDF</button>
-                <button type="button" class="btn btn-primary" id="generateWord">Generar WORD</button>
+                <!--button type="button" class="btn btn-primary" id="generateWord">Generar WORD</button-->
             </div>
         </div>
     </div>
