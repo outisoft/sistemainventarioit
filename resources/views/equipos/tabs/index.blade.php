@@ -49,7 +49,7 @@
                                 <th>SERIAL</th>
                                 <th>LOCATION</th>
                                 <th>POLICY</th>
-                                <th>LEASE?</th>
+                                <th>LEASE? or AF CODE</th>
                                 <th>STATUS</th>
                                 <th>ACTIONS</th>
                                 <!-- Otros encabezados de columnas según sea necesario -->
