@@ -15,6 +15,7 @@ class EmpleadosExport implements FromCollection, WithHeadings
         return $positions->flatMap(function ($position) {
             return $position->equipments->map(function ($equipo) use ($position) {
                 return [
+                    'Company' => $position->company->name ?? 'N/A',
                     'No. employee' => $position->employee->no_employee ?? 'N/A',
                     'Name' => $position->employee->name ?? 'N/A',
                     'Email' => $position->email,
@@ -42,6 +43,7 @@ class EmpleadosExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
+            'Company',
             'No. employee', 
             'Name', 
             'Email', 
