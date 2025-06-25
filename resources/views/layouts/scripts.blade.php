@@ -98,7 +98,7 @@
 <script>
     new DataTable('#positions', {
         order: [
-            [1, 'asc']
+            [0, 'asc']
         ],
         pageLength: 200,
         lengthMenu: [10, 25, 50, 75, 100],

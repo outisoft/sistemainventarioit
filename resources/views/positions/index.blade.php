@@ -23,7 +23,7 @@
                                     data-bs-html="true" title=""
                                     data-bs-original-title="<span>Add new position</span>">
                                     <i class='bx bx-add-to-queue icon-lg'></i>
-                                </a>                                    
+                                </a>
                             @endcan
                         </div>
                     </div>
@@ -36,12 +36,19 @@
                                 <table id="positions" class="table footer">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th>Region</th>
+                                            @role('Administrator')
+                                                <th>Region</th>
+                                            @else
+                                                @if ($userRegions->count() > 1)
+                                                    <th>Region</th>
+                                                @else
+                                                @endif
+                                            @endrole
                                             <th>Email</th>
                                             <th>Positions</th>
                                             <th>Department</th>
                                             <th>Hotel</th>
-                                            <th>AD</th>                                           
+                                            <th>AD</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -49,11 +56,20 @@
                                         <!-- Aquí se mostrarán los empleados -->
                                         @foreach ($positions as $position)
                                             <tr>
-                                                <td>{{ $position->region ? $position->region->name : 'Sin región asignada' }}</td>
+                                                @role('Administrator')
+                                                    <td>{{ $position->region->name }} </td>
+                                                @else
+                                                    @if ($userRegions->count() > 1)
+                                                        <td>{{ $position->region->name }} </td>
+                                                    @else
+                                                    @endif
+                                                @endrole
                                                 <td>{{ Str::limit($position->email, 20, ' ...') }}</td>
                                                 <td>{{ Str::limit($position->position, 20, ' ...') }}</td>
-                                                <td>{{ $position->departments ? $position->departments->name : 'Sin departamentos asignado' }}</td>
-                                                <td>{{ $position->hotel ? $position->hotel->name : 'Sin hotel asignado' }}</td>
+                                                <td>{{ $position->departments ? $position->departments->name : 'Sin departamentos asignado' }}
+                                                </td>
+                                                <td>{{ $position->hotel ? $position->hotel->name : 'Sin hotel asignado' }}
+                                                </td>
                                                 <td>{{ $position->ad }}</td>
                                                 <td>
                                                     <div class="dropdown">
