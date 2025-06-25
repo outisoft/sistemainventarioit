@@ -40,9 +40,9 @@
                                         </thead>
                                         <tbody id="employeeList">
                                             @foreach ($villas as $villa)
-                                                @if ($villa->hotel->id === $hotels->first()->id)
+                                                @if ($villa->hotel && in_array($villa->hotel->region_id, $userRegions->pluck('id')->toArray()))
                                                     <tr>
-                                                        <td>{{ $villa->hotel->name }}</td>
+                                                        <td>{{ $villa->hotel ? $villa->hotel->name : 'N/A' }}</td>
                                                         <td>{{ $villa->name }}</td>
                                                         <td>
                                                             <div class="dropdown">

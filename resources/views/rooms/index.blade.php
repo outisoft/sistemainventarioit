@@ -41,40 +41,47 @@
                                     <tbody id="employeeList">
                                         <!-- Aquí se mostrarán los empleados -->
                                         @foreach ($rooms as $room)
-                                            <tr>
-                                                <td>{{ $room->villa->hotel->name }}</td>
-                                                <td>{{ $room->villa->name }}</td>
-                                                <td>{{ $room->number }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button type="button"
-                                                            class="btn p-0 dropdown-toggle hide-arrow"
-                                                            data-bs-toggle="dropdown">
-                                                            <i class="bx bx-dots-vertical-rounded"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu">
+                                            @if (
+                                                $room->villa &&
+                                                    $room->villa->hotel &&
+                                                    in_array($room->villa->hotel->region_id, $userRegions->pluck('id')->toArray()))
+                                                <tr>
+                                                    <td>{{ $room->villa->hotel ? $room->villa->hotel->name : 'N/A' }}
+                                                    </td>
+                                                    <td>{{ $room->villa->name }}</td>
+                                                    <td>{{ $room->number }}</td>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <button type="button"
+                                                                class="btn p-0 dropdown-toggle hide-arrow"
+                                                                data-bs-toggle="dropdown">
+                                                                <i class="bx bx-dots-vertical-rounded"></i>
+                                                            </button>
+                                                            <div class="dropdown-menu">
 
-                                                            @can('hotels.edit')
-                                                                <a href="#" data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal{{ $room->id }}"
-                                                                    class="dropdown-item"><i
-                                                                        class="bx bx-edit me-1"></i>Editar</a>
-                                                            @endcan
+                                                                @can('hotels.edit')
+                                                                    <a href="#" data-bs-toggle="modal"
+                                                                        data-bs-target="#editModal{{ $room->id }}"
+                                                                        class="dropdown-item"><i
+                                                                            class="bx bx-edit me-1"></i>Editar</a>
+                                                                @endcan
 
-                                                            @can('hotels.destroy')
-                                                                <form action="{{ route('rooms.destroy', $room->id) }}"
-                                                                    method="POST">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="submit" class="dropdown-item btn-danger"
-                                                                        onclick="return confirm('¿Estás seguro de eliminar el registro de la habitacion {{ $room->number }} de la villa {{ $room->villa }} ?')"><i
-                                                                            class="bx bx-trash me-1"></i>Eliminar</button>
-                                                                </form>
-                                                            @endcan
+                                                                @can('hotels.destroy')
+                                                                    <form action="{{ route('rooms.destroy', $room->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit"
+                                                                            class="dropdown-item btn-danger"
+                                                                            onclick="return confirm('¿Estás seguro de eliminar el registro de la habitacion {{ $room->number }} de la villa {{ $room->villa }} ?')"><i
+                                                                                class="bx bx-trash me-1"></i>Eliminar</button>
+                                                                    </form>
+                                                                @endcan
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                     </tbody>
                                 </table>
