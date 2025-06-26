@@ -54,6 +54,7 @@
                                     <option value="COCINA CALIENTE">COCINA CALIENTE</option>
                                     <option value="COCINA FRIA">COCINA FRIA</option>
                                     <option value="PASTELERIA">PASTELERIA</option>
+                                    <option value="STOCK">STOCK</option>
                                     <option value="TOTEM CLIENTES">TOTEM CLIENTES</option>
                                 </select>
                             </div>
@@ -115,7 +116,8 @@
 
                         <!-- Nombre -->
                         <div class="mb-3">
-                            <x-input-label class="form-label" for="no_serial{{ $tpv->id }}" :value="__('Serial number')" />
+                            <x-input-label class="form-label" for="no_serial{{ $tpv->id }}"
+                                :value="__('Serial number')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="no_serial{{ $tpv->id }}" class="form-control" type="text"
                                     name="no_serial" value="{{ $tpv->no_serial }}" required />

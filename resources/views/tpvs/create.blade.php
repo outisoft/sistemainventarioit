@@ -52,6 +52,7 @@
                             <option value="COCINA CALIENTE">COCINA CALIENTE</option>
                             <option value="COCINA FRIA">COCINA FRIA</option>
                             <option value="PASTELERIA">PASTELERIA</option>
+                            <option value="STOCK">STOCK</option>
                             <option value="TOTEM CLIENTES">TOTEM CLIENTES</option>
                         </select>
                         <x-input-error :messages="$errors->get('area')" class="mt-2" />
