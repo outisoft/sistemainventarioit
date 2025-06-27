@@ -201,3 +201,96 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
+<!--new DataTable('#lease_info');-->
+<script>
+    new DataTable('#lease_info', {
+        "pageLength": 10, // Configuración de la cantidad de filas por página
+        "lengthMenu": [
+            [10, 25, 50, 100, -1], // Opciones de cantidad de filas
+            [10, 25, 50, 100, "Todos"]
+        ],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...',
+            info: "Mostrando del _START_ al _END_ de _TOTAL_ entradas", // Personalización del texto
+            infoEmpty: "No hay entradas disponibles",
+            infoFiltered: "(filtrado de _MAX_ entradas totales)"
+        },
+        "info": true, // Activar la información de la tabla
+        dom: 'lBfrtip', // Incluye 'l' para mostrar el menú desplegable de longitud de página
+        layout: {
+            topStart: {
+                buttons: ['colvis'] // Agregar botón de visibilidad de columnas
+            }
+        },
+        buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
+                className: 'btn btn-ico',
+                filename: 'Lease_Info',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
+                className: 'btn btn-ico',
+                filename: 'Lease_Info',
+                exportOptions: {
+                    columns: ':not(:last-child)'
+                }
+            }
+        ],
+        columnDefs: [{
+            searchable: false,
+            targets: [-1] // Deshabilita el filtrado en la última columna
+        }],
+        initComplete: function() {
+            const api = this.api();
+
+            // Agregar una fila adicional para los filtros de búsqueda
+            $('#lease_info thead').append('<tr></tr>');
+            api.columns().every(function(index) {
+                let column = this;
+
+                // Verificar si la columna es filtrable
+                if (column.settings()[0].aoColumns[index].bSearchable === false) {
+                    // Si no es filtrable, agregar una celda vacía
+                    $('#lease_info thead tr:eq(1)').append('<th></th>');
+                    return;
+                }
+
+                // Crear el filtro de búsqueda
+                let header = $('#lease_info thead tr:eq(1)');
+                let container = document.createElement('div');
+                container.innerHTML = `
+                    <select id="smallSelect_${index}" class="form-select form-select-sm">
+                        <option value="">Select</option>
+                    </select>
+                `;
+                header.append(`<th>${container.innerHTML}</th>`);
+
+                let select = header.find(`#smallSelect_${index}`);
+
+                // Aplicar listener para cambios en el valor del select
+                select.on('change', function() {
+                    column
+                        .search($(this).val(), {
+                            exact: true
+                        })
+                        .draw();
+                });
+
+                // Agregar opciones al select
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function(d, j) {
+                        select.append(`<option value="${d}">${d}</option>`);
+                    });
+            });
+        }
+    });
+</script>
