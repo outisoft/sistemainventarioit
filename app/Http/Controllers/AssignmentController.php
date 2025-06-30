@@ -269,9 +269,11 @@ class AssignmentController extends Controller
         $writer = new PngWriter();
         $result = $writer->write($qr);
 
+        $employeeName = $position->employee->name ?? 'N/A';
+
         $headers = [
             'Content-Type' => $result->getMimeType(),
-            'Content-Disposition' => 'attachment; filename="QRCODE_' . $position->employee->name . '.png"',
+            'Content-Disposition' => 'attachment; filename="QRCODE_' . $employeeName . '.png"',
         ];
 
         return Response::make($result->getString(), 200, $headers);
