@@ -23,7 +23,7 @@ class ComplementController extends Controller
     
     public function index()
     {
-        $tipos = Tipo::whereIn('name', ['CHARGER', 'MONITOR', 'MOUSE', 'NO BREACK', 'SCANNER', 'TECLADO', 'TICKETERA', 'WACOM'])->get();
+        $tipos = Tipo::whereIn('name', ['CAMARA', 'CHARGER', 'MONITOR', 'MOUSE', 'NO BREACK', 'SCANNER', 'TECLADO', 'TICKETERA', 'WACOM'])->get();
         $equipos = Complement::with(['region', 'type', 'equipments', 'leases'])
             ->when(!auth()->user()->hasRole('Administrator'), function ($query) {
                 $regionIds = auth()->user()->regions->pluck('id');
@@ -44,7 +44,7 @@ class ComplementController extends Controller
 
     public function store(Request $request)
     {
-        //try {
+        try {
             $tipo = $request->input('type_id');
             $user = auth()->id();
             $data = $request->validate([
@@ -80,7 +80,7 @@ class ComplementController extends Controller
                 ->timeOut(3000) // 3 second
                 ->addSuccess("Se creo {$registro->type->name} ({$registro->serial}) correctamente.");
             return redirect()->route('complements.index');
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
                 foreach ($errors as $error) {
                     toastr()
@@ -89,7 +89,7 @@ class ComplementController extends Controller
                 }
             }
             return back()->withErrors($e->errors())->withInput();
-        }*/
+        }
     }
 
     private function getMonitorTypeId()
