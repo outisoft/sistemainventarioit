@@ -23,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Livewire::component('global-search', \App\Livewire\GlobalSearch::class);
 
-        //if($this->app->environment('production')) {
+        if($this->app->environment('production')) {
             \URL::forceScheme('https');
-        //}
+        }
     }
 }
