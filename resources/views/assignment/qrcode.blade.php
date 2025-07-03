@@ -151,7 +151,7 @@
             </div>
             <span title="Descargar codigo QR">
                 <a href="{{ route('downloadQRCode', $position->id) }}"
-                    download="qrcode_employee_{{ $position->id }}.png">Descargar QR</a>
+                    download="qrcode_employee_{{ $position->id }}.png">Download QR</a>
             </span>
         </div>
     </div>
