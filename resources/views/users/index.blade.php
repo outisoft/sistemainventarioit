@@ -49,6 +49,7 @@
                                                 <th>Email</th>
                                                 <th>Rol</th>
                                                 <th>Region</th>
+                                                <th>Status</th>
                                                 <th>Acctions</th>
                                             </tr>
                                         </thead>
@@ -82,6 +83,13 @@
                                                         @endforeach
                                                     </td>
                                                     <td>
+                                                        @if ($user->is_active)
+                                                            <span class="badge bg-label-success">Active</span>
+                                                        @else
+                                                            <span class="badge bg-label-danger">Inactive</span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
                                                         <div class="dropdown">
                                                             <button type="button"
                                                                 class="btn p-0 dropdown-toggle hide-arrow"
@@ -96,7 +104,39 @@
                                                                 <a href="#" data-bs-toggle="modal"
                                                                     data-bs-target="#editModal{{ $user->id }}"
                                                                     class="dropdown-item"><i
-                                                                        class="bx bx-edit me-1"></i>Edit</a>
+                                                                        class="bx bx-edit me-1"></i>Edit
+                                                                </a>
+
+                                                                @if ($user->is_active)
+                                                                    {{-- Si el usuario está ACTIVO, muestra el botón para DESACTIVAR --}}
+                                                                    <form
+                                                                        action="{{ route('users.deactivate', $user->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('POST') {{-- Usar POST es más común para actualizar un estado --}}
+                                                                        <button type="submit"
+                                                                            class="dropdown-item btn-danger"
+                                                                            onclick="return confirm('¿Estás seguro de que quieres desactivar esta cuenta?')">
+                                                                            <i class="bx bx-user-minus me-1"></i>
+                                                                            Desactivar
+                                                                        </button>
+                                                                    </form>
+                                                                @else
+                                                                    {{-- Si el usuario está INACTIVO, muestra el botón para ACTIVAR --}}
+                                                                    <form
+                                                                        action="{{ route('users.activate', $user->id) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('POST')
+                                                                        <button type="submit"
+                                                                            class="dropdown-item btn-success"
+                                                                            onclick="return confirm('¿Estás seguro de que quieres activar esta cuenta?')">
+                                                                            <i class="bx bx-user-check me-1"></i>
+                                                                            Activar
+                                                                        </button>
+                                                                    </form>
+                                                                @endif
+
                                                                 <form action="{{ route('users.destroy', $user->id) }}"
                                                                     method="POST">
                                                                     @csrf

@@ -163,6 +163,28 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
+    public function deactivate(User $user)
+    {
+        $user->update(['is_active' => false]);
+        // Opcional: invalidar la sesión del usuario si está logueado
+        // Auth::logout(); 
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Usuario desactivado correctamente.");
+
+        return redirect()->back();
+    }
+
+    public function activate(User $user)
+    {
+        $user->update(['is_active' => true]);
+        
+        toastr()
+            ->timeOut(3000) // 3 second
+            ->addSuccess("Usuario activado correctamente.");
+
+        return redirect()->back();
+    }
 
     public function search(Request $request)
     {

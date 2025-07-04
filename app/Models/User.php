@@ -24,6 +24,7 @@ class User extends Authenticatable
         'image',
         'name',
         'email',
+        'is_active',
         'password',
         'first_login',
         'force_password_change',

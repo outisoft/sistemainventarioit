@@ -153,6 +153,10 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
         Route::post('/{id}/restore', [DesktopController::class, 'restore'])->name('desktops.restore');
     });
 
+    
+    Route::post('/users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
+    Route::post('/users/{user}/activate', [UserController::class, 'activate'])->name('users.activate');
+
     // Asignar complementos a un equipo
     Route::post('/equipos/{equipo}/asignar-complementos', [EquipoController::class, 'asignarComplementos'])->name('equipos.asignar-complementos');
     Route::delete('/equipos/{equipo}/complementos/{complemento}', [EquipoController::class, 'eliminarComplemento'])->name('equipos.complementos.destroy');
