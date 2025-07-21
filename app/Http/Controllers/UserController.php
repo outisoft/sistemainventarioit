@@ -111,11 +111,13 @@ class UserController extends Controller
     // Método para actualizar un registro
     public function update(Request $request, $id)
     {
+
+        //dd($request->all());
         // Validar los datos de entrada
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed', // Confirmed asegura que haya un campo 'password_confirmation'
             'regions' => 'required|array',
             'regions.*' => 'exists:regions,id',
             'rol' => 'required|exists:roles,name',
@@ -125,11 +127,16 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         // Actualizar los datos del usuario
-        $user->update([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
-        ]);
+        $user->name = $data['name'];
+        $user->email = $data['email'];
+
+        // Verificar si se proporcionó una nueva contraseña
+        if (!empty($data['password'])) {
+            $user->password = Hash::make($data['password']); // Encriptar la nueva contraseña
+        }
+
+        // Guardar los cambios en el usuario
+        $user->save();
 
         // Sincronizar las regiones del usuario
         $user->regions()->sync($data['regions']);

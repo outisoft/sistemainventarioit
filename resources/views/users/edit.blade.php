@@ -51,12 +51,23 @@
                             </select>
                             <x-input-error :messages="$errors->get('regions')" class="mt-2" />
                         </div>
+
+                        <!-- Password -->
                         <div class="form-group">
                             <x-input-label class="form-label" for="password" :value="__('Nueva Contraseña')" />
                             <div class="input-group input-group-merge">
                                 <x-text-input id="password" name="password" type="password" class="form-control"
                                     autocomplete="new-password" />
                                 <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <x-input-label class="form-label" for="password_confirmation" :value="__('Confirmar Contraseña')" />
+                            <div class="input-group input-group-merge">
+                                <x-text-input id="password_confirmation" name="password_confirmation" type="password"
+                                    class="form-control" autocomplete="new-password" />
+                                <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
                             </div>
                         </div>
                     </div>
