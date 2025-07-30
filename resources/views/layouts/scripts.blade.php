@@ -67,7 +67,34 @@
                 }
             }
 
-        ]
+        ],
+
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
 
     });
 </script>
@@ -94,7 +121,7 @@
     });
 </script>
 
-<!--new DataTable('#employees');-->
+<!--new DataTable('#positions');-->
 <script>
     new DataTable('#positions', {
         order: [
@@ -107,6 +134,7 @@
             searchPlaceholder: 'Search...'
         },
         info: false,
+        "scrollX": true,
         dom: 'Bfrtip',
         buttons: [{
                 extend: 'excelHtml5',
@@ -127,7 +155,34 @@
                 }
             }
 
-        ]
+        ],
+
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
 
     });
 </script>
@@ -144,6 +199,7 @@
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
+        "scrollX": true,
         info: false,
         dom: 'Bfrtip',
         buttons: [{
@@ -165,7 +221,34 @@
                 }
             }
 
-        ]
+        ],
+
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
 
     });
 </script>
@@ -182,6 +265,7 @@
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
+        "scrollX": true,
         "info": false,
         dom: 'Bfrtip',
         buttons: [{
@@ -203,7 +287,34 @@
                 }
             }
 
-        ]
+        ],
+
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
 
     });
 </script>
@@ -456,6 +567,7 @@
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
+        "scrollX": true,
         "info": false,
         dom: 'Bfrtip',
         buttons: [{
@@ -477,7 +589,34 @@
                 }
             }
 
-        ]
+        ],
+
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
 
     });
 </script>
@@ -494,6 +633,7 @@
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
+        "scrollX": true,
         "info": false,
         dom: 'Bfrtip',
         buttons: [{
@@ -515,12 +655,39 @@
                 }
             }
 
-        ]
+        ],
+
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
 
     });
 </script>
 
-<!--new DataTable('#laptops');-->
+
 <script>
     $('#laptops').DataTable({
         "pageLength": 200,
@@ -532,6 +699,7 @@
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
+        "scrollX": true,
         "info": false,
         dom: 'Bfrtip',
         buttons: [{
@@ -553,8 +721,34 @@
                 }
             }
 
-        ]
+        ],
 
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
     });
 </script>
 
@@ -570,6 +764,7 @@
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
+        "scrollX": true,
         "info": false,
         dom: 'Bfrtip',
         buttons: [{
@@ -591,7 +786,33 @@
                 }
             }
 
-        ]
+        ],
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
 
     });
 </script>
@@ -839,6 +1060,7 @@
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
+        "scrollX": true,
         "info": false,
         dom: 'Bfrtip',
         buttons: [{
@@ -860,7 +1082,33 @@
                 }
             }
 
-        ]
+        ],
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
+            });
+        }
 
     });
 </script>

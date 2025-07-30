@@ -141,3 +141,4 @@
         <!-- / Content -->
     </div>
 </x-app-layout>
+<!--new DataTable('#laptops');-->

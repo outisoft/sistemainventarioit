@@ -152,7 +152,6 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
         Route::delete('/{id}/trash', [DesktopController::class, 'trash'])->name('desktops.trash');
         Route::post('/{id}/restore', [DesktopController::class, 'restore'])->name('desktops.restore');
     });
-
     
     Route::post('/users/{user}/deactivate', [UserController::class, 'deactivate'])->name('users.deactivate');
     Route::post('/users/{user}/activate', [UserController::class, 'activate'])->name('users.activate');

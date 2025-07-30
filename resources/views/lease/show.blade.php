@@ -216,7 +216,8 @@
             infoEmpty: "No hay entradas disponibles",
             infoFiltered: "(filtrado de _MAX_ entradas totales)"
         },
-        "info": true, // Activar la información de la tabla
+        "info": true, // Activar la información de la tabla        
+        "scrollX": true,
         dom: 'lBfrtip', // Incluye 'l' para mostrar el menú desplegable de longitud de página
         layout: {
             topStart: {
@@ -290,6 +291,33 @@
                     .each(function(d, j) {
                         select.append(`<option value="${d}">${d}</option>`);
                     });
+            });
+        },
+
+        "initComplete": function(settings, json) {
+            // 1. Crear el contenedor para el scroll superior
+            let topScrollWrapper = $('<div class="top-scroll-wrapper"></div>');
+            let topScrollContent = $('<div class="top-scroll-content"></div>');
+            topScrollWrapper.append(topScrollContent);
+
+            // 2. Insertar el nuevo scroll ANTES del scroll principal de DataTables
+            $('.dataTables_scroll', this.api().table().container()).before(topScrollWrapper);
+
+            // 3. Calcular y asignar el ancho del contenido de la tabla al scroll superior
+            let tableWidth = $(this.api().table().node()).outerWidth();
+            topScrollContent.width(tableWidth);
+
+            // 4. Sincronizar los scrolls
+            let dataTablesScrollBody = $('.dataTables_scrollBody', this.api().table().container());
+
+            // Cuando muevo el scroll superior, muevo el de la tabla
+            topScrollWrapper.on('scroll', function() {
+                dataTablesScrollBody.scrollLeft($(this).scrollLeft());
+            });
+
+            // Cuando muevo el scroll de la tabla, muevo el superior
+            dataTablesScrollBody.on('scroll', function() {
+                topScrollWrapper.scrollLeft($(this).scrollLeft());
             });
         }
     });
