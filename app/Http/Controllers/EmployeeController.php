@@ -139,7 +139,7 @@ class EmployeeController extends Controller
 
                 Historial::create([
                     'accion' => 'Creacion',
-                    'descripcion' => "Se creó el empleado {$newEmployee->name}, con el numero de empleado {$newEmployee->no_employee}",
+                    'descripcion' => "Se creó el empleado {$newEmployee->name}, con el numero de empleado {$newEmployee->no_employee} y se le asigno el puesto de trabajo: {$positionsId->position}.",
                     'user_id' => $user->id,
                     'region_id' => $newEmployee->region_id,
                 ]);            

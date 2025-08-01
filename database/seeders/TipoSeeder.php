@@ -33,6 +33,7 @@ class TipoSeeder extends Seeder
             ['name' => 'AUTOCAD'],
             ['name' => 'SKETCHUP'],
             ['name' => 'CAMARA'],
+            ['name' => 'AUDIFONOS'],
         ];
 
         // Agregar los datos a la tabla "hoteles"
