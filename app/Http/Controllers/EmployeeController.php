@@ -67,7 +67,7 @@ class EmployeeController extends Controller
 
     public function store(Request $request) // El Form Request se encargará de la validación condicional
     {
-        //try {
+        try {
             $data = $request->validate([
                 // Reglas que siempre aplican
                 'no_employee' => 'required|string|max:50|unique:employees,no_employee',
@@ -153,7 +153,7 @@ class EmployeeController extends Controller
 
             return redirect()->route('employees.index', $employee);
 
-        /*} catch (\Exception $e) {
+        } catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
                 foreach ($errors as $error) {
                     toastr()
@@ -162,7 +162,7 @@ class EmployeeController extends Controller
                 }
             }
             return back()->withErrors($e->errors())->withInput();
-        }*/
+        }
     }
 
     /**
