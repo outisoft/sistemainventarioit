@@ -67,7 +67,7 @@ class EmployeeController extends Controller
 
     public function store(Request $request) // El Form Request se encargará de la validación condicional
     {
-        try {
+        //try {
             $data = $request->validate([
                 // Reglas que siempre aplican
                 'no_employee' => 'required|string|max:50|unique:employees,no_employee',
@@ -139,7 +139,7 @@ class EmployeeController extends Controller
 
                 Historial::create([
                     'accion' => 'Creacion',
-                    'descripcion' => "Se creó el empleado {$newEmployee->name}, con el numero de empleado {$newEmployee->no_employee} y se le asigno el puesto de trabajo: {$positionsId->position}.",
+                    'descripcion' => "Se creó el empleado {$newEmployee->name}, con el numero de empleado {$newEmployee->no_employee} y se le asigno el puesto de trabajo: {$newEmployee->position->position}.",
                     'user_id' => $user->id,
                     'region_id' => $newEmployee->region_id,
                 ]);            
@@ -153,7 +153,7 @@ class EmployeeController extends Controller
 
             return redirect()->route('employees.index', $employee);
 
-        } catch (\Exception $e) {
+        /*} catch (\Exception $e) {
             foreach ($e->errors() as $field => $errors) {
                 foreach ($errors as $error) {
                     toastr()
@@ -162,7 +162,7 @@ class EmployeeController extends Controller
                 }
             }
             return back()->withErrors($e->errors())->withInput();
-        }
+        }*/
     }
 
     /**
