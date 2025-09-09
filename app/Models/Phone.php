@@ -13,9 +13,9 @@ class Phone extends Model
 
     protected $fillable = ['extension', 'service', 'model', 'serial', 'region_id'];
 
-    public function employees()
+    public function positions()
     {
-        return $this->belongsToMany(Empleado::class);
+        return $this->belongsToMany(Position::class);
     }
 
     public function region()

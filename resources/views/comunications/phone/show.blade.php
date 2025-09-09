@@ -24,31 +24,38 @@
                                 <h7><strong>Model:</strong> {{ $phone->model }}</h7> <br>
                                 <h7><strong>Serial:</strong> {{ $phone->serial }}</h7> <br>
                             </div>
-                            @if ($phone->employees->isNotEmpty())
-                                @foreach ($phone->employees as $employee)
+                            @if ($phone->positions->isNotEmpty())
+                                @foreach ($phone->positions as $position)
                                     <div class="card-body">
                                         <h4>Employee</h4>
-                                        <h7><strong>Name:</strong> {{ $employee->name }} </h7> <br>
-                                        <h7><strong>Position:</strong> {{ $employee->puesto }}</h7> <br>
-                                        <h7><strong>Department:</strong> {{ $employee->departments->name }}</h7> <br>
-                                        <h7><strong>Hotel:</strong> {{ $employee->hotel->name }}</h7> <br>
-                                        <h7><strong>Email:</strong> {{ $employee->email }}</h7> <br>
+                                        @if ($position->employee)
+                                            <h7><strong>Name:</strong> {{ $position->employee->name }} </h7> <br>
+                                        @else
+                                            <h7><strong>Name:</strong> Posición no asignada a ningún empleado</h7> <br>
+                                        @endif
+                                        <h7><strong>Position:</strong> {{ $position->position }}</h7> <br>
+                                        <h7><strong>Department:</strong> {{ $position->departments->name ?? 'N/A' }}
+                                        </h7>
+                                        <br>
+                                        <h7><strong>Hotel:</strong> {{ $position->hotel->name ?? 'N/A' }}</h7> <br>
+                                        <h7><strong>Email:</strong> {{ $position->email }}</h7> <br>
                                         <p class="col-12 text-center d-flex aling-items-center">
-                                            <form
-                                                action="{{ route('phone.desasignar', ['phoneId' => $phone->id, 'employeeId' => $employee->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger d-grid"><i class='bx bx-trash'></i>
-                                                </button>
-                                            </form>
+                                        <form
+                                            action="{{ route('phone.desasignar', ['phoneId' => $phone->id, 'positionId' => $position->id]) }}"
+                                            method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger d-grid"><i
+                                                    class='bx bx-trash'></i>
+                                            </button>
+                                        </form>
                                         </p>
                                     </div>
                                 @endforeach
                             @else
-                            <div class="card-body">
-                                <h7>No employee assigned</h7> <br>
-                            </div>
+                                <div class="card-body">
+                                    <h7>No employee assigned</h7> <br>
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -56,9 +63,9 @@
             </div>
             <br>
             <!--info de empleados -->
-            @if ($phone->employees->count() >= 1)
+            @if ($phone->positions->count() >= 1)
                 <div class="alert alert-warning">
-                    Límite de asignaciones alcanzado ({{ $phone->employees->count() }}/1. No se
+                    Límite de asignaciones alcanzado ({{ $phone->positions->count() }}/1. No se
                     pueden asignar más telefonos a este empleado.
                 </div>
             @else
@@ -80,16 +87,16 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($employees as $employee)
+                                            @foreach ($positions as $position)
                                                 <tr>
-                                                    <td>{{ $employee->name }}</td>
-                                                    <td>{{ $employee->puesto }}</td>
-                                                    <td>{{ $employee->departments->name }}</td>
-                                                    <td>{{ $employee->hotel->name }}</td>
-                                                    <td>{{ $employee->email }}</td>
+                                                    <td>{{ $position->employee->name ?? 'PUESTO VACANTE' }}</td>
+                                                    <td>{{ $position->position }}</td>
+                                                    <td>{{ $position->departments->name }}</td>
+                                                    <td>{{ $position->hotel->name }}</td>
+                                                    <td>{{ $position->email }}</td>
                                                     <td>
                                                         <form
-                                                            action="{{ route('phone.asignar', ['phoneId' => $phone->id, 'employeeId' => $employee->id]) }}"
+                                                            action="{{ route('phone.asignar', ['phoneId' => $phone->id, 'positionId' => $position->id]) }}"
                                                             method="POST">
                                                             @csrf
                                                             <button type="submit"

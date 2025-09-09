@@ -286,6 +286,58 @@
             font-weight: 500;
         }
 
+        /* Loader pantalla completa */
+        .overlay-loader {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(2px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .overlay-loader .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #000;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+        }
+
+        /* Reutiliza @keyframes spin ya definido */
+
+        /* Spinner pequeño dentro del botón */
+        .btn .loading-inline {
+            width: 16px;
+            height: 16px;
+            border: 2px solid currentColor;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        /* Centrado del spinner cuando está cargando */
+        .btn.is-loading {
+            position: relative;
+            justify-content: center;
+        }
+
+        .btn.is-loading #btnSpinner {
+            display: inline-block !important;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .btn.is-loading #btnText {
+            opacity: 0;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px 15px;
@@ -330,6 +382,13 @@
             }
         }
     </style>
+    <!-- Loader global -->
+    <div id="backupLoader" class="overlay-loader">
+        <div>
+            <div class="spinner"></div>
+            <div style="margin-top:15px;font-size:.9rem;letter-spacing:.1em;">GENERANDO BACKUP...</div>
+        </div>
+    </div>
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y">
@@ -370,10 +429,12 @@
                     </div>
 
                     <div class="controls">
-                        <form action="{{ route('backup.create') }}" method="POST">
+                        <form id="backupForm" action="{{ route('backup.create') }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-database"></i><span id="btnText">Generar Backup</span>
+                            <button id="generateBackupBtn" type="submit" class="btn btn-primary">
+                                <i id="btnIcon" class="fas fa-database"></i>
+                                <span id="btnText">Generar Backup</span>
+                                <span id="btnSpinner" class="loading-inline"></span>
                             </button>
                         </form>
                     </div>
@@ -441,4 +502,22 @@
         </div>
         <!-- / Content -->
     </div>
+    <script>
+        (function() {
+            const form = document.getElementById('backupForm');
+            if (!form) return;
+            form.addEventListener('submit', function() {
+                const btn = document.getElementById('generateBackupBtn');
+                const icon = document.getElementById('btnIcon');
+                const text = document.getElementById('btnText');
+                const overlay = document.getElementById('backupLoader');
+
+                btn.disabled = true;
+                btn.classList.add('is-loading');
+                if (icon) icon.style.display = 'none';
+                if (text) text.textContent = 'Generando...';
+                if (overlay) overlay.style.display = 'flex';
+            });
+        })();
+    </script>
 </x-app-layout>

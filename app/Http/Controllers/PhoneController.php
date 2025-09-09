@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Phone;
 use App\Models\Hotel;
 use App\Models\Villa;
-use App\Models\Empleado;
+use App\Models\Position;
 use App\Models\Region;
 use App\Models\Historial;
 use Illuminate\Http\Request;
@@ -49,7 +49,7 @@ class PhoneController extends Controller
         $registro->save();
         Historial::create([
             'accion' => 'Creacion',
-            'descripcion' => "Se agrego un telefono con N/S: {$registro->serial}",
+            'descripcion' => "Se agrego un telefono con N/S: {$registro->serial} y extension: {$registro->extension}",
             'user_id' => $user,
             'region_id' => $registro->region_id,
         ]);
@@ -85,32 +85,31 @@ class PhoneController extends Controller
 
         toastr()
             ->timeOut(3000) // 3 second
-            ->addSuccess("Se actualizo el {$registro->extension} correctamente.");
-        return redirect()->route('phones.index');        
+            ->addSuccess("Se actualizo el {$registro->extension} ({$registro->serial}) correctamente.");
+        return redirect()->route('phones.index');
     }
 
     public function show(string $id)
     {
         $phone = Phone::with(['region'])->findOrFail($id);
-        $employees = Empleado::get();
+        $positions = Position::get();
         $userRegions = auth()->user()->regions;
 
-        return view('comunications.phone.show', compact('phone', 'userRegions', 'employees'));
+        return view('comunications.phone.show', compact('phone', 'userRegions', 'positions'));
     }
 
-    public function asignarPhone(Request $request, $phoneId, $employeeId)
+    public function asignarPhone(Request $request, $phoneId, $positionId)
     {
         $phone = Phone::findOrFail($phoneId);
-        $employee = Empleado::findOrFail($employeeId);
-        
+        $position = Position::findOrFail($positionId);
 
         // Asignar la licencia al equipo
-        $phone->employees()->attach($employeeId);
+        $phone->positions()->attach($positionId);
         $user = auth()->id();
 
         Historial::create([
             'accion' => 'Asignacion',
-            'descripcion' => "Se asigno el telefono de {$phone->extension} (SN: {$phone->serial}) al empleado {$employee->name}",
+            'descripcion' => "Se asigno el telefono de {$phone->extension} (SN: {$phone->serial}) al puesto {$position->position}",
             'user_id' => $user,
             'region_id' => $phone->region_id,
         ]);
@@ -121,20 +120,20 @@ class PhoneController extends Controller
         return redirect()->route('phones.show', $phoneId);
     }
 
-    public function desasignarPhone($phoneId, $employeeId)
+    public function desasignarPhone($phoneId, $positionId)
     {
         // Obtener la licencia por su ID
         $phone = Phone::findOrFail($phoneId);
 
         // Desasignar la licencia del equipo
-        $phone->employees()->detach($employeeId);
+        $phone->positions()->detach($positionId);
 
         $user = auth()->id();
-        $employee = Empleado::findOrFail($employeeId);
+        $position = Position::findOrFail($positionId);
 
         Historial::create([
             'accion' => 'Desvinculacion',
-            'descripcion' => "Se desvinculo el telefono de {$phone->extension} (SN: {$phone->serial}) al empleado {$employee->name}",
+            'descripcion' => "Se desvinculo el telefono de {$phone->extension} (SN: {$phone->serial}) al puesto {$position->position}",
             'user_id' => $user,
             'region_id' => $phone->region_id,
         ]);

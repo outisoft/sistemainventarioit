@@ -119,9 +119,9 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::post('/autocad/{licenciaId}/asignar/{equipoId}', [AutocadController::class, 'asignarLicencia'])->name('autocad.asignar.post');
     Route::delete('/autocad/{licenciaId}/desasignar/{equipoId}', [AutocadController::class, 'desasignarLicencia'])->name('autocad.desasignar');
 
-    Route::post('/phone/{phoneId}/asignar/{employeeId}', [PhoneController::class, 'asignarPhone'])->name('phone.asignar');
-    Route::delete('/phone/{phoneId}/desasignar/{employeeId}', [PhoneController::class, 'desasignarPhone'])->name('phone.desasignar');
-    
+    Route::post('/phone/{phoneId}/asignar/{positionId}', [PhoneController::class, 'asignarPhone'])->name('phone.asignar');
+    Route::delete('/phone/{phoneId}/desasignar/{positionId}', [PhoneController::class, 'desasignarPhone'])->name('phone.desasignar');
+
     //Asignar breack al sw
     Route::post('/switch/{switch}/asignar/', [SwitchController::class, 'asignarBreack'])->name('breack.asignar');
     Route::delete('/switch/{switch}/desasignar/{breack}', [SwitchController::class, 'desasignarBreack'])->name('breack.desasignar');
