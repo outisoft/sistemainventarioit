@@ -555,6 +555,135 @@
     });
 </script>
 
+<!--new DataTable('#cameras');-->
+<script>
+    $('#cameras').DataTable({
+        "pageLength": 200,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
+                className: 'btn btn-ico',
+                filename: 'Cameras',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
+                className: 'btn btn-ico',
+                filename: 'Cameras',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+
+        ],
+        columnDefs: [{
+            searchable: false,
+            targets: [-1] // Deshabilita el filtrado en la última columna
+        }],
+        initComplete: function() {
+            const api = this.api();
+
+            // Agregar una fila adicional para los filtros de búsqueda
+            $('#cameras thead').append('<tr></tr>');
+            api.columns().every(function(index) {
+                let column = this;
+
+                // Verificar si la columna es filtrable
+                if (column.settings()[0].aoColumns[index].bSearchable === false) {
+                    // Si no es filtrable, agregar una celda vacía
+                    $('#cameras thead tr:eq(1)').append('<th></th>');
+                    return;
+                }
+
+                // Crear el filtro de búsqueda
+                let header = $('#cameras thead tr:eq(1)');
+                let container = document.createElement('div');
+                container.innerHTML = `
+                    <select id="smallSelect_${index}" class="form-select form-select-sm">
+                        <option value="">Select</option>
+                    </select>
+                `;
+                header.append(`<th>${container.innerHTML}</th>`);
+
+                let select = header.find(`#smallSelect_${index}`);
+
+                // Aplicar listener para cambios en el valor del select
+                select.on('change', function() {
+                    column
+                        .search($(this).val(), {
+                            exact: true
+                        })
+                        .draw();
+                });
+
+                // Agregar opciones al select
+                column
+                    .data()
+                    .unique()
+                    .sort()
+                    .each(function(d, j) {
+                        select.append(`<option value="${d}">${d}</option>`);
+                    });
+            });
+        }
+
+    });
+</script>
+
+<!--new DataTable('#types of cameras');-->
+<script>
+    $('#types').DataTable({
+        "pageLength": 200,
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
+        language: {
+            search: '_INPUT_',
+            searchPlaceholder: 'Search...'
+        },
+        "info": false,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to Excel" data-bs-original-title="Download to Excel"></i>',
+                className: 'btn btn-ico',
+                filename: 'Types of Cameras',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
+                }
+            },
+            {
+                extend: 'pdfHtml5',
+                text: '<i class="bx bxs-file-pdf" data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="assigned-item" aria-label="Download to PDF" data-bs-original-title="Download to PDF"></i>',
+                className: 'btn btn-ico',
+                filename: 'Types of Cameras',
+                exportOptions: {
+                    columns: ':not(:last-child)' // Exporta solo las columnas 0, 1 y 2
+                }
+            }
+
+        ],
+        columnDefs: [{
+            searchable: false,
+            targets: [-1] // Deshabilita el filtrado en la última columna
+        }],
+    });
+</script>
+
 <!--new DataTable('#desktops');-->
 <script>
     $('#desktops').DataTable({

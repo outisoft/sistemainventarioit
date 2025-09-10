@@ -42,7 +42,9 @@
                                                         style="margin-left: 15px;">{{ Str::limit($registro->user->name, 20, '...') }}</span>
                                                 </div>
                                             </td>
-                                            <td>{{ \Carbon\Carbon::parse($registro->created_at)->isoFormat('dddd D [de] MMMM [del] YYYY') }}
+                                            <td>
+                                                {{ $registro->created_at->diffForHumans() }}
+                                                ({{ $registro->created_at->format('d/m/Y') }})
                                             </td>
                                         </tr>
                                     @endforeach

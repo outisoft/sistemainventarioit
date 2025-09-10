@@ -9,6 +9,7 @@ use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\AutocadController;
 use App\Http\Controllers\BackupController;
+use App\Http\Controllers\CctvCameraController;
 use App\Http\Controllers\CctvSwitchController;
 use App\Http\Controllers\ChartController;
 use App\Http\Controllers\CompanyController;
@@ -43,6 +44,7 @@ use App\Http\Controllers\SpecificLocationController;
 use App\Http\Controllers\SwitchController;
 use App\Http\Controllers\TabController;
 use App\Http\Controllers\TpvController;
+use App\Http\Controllers\TypeCameraController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VillaController;
 use Maatwebsite\Excel\Facades\Excel;
@@ -66,6 +68,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('adobe', AdobeController::class);//Rutas Adobe
     Route::resource('assignment', AssignmentController::class);//Rutas asignacion
     Route::resource('autocad', AutocadController::class);//Rutas Autocad
+    Route::resource('cctv-camera', CctvCameraController::class);//Rutas CCTV Camera
     Route::resource('cctv-switch', CctvSwitchController::class);//Rutas CCTV Switch
     Route::resource('companies', CompanyController::class);//Rutas companies
     Route::resource('complements', ComplementController::class);//Rutas complements
@@ -96,11 +99,15 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('switches', SwitchController::class);//Rutas switches
     Route::resource('tabs', TabController::class);//Rutas tabs
     Route::resource('tpvs', TpvController::class);  //Rutas TPVS
+    Route::resource('types', TypeCameraController::class); //Rutas TypeCamera
     Route::resource('users', UserController::class); // Rutas Usuario
     Route::resource('villas', VillaController::class);//Rutas Villas
     Route::get('/hotels/{hotel}/switches', [SwitchController::class, 'showSwitches'])->name('hotels.switches');
     Route::get('/switches/{switch}/available-ports', [AccessPointController::class, 'getAvailablePort']); // Create ap
     Route::get('/details/{equipo}/equipment', [EquipoController::class, 'details'])->name('details');
+
+    //ruta de organigrama
+    Route::get('/cctv-organigrama', [CctvSwitchController::class, 'organigrama'])->name('cctv.organigrama');
 
     Route::get('/hotels/{hotel}/villas', [VillaController::class, 'show'])->name('villas.show');
     Route::get('/hotels/{hotel}/switch', [SwitchController::class, 'details'])->name('switch.details');

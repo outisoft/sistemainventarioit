@@ -5,41 +5,35 @@ namespace App\Http\Controllers;
 use App\Models\CCTV\CctvSwitch;
 use App\Models\Region;
 use Illuminate\Http\Request;
+use App\Http\Requests\CCTV\StoreSwitchRequest;
+use App\Http\Requests\CCTV\UpdateSwitchRequest;
 use App\Models\SpecificLocation;
+use App\Models\Historial;
 
 class CctvSwitchController extends Controller
 {
     public function index()
     {
+        $switches = CctvSwitch::with(['region', 'location'])->orderBy('name', 'desc')->get();
         $regions = Region::orderBy('name')->get();
         $locations = SpecificLocation::orderBy('name')->get();
-        $switches = CctvSwitch::orderBy('name', 'desc')->get();
         $userRegions = auth()->user()->regions;
 
         return view('cctv.switch.index', compact('switches', 'regions', 'locations', 'userRegions'));
     }
 
-    public function store(Request $request)
+    public function store(StoreSwitchRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|unique:cctv_switches,name',
-            'idf' => 'nullable|string',
-            'zona' => 'nullable|in:A,B,C',
-            'location_id' => 'nullable|exists:specific_locations,id',
-            'brand' => 'required|string',
-            'model' => 'required|string',
-            'serial' => 'required|string|unique:cctv_switches,serial',
-            'mac' => 'required|string|unique:cctv_switches,mac',
-            'ip' => 'required|ip|unique:cctv_switches,ip',
-            'password' => 'nullable|string',
-            'tipo' => 'required|in:principal,secundario,idf',
-            'connected_to_id' => 'nullable|exists:cctv_switches,id',
-            'connected_port' => 'nullable|string',
-            'from_provider' => 'boolean',
-            'region_id' => 'required|exists:regions,id'
-        ]);
+        $validated = $request->validated();
 
         CctvSwitch::create($validated);
+
+        Historial::create([
+                'accion' => 'Creacion',
+                'descripcion' => "Se registro el switch de CCTV {$validated['name']} con numero de serie {$validated['serial']}",
+                'user_id' => auth()->id(),
+                'region_id' => $validated['region_id'],
+            ]);
 
         toastr()
                 ->timeOut(3000)
@@ -48,27 +42,18 @@ class CctvSwitchController extends Controller
         return redirect()->route('cctv-switch.index');
     }
 
-    public function update(Request $request, CctvSwitch $cctvSwitch)
+    public function update(UpdateSwitchRequest $request, CctvSwitch $cctvSwitch)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|unique:cctv_switches,name,' . $cctvSwitch->id,
-            'idf' => 'nullable|string',
-            'zona' => 'nullable|in:A,B,C',
-            'location_id' => 'nullable|exists:specific_locations,id',
-            'brand' => 'required|string',
-            'model' => 'required|string',
-            'serial' => 'required|string|unique:cctv_switches,serial,' . $cctvSwitch->id,
-            'mac' => 'required|string|unique:cctv_switches,mac,' . $cctvSwitch->id,
-            'ip' => 'required|ip|unique:cctv_switches,ip,' . $cctvSwitch->id,
-            'password' => 'nullable|string',
-            'tipo' => 'required|in:principal,secundario,idf',
-            'connected_to_id' => 'nullable|exists:cctv_switches,id',
-            'connected_port' => 'nullable|string',
-            'from_provider' => 'boolean',
-            'region_id' => 'required|exists:regions,id'
-        ]);
+        $validated = $request->validated();
 
         $cctvSwitch->update($validated);
+
+        Historial::create([
+                'accion' => 'Actualizacion',
+                'descripcion' => "Se actualizo el switch de CCTV {$validated['name']} con numero de serie {$validated['serial']}",
+                'user_id' => auth()->id(),
+                'region_id' => $validated['region_id'],
+            ]);
 
         toastr()
                 ->timeOut(3000)
@@ -77,11 +62,33 @@ class CctvSwitchController extends Controller
         return redirect()->route('cctv-switch.index');
     }
 
+    public function organigrama()
+    {
+        //$switches = CctvSwitch::with(['connectedSwitches', 'cameras'])->get();
+
+        // Encuentra el switch principal
+        //$principal = $switches->where('tipo', 'principal')->first();
+
+        $principal = CctvSwitch::with(['connectedSwitches', 'cameras'])->where('tipo', 'principal')->first();
+
+        return view('cctv.organigrama', compact('principal'));
+    }
+
     public function destroy(CctvSwitch $cctvSwitch)
     {
         $cctvSwitch->delete();
 
-        return redirect()->route('cctv-switch.index')
-                        ->with('success', 'Switch eliminado exitosamente.');
+        Historial::create([
+                'accion' => 'Eliminacion',
+                'descripcion' => "Se elimino el switch de CCTV {$cctvSwitch->name} con numero de serie {$cctvSwitch->serial}",
+                'user_id' => auth()->id(),
+                'region_id' => $cctvSwitch->region_id,
+            ]);
+
+        toastr()
+                ->timeOut(3000)
+                ->addSuccess("Switch {$cctvSwitch->name} eliminado.");
+
+        return redirect()->route('cctv-switch.index');
     }
 }

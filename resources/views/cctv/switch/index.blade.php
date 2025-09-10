@@ -24,6 +24,11 @@
                     <h5 class="card-header">Switches list</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
+                            <a href="#" class="btn-ico" title=""
+                                data-bs-original-title="<span>Add new equipment</span>">
+                                <i class='bx bx-sitemap icon-lg'></i>
+                            </a>
+
                             <a href="#" class="btn-ico" data-bs-target="#modalCreate" data-bs-toggle="modal"
                                 data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title=""
                                 data-bs-original-title="<span>Add new equipment</span>">
@@ -79,14 +84,14 @@
                                                 @endcan
 
                                                 @can('switches.edit')
-                                                    <a href="#"
-                                                        data-bs-target="#editModal{{ $switch->id }}" data-bs-toggle="modal"
-                                                        data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title=""
-                                                        class="dropdown-item"><i class="bx bx-edit me-1"></i>Edit</a>
+                                                    <a href="#" data-bs-target="#editModal{{ $switch->id }}"
+                                                        data-bs-toggle="modal" data-bs-offset="0,4" data-bs-placement="top"
+                                                        data-bs-html="true" title="" class="dropdown-item"><i
+                                                            class="bx bx-edit me-1"></i>Edit</a>
                                                 @endcan
 
                                                 @can('switches.destroy')
-                                                    <form action="{{ route('switches.destroy', $switch->id) }}"
+                                                    <form action="{{ route('cctv-switch.destroy', $switch->id) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

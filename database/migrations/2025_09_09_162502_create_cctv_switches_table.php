@@ -26,6 +26,8 @@ return new class extends Migration
 
             // Nuevo campo: tipo de switch
             $table->enum('tipo', ['principal', 'secundario', 'idf'])->default('idf');
+            
+            $table->unsignedInteger('ports')->default(24); // o el número que sea estándar para ti
 
             // Si es secundario o IDF, puede estar conectado a otro switch
             $table->foreignId('connected_to_id')->nullable()->constrained('cctv_switches')->nullOnDelete();
