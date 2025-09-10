@@ -262,8 +262,9 @@
             </li>
         @endcan
 
+        <!-- CCTV -->
         <li
-            class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }} || {{ Request::routeIs('phones.show') ? 'active' : '' }}">
+            class="menu-item {{ Request::routeIs('cctv-switch.index') ? 'active' : '' }} || {{ Request::routeIs('cctv.switch.show') ? 'active' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon bx bx-cctv'></i>
                 <div data-i18n="Layouts">CCTV</div>
@@ -271,8 +272,8 @@
 
             <ul class="menu-sub">
                 <li
-                    class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }} || {{ Request::routeIs('phones.show') ? 'active' : '' }} ">
-                    <a href="{{ route('phones.index') }}" class="menu-link">
+                    class="menu-item {{ Request::routeIs('cctv-switch.index') ? 'active' : '' }} ">
+                    <a href="{{ route('cctv-switch.index') }}" class="menu-link">
                         <div data-i18n="Analytics">Switches</div>
                     </a>
                 </li>

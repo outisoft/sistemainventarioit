@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('cctv_switches', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('idf_id')->nullable();
+            $table->string('idf')->nullable();
             $table->enum('zona', ['A', 'B', 'C'])->nullable()->index();
             $table->foreignId('location_id')->nullable()->constrained('specific_locations')->nullOnDelete();
             $table->string('brand');
@@ -39,7 +39,6 @@ return new class extends Migration
             $table->foreignId('region_id')->constrained();
             $table->timestamps();
         });
-
     }
 
     /**
