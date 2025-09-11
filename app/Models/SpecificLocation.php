@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class SpecificLocation extends Model
 {
@@ -16,5 +17,15 @@ class SpecificLocation extends Model
     public function region()
     {
         return $this->belongsTo(Region::class);
+    }
+
+    protected static function booted()
+    {
+        static::addGlobalScope('region', function (Builder $builder) {
+            if (auth()->check() && !auth()->user()->hasRole('Administrator')) {
+                $userRegions = auth()->user()->regions->pluck('id')->toArray();
+                $builder->whereIn('region_id', $userRegions);
+            }
+        });
     }
 }
