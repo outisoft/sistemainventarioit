@@ -64,14 +64,34 @@ class CctvSwitchController extends Controller
 
     public function organigrama()
     {
-        //$switches = CctvSwitch::with(['connectedSwitches', 'cameras'])->get();
+        $switches = CctvSwitch::with(['connectedSwitches', 'cameras'])->get();
+        $principal = $switches->where('tipo', 'principal')->first();
 
-        // Encuentra el switch principal
-        //$principal = $switches->where('tipo', 'principal')->first();
+        $equipos = [];
 
-        $principal = CctvSwitch::with(['connectedSwitches', 'cameras'])->where('tipo', 'principal')->first();
+            foreach ($switches as $sw) {
+                $equipos['SW' . $sw->id] = [
+                    'tipo' => $sw->tipo,
+                    'nombre' => $sw->name,
+                    'ip' => $sw->ip,
+                    'puertos' => $sw->puertos,
+                    'modelo' => $sw->model,
+                    'marca' => $sw->brand,
+                ];
 
-        return view('cctv.organigrama', compact('principal'));
+                foreach ($sw->cameras as $cam) {
+                    $equipos['CAM' . $cam->id] = [
+                        'tipo' => 'camara',
+                        'nombre' => $cam->name,
+                        'ip' => $cam->ip,
+                        'modelo' => $cam->model,
+                        'marca' => $cam->brand,
+                        'puerto' => $cam->connected_port,
+                    ];
+                }
+            }
+
+        return view('cctv.organigrama', compact('principal', 'equipos'));
     }
 
     public function destroy(CctvSwitch $cctvSwitch)
