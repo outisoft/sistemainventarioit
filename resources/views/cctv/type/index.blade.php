@@ -55,10 +55,6 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="{{ route('types.show', $type->id) }}"><i
-                                                        class="bx bx-show-alt me-1"></i>Show
-                                                </a>
-
                                                 <a href="#" data-bs-target="#editModal{{ $type->id }}"
                                                     data-bs-toggle="modal" data-bs-offset="0,4" data-bs-placement="top"
                                                     data-bs-html="true" title="" class="dropdown-item"><i

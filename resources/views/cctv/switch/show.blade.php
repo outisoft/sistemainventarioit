@@ -1,7 +1,7 @@
 <x-app-layout>
     <style>
         .page-container {
-            max-width: 1100px;
+            max-width: 1410px;
             margin: 24px auto;
             padding: 0 12px;
         }
