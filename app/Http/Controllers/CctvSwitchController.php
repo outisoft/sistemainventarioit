@@ -9,6 +9,8 @@ use App\Http\Requests\CCTV\StoreSwitchRequest;
 use App\Http\Requests\CCTV\UpdateSwitchRequest;
 use App\Models\SpecificLocation;
 use App\Models\Historial;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 
 class CctvSwitchController extends Controller
 {
@@ -42,6 +44,13 @@ class CctvSwitchController extends Controller
         return redirect()->route('cctv-switch.index');
     }
 
+    public function show(CctvSwitch $cctvSwitch)
+    {
+        $switch = CctvSwitch::with(['connectedSwitches', 'cameras'])->find($cctvSwitch->id);
+
+        return view('cctv.switch.show', compact('switch'));
+    }
+
     public function update(UpdateSwitchRequest $request, CctvSwitch $cctvSwitch)
     {
         $validated = $request->validated();
@@ -60,6 +69,25 @@ class CctvSwitchController extends Controller
                 ->addSuccess("Switch {$cctvSwitch->name} actualizado.");
 
         return redirect()->route('cctv-switch.index');
+    }
+
+    public function downloadQRCode($switchId)
+    {
+        // Generar el QR con la URL de detalles del switch
+        $switch = CctvSwitch::findOrFail($switchId);
+        $url = route('cctv-switch.show', $switchId);
+
+        $qr = QrCode::create($url)
+            ->setSize(280);
+        $writer = new PngWriter();
+        $result = $writer->write($qr);
+
+        $qrcode = $result->getString();
+
+        // Descargar el QR como imagen PNG con el nombre del switch
+        return response($qrcode)
+            ->header('Content-Type', 'image/png')
+            ->header('Content-Disposition', 'attachment; filename="' . $switch->name . '-qrcode.png"');
     }
 
     public function organigrama()

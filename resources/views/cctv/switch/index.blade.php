@@ -24,11 +24,6 @@
                     <h5 class="card-header">Switches list</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="#" class="btn-ico" title=""
-                                data-bs-original-title="<span>Add new equipment</span>">
-                                <i class='bx bx-sitemap icon-lg'></i>
-                            </a>
-
                             <a href="#" class="btn-ico" data-bs-target="#modalCreate" data-bs-toggle="modal"
                                 data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title=""
                                 data-bs-original-title="<span>Add new equipment</span>">
@@ -78,7 +73,7 @@
                                             <div class="dropdown-menu">
                                                 @can('switches.show')
                                                     <a class="dropdown-item"
-                                                        href="{{ route('switches.show', $switch->id) }}"><i
+                                                        href="{{ route('cctv-switch.show', $switch->id) }}"><i
                                                             class="bx bx-show-alt me-1"></i>Show
                                                     </a>
                                                 @endcan

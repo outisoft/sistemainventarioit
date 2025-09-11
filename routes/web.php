@@ -177,6 +177,9 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::get('/qrcode/{id}', [AssignmentController::class, 'generateQRCode'])->name('generateQRCode');
     Route::get('/qrcode/{id}/download', [AssignmentController::class, 'downloadQRCode'])->name('downloadQRCode');
     //Route::get('/qrcode/{id}/details', [AssignmentController::class, 'employeeDetails'])->name('employeeDetails');
+    //ruta de descargar qr de camara
+    Route::get('/cctv-camera/{id}/qr', [CctvCameraController::class, 'downloadQRCode'])->name('cctv-camera.qr');
+    Route::get('/cctv-switch/{id}/qr', [CctvSwitchController::class, 'downloadQRCode'])->name('cctv-switch.qr');
 
     Route::get('empleados/{id}/equipos', [EmpleadoController::class, 'equipos'])->name('empleados.equipos');
 

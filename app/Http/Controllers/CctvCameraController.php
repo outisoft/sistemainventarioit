@@ -12,6 +12,8 @@ use App\Models\CCTV\CctvSwitch;
 use App\Models\SpecificLocation;
 use App\Models\CCTV\TypeCamera;
 use App\Models\Region;
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
 
 class CctvCameraController extends Controller
 {
@@ -45,6 +47,32 @@ class CctvCameraController extends Controller
                 ->addSuccess("Camera {$validated['name']} created.");
 
         return redirect()->route('cctv-camera.index');
+    }
+
+    public function show(CctvCamera $cctvCamera)
+    {
+        $camera = CctvCamera::with(['location', 'switch', 'type_camera', 'region'])->find($cctvCamera->id);
+
+        return view('cctv.camera.show', compact('camera'));
+    }
+
+    public function downloadQRCode($cameraId)
+    {
+        // Generar el QR con la URL de detalles de la cámara
+        $camera = CctvCamera::findOrFail($cameraId);
+        $url = route('cctv-camera.show', $cameraId);
+
+        $qr = QrCode::create($url)
+            ->setSize(280);
+        $writer = new PngWriter();
+        $result = $writer->write($qr);
+
+        $qrcode = $result->getString();
+
+        // Descargar el QR como imagen PNG con nombre de la camara
+        return response($qrcode)
+            ->header('Content-Type', 'image/png')
+            ->header('Content-Disposition', 'attachment; filename="' . $camera->name . '-qrcode.png"');
     }
 
     public function update(UpdateCameraRequest $request, CctvCamera $cctvCamera): RedirectResponse

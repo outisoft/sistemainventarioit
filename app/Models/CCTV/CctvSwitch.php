@@ -56,6 +56,11 @@ class CctvSwitch extends Model
         return $this->belongsTo(Region::class);
     }
 
+    public function connectedTo()
+    {
+        return $this->belongsTo(self::class, 'connected_to_id');
+    }
+
     protected static function booted()
     {
         static::addGlobalScope('region', function (Builder $builder) {
