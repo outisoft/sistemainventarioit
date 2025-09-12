@@ -247,7 +247,9 @@
                 </div>
 
                 <div class="actions">
-                    <a href="{{ route('cctv-camera.edit', $camera) }}" class="btn-slim btn-primary">Editar</a>
+                    @can('cctv-camera.edit')
+                        <a href="{{ route('cctv-camera.edit', $camera) }}" class="btn-slim btn-primary">Editar</a>
+                    @endcan
                     <a href="{{ route('cctv-camera.index') }}" class="btn-slim">Volver al listado</a>
                 </div>
             </div>

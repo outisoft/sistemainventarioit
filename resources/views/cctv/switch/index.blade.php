@@ -24,11 +24,13 @@
                     <h5 class="card-header">Switches list</h5>
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <a href="#" class="btn-ico" data-bs-target="#modalCreate" data-bs-toggle="modal"
-                                data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title=""
-                                data-bs-original-title="<span>Add new equipment</span>">
-                                <i class='bx bx-add-to-queue icon-lg'></i>
-                            </a>
+                            @can('cctv-switch.create')
+                                <a href="#" class="btn-ico" data-bs-target="#modalCreate" data-bs-toggle="modal"
+                                    data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title=""
+                                    data-bs-original-title="<span>Add new equipment</span>">
+                                    <i class='bx bx-add-to-queue icon-lg'></i>
+                                </a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -71,21 +73,21 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                @can('switches.show')
+                                                @can('cctv-switch.show')
                                                     <a class="dropdown-item"
                                                         href="{{ route('cctv-switch.show', $switch->id) }}"><i
                                                             class="bx bx-show-alt me-1"></i>Show
                                                     </a>
                                                 @endcan
 
-                                                @can('switches.edit')
+                                                @can('cctv-switch.edit')
                                                     <a href="#" data-bs-target="#editModal{{ $switch->id }}"
                                                         data-bs-toggle="modal" data-bs-offset="0,4" data-bs-placement="top"
                                                         data-bs-html="true" title="" class="dropdown-item"><i
                                                             class="bx bx-edit me-1"></i>Edit</a>
                                                 @endcan
 
-                                                @can('switches.destroy')
+                                                @can('cctv-switch.destroy')
                                                     <form action="{{ route('cctv-switch.destroy', $switch->id) }}"
                                                         method="POST">
                                                         @csrf

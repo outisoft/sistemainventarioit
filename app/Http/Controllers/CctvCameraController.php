@@ -17,6 +17,15 @@ use Endroid\QrCode\Writer\PngWriter;
 
 class CctvCameraController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:cctv-camera.index')->only('index');
+        $this->middleware('permission:cctv-camera.create')->only('create', 'store');
+        $this->middleware('permission:cctv-camera.show')->only('show');
+        $this->middleware('permission:cctv-camera.edit')->only('edit', 'update');
+        $this->middleware('permission:cctv-camera.destroy')->only('destroy');
+    }
+
     public function index()
     {
         //camera list con locations, switches, types and regions

@@ -142,11 +142,11 @@
 
                     @can('tablets.index')
                         <!--li disabled class="menu-item {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.create') ? 'active' : '' }} || {{ Request::routeIs('tablets.show') ? 'active' : '' }} || {{ Request::routeIs('tablets.index') ? 'active' : '' }} || {{ Request::routeIs('tablets.edit') ? 'active' : '' }}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <a href="#" class="menu-link">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class='menu-icon tf-icons bx bx-tab'></i>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div data-i18n="Analytics">Tablets Co2</div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </li-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <a href="#" class="menu-link">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <i class='menu-icon tf-icons bx bx-tab'></i>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <div data-i18n="Analytics">Tablets Co2</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </li-->
                     @endcan
 
                     @can('tpvs.index')
@@ -169,11 +169,11 @@
                     @endcan
 
                     <!--li class="menu-item {{ Request::routeIs('licenses.index') ? 'active' : '' }} ">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <a href="{{ route('licenses.index') }}" class="menu-link">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class='menu-icon tf-icons bx bxl-microsoft'></i>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <div data-i18n="Without navbar">Office 365</div>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </a>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </li-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <a href="{{ route('licenses.index') }}" class="menu-link">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class='menu-icon tf-icons bx bxl-microsoft'></i>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <div data-i18n="Without navbar">Office 365</div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </li-->
                 </ul>
             </li>
         @endcan
@@ -263,42 +263,44 @@
         @endcan
 
         <!-- CCTV -->
-        <li
-            class="menu-item {{ Request::routeIs('cctv-switch.index') ? 'active' : '' }} || {{ Request::routeIs('types.index') ? 'active' : '' }} || {{ Request::routeIs('cctv-camera.index') ? 'active' : '' }} || {{ Request::routeIs('cctv.organigrama') ? 'active' : '' }} || {{ Request::routeIs('cctv-switch.show') ? 'active' : '' }} || {{ Request::routeIs('types.show') ? 'active' : '' }} || {{ Request::routeIs('cctv-camera.show') ? 'active' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class='menu-icon bx bx-cctv'></i>
-                <div data-i18n="Layouts">CCTV</div>
-            </a>
+        @can('cctv-camera.index')
+            <li
+                class="menu-item {{ Request::routeIs('cctv-switch.index') ? 'active' : '' }} || {{ Request::routeIs('types.index') ? 'active' : '' }} || {{ Request::routeIs('cctv-camera.index') ? 'active' : '' }} || {{ Request::routeIs('cctv.organigrama') ? 'active' : '' }} || {{ Request::routeIs('cctv-switch.show') ? 'active' : '' }} || {{ Request::routeIs('types.show') ? 'active' : '' }} || {{ Request::routeIs('cctv-camera.show') ? 'active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class='menu-icon bx bx-cctv'></i>
+                    <div data-i18n="Layouts">CCTV</div>
+                </a>
 
-            <ul class="menu-sub">
-                <li class="menu-item {{ Request::routeIs('cctv-switch.index') ? 'active' : '' }} ">
-                    <a href="{{ route('cctv-switch.index') }}" class="menu-link">
-                        <div data-i18n="Analytics">Switches</div>
-                    </a>
-                </li>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ Request::routeIs('cctv-switch.index') ? 'active' : '' }} ">
+                        <a href="{{ route('cctv-switch.index') }}" class="menu-link">
+                            <div data-i18n="Analytics">Switches</div>
+                        </a>
+                    </li>
 
-                <li class="menu-item">
-                    <a href="{{ route('types.index') }}"
-                        class="menu-link {{ Request::routeIs('types.index') ? 'active' : '' }}">
-                        <div data-i18n="Without navbar">Type of Camera</div>
-                    </a>
-                </li>
+                    <li class="menu-item">
+                        <a href="{{ route('types.index') }}"
+                            class="menu-link {{ Request::routeIs('types.index') ? 'active' : '' }}">
+                            <div data-i18n="Without navbar">Type of Camera</div>
+                        </a>
+                    </li>
 
-                <li class="menu-item">
-                    <a href="{{ route('cctv-camera.index') }}"
-                        class="menu-link {{ Request::routeIs('cctv-camera.index') ? 'active' : '' }}">
-                        <div data-i18n="Without navbar">Cameras</div>
-                    </a>
-                </li>
+                    <li class="menu-item">
+                        <a href="{{ route('cctv-camera.index') }}"
+                            class="menu-link {{ Request::routeIs('cctv-camera.index') ? 'active' : '' }}">
+                            <div data-i18n="Without navbar">Cameras</div>
+                        </a>
+                    </li>
 
-                <li class="menu-item">
-                    <a href="{{ route('cctv.organigrama') }}"
-                        class="menu-link {{ Request::routeIs('cctv.organigrama') ? 'active' : '' }}">
-                        <div data-i18n="Without navbar">Organigrama</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+                    <li class="menu-item">
+                        <a href="{{ route('cctv.organigrama') }}"
+                            class="menu-link {{ Request::routeIs('cctv.organigrama') ? 'active' : '' }}">
+                            <div data-i18n="Without navbar">Organigrama</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endcan
 
         <!-- Radios y telefonos -->
         @can('phoness.index')

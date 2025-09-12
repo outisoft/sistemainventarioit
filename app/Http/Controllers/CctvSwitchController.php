@@ -14,6 +14,15 @@ use Endroid\QrCode\Writer\PngWriter;
 
 class CctvSwitchController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:cctv-switch.index')->only('index');
+        $this->middleware('permission:cctv-switch.create')->only('create', 'store');
+        $this->middleware('permission:cctv-switch.show')->only('show');
+        $this->middleware('permission:cctv-switch.edit')->only('edit', 'update');
+        $this->middleware('permission:cctv-switch.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $switches = CctvSwitch::with(['region', 'location'])->orderBy('name', 'desc')->get();

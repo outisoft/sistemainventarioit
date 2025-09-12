@@ -112,6 +112,18 @@ class RolesSeeder extends Seeder
         Permission::create(['name' => 'tpvs.edit', 'description' => 'Editar tpvs'])->syncRoles($admin, $adminRegion, $support);
         Permission::create(['name' => 'tpvs.destroy', 'description' => 'Eliminar tpvs'])->syncRoles($admin, $adminRegion, $support);
 
+        Permission::create(['name' => 'cctv-camera.index', 'description' => 'Ver listado de camaras CCTV'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'cctv-camera.create', 'description' => 'Registrar camaras CCTV'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'cctv-camera.show', 'description' => 'Ver detalles de camaras CCTV'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'cctv-camera.edit', 'description' => 'Editar camaras CCTV'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'cctv-camera.destroy', 'description' => 'Eliminar camaras CCTV'])->syncRoles($admin, $adminRegion, $support);
+
+        Permission::create(['name' => 'cctv-switch.index', 'description' => 'Ver listado de switches CCTV'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'cctv-switch.create', 'description' => 'Registrar switches CCTV'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'cctv-switch.show', 'description' => 'Ver detalles de switches CCTV'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'cctv-switch.edit', 'description' => 'Editar switches CCTV'])->syncRoles($admin, $adminRegion, $support);
+        Permission::create(['name' => 'cctv-switch.destroy', 'description' => 'Eliminar switches CCTV'])->syncRoles($admin, $adminRegion, $support);
+
         //Admin Roles
         
         Permission::create(['name' => 'policy.index', 'description' => 'Ver listado de politicas'])->syncRoles($admin, $adminRegion);
