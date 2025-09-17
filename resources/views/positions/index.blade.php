@@ -87,10 +87,9 @@
                                                             @endcan
 
                                                             @can('positions.edit')
-                                                                <a href="#" data-bs-toggle="modal"
-                                                                    data-bs-target="#editModal"
-                                                                    data-position-id="{{ $position->id }}"
-                                                                    class="dropdown-item btn-edit"><i
+                                                                <a href="#" data-bs-target="#editModal{{ $position->id }}"
+                                                                    data-bs-toggle="modal" data-bs-offset="0,4" data-bs-placement="top"
+                                                                    data-bs-html="true" title="" class="dropdown-item"><i
                                                                         class="bx bx-edit me-1"></i>Edit</a>
                                                             @endcan
 
