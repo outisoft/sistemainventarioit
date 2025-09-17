@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             SpecificLocation::class,
         ]);
 
-        License::factory()->count(50)->create();
+        //License::factory()->count(50)->create();
         //User::factory()->count(8)->create();
         //Empleado::factory()->count(10)->create(); // Crea empleados (ajusta el número según tus necesidades)
         //Inventario::factory()->count(30)->create();

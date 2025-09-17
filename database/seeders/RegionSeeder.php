@@ -14,10 +14,11 @@ class RegionSeeder extends Seeder
     public function run(): void
     {
         $datos = [
-            ['name' => 'MÉXICO'],
+            ['name' => 'TULUM COUNTRY CLUB'],
             ['name' => 'JAMAICA'],
             ['name' => 'REPUBLICA DOMINICANA'],
             ['name' => 'ESPAÑA'],
+            ['name' => 'MEXICO'],
         ];
         DB::table('regions')->insert($datos);
     }
