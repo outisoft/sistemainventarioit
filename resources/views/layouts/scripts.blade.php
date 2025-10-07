@@ -127,15 +127,17 @@
         order: [
             [1, 'asc']
         ],
-        pageLength: 200,
-        lengthMenu: [10, 25, 50, 75, 100],
+        "pageLength": 10, // Configuración de la cantidad de filas por página
+        "lengthMenu": [
+            [10, 25, 50, 100, -1], // Opciones de cantidad de filas
+            [10, 25, 50, 100, "Todos"]
+        ],
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
         info: false,
-        "scrollX": true,
-        dom: 'Bfrtip',
+        dom: 'lBfrtip',
         buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
@@ -193,15 +195,17 @@
         order: [
             [1, 'asc']
         ],
-        pageLength: 200,
-        lengthMenu: [10, 25, 50, 75, 100],
+        "lengthMenu": [
+            [10, 25, 50, -1],
+            [10, 25, 50, "Todos"]
+        ],
+        "pageLength": 10,
         language: {
             search: '_INPUT_',
             searchPlaceholder: 'Search...'
         },
-        "scrollX": true,
         info: false,
-        dom: 'Bfrtip',
+        dom: 'lBfrtip',
         buttons: [{
                 extend: 'excelHtml5',
                 text: '<i class="bx bxs-downvote" data-bs-toggle="tooltip" data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<span>Download to Excel</span>"></i>',
@@ -431,7 +435,7 @@
     });
 </script>
 
-<!--new DataTable('#aps');-->
+<!--new DataTable('#onts');-->
 <script>
     $('#onts').DataTable({
         "pageLength": 100,
