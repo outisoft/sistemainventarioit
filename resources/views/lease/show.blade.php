@@ -53,15 +53,20 @@
                                                                 @php
                                                                     $position = $equipo->positions->first();
                                                                 @endphp
-                                                                {{ $position ? $position->employee->name : 'SIN ASIGNAR' }}
+                                                                {{ $position && $position->employee ? $position->employee->name : 'SIN ASIGNAR' }}
                                                             @else
                                                                 SIN ASIGNAR
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            @if ($equipo->positions->isNotEmpty() && $equipo->positions->first()->hotel)
-                                                                {{ $equipo->positions->first()->hotel->name }} -
-                                                                {{ optional($equipo->positions->first()->departments)->name }}
+                                                            @php
+                                                                // Reutilizamos $position si ya existe; si no, lo obtenemos
+                                                                $position = $position ?? ($equipo->positions->first() ?? null);
+                                                                $hotelName = optional(optional($position)->hotel)->name;
+                                                                $deptName = optional(optional($position)->departments)->name;
+                                                            @endphp
+                                                            @if ($hotelName)
+                                                                {{ $hotelName }} @if($deptName)- {{ $deptName }} @endif
                                                             @else
                                                                 HOTEL NO ASIGNADO
                                                             @endif
@@ -94,32 +99,23 @@
                                             @foreach ($lease->complements as $complement)
                                                 <tr>
                                                     <td> {{ $complement->type->name }} </td>
-
                                                     <td>
                                                         @if ($complement->equipments->isNotEmpty())
                                                             @php
-                                                                $position = $complement->equipments
-                                                                    ->first()
-                                                                    ->positions->first();
+                                                                $position = optional($complement->equipments->first())->positions->first();
                                                             @endphp
-                                                            {{ $position ? $position->employee->name : 'SIN ASIGNAR' }}
+                                                            {{ $position && $position->employee ? $position->employee->name : 'SIN ASIGNAR' }}
                                                         @else
                                                             SIN ASIGNAR
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        @if ($complement->equipments->isNotEmpty())
-                                                            @php
-                                                                $position = $complement->equipments
-                                                                    ->first()
-                                                                    ->positions->first();
-                                                            @endphp
-                                                            @if ($position && $position->hotel)
-                                                                {{ $position->hotel->name }} -
-                                                                {{ $position->departments->name }}
-                                                            @else
-                                                                HOTEL NO ASIGNADO
-                                                            @endif
+                                                        @php
+                                                            $hotelName = optional(optional($position)->hotel)->name;
+                                                            $deptName = optional(optional($position)->departments)->name;
+                                                        @endphp
+                                                        @if ($hotelName)
+                                                            {{ $hotelName }} @if($deptName)- {{ $deptName }} @endif
                                                         @else
                                                             HOTEL NO ASIGNADO
                                                         @endif
@@ -151,13 +147,17 @@
                                             @foreach ($lease->tpvs as $tpv)
                                                 <tr>
                                                     <td>TPV</td>
+                                                    <td>SIN ASIGNAR</td>
                                                     <td>
-                                                        SIN ASIGNAR
-                                                    </td>
-                                                    <td>
-
-                                                        {{ $tpv->hotel->name }} -
-                                                        {{ $tpv->departments->name }}
+                                                        @php
+                                                            $hotelName = optional($tpv->hotel)->name;
+                                                            $deptName = optional($tpv->departments)->name;
+                                                        @endphp
+                                                        @if($hotelName)
+                                                            {{ $hotelName }} @if($deptName)- {{ $deptName }} @endif
+                                                        @else
+                                                            HOTEL NO ASIGNADO
+                                                        @endif
                                                     </td>
                                                     <td>{{ $tpv->brand }}</td>
                                                     <td>{{ $tpv->model }}</td>
