@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 use ZipArchive;
 use Carbon\Carbon;
 
@@ -67,16 +68,86 @@ class BackupController extends Controller
 
     public function create()
     {
-        try {            
-            Artisan::call('backup:run', ['--only-db' => true]);
-            
-            toastr()
-                ->timeOut(3000)
-                ->addSuccess("Se creó respaldo correctamente.");
+        // Lock para evitar ejecuciones simultáneas (10 min)
+        $lock = Cache::lock('backup-db-running', 600);
 
+        if (!$lock->get()) {
+            toastr()->timeOut(3000)->addInfo('Ya hay un respaldo en proceso.');
+            return redirect()->route('backup.index');
+        }
+
+        try {
+            $diskName = config('backup.backup.destination.disks')[0] ?? 'local';
+            $disk = Storage::disk($diskName);
+
+            if (!$disk) {
+                throw new \Exception("Disco '$diskName' no disponible.");
+            }
+
+            // Estimar tamaño DB y validar espacio (opcional)
+            $approxDbSize = $this->estimateDatabaseSize(); // bytes
+            $freeSpace = @disk_free_space(storage_path('app')); // bytes o false
+
+            if ($freeSpace !== false && $approxDbSize > 0) {
+                $required = (int)($approxDbSize * 1.2); // 20% margen
+                if ($freeSpace < $required) {
+                    throw new \Exception('Espacio insuficiente para el respaldo. Libre: ' .
+                        round($freeSpace / 1024 / 1024, 2) . ' MB, requerido aprox: ' .
+                        round($required / 1024 / 1024, 2) . ' MB');
+                }
+            }
+
+            // Aumentar límites
+            @set_time_limit(0);
+            @ini_set('memory_limit', '1024M');
+
+            $start = microtime(true);
+
+            Artisan::call('backup:run', [
+                '--only-db' => true,
+                '--disable-notifications' => true
+            ]);
+
+            $output = Artisan::output();
+            $elapsed = round(microtime(true) - $start, 2);
+
+            if (stripos($output, 'Backup failed') !== false) {
+                Log::error('Spatie backup reportó fallo', ['output' => $output]);
+                throw new \Exception('El comando reportó un fallo. Revisar logs.');
+            }
+
+            Log::info('Backup DB completado', [
+                'tiempo_segundos' => $elapsed,
+                'tamaño_estimado_mb' => round($approxDbSize / 1024 / 1024, 2),
+            ]);
+
+            toastr()->timeOut(3500)->addSuccess("Respaldo creado en {$elapsed}s");
             return redirect()->route('backup.index');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error al crear respaldo: ' . $e->getMessage());
+            Log::error('Error creando backup DB', ['error' => $e->getMessage()]);
+            toastr()->timeOut(5000)->addError('Error al crear respaldo: ' . $e->getMessage());
+            return redirect()->route('backup.index');
+        } finally {
+            optional($lock)->release();
+        }
+    }
+
+    /**
+     * Estima el tamaño total de la base de datos (bytes)
+     */
+    private function estimateDatabaseSize(): int
+    {
+        try {
+            $dbName = config('database.connections.mysql.database');
+            $size = DB::table('information_schema.TABLES')
+                ->selectRaw('SUM(DATA_LENGTH + INDEX_LENGTH) as size')
+                ->where('TABLE_SCHEMA', $dbName)
+                ->value('size');
+
+            return (int) $size;
+        } catch (\Exception $e) {
+            Log::warning('No se pudo estimar tamaño de la base de datos', ['error' => $e->getMessage()]);
+            return 0;
         }
     }
 
