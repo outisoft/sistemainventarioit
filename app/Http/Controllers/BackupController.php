@@ -25,7 +25,13 @@ class BackupController extends Controller
     public function index()
     {
         try {
-            $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
+            // Fuerza destino: disco local y carpeta "Laravel"
+            config([
+                'backup.backup.destination.disks' => ['local'],
+                'backup.backup.name' => 'Laravel',
+            ]);
+
+            $disk = Storage::disk('local');
             $files = collect();
 
             // Buscar en diferentes rutas posibles
@@ -77,11 +83,16 @@ class BackupController extends Controller
         }
 
         try {
-            $diskName = config('backup.backup.destination.disks')[0] ?? 'local';
-            $disk = Storage::disk($diskName);
+            // Fuerza destino: disco local y carpeta "Laravel"
+            config([
+                'backup.backup.destination.disks' => ['local'],
+                'backup.backup.name' => 'Laravel',
+            ]);
+
+            $disk = Storage::disk('local');
 
             if (!$disk) {
-                throw new \Exception("Disco '$diskName' no disponible.");
+                throw new \Exception("Disco 'local' no disponible.");
             }
 
             // Estimar tamaño DB y validar espacio (opcional)
@@ -154,16 +165,14 @@ class BackupController extends Controller
     public function download($filename)
     {
         try {
-            $disk = Storage::disk(config('backup.backup.destination.disks')[0]);
-            
-            // Posibles rutas donde podría estar el archivo
+            // Siempre desde disco local
+            $disk = Storage::disk('local');
+
             $possiblePaths = [
                 'Laravel/' . $filename,
-                //'laravel/' . $filename,
                 $filename
             ];
 
-            // Buscar el archivo en las posibles rutas
             $filePath = null;
             foreach ($possiblePaths as $path) {
                 if ($disk->exists($path)) {
@@ -386,12 +395,29 @@ class BackupController extends Controller
     public function delete($filename)
     {
         try {
-            Storage::disk('backups')->delete($filename);
+            // Unificar borrado con la misma lógica de búsqueda
+            $disk = Storage::disk('local');
 
-            toastr()
-                ->timeOut(3000)
-                ->addSuccess("Se eliminó respaldo correctamente.");
+            $possiblePaths = [
+                'Laravel/' . $filename,
+                $filename
+            ];
 
+            $filePath = null;
+            foreach ($possiblePaths as $path) {
+                if ($disk->exists($path)) {
+                    $filePath = $path;
+                    break;
+                }
+            }
+
+            if (!$filePath) {
+                return redirect()->back()->with('error', 'Respaldo no encontrado.');
+            }
+
+            $disk->delete($filePath);
+
+            toastr()->timeOut(3000)->addSuccess("Se eliminó respaldo correctamente.");
             return redirect()->back();
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Error al eliminar respaldo: ' . $e->getMessage());
