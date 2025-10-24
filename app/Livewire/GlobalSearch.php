@@ -44,7 +44,7 @@ class GlobalSearch extends Component
                     ];
                 },
                 'limit' => 5,
-                'route' => 'details'
+                'route' => 'equipo.show'
             ],
             'employees' => [
                 'model' => Employee::class,
