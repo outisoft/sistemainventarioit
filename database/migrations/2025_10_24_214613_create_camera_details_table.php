@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('specific_locations', function (Blueprint $table) {
+        Schema::create('camera_details', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('hotel_id')->constrained();
-            $table->foreignId('region_id')->constrained()->restrictOnDelete();
-            $table->timestamps();
+            $table->foreignId('device_id')->unique()->constrained('devices')->onDelete('cascade');
+            
+            $table->string('resolution')->nullable();
+            $table->boolean('is_ptz')->default(false);
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('specific_locations');
+        Schema::dropIfExists('camera_details');
     }
 };

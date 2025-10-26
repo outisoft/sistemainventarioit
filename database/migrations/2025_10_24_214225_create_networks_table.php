@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('specific_locations', function (Blueprint $table) {
+        Schema::create('networks', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('hotel_id')->constrained();
+            $table->string('name'); // Ej: "Red de Datos", "Red de Clientes"
+            $table->integer('vlan_id')->nullable();
             $table->foreignId('region_id')->constrained()->restrictOnDelete();
             $table->timestamps();
         });
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('specific_locations');
+        Schema::dropIfExists('networks');
     }
 };

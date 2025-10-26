@@ -28,6 +28,7 @@ use App\Http\Controllers\LeaseController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\MobileController;
+use App\Http\Controllers\NetworkController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\OntController;
 use App\Http\Controllers\OtherController;
@@ -85,6 +86,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('locations', SpecificLocationController::class);//Rutas locations
     Route::resource('maintenances', MaintenanceController::class); //Rutas Mantenimiento
     Route::resource('mobiles', MobileController::class);//Rutas phones
+    Route::resource('networks', NetworkController::class);
     Route::resource('office', OfficeController::class);//Rutas Office
     Route::resource('ont', OntController::class);//Rutas ONT
     Route::resource('other', OtherController::class);//Rutas Otros

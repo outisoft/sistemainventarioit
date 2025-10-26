@@ -262,6 +262,27 @@
             </li>
         @endcan
 
+        <!-- Redes -->
+        <li
+                class="menu-item {{ Request::routeIs('networks.*') ? 'active' : '' }}">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class='menu-icon bx bx-server'></i>
+                    <div data-i18n="Layouts">Networks</div>
+                </a>
+
+                <ul class="menu-sub">
+                    <!-- ACCESS POINTS -->
+                    @can('access_points.index')
+                        <li
+                            class="menu-item {{ Request::routeIs('networks.*') ? 'active' : '' }}">
+                            <a href="{{ route('networks.index') }}" class="menu-link">
+                                <div data-i18n="Analytics">Redes</div>
+                            </a>
+                        </li>
+                    @endcan
+                </ul>
+            </li>
+
         <!-- CCTV -->
         @can('cctv-camera.index')
             <li
