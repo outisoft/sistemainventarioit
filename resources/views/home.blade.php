@@ -202,6 +202,98 @@
         <br>
         <!--/sliders-->
 
+        <!-- Equipments / Positions / Complements -->
+        @php
+            // Usa valores ya pasados si existen; si no, calcula con relaciones existentes en el proyecto
+            try {
+                $equipAssigned = $equipAssigned
+                    ?? (\App\Models\Equipo::whereHas('positions')->count() ?? 0);
+                $equipFree = $equipFree
+                    ?? (\App\Models\Equipo::doesntHave('positions')->count() ?? 0);
+
+                $posUnassigned = $posUnassigned
+                    ?? (\App\Models\Position::leftJoin('employees', 'employees.position_id', '=', 'positions.id')
+                            ->whereNull('employees.id')
+                            ->count() ?? 0);
+
+                $compAssigned = $compAssigned
+                    ?? (\App\Models\Complement::whereHas('equipments')->count() ?? 0);
+                $compFree = $compFree
+                    ?? (\App\Models\Complement::doesntHave('equipments')->count() ?? 0);
+            } catch (\Throwable $e) {
+                // Si algo falla (p. ej. nombres de modelo distintos), cae a 0
+                $equipAssigned = $equipAssigned ?? 0;
+                $equipFree = $equipFree ?? 0;
+                $posUnassigned = $posUnassigned ?? 0;
+                $compAssigned = $compAssigned ?? 0;
+                $compFree = $compFree ?? 0;
+            }
+        @endphp
+
+        <div class="row g-3 mb-4">
+            <!-- Equipments -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="avatar-initial rounded bg-label-primary d-inline-flex justify-content-center align-items-center me-2" style="width:36px;height:36px;">
+                                <i class="bx bx-devices"></i>
+                            </span>
+                            <h6 class="mb-0">Equipments</h6>
+                        </div>
+                        <div class="d-flex justify-content-between small">
+                            <span class="text-muted">Assigned</span>
+                            <span class="badge bg-primary-subtle text-primary">{{ $equipAssigned }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between small mt-2">
+                            <span class="text-muted">Stock</span>
+                            <span class="badge bg-secondary-subtle text-secondary">{{ $equipFree }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Positions -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="avatar-initial rounded bg-label-warning d-inline-flex justify-content-center align-items-center me-2" style="width:36px;height:36px;">
+                                <i class="bx bx-user-x"></i>
+                            </span>
+                            <h6 class="mb-0">Vacant´s</h6>
+                        </div>
+                        <div class="d-flex justify-content-between small">
+                            <span class="text-muted">Totals</span>
+                            <span class="badge bg-warning-subtle text-warning">{{ $posUnassigned }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complements -->
+            <div class="col-12 col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body py-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <span class="avatar-initial rounded bg-label-info d-inline-flex justify-content-center align-items-center me-2" style="width:36px;height:36px;">
+                                <i class="bx bx-package"></i>
+                            </span>
+                            <h6 class="mb-0">Complements</h6>
+                        </div>
+                        <div class="d-flex justify-content-between small">
+                            <span class="text-muted">Assigned</span>
+                            <span class="badge bg-info-subtle text-info">{{ $compAssigned }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between small mt-2">
+                            <span class="text-muted">Stock</span>
+                            <span class="badge bg-secondary-subtle text-secondary">{{ $compFree }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!--columns charts-->
         <div class="row">
             <!-- EQUIPMENTS TOTAL -->
@@ -536,7 +628,7 @@
             @endcan
 
         </div>
-        <!--/columns charts-->
+        <!--/columns charts-->        
     </div>
 
 </x-app-layout>
