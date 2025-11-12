@@ -232,6 +232,7 @@
 
         <div class="row g-3 mb-4">
             <!-- Equipments -->
+            @can('equipo.index')
             <div class="col-12 col-md-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body py-3">
@@ -252,8 +253,10 @@
                     </div>
                 </div>
             </div>
+            @endcan
 
             <!-- Positions -->
+            @can('positions.index')
             <div class="col-12 col-md-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body py-3">
@@ -270,8 +273,10 @@
                     </div>
                 </div>
             </div>
+            @endcan
 
             <!-- Complements -->
+            @can('complements.index')
             <div class="col-12 col-md-4">
                 <div class="card h-100 shadow-sm">
                     <div class="card-body py-3">
@@ -292,6 +297,7 @@
                     </div>
                 </div>
             </div>
+            @endcan
         </div>
 
         <!--columns charts-->
