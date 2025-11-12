@@ -133,6 +133,8 @@ class UserController extends Controller
         // Verificar si se proporcionó una nueva contraseña
         if (!empty($data['password'])) {
             $user->password = Hash::make($data['password']); // Encriptar la nueva contraseña
+            //cambiar el campo de first login a true (1)
+            $user->first_login = 1;
         }
 
         // Guardar los cambios en el usuario
