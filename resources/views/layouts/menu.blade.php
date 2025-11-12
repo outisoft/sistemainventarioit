@@ -263,25 +263,33 @@
         @endcan
 
         <!-- Redes -->
+        @can('networks.index')
         <li
-                class="menu-item {{ Request::routeIs('networks.*') ? 'active' : '' }}">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class='menu-icon bx bx-server'></i>
-                    <div data-i18n="Layouts">Networks</div>
-                </a>
+            class="menu-item {{ Request::routeIs('networks.*') ? 'active' : '' }} || {{ Request::routeIs('devices.*') ? 'active' : '' }}">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon bx bx-server'></i>
+                <div data-i18n="Layouts">Networks</div>
+            </a>
 
-                <ul class="menu-sub">
-                    <!-- ACCESS POINTS -->
-                    @can('access_points.index')
-                        <li
-                            class="menu-item {{ Request::routeIs('networks.*') ? 'active' : '' }}">
-                            <a href="{{ route('networks.index') }}" class="menu-link">
-                                <div data-i18n="Analytics">Redes</div>
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
+            <ul class="menu-sub">
+                <!-- Networks -->
+                <li
+                    class="menu-item {{ Request::routeIs('networks.*') ? 'active' : '' }}">
+                    <a href="{{ route('networks.index') }}" class="menu-link">
+                        <div data-i18n="Analytics">Redes</div>
+                    </a>
+                </li>
+
+                <!-- Devices -->
+                <li
+                    class="menu-item {{ Request::routeIs('devices.*') ? 'active' : '' }}">
+                    <a href="{{ route('devices.index') }}" class="menu-link">
+                        <div data-i18n="Analytics">Dispositivos</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        @endcan
 
         <!-- CCTV -->
         @can('cctv-camera.index')
@@ -324,7 +332,7 @@
         @endcan
 
         <!-- Radios y telefonos -->
-        @can('phoness.index')
+        @can('phones.index')
             <li
                 class="menu-item {{ Request::routeIs('phones.index') ? 'active' : '' }} || {{ Request::routeIs('phones.show') ? 'active' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -384,7 +392,6 @@
         @endcan
 
         <!-- Asignacion -->
-        @can('empleados.asignacion')
             <li
                 class="menu-item {{ Request::routeIs('assignment.index') ? 'active' : '' }} || {{ Request::routeIs('positions.show') ? 'active' : '' }} || {{ Request::routeIs('employees.show') ? 'active' : '' }} || {{ Request::routeIs('assignment.show') ? 'active' : '' }}">
                 <a href="{{ url('assignment') }}" class="menu-link">
@@ -392,7 +399,6 @@
                     <div data-i18n="Without navbar">Assignment</div>
                 </a>
             </li>
-        @endcan
 
         <!-- Users -->
         @can('users.index')
