@@ -17,174 +17,176 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-header">Equipment assignment</h5>
                 </div>
-                <div class="content-wrapper">
-                    <div class="table-responsive text-nowrap">
-                        <div class="card-datatable table-responsive pt-0">
-                            <div class="container">
+                @can('assigment.vincular')
+                    <div class="content-wrapper">
+                        <div class="table-responsive text-nowrap">
+                            <div class="card-datatable table-responsive pt-0">
+                                <div class="container">
 
-                                <form method="POST" action="{{ route('asignar') }}" id="colaboradorForm">
-                                    @csrf
+                                    <form method="POST" action="{{ route('asignar') }}" id="colaboradorForm">
+                                        @csrf
 
-                                    <style>
-                                        .form-row {
-                                            display: flex;
-                                            gap: 10px;
-                                            /* Espacio entre los inputs */
-                                        }
+                                        <style>
+                                            .form-row {
+                                                display: flex;
+                                                gap: 10px;
+                                                /* Espacio entre los inputs */
+                                            }
 
-                                        .form-group {
-                                            flex: 1;
-                                            /* Ajusta el tamaño de los inputs */
-                                        }
-                                    </style>
-                                    <div class="mb-3">
-                                        @if ($positions->isEmpty())
-                                            <label class="form-label" for="empleado">No available positions
-                                                found.</label> <a href="{{ route('positions.index') }}">Add Position
-                                                -></a>
-                                        @else
-                                            <!-- Buscador de Colaborador -->
-                                            <div class="form-group">
-                                                <label class="form-label" for="search_employee">Search position</label>
-                                                <div class="input-group input-group-merge">
-
-                                                    <x-text-input id="search_employee" class="form-control"
-                                                        type="text" placeholder="Search by AD o email"
-                                                        name="search_employee" />
-                                                </div>
-                                            </div>
-                                            <div class="form-row">
-                                                <div class="form-group" style="display: none;">
-                                                    <label for="position_id">id</label>
-                                                    <input type="text" id="position_id" class="form-control"
-                                                        name="position_id">
-                                                </div>
-
-                                                <!-- Numero de Colaborador -->
+                                            .form-group {
+                                                flex: 1;
+                                                /* Ajusta el tamaño de los inputs */
+                                            }
+                                        </style>
+                                        <div class="mb-3">
+                                            @if ($positions->isEmpty())
+                                                <label class="form-label" for="empleado">No available positions
+                                                    found.</label> <a href="{{ route('positions.index') }}">Add Position
+                                                    -></a>
+                                            @else
+                                                <!-- Buscador de Colaborador -->
                                                 <div class="form-group">
-                                                    <label class="form-label" for="basic-icon-default-fullname">Employee
-                                                        number</label>
+                                                    <label class="form-label" for="search_employee">Search position</label>
                                                     <div class="input-group input-group-merge">
 
-                                                        <x-text-input id="no_empleado" class="form-control"
-                                                            type="number" name="no_empleado" disabled />
+                                                        <x-text-input id="search_employee" class="form-control"
+                                                            type="text" placeholder="Search by AD o email"
+                                                            name="search_employee" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="form-group" style="display: none;">
+                                                        <label for="position_id">id</label>
+                                                        <input type="text" id="position_id" class="form-control"
+                                                            name="position_id">
+                                                    </div>
+
+                                                    <!-- Numero de Colaborador -->
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="basic-icon-default-fullname">Employee
+                                                            number</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="no_empleado" class="form-control"
+                                                                type="number" name="no_empleado" disabled />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Nombre de Colaborador -->
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="basic-icon-default-fullname">Name</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="name" class="form-control" type="text"
+                                                                name="name" disabled />
+                                                        </div>
+                                                    </div>
+                                                    <!-- Email de Colaborador -->
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="basic-icon-default-fullname">Email</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="email" class="form-control" type="email"
+                                                                name="email" disabled />
+                                                        </div>
+                                                    </div>
+                                                    <!-- AD de Colaborador -->
+                                                    <div class="form-group">
+                                                        <label class="form-label"
+                                                            for="basic-icon-default-fullname">AD</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="ad" class="form-control" type="text"
+                                                                name="ad" disabled />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <hr class="my-0">
+                                        <div class="form-group">
+                                            @if ($equiposSinAsignar->isEmpty())
+                                                <label class="form-label" for="empleado">No available equipment
+                                                    found.</label> <a href="{{ route('equipo.index') }}">Add equipments
+                                                    -></a>
+                                            @else
+                                                <!-- Buscador de equipo -->
+                                                <div class="form-group">
+                                                    <label class="form-label" for="search_equipment">Search
+                                                        equipment</label>
+                                                    <div class="input-group input-group-merge">
+
+                                                        <x-text-input id="search_equipment" class="form-control"
+                                                            type="text"
+                                                            placeholder="Search by serial number or device name"
+                                                            name="search_equipment" />
                                                     </div>
                                                 </div>
 
-                                                <!-- Nombre de Colaborador -->
-                                                <div class="form-group">
-                                                    <label class="form-label"
-                                                        for="basic-icon-default-fullname">Name</label>
-                                                    <div class="input-group input-group-merge">
+                                                <div class="form-row">
+                                                    <div class="form-group" style="display: none;">
+                                                        <label for="equipo_id">id</label>
+                                                        <input type="text" id="id_equipo" class="form-control"
+                                                            name="equipo_id">
+                                                    </div>
 
-                                                        <x-text-input id="name" class="form-control" type="text"
-                                                            name="name" disabled />
+                                                    <!-- Numero de serie de equipo -->
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="serial">Serial number</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="serial" class="form-control" type="text"
+                                                                disabled name="serial" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Nombre del equipo -->
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="nameE">Device name</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="nameE" class="form-control"
+                                                                type="text" disabled name="nameE" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Marca del equipo -->
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="marca">Brand</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="marca" class="form-control"
+                                                                type="text" disabled name="marca" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Modelo del equipo -->
+                                                    <div class="form-group">
+                                                        <label class="form-label" for="model">Model</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <x-text-input id="model" class="form-control"
+                                                                type="text" disabled name="model" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <!-- Email de Colaborador -->
-                                                <div class="form-group">
-                                                    <label class="form-label"
-                                                        for="basic-icon-default-fullname">Email</label>
-                                                    <div class="input-group input-group-merge">
-
-                                                        <x-text-input id="email" class="form-control" type="email"
-                                                            name="email" disabled />
-                                                    </div>
-                                                </div>
-                                                <!-- AD de Colaborador -->
-                                                <div class="form-group">
-                                                    <label class="form-label"
-                                                        for="basic-icon-default-fullname">AD</label>
-                                                    <div class="input-group input-group-merge">
-
-                                                        <x-text-input id="ad" class="form-control" type="text"
-                                                            name="ad" disabled />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    <hr class="my-0">
-                                    <div class="form-group">
+                                            @endif
+                                        </div>
+                                        <br>
                                         @if ($equiposSinAsignar->isEmpty())
-                                            <label class="form-label" for="empleado">No available equipment
-                                                found.</label> <a href="{{ route('equipo.index') }}">Add equipments
-                                                -></a>
                                         @else
-                                            <!-- Buscador de equipo -->
-                                            <div class="form-group">
-                                                <label class="form-label" for="search_equipment">Search
-                                                    equipment</label>
-                                                <div class="input-group input-group-merge">
-
-                                                    <x-text-input id="search_equipment" class="form-control"
-                                                        type="text"
-                                                        placeholder="Search by serial number or device name"
-                                                        name="search_equipment" />
-                                                </div>
-                                            </div>
-
-                                            <div class="form-row">
-                                                <div class="form-group" style="display: none;">
-                                                    <label for="equipo_id">id</label>
-                                                    <input type="text" id="id_equipo" class="form-control"
-                                                        name="equipo_id">
-                                                </div>
-
-                                                <!-- Numero de serie de equipo -->
-                                                <div class="form-group">
-                                                    <label class="form-label" for="serial">Serial number</label>
-                                                    <div class="input-group input-group-merge">
-
-                                                        <x-text-input id="serial" class="form-control" type="text"
-                                                            disabled name="serial" />
-                                                    </div>
-                                                </div>
-
-                                                <!-- Nombre del equipo -->
-                                                <div class="form-group">
-                                                    <label class="form-label" for="nameE">Device name</label>
-                                                    <div class="input-group input-group-merge">
-
-                                                        <x-text-input id="nameE" class="form-control"
-                                                            type="text" disabled name="nameE" />
-                                                    </div>
-                                                </div>
-
-                                                <!-- Marca del equipo -->
-                                                <div class="form-group">
-                                                    <label class="form-label" for="marca">Brand</label>
-                                                    <div class="input-group input-group-merge">
-
-                                                        <x-text-input id="marca" class="form-control"
-                                                            type="text" disabled name="marca" />
-                                                    </div>
-                                                </div>
-
-                                                <!-- Modelo del equipo -->
-                                                <div class="form-group">
-                                                    <label class="form-label" for="model">Model</label>
-                                                    <div class="input-group input-group-merge">
-
-                                                        <x-text-input id="model" class="form-control"
-                                                            type="text" disabled name="model" />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <button type="submit" class="btn btn-primary">Assign equipment</button>
                                         @endif
-                                    </div>
+                                    </form>
                                     <br>
-                                    @if ($equiposSinAsignar->isEmpty())
-                                    @else
-                                        <button type="submit" class="btn btn-primary">Assign equipment</button>
-                                    @endif
-                                </form>
-                                <br>
-                                <hr class="my-0">
+                                    <hr class="my-0">
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                @endcan
                 @if ($empleadosConEquipos->isEmpty())
                     <label class="form-label card-header" for="empleado">No assignments were found between employees
                         and teams.</label>
@@ -226,8 +228,10 @@
                                                             data-bs-placement="top" class="assigned-item"
                                                             aria-label="{{ $equipo->name }}/{{ $equipo->serial }}"
                                                             data-bs-original-title="{{ $equipo->name }}/{{ $equipo->serial }}">{{ $equipo->tipo->name }}
+                                                            @can('assigment.desvincular')
                                                             <a data-placement="top" title="Unlink employee equipment"
                                                                 href="{{ route('desvincular', ['position_id' => $position->id, 'equipment_id' => $equipo->id]) }}">X</a>
+                                                            @endcan
                                                         </span>
                                                     @endforeach
                                                 </div>
@@ -240,13 +244,17 @@
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <a href="{{ route('assignment.show', $position->id) }}"
-                                                    class="btn-ico" data-bs-toggle="tooltip"
-                                                    data-popup="tooltip-custom" data-bs-placement="top"
-                                                    class="assigned-item" aria-label="Show details"
-                                                    data-bs-original-title="Show details">
-                                                    <i class='bx bx-detail me-1'></i>Show
-                                                </a>
+                                                @can('assigment.show')
+                                                    <a href="{{ route('assignment.show', $position->id) }}"
+                                                        class="btn-ico" data-bs-toggle="tooltip"
+                                                        data-popup="tooltip-custom" data-bs-placement="top"
+                                                        class="assigned-item" aria-label="Show details"
+                                                        data-bs-original-title="Show details">
+                                                        <i class='bx bx-detail me-1'></i>Show
+                                                    </a>
+                                                @else
+                                                    <span class="text-muted">No access</span>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

@@ -26,6 +26,16 @@ use PhpOffice\PhpWord\IOFactory;
 
 class AssignmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:assigment.index')->only('index');
+        $this->middleware('can:assigment.asignar')->only('asignar');
+        $this->middleware('can:assigment.desvincular')->only('desvincular');
+        $this->middleware('can:assigment.show')->only('show');
+        $this->middleware('can:assigment.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $positions = Position::with(['equipments', 'hotel', 'departments'])->get(); // Carga la relación equipment
