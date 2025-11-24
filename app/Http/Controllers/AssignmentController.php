@@ -30,7 +30,7 @@ class AssignmentController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('can:assigment.index')->only('index');
-        $this->middleware('can:assigment.asignar')->only('asignar');
+        $this->middleware('can:assigment.vincular')->only('asignar');
         $this->middleware('can:assigment.desvincular')->only('desvincular');
         $this->middleware('can:assigment.show')->only('show');
         $this->middleware('can:assigment.destroy')->only('destroy');
