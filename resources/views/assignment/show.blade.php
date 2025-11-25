@@ -97,6 +97,19 @@
                                                 <span>{{ $position->hotel->name }}</span>
                                             </li>
                                         </ul>
+                                        @if ($position->employee)
+                                            <form id="unlink-employee-form"
+                                                  action="{{ route('employees.unlink', $position->employee->id) }}"
+                                                  method="POST" class="d-grid gap-2 mt-3">
+                                                @csrf
+                                                <input type="hidden" name="position_id" value="{{ $position->id }}">
+                                                <button type="submit"
+                                                        class="btn btn-outline-danger"
+                                                        onclick="return confirm('¿Deseas desvincular al empleado {{ $position->employee->name }} de este puesto?')">
+                                                    <i class="bx bx-unlink me-1"></i>Unlink employee
+                                                </button>
+                                            </form>
+                                        @endif
                                         <!--div class="d-flex justify-content-center">
                                             <a href="javascript:;" class="btn btn-primary w-100"
                                                 data-bs-target="#editUser" data-bs-toggle="modal">Edit Details</a>

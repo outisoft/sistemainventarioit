@@ -16,6 +16,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ComplementController;
 use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\DesktopController;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EquipoController;
@@ -75,6 +76,7 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::resource('complements', ComplementController::class);//Rutas complements
     Route::resource('departments', DepartamentoController::class); //Rutas departamentos
     Route::resource('desktops', DesktopController::class); //Rutas PC
+    Route::resource('devices', DeviceController::class); //Rutas Devices
     Route::resource('empleados', EmpleadoController::class); // Rutas Empleados
     Route::resource('employees', EmployeeController::class); // Rutas Empleados
     Route::resource('equipo', EquipoController::class); // Rutas Equipos
@@ -117,6 +119,9 @@ Route::group(['middleware' => ['auth', 'check.country', 'force.password.change']
     Route::get('/hotels/{hotel}/ont', [OntController::class, 'details'])->name('ont.details');
 
     Route::get('/exportar-excel', [HomeController::class, 'exportarExcel'])->name('download.excel');
+
+    //unlink employee position
+    Route::post('/employees/{employee}/unlink', [EmployeeController::class, 'unlinkPosition'])->name('employees.unlink');
 
     Route::post('/licencias/{licenciaId}/asignar/{equipoId}', [OfficeController::class, 'asignarLicencia'])->name('licencias.asignar.post');
     Route::delete('/licencias/{licenciaId}/desasignar/{equipoId}', [OfficeController::class, 'desasignarLicencia'])->name('licencias.desasignar');

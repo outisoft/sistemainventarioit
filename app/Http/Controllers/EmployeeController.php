@@ -177,6 +177,55 @@ class EmployeeController extends Controller
         return view('assignment.show', compact('position', 'equipments'));
     }
 
+    public function unlinkPosition(Request $request, $id)
+    {
+        try {
+            $validated = $request->validate([
+                'position_id' => ['required', 'exists:positions,id'],
+            ]);
+
+            $employee = Employee::with('position')->findOrFail($id);
+
+            if ((int) $employee->position_id !== (int) $validated['position_id']) {
+                toastr()->timeOut(4000)->addError('El puesto proporcionado no coincide con el asignado al empleado.');
+                return back();
+            }
+
+            $oldPosition = $employee->position;
+
+            DB::transaction(function () use ($employee) {
+                $employee->update(['position_id' => null]);
+            });
+
+            Historial::create([
+                'accion' => 'Desvinculacion',
+                'descripcion' => sprintf(
+                    'Se desvinculó el puesto %s del empleado %s (No. %s).',
+                    optional($oldPosition)->position ?? 'N/A',
+                    $employee->name,
+                    $employee->no_employee
+                ),
+                'user_id' => auth()->id(),
+                'region_id' => $employee->region_id,
+            ]);
+
+            toastr()->timeOut(3000)->addSuccess("Puesto desvinculado correctamente del empleado {$employee->name}.");
+            return back();
+
+        } catch (\Illuminate\Validation\ValidationException $ve) {
+            foreach ($ve->errors() as $messages) {
+                foreach ($messages as $message) {
+                    toastr()->timeOut(5000)->addError($message);
+                }
+            }
+            return back()->withErrors($ve->errors())->withInput();
+        } catch (\Throwable $e) {
+            Log::error('Error al desvincular puesto', ['error' => $e->getMessage(), 'employee_id' => $id]);
+            toastr()->timeOut(5000)->addError('Error inesperado al desvincular el puesto.');
+            return back()->withInput();
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      */
