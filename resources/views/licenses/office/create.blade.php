@@ -59,7 +59,8 @@
                         <x-input-label class="form-label" for="type" :value="__('Tipo de Office')" />
                         <select class="form-control" id="type" name="type" required>
                             <option value="">Select Office</option>
-                            <option value="MICROSOFT 365">MICROSOFT 365</option>
+                            <option value="MICROSOFT 365 E1">MICROSOFT 365 E1</option>
+                            <option value="MICROSOFT 365 E5">MICROSOFT 365 E5</option>
 
                             <option value="OFFICE 2019 PROFESSIONAL">
                                 OFFICE 2019 PROFESSIONAL

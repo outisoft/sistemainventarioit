@@ -66,8 +66,11 @@
                             <x-input-label class="form-label" for="type" :value="__('Tipo de Office')" />
                             <select class="form-control" id="type" name="type" required>
                                 <option value="">Seleccione un tipo</option>
-                                <option value="MICROSOFT 365" {{ $equipo->type == 'MICROSOFT 365' ? 'selected' : '' }}>
-                                    MICROSOFT 365
+                                <option value="MICROSOFT 365 E1" {{ $equipo->type == 'MICROSOFT 365 E1' ? 'selected' : '' }}>
+                                    MICROSOFT 365 E1
+                                </option>
+                                <option value="MICROSOFT 365 E5" {{ $equipo->type == 'MICROSOFT 365 E5' ? 'selected' : '' }}>
+                                    MICROSOFT 365 E5
                                 </option>
                                 <option value="OFFICE 2019 PROFESSIONAL"
                                     {{ $equipo->type == 'OFFICE 2019 PROFESSIONAL' ? 'selected' : '' }}>
