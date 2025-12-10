@@ -17,6 +17,11 @@ class Hotel extends Model
         return $this->hasMany(Empleado::class, 'hotel_id');
     }
 
+    public function positions()
+    {
+        return $this->hasMany(Position::class);
+    }
+
     public function accessPoints()
     {
         return $this->hasMany(AccessPoint::class);

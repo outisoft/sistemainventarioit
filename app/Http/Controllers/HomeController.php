@@ -200,18 +200,36 @@ class HomeController extends Controller
         $totalVencidas = $officeVencidas + $adobeVencidas + $autocadVencidas + $sketchupVencidas;
 
         // Verificar si el usuario tiene el rol "Administrator"
-        $isAdmin = auth()->user()->hasRole('Administrator'); // Suponiendo que usas un paquete como Spatie Roles & Permissions
+        $isAdmin = auth()->user()->hasRole('Administrator');
         $userRegions = auth()->user()->regions;
 
-        if ($isAdmin) {
-            // Si es administrador, no filtrar por regiones
-            $hotels = DB::table('hotels')->pluck('id');
-        } else {
-            // Filtrar los hoteles según las regiones del usuario
-            $hotels = DB::table('hotels')
-                ->whereIn('region_id', $userRegions->pluck('id'))
-                ->pluck('id');
+        $hotelQuery = Hotel::query();
+        if (!$isAdmin) {
+            $hotelQuery->whereIn('region_id', $userRegions->pluck('id'));
         }
+
+        $hotels = (clone $hotelQuery)->pluck('id');
+
+        $hotelEquipmentSummary = (clone $hotelQuery)
+            ->with(['positions.equipments.tipo:id,name'])
+            ->orderBy('name')
+            ->get()
+            ->map(function ($hotel) {
+                $counts = [];
+                foreach ($hotel->positions as $position) {
+                    foreach ($position->equipments as $equipment) {
+                        $typeName = optional($equipment->tipo)->name ?? 'Uncategorized';
+                        $counts[$typeName] = ($counts[$typeName] ?? 0) + 1;
+                    }
+                }
+                ksort($counts);
+                return [
+                    'hotel' => $hotel->name,
+                    'counts' => $counts,
+                ];
+            })
+            ->filter(fn ($item) => !empty($item['counts']))
+            ->values();
 
         // Obtener las regiones asignadas al usuario
         $userRegions = auth()->user()->regions;
@@ -225,16 +243,19 @@ class HomeController extends Controller
         $showGraphs = $userRegions->count() > 1 || $totalHotels > 1;
 
 
-        return view('home', compact('showGraphs', 'totalPhones', 'officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
-        'officeActivas', 'adobeActivas', 'autocadActivas', 'sketchupActivas',
-        'officeVencidas', 'adobeVencidas', 'autocadVencidas', 'sketchupVencidas',
-        'totalLicencias', 'totalActivas', 'totalVencidas', 'totalPhone', 'totalWacom', 
-        'totalTicket', 'totalKeyboard', 'totalScanner', 'totalBreack', 'totalMouse', 
-        'totalMonitor', 'totalCharger', 'totalOther', 'totalTablet', 'totalPrinter', 
-        'totalDesktops', 'totalLaptops', 'userHotelsCount', 'officeCount', 'adobeCount', 
-        'totalAps','totalSw', 'hora_actual', 
-        'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 
-        'labels', 'data', 'datos_grafica', 'total_laptops'));
+        return view('home', compact(
+            'showGraphs', 'totalPhones', 'officeCount', 'adobeCount', 'autocadCount', 'sketchupCount',
+            'officeActivas', 'adobeActivas', 'autocadActivas', 'sketchupActivas',
+            'officeVencidas', 'adobeVencidas', 'autocadVencidas', 'sketchupVencidas',
+            'totalLicencias', 'totalActivas', 'totalVencidas', 'totalPhone', 'totalWacom', 
+            'totalTicket', 'totalKeyboard', 'totalScanner', 'totalBreack', 'totalMouse', 
+            'totalMonitor', 'totalCharger', 'totalOther', 'totalTablet', 'totalPrinter', 
+            'totalDesktops', 'totalLaptops', 'userHotelsCount', 'officeCount', 'adobeCount', 
+            'totalAps','totalSw', 'hora_actual', 
+            'totalTablets', 'totalTpvs', 'totalEmpleados', 'totalEquipos', 'totalUsuarios', 
+            'labels', 'data', 'datos_grafica', 'total_laptops',
+            'hotelEquipmentSummary'
+        ));
     }
 
     public function exportarExcel()

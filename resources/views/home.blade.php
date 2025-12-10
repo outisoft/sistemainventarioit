@@ -634,7 +634,34 @@
             @endcan
 
         </div>
-        <!--/columns charts-->        
+        <!--/columns charts-->
+        
+        @if($hotelEquipmentSummary->isNotEmpty())
+            <div class="row g-3 mb-4">
+                @foreach ($hotelEquipmentSummary as $hotelData)
+                    <div class="col-12 col-md-6 col-xl-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body py-3">
+                                <div class="d-flex align-items-center mb-3">
+                                    <span class="avatar-initial rounded bg-label-primary d-inline-flex justify-content-center align-items-center me-2" style="width:36px;height:36px;">
+                                        <i class="bx bx-building-house"></i>
+                                    </span>
+                                    <h6 class="mb-0">{{ $hotelData['hotel'] }}</h6>
+                                </div>
+                                <ul class="list-unstyled mb-0 small">
+                                    @foreach ($hotelData['counts'] as $type => $count)
+                                        <li class="d-flex justify-content-between py-1 border-bottom">
+                                            <span>{{ $type }}</span>
+                                            <span class="badge bg-label-secondary">{{ $count }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
     </div>
 
 </x-app-layout>
